@@ -1,0 +1,10 @@
+endpoint: https://us1.prisma.sh/webber-wang-dc19dd/wbit/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: typescript-client
+    output: ./generated/prisma
+
+hooks:
+  post-deploy:
+    - prisma generate

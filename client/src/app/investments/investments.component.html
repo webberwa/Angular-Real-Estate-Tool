@@ -1,0 +1,6 @@
+<button mat-raised-button color="primary" (click)="openDialog()"> Add Investments </button>
+
+<li *ngFor="let investment of investments">
+  {{ investment.address }}
+  {{ investment.price }}
+</li>
