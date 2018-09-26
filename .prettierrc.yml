@@ -7,5 +7,3 @@ trailingComma: none
 bracketSpacing: true
 jsxBracketSameLine: false
 arrowParens: avoid
-## Disable, otherwise won't work with JSON files
-# parser: "typescript"

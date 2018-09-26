@@ -8,6 +8,8 @@ import { InvestmentsCreateDialogComponent } from './investments/investments-crea
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
+import { FormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
 
 const appRoutes: Routes = [
   { path: 'providers', component: ProvidersComponent },
@@ -34,6 +36,10 @@ const appRoutes: Routes = [
     InvestmentsCreateDialogComponent
   ],
   imports: [
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyA7mvpUb9Mut9i8EVo8lQn6P1OIrU3-C5U',
+      libraries: ['places']
+    }),
     MaterialModule,
     RouterModule.forRoot(
       appRoutes,
@@ -41,6 +47,7 @@ const appRoutes: Routes = [
     ),
     BrowserModule,
     GraphQLModule,
+    FormsModule,
     HttpClientModule
   ],
   providers: [],

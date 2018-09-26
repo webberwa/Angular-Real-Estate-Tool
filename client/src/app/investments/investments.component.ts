@@ -27,7 +27,7 @@ export class InvestmentsComponent implements OnInit {
           }
         `
       })
-      .valueChanges.subscribe(result => {
+      .valueChanges.subscribe((result: any) => {
         console.log(result);
         this.investments = result.data && result.data.investments;
         this.loading = result.loading;

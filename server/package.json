@@ -4,15 +4,19 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently -k -p \"[{name}]\" -n \"Prisma,Server\" -c \"yellow.bold,blue.bold\" \"gulp\" \"yarn server\"",
+    "dev": "concurrently -k -p \"[{name}]\" -n \"Prisma,Server\" -c \"yellow.bold,blue.bold\" \"gulp\" \"yarn server\"",
     "webpack": "webpack --config webpack.config.js",
-    "server": "ts-node-dev src/index.ts"
+    "server": "ts-node-dev src/index.ts",
+    "prod": "tsc",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "@types/graphql": "^14.0.0",
     "apollo-server": "^2.1.0",
+    "apollo-server-express": "^2.1.0",
     "concurrently": "^4.0.1",
     "dotenv": "^6.0.0",
+    "express": "^4.16.3",
     "graphql": "^14.0.2",
     "graphql-import": "^0.7.1",
     "graphql-tools": "^4.0.0",

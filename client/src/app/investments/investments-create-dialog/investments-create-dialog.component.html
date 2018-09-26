@@ -1,24 +1,17 @@
 <div fxLayout="row" fxLayout.xs="column">
   <div fxFlex>
-    <mat-form-field>
-      <input matInput placeholder="Address" value="">
+    <mat-form-field class="fullWidth">
+      <input #googleAddress matInput placeholder="Address" [(ngModel)]="investment.address">
     </mat-form-field>
   </div>
-  <div fxFlex>
+  <!-- <div fxFlex>
     <mat-form-field>
-      <input matInput placeholder="Purchase Price" value="">
+      <input matInput placeholder="Purchase Price" [(ngModel)]="investment.price">
     </mat-form-field>
-  </div>
+  </div> -->
 </div>
 <div fxLayout="row" fxLayout.xs="column">
   <div fxFlex>
-    <mat-form-field>
-      <input matInput placeholder="Favorite food" value="">
-    </mat-form-field>
-  </div>
-  <div fxFlex>
-    <mat-form-field>
-      <input matInput placeholder="Favorite food" value="">
-    </mat-form-field>
+    <button (click)="submit()" mat-raised-button color="primary"> Add Investments </button>
   </div>
 </div>
