@@ -11,5 +11,5 @@ If you've worked with Mongoose, Prisma replaces that & auto - generates our mode
 
 # GraphQL Server
 
-We update our `schema.graphql`, which is the mutations/queries that are front end will call.
+We'll update our `schema.graphql`, which is the mutations/queries that are front end will call.
 We then add our resolvers in `./server/src/index.ts`, which dictate how we'll access the Prisma auto-generated methods.
