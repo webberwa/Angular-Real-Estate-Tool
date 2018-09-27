@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { Apollo, gql } from 'apollo-angular-boost';
 import { InvestmentsCreateDialogComponent } from './investments-create-dialog/investments-create-dialog.component';
+import $ from 'jquery';
 
 @Component({
   selector: 'app-investments',
@@ -16,6 +17,8 @@ export class InvestmentsComponent implements OnInit {
   error: any;
 
   ngOnInit() {
+    console.clear();
+
     this.apollo
       .watchQuery({
         query: gql`
@@ -32,8 +35,8 @@ export class InvestmentsComponent implements OnInit {
         this.investments = result.data && result.data.investments;
         this.loading = result.loading;
         this.error = result.error;
-        console.log('done');
-        console.log(this.investments);
+        // console.log('done');
+        // console.log(this.investments);
       });
   }
 

@@ -1,0 +1,15 @@
+{
+  "name": "WBIT",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "start": "cd server && node dist/index.js",
+    "deploy": "yarn --cwd client build && yarn --cwd server build && yarn gcloud:activate && gcloud app deploy --quiet && gcloud app browse",
+    "deploy:function": "yarn gcloud:activate && cd gcloud && gcloud beta functions deploy getZillowPropertyInfo --runtime nodejs8 --trigger-http",
+    "gcloud:activate": "gcloud config configurations activate wbit"
+  },
+  "engines": {
+    "node": "8.x.x"
+  }
+}

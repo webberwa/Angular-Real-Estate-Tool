@@ -9,6 +9,9 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "engines": {
+    "node": "8.x.x"
+  },
   "private": true,
   "dependencies": {
     "@agm/core": "^1.0.0-beta.5",
@@ -34,7 +37,9 @@
     "dotenv": "^6.0.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
+    "jquery": "^3.3.1",
     "rxjs": "~6.2.0",
+    "xml2json": "^0.11.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

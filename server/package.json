@@ -5,10 +5,13 @@
   "license": "MIT",
   "scripts": {
     "dev": "concurrently -k -p \"[{name}]\" -n \"Prisma,Server\" -c \"yellow.bold,blue.bold\" \"gulp\" \"yarn server\"",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "webpack": "webpack --config webpack.config.js",
-    "server": "ts-node-dev src/index.ts",
-    "prod": "tsc",
-    "start": "node dist/index.js"
+    "server": "ts-node-dev src/index.ts"
+  },
+  "engines": {
+    "node": "8.x.x"
   },
   "dependencies": {
     "@types/graphql": "^14.0.0",

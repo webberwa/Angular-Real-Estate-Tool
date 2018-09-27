@@ -1,0 +1,16 @@
+runtime: nodejs8
+
+handlers:
+  - url: /
+    static_files: client/dist/client/index.html
+    upload: client/dist/client/index.html
+
+  - url: /(.*\.(css|eot|gz|html|ico|js|map|png|svg|ttf|woff|woff2))
+    static_files: client/dist/client/\1
+    upload: client/dist/client/(.*\.(css|eot|gz|html|ico|js|map|png|svg|ttf|woff|woff2))
+
+  - url: /(.*)
+    static_files: client/dist/client/index.html
+    upload: client/dist/client/index.html
+
+service: v1
