@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,17 @@ import { Component, NgModule } from '@angular/core';
 })
 export class AppComponent {
   title = 'client';
+
+  constructor() {
+  }
+
+  notification = "notifications_active";
+  alert_number = 15;
+
+  test_onClickNotification() {
+    this.notification = "notifications";
+    this.alert_number = 0;
+
+  }
+
 }

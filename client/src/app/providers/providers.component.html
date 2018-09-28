@@ -1,6 +1,6 @@
 <div class="filter">
-  <mat-button-toggle-group value="all">
-    <mat-button-toggle [value]="sp_type.value" *ngFor="let sp_type of service_provider_type">
+  <mat-button-toggle-group [(value)]="service_provider_type">
+    <mat-button-toggle [value]="sp_type.value" *ngFor="let sp_type of service_provider_type_list">
       <span class="sp_type">{{sp_type.label}}</span>
     </mat-button-toggle>
   </mat-button-toggle-group>
@@ -8,8 +8,9 @@
 
 <mat-list>
   <mat-divider></mat-divider>
-  <mat-list-item *ngFor="let sp of service_provider_list; let i = index" (click)="onClickServiceProvider(sp)">
-    <fa-icon mat-list-icon [icon]="faUserCircle"></fa-icon>
+  <mat-list-item *ngFor="let sp of filterServiceProvider(); let i = index"
+                 (click)="onClickServiceProvider(sp)">
+    <mat-icon mat-list-icon>account_circle</mat-icon>
     <h4 mat-line class="sp-name">
       <b>{{i+1}})&nbsp;&nbsp; {{sp.name}}</b>&nbsp;&nbsp;&nbsp;-&nbsp;<i class="sp-type">{{sp.type}}</i>
     </h4>
@@ -27,7 +28,7 @@
       <p>{{sp.address.addr2}}</p>
       <button mat-stroked-button color="accent" flex="15">
         Write Review
-        <fa-icon [icon]="faEdit"></fa-icon>
+        <mat-icon>border_color</mat-icon>
       </button>
     </div>
     <mat-divider></mat-divider>

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { faEdit, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-providers',
@@ -7,26 +6,25 @@ import { faEdit, faUserCircle } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./providers.component.css']
 })
 export class ProvidersComponent implements OnInit {
-  service_provider_type: any[] = [
+  service_provider_type_list: any[] = [
     {
-      label: 'All',
-      value: 'all'
+      label: "All",
+      value: "All"
     },
     {
-      label: 'Investors',
-      value: 'investors'
+      label: "Investors",
+      value: "Investor"
     },
     {
-      label: 'Contractors',
-      value: 'contractors'
+      label: "Contractors",
+      value: "Contractor"
     },
     {
-      label: 'Agents',
-      value: 'agents'
-    },
-    {
-      label: 'Properties',
-      value: 'properties'
+      label: "Agents",
+      value: "Agent"
+    },    {
+      label: "Properties",
+      value: "Property"
     }
   ];
 
@@ -75,7 +73,7 @@ export class ProvidersComponent implements OnInit {
     },
     {
       name: 'Caine Cho',
-      type: 'Properties',
+      type: "Property",
       rate: 4.7,
       review_number: 152,
       review: 'Professional and kind',
@@ -89,8 +87,7 @@ export class ProvidersComponent implements OnInit {
     }
   ];
 
-  faEdit = faEdit;
-  faUserCircle = faUserCircle;
+  service_provider_type = "All";
 
   selected_sp = null;
   zoom_level = 16;
@@ -100,12 +97,22 @@ export class ProvidersComponent implements OnInit {
     lng: -118.288627
   };
 
-  constructor() {}
+  constructor(private ref: ChangeDetectorRef) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.ref.detectChanges();
+  }
 
   onClickServiceProvider(service_provider) {
     this.selected_sp = service_provider;
     this.zoom_level = 16;
+  }
+
+  filterServiceProvider() {
+    if (this.service_provider_type == "All") {
+      return this.service_provider_list;
+    }
+
+    return this.service_provider_list.filter(sp => sp.type == this.service_provider_type);
   }
 }

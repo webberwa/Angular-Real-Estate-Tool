@@ -9,9 +9,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatListModule } from '@angular/material';
+import {MatBadgeModule, MatListModule} from '@angular/material';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { AgmCoreModule } from '@agm/core';
 
@@ -22,6 +21,7 @@ import { AgmCoreModule } from '@agm/core';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    MatBadgeModule,
     MatToolbarModule,
     MatDialogModule,
     MatGridListModule,
@@ -29,7 +29,6 @@ import { AgmCoreModule } from '@agm/core';
     FlexLayoutModule,
     MatListModule,
     MatButtonToggleModule,
-    FontAwesomeModule,
     BarRatingModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAX7fa9BRbq56Ya3eU_z22lz4PBZHKvjP0'
@@ -41,6 +40,7 @@ import { AgmCoreModule } from '@agm/core';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    MatBadgeModule,
     MatToolbarModule,
     MatDialogModule,
     MatGridListModule,
@@ -51,7 +51,6 @@ import { AgmCoreModule } from '@agm/core';
     MatListModule,
     MatButtonToggleModule,
     BarRatingModule,
-    FontAwesomeModule,
     AgmCoreModule
   ]
 })

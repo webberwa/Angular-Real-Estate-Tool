@@ -2,5 +2,13 @@
   <a routerLink="/" routerLinkActive="active">Home</a>
   <a routerLink="/investments" routerLinkActive="active">Investments</a>
   <a routerLink="/providers" routerLinkActive="active">Service Providers</a>
+
+  <span class="spacer"></span>
+
+  <mat-icon
+    matBadge="{{alert_number}}" matBadgePosition="before" matBadgeColor="warn"
+    (click)="test_onClickNotification()">{{notification}}</mat-icon>
+  <mat-icon class="profile">account_box</mat-icon>
+
 </mat-toolbar>
 <router-outlet></router-outlet>
