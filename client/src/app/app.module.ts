@@ -14,7 +14,8 @@ import { AgmCoreModule } from '@agm/core';
 
 const appRoutes: Routes = [
   { path: 'providers', component: ProvidersComponent },
-  { path: 'investments', component: InvestmentsComponent }
+  { path: 'investments', component: InvestmentsComponent },
+  { path: 'providers', component: ProvidersComponent }
   // { path: 'hero/:id', component: HeroDetailComponent },
   // {
   //   path: 'heroes',

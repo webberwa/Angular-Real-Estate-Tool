@@ -1,3 +1,42 @@
-<p>
-  providers works!
-</p>
+<div class="filter">
+  <mat-button-toggle-group value="all">
+    <mat-button-toggle [value]="sp_type.value" *ngFor="let sp_type of service_provider_type">
+      <span class="sp_type">{{sp_type.label}}</span>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
+<mat-list>
+  <mat-divider></mat-divider>
+  <mat-list-item *ngFor="let sp of service_provider_list; let i = index" (click)="onClickServiceProvider(sp)">
+    <fa-icon mat-list-icon [icon]="faUserCircle"></fa-icon>
+    <h4 mat-line class="sp-name">
+      <b>{{i+1}})&nbsp;&nbsp; {{sp.name}}</b>&nbsp;&nbsp;&nbsp;-&nbsp;<i class="sp-type">{{sp.type}}</i>
+    </h4>
+    <p mat-line>
+      <bar-rating [rate]="sp.rate" [max]="5" readOnly="true"></bar-rating>
+      <span class="rate-detail">{{sp.rate | number:'1.1-1'}}&nbsp;&nbsp;&nbsp;({{sp.review_number}}&nbsp;Reviews)</span>
+    </p>
+    <p mat-line>
+      <span>{{sp.review}} </span>
+      <a href="">Read more...</a>
+    </p>
+    <div class="side-item">
+      <p>{{sp.phone_number}}</p>
+      <p>{{sp.address.addr1}}</p>
+      <p>{{sp.address.addr2}}</p>
+      <button mat-stroked-button color="accent" flex="15">
+        Write Review
+        <fa-icon [icon]="faEdit"></fa-icon>
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-list-item>
+</mat-list>
+
+<div class="map">
+  <agm-map [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"
+    [(zoom)]="zoom_level">
+    <agm-marker [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"></agm-marker>
+  </agm-map>
+</div>

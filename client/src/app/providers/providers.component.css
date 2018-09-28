@@ -1,0 +1,86 @@
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.sp_type {
+  padding: 0px 10px;
+}
+
+.filter {
+  width: fit-content;
+  margin: auto;
+}
+
+mat-list {
+  width: 60%;
+  min-width: 600px;
+  height: 300px;
+  float: left;
+  overflow-y: auto;
+}
+
+mat-list-item /deep/ bar-rating .br-unit {
+  line-height: 18px;
+}
+
+mat-list-item /deep/ bar-rating .br.br-readonly {
+  margin: 0px;
+}
+
+mat-list-item /deep/ bar-rating {
+  float: left;
+}
+
+mat-list-item span.rate-detail {
+  flaot: left;
+}
+
+mat-list-item h4.sp-name {
+  margin-bottom: 3px;
+}
+
+mat-list-item div.side-item {
+  float: right;
+  width: 210px;
+}
+
+mat-list-item div.side-item p {
+  margin: 0px;
+}
+
+.mat-list-icon {
+  height: auto !important;
+  width: auto !important;
+  font-size: 40px !important;
+}
+
+span.sp-type {
+  font-size: 14px;
+}
+
+button.mat-stroked-button {
+  line-height: 21px;
+  width: 80%;
+  min-width: 138px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+}
+
+mat-list-item div.side-item p {
+  font-size: 13px;
+  text-align: center;
+}
+
+div.map {
+  width: calc(40% - 40px);
+  height: 100%;
+  margin: 7px;
+  border: 3px solid;
+  float: right;
+}
+
+agm-map {
+  height: 300px;
+}
