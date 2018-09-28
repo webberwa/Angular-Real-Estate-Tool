@@ -3,11 +3,12 @@ type Query {
 }
 
 type Mutation {
-  addInvestment(address: String!, price: Float): Investment
+  addInvestment(address: String!, price: Float, lease: Float): Investment
 }
 
 type Investment {
   id: ID!
   address: String!
   price: Float
+  lease: Float
 }

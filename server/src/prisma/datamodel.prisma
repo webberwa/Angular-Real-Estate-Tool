@@ -2,4 +2,10 @@ type Investment {
   id: ID! @unique
   address: String!
   price: Float
+  lease: Float
+}
+
+type Providers {
+  id: ID! @unique
+  name: String!
 }

@@ -6,7 +6,18 @@ import {
   AfterViewInit
 } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+
+const addInvestment = gql`
+  mutation addInvestment($address: String!, $price: Float, $lease: Float) {
+    addInvestment(address: $address, price: $price, lease: $lease) {
+      address
+    }
+  }
+`;
 
 declare let google;
 @Component({
@@ -18,22 +29,49 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
   @ViewChild('googleAddress')
   searchElementRef: ElementRef;
 
+  @ViewChild('priceFieldRef')
+  priceFieldRef: ElementRef;
+
+  // Used for saving to DB
   investment = {
     address: null,
-    price: null
+    price: null,
+    lease: null
   };
 
-  zillow_address;
+  investmentForm = new FormGroup({
+    address: new FormControl(''),
+    price: new FormControl('')
+  });
+
+  // Used for GET params to API call
+  zillow = {
+    address: null,
+    citystatezip: null
+  };
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private apollo: Apollo
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.investmentForm.valueChanges.subscribe(console.log);
+  }
 
-  submit() {
+  addInvestment() {
     console.log(this.investment);
+    this.apollo
+      .mutate({
+        mutation: addInvestment,
+        variables: {
+          address: this.investment.address,
+          price: parseFloat(this.investment.price),
+          lease: parseFloat(this.investment.lease)
+        }
+      })
+      .subscribe();
   }
 
   ngAfterViewInit(): void {
@@ -41,34 +79,45 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
   }
 
   getEstimate() {
-    const zillowApiKey = 'X1-ZWz18cjuillzpn_2599m';
-    const address = '2114+Bigelow+Ave&citystatezip=Seattle%2C+WA';
-    const zillowEndpoint = `http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=${zillowApiKey}&address=${address}`;
-
-    console.log(zillowEndpoint);
-
-    // const headers = new HttpHeaders({
-    //   'Access-Control-Allow-Origin': '*',
-    //   'Content-Type': 'application/xml'
-    // });
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'text/xml')
-      .append('Access-Control-Allow-Origin', '*');
-
-    console.log(headers);
+    const endpoint =
+      'https://us-central1-wbit-217505.cloudfunctions.net/getZillowPropertyInfo';
 
     const options = {
-      headers,
-      responseType: 'text' as 'text'
+      headers: new HttpHeaders().set('Content-Type', 'text/xml'),
+      responseType: 'text' as 'text',
+      params: {
+        address: this.zillow.address,
+        citystatezip: this.zillow.citystatezip
+      }
     };
 
     this.httpClient
-      .get(zillowEndpoint, options)
+      .get(endpoint, options)
       .toPromise()
       .then(response => {
-        console.log(response);
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(response, 'text/xml');
+        const price = xmlDoc.querySelector('zestimate amount').firstChild
+          .nodeValue;
+
+        console.log('patch value');
+        this.investmentForm.patchValue({
+          price
+        });
+        // this.investmentForm.controls.price.markAsTouched();
+        this.priceFieldRef.nativeElement.classList.add(
+          'mat-form-field-should-float'
+        );
+        // this.investmentForm.controls.price.markAsDirty();
+        // this.investmentForm.controls.price.updateValueAndValidity();
       })
       .catch(console.log);
+  }
+
+  addClass() {
+    this.priceFieldRef.nativeElement.classList.add(
+      'mat-form-field-should-float'
+    );
   }
 
   findAddress() {
@@ -81,15 +130,15 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
         const place = autocomplete.getPlace();
         const { address_components } = place;
 
+        console.log(address_components);
         // Build the zillow address format
-        const street_address = `${address_components[0].short_name} ${
+        this.zillow.address = `${address_components[0].short_name} ${
           address_components[1].short_name
         }`;
-        const city_state = `${address_components[3].short_name}, ${
-          address_components[5].short_name
-        }`;
+        this.zillow.citystatezip = `${address_components[2].short_name} ${
+          address_components[4].short_name
+        }, ${address_components[6].short_name}`;
 
-        this.zillow_address = `${street_address}&${city_state}`;
         this.investment.address = place.formatted_address;
 
         // Then get estimate

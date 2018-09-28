@@ -19,6 +19,25 @@ export class InvestmentsComponent implements OnInit {
   ngOnInit() {
     console.clear();
 
+    const endpoint = 'https://httpbin.org/xml';
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'text/xml'
+      }
+    };
+    fetch(endpoint, options)
+      .then(res => res.text())
+      .then(text => {
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(text, 'text/xml');
+        const value = xmlDoc
+          .getElementsByTagName('slide')[0]
+          .getElementsByTagName('title')[0].childNodes[0].nodeValue;
+
+        console.log(value);
+      });
+
     this.apollo
       .watchQuery({
         query: gql`
@@ -26,6 +45,7 @@ export class InvestmentsComponent implements OnInit {
             investments {
               address
               price
+              lease
             }
           }
         `

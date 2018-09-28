@@ -182,9 +182,10 @@ const getZillowPropertyInfo = (req, res) => {
 
 </slideshow>`
 
-  const dom = parseXML(xmlString, 'text/xml')
-  const element = dom.getElementsByTagName('slide')[0].childNodes[0]
-  console.log(element)
+  const xmlDoc = parseXML(xmlString, 'text/xml')
+  // const value = xmlDoc.querySelectorAll('slideshow slide')
+  // .getElementsByTagName('title')[0].childNodes[0].nodeValue
+  console.log(xmlDoc)
   return res.send('good')
 
   const getEstimateFromData = json => {

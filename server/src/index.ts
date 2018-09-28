@@ -1,8 +1,7 @@
 require('dotenv').config()
 import { prisma } from './prisma/generated/index'
 const { importSchema } = require('graphql-import')
-const { ApolloServer, gql } = require('apollo-server-express')
-import express from 'express'
+const { ApolloServer, gql } = require('apollo-server')
 
 const resolvers = {
   Query: {
@@ -13,10 +12,9 @@ const resolvers = {
   Mutation: {
     addInvestment(root, args, context) {
       return context.prisma.createInvestment({
-        data: {
-          address: args.address,
-          price: args.price
-        }
+        address: args.address,
+        price: args.price,
+        lease: args.lease
       })
     }
   }
@@ -32,14 +30,15 @@ const server = new ApolloServer({
   }
 })
 
-const app = express()
+async function main() {
+  const newInvestment = await prisma.createInvestment({
+    address: 'Address',
+    price: 150000,
+    lease: 1200
+  })
+}
 
-app.get('/', function(req, res, next) {
-  res.send('This is home')
+server.listen().then(({ url }) => {
+  console.log(`Server ready at ${url}`)
+  main().catch(e => console.error(e))
 })
-
-server.applyMiddleware({ app }) // app is from an existing express app
-
-app.listen({ port: 4000 }, () =>
-  console.log(`🚀  Ready at http://localhost:4000${server.graphqlPath}`)
-)

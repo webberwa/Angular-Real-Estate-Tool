@@ -8,7 +8,8 @@ import { InvestmentsCreateDialogComponent } from './investments/investments-crea
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AgmCoreModule } from '@agm/core';
 
 const appRoutes: Routes = [
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
+    ReactiveFormsModule,
     BrowserModule,
     GraphQLModule,
     FormsModule,
