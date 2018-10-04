@@ -1,3 +1,15 @@
+div.bottom {
+  width: 97%;
+  margin: auto;
+}
+
+div.content {
+  position: absolute;
+  width: 97%;
+  margin-top: 5px;
+  height: calc(100% - 190px);
+}
+
 .mat-list-icon {
   color: rgba(0, 0, 0, 0.54);
 }
@@ -14,9 +26,18 @@
 mat-list {
   width: 60%;
   min-width: 600px;
-  height: 300px;
+  height: 100%;
   float: left;
   overflow-y: auto;
+}
+
+mat-list-item {
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+mat-list-item:hover{
+  background-color: rgba(0,0,0,.08);
 }
 
 mat-list-item /deep/ bar-rating .br-unit {
@@ -58,7 +79,7 @@ span.sp-type {
   font-size: 14px;
 }
 
-button.mat-stroked-button {
+.side-item button.mat-stroked-button {
   line-height: 21px;
   width: 80%;
   min-width: 138px;
@@ -79,13 +100,45 @@ mat-list-item div.side-item mat-icon {
 }
 
 div.map {
-  width: calc(40% - 40px);
-  height: 100%;
-  margin: 7px;
+  width: calc(40% - 16px);
+  /*height: 100%;*/
+  margin: 0px 5px;
   border: 3px solid;
   float: right;
 }
 
 agm-map {
   height: 300px;
+}
+
+div.search {
+  margin: auto;
+  width: 70%;
+  min-width: 700px;
+}
+
+div.search .info {
+  width: calc(100% - 403px);
+}
+
+div.search .type {
+  width: 180px;
+}
+
+div.search .location {
+  width: 180px;
+}
+
+div.search .btn {
+  line-height: 43px;
+  width: 43px;
+  min-width: 43px;
+  vertical-align: top;
+  padding: 0;
+  border-radius: 5px;
+  margin-top: 1px;
+}
+
+.mat-button-toggle.mat-button-toggle-checked {
+  color: #EDB867;
 }
