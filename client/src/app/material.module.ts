@@ -9,7 +9,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatAutocompleteModule, MatBadgeModule, MatListModule, MatSelectModule} from '@angular/material';
+import {MatAutocompleteModule, MatBadgeModule, MatCardModule, MatListModule, MatSelectModule} from '@angular/material';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { AgmCoreModule } from '@agm/core';
@@ -32,7 +32,8 @@ import { AgmCoreModule } from '@agm/core';
     BarRatingModule,
     MatAutocompleteModule,
     MatSelectModule,
-    AgmCoreModule
+    AgmCoreModule,
+    MatCardModule
   ],
   declarations: [],
   exports: [
@@ -53,7 +54,8 @@ import { AgmCoreModule } from '@agm/core';
     BarRatingModule,
     MatAutocompleteModule,
     MatSelectModule,
-    AgmCoreModule
+    AgmCoreModule,
+    MatCardModule
   ]
 })
 export class MaterialModule {}

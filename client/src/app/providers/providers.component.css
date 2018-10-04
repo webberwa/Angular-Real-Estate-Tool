@@ -10,10 +10,6 @@ div.content {
   height: calc(100% - 190px);
 }
 
-.mat-list-icon {
-  color: rgba(0, 0, 0, 0.54);
-}
-
 .sp_type {
   padding: 0px 10px;
 }
@@ -26,7 +22,7 @@ div.content {
 mat-list {
   width: 60%;
   min-width: 600px;
-  height: 100%;
+  height: calc(100% - 8px);
   float: left;
   overflow-y: auto;
 }
@@ -69,10 +65,11 @@ mat-list-item div.side-item p {
   margin: 0px;
 }
 
-.mat-list-icon {
+mat-list-item .mat-list-icon {
   height: auto !important;
   width: auto !important;
   font-size: 40px !important;
+  color: rgba(0, 0, 0, 0.54);
 }
 
 span.sp-type {
@@ -97,18 +94,6 @@ mat-list-item div.side-item p {
 mat-list-item div.side-item mat-icon {
   font-size: 17px;
   line-height: 24px;
-}
-
-div.map {
-  width: calc(40% - 16px);
-  /*height: 100%;*/
-  margin: 0px 5px;
-  border: 3px solid;
-  float: right;
-}
-
-agm-map {
-  height: 300px;
 }
 
 div.search {
@@ -141,4 +126,103 @@ div.search .btn {
 
 .mat-button-toggle.mat-button-toggle-checked {
   color: #EDB867;
+}
+
+div.bottom div.right {
+  position: absolute;
+  right: 0px;
+  width: 40%;
+  height: 100%;
+}
+
+div.bottom div.right div.map {
+  margin: 0px 9px;
+  border: 3px solid;
+  height: 300px;
+}
+
+agm-map {
+  height: 100%;
+}
+
+div.bottom div.right div.carousel {
+  height: calc(100% - 320px);
+  margin: 15px 10px;
+  position: relative;
+}
+
+div.bottom div.right div.carousel mat-card {
+  padding: 17px 17px;
+  height: calc(100% - 34px);
+}
+
+div.bottom div.right div.carousel mat-card .mat-list-icon {
+  height: auto !important;
+  width: auto !important;
+  font-size: 40px !important;
+  color: rgba(0, 0, 0, 0.54);
+  float: left;
+}
+
+div.bottom div.right div.carousel mat-card .description {
+  float: left;
+}
+
+div.bottom div.right div.carousel mat-card .reviewer-info .reviewer-name {
+  margin: 0px
+}
+
+div.bottom div.right div.carousel mat-card .reviewer-info bar-rating {
+  margin: 0px;
+  line-height: 18px;
+}
+
+div.bottom div.right div.carousel mat-card .reviewer-info bar-rating /deep/.br{
+  margin: 0px;
+}
+
+div.bottom div.right div.carousel mat-card .review-content {
+  margin-top: 50px;
+  height: calc(100% - 50px);
+  overflow: hidden;
+}
+
+div.bottom div.right div.carousel .left.arrow {
+  display: none;
+}
+
+div.bottom div.right div.carousel .right.arrow {
+  display: none;
+}
+
+div.bottom div.right div.carousel:hover .left.arrow {
+  display: block;
+}
+
+div.bottom div.right div.carousel:hover .right.arrow {
+  display: block;
+}
+
+div.bottom div.right div.carousel .left.arrow {
+  position: absolute;
+  z-index: 99;
+  top: 50%;
+  background-color: #d3d3d382;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+div.bottom div.right div.carousel .right.arrow {
+  position: absolute;
+  z-index: 99;
+  top: 50%;
+  right: 0px;
+  background-color: #d3d3d382;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+div.bottom div.right div.carousel mat-card .review-date {
+  float: right;
+  font-size: 13px;
 }

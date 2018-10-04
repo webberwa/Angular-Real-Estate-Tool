@@ -66,13 +66,37 @@
       </mat-list-item>
     </mat-list>
 
-    <div class="map">
-      <agm-map [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"
-        [(zoom)]="zoom_level">
-        <agm-marker [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"></agm-marker>
-      </agm-map>
+    <div class="right">
+      <div class="map">
+        <agm-map [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"
+          [(zoom)]="zoom_level">
+          <agm-marker [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"></agm-marker>
+        </agm-map>
+      </div>
+      <div class="carousel">
+        <mat-icon class="left arrow">chevron_left</mat-icon>
+        <mat-icon class="right arrow">chevron_right</mat-icon>
+
+        <mat-card>
+          <div class="reviewer-info">
+            <mat-icon mat-list-icon>account_circle</mat-icon>
+            <div class="description">
+              <h4 mat-line class="reviewer-name">&nbsp;Reviewer 1</h4>
+              <span mat-line>
+                <bar-rating [rate]="5" [max]="5" readOnly="true"></bar-rating>
+              </span>
+            </div>
+          </div>
+          <div class="review-date">
+            <span>Arizona, US</span>
+            <br/>
+            <span><b>2014.09.11</b></span>
+          </div>
+          <p class="review-content" mat-line>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer suscipit orci nec leo dictum, sit amet placerat dolor viverra. Donec convallis volutpat orci, vel posuere augue rutrum ut. Vivamus laoreet sagittis arcu vel fringilla. Curabitur vestibulum sodales sagittis. Pellentesque at diam convallis, rhoncus magna a, imperdiet enim. Fusce mattis justo eget vehicula dignissim. Proin elementum nisl et bibendum fringilla. Aliquam nec augue vel mi ullamcorper volutpat ac nec nunc. Duis luctus tristique neque, vel blandit felis semper in. Aenean molestie magna ac risus faucibus porttitor.
+          </p>
+        </mat-card>
+      </div>
     </div>
   </div>
-
-  <!-- carousel -->
 </div>
