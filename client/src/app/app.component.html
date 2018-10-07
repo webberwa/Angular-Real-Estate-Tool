@@ -1,13 +1,11 @@
-<mat-toolbar>
-  <a routerLink="/" routerLinkActive="active">Home</a>
-  <a routerLink="/investments" routerLinkActive="active">Investments</a>
-  <a routerLink="/providers" routerLinkActive="active">Service Providers</a>
+<mat-toolbar color="primary">
+  <a routerLink="/" routerLinkActive="active" mat-button>Home</a>
+  <a routerLink="/investments" routerLinkActive="active" mat-button>Investments</a>
+  <a routerLink="/providers" routerLinkActive="active" mat-button>Service Providers</a>
 
   <span class="spacer"></span>
 
-  <mat-icon
-    matBadge="{{alert_number}}" matBadgePosition="before" matBadgeColor="warn"
-    (click)="test_onClickNotification()">{{notification}}</mat-icon>
+  <mat-icon matBadge="{{alert_number}}" matBadgePosition="before" matBadgeColor="warn" (click)="test_onClickNotification()">{{notification}}</mat-icon>
   <mat-icon class="profile">account_box</mat-icon>
 
 </mat-toolbar>

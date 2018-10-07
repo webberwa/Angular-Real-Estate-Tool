@@ -11,9 +11,13 @@ import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from '@agm/core';
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { LoginDialogComponent } from './authentication/login-dialog/login-dialog.component';
+import { SignupDialogComponent } from './authentication/signup-dialog/signup-dialog.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
-  { path: 'providers', component: ProvidersComponent },
+  { path: '', component: HomeComponent },
   { path: 'investments', component: InvestmentsComponent },
   { path: 'providers', component: ProvidersComponent }
   // { path: 'hero/:id', component: HeroDetailComponent },
@@ -35,7 +39,11 @@ const appRoutes: Routes = [
     AppComponent,
     InvestmentsComponent,
     ProvidersComponent,
-    InvestmentsCreateDialogComponent
+    InvestmentsCreateDialogComponent,
+    AuthenticationComponent,
+    LoginDialogComponent,
+    SignupDialogComponent,
+    HomeComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -45,7 +53,7 @@ const appRoutes: Routes = [
     MaterialModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- debugging purposes only
     ),
     ReactiveFormsModule,
     BrowserModule,
@@ -55,6 +63,10 @@ const appRoutes: Routes = [
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [InvestmentsCreateDialogComponent]
+  entryComponents: [
+    InvestmentsCreateDialogComponent,
+    LoginDialogComponent,
+    SignupDialogComponent
+  ]
 })
 export class AppModule {}

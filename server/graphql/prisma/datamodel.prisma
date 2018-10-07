@@ -5,7 +5,12 @@ type Investment {
   lease: Float
 }
 
-type Providers {
+type Provider {
   id: ID! @unique
   name: String!
+}
+
+type User {
+  id: ID! @unique
+  email: String!
 }

@@ -1,0 +1,5 @@
+query investments {
+  investments {
+    id
+  }
+}

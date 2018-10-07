@@ -1,0 +1,27 @@
+type Query {
+  investments: [Investment!]!
+}
+
+type Mutation {
+  addInvestment(address: String!, price: Float, lease: Float): Investment
+  createUser(email: String!, password: String!): AuthPayload
+  loginUser(email: String!, password: String!): AuthPayload
+}
+
+type Investment {
+  id: ID!
+  address: String!
+  price: Float
+  lease: Float
+}
+
+type User {
+  id: ID!
+  email: String!
+  password: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}

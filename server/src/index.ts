@@ -1,26 +1,11 @@
+import { resolvers } from './resolvers'
 require('dotenv').config()
-import { prisma } from './prisma/generated/index'
+import { prisma } from '../graphql/prisma/__generated__/index'
 const { importSchema } = require('graphql-import')
 const { ApolloServer, gql } = require('apollo-server')
+import { makeExecutableSchema } from 'graphql-tools'
 
-const resolvers = {
-  Query: {
-    investments(root, args, context) {
-      return context.prisma.investments()
-    }
-  },
-  Mutation: {
-    addInvestment(root, args, context) {
-      return context.prisma.createInvestment({
-        address: args.address,
-        price: args.price,
-        lease: args.lease
-      })
-    }
-  }
-}
-
-const typeDefs = importSchema('schema.graphql')
+const typeDefs = importSchema('./graphql/schema.graphql')
 
 const server = new ApolloServer({
   typeDefs,
@@ -31,11 +16,11 @@ const server = new ApolloServer({
 })
 
 async function main() {
-  const newInvestment = await prisma.createInvestment({
-    address: 'Address',
-    price: 150000,
-    lease: 1200
-  })
+  // const newInvestment = await prisma.createInvestment({
+  //   address: 'Address',
+  //   price: 150000,
+  //   lease: 1200
+  // })
 }
 
 server.listen().then(({ url }) => {

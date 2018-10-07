@@ -105,9 +105,9 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
           price
         });
         // this.investmentForm.controls.price.markAsTouched();
-        this.priceFieldRef.nativeElement.classList.add(
-          'mat-form-field-should-float'
-        );
+        // this.priceFieldRef.nativeElement.classList.add(
+        //   'mat-form-field-should-float'
+        // );
         // this.investmentForm.controls.price.markAsDirty();
         // this.investmentForm.controls.price.updateValueAndValidity();
       })
