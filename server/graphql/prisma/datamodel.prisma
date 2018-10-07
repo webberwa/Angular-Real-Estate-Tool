@@ -12,5 +12,6 @@ type Provider {
 
 type User {
   id: ID! @unique
-  email: String!
+  email: String! @unique
+  password: String!
 }

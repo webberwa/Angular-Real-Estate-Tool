@@ -1,4 +1,4 @@
-export const typeDefs = /* GraphQL */ `type AggregateInvestment {
+type AggregateInvestment {
   count: Int!
 }
 
@@ -409,4 +409,3 @@ input UserWhereUniqueInput {
   id: ID
   email: String
 }
-`

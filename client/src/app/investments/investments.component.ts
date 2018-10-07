@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { Apollo, gql } from 'apollo-angular-boost';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
 import { InvestmentsCreateDialogComponent } from './investments-create-dialog/investments-create-dialog.component';
 import $ from 'jquery';
 

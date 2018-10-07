@@ -30,6 +30,7 @@ export type SubscriptionResolver<
 
 export interface Query {
   investments: Investment[]
+  user?: User | null
 }
 
 export interface Investment {
@@ -37,6 +38,12 @@ export interface Investment {
   address: string
   price?: number | null
   lease?: number | null
+}
+
+export interface User {
+  id: string
+  email: string
+  password: string
 }
 
 export interface Mutation {
@@ -50,10 +57,12 @@ export interface AuthPayload {
   user: User
 }
 
-export interface User {
-  id: string
-  email: string
-  password: string
+export interface UserWhereUniqueInput {
+  id?: string | null
+  email?: string | null
+}
+export interface UserQueryArgs {
+  where?: UserWhereUniqueInput | null
 }
 export interface AddInvestmentMutationArgs {
   address: string
@@ -72,6 +81,7 @@ export interface LoginUserMutationArgs {
 export namespace QueryResolvers {
   export interface Resolvers<Context = any> {
     investments?: InvestmentsResolver<Investment[], any, Context>
+    user?: UserResolver<User | null, any, Context>
   }
 
   export type InvestmentsResolver<
@@ -79,6 +89,14 @@ export namespace QueryResolvers {
     Parent = any,
     Context = any
   > = Resolver<R, Parent, Context>
+  export type UserResolver<
+    R = User | null,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context, UserArgs>
+  export interface UserArgs {
+    where?: UserWhereUniqueInput | null
+  }
 }
 
 export namespace InvestmentResolvers {
@@ -106,6 +124,30 @@ export namespace InvestmentResolvers {
   > = Resolver<R, Parent, Context>
   export type LeaseResolver<
     R = number | null,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context>
+}
+
+export namespace UserResolvers {
+  export interface Resolvers<Context = any> {
+    id?: IdResolver<string, any, Context>
+    email?: EmailResolver<string, any, Context>
+    password?: PasswordResolver<string, any, Context>
+  }
+
+  export type IdResolver<R = string, Parent = any, Context = any> = Resolver<
+    R,
+    Parent,
+    Context
+  >
+  export type EmailResolver<R = string, Parent = any, Context = any> = Resolver<
+    R,
+    Parent,
+    Context
+  >
+  export type PasswordResolver<
+    R = string,
     Parent = any,
     Context = any
   > = Resolver<R, Parent, Context>
@@ -168,30 +210,6 @@ export namespace AuthPayloadResolvers {
   >
 }
 
-export namespace UserResolvers {
-  export interface Resolvers<Context = any> {
-    id?: IdResolver<string, any, Context>
-    email?: EmailResolver<string, any, Context>
-    password?: PasswordResolver<string, any, Context>
-  }
-
-  export type IdResolver<R = string, Parent = any, Context = any> = Resolver<
-    R,
-    Parent,
-    Context
-  >
-  export type EmailResolver<R = string, Parent = any, Context = any> = Resolver<
-    R,
-    Parent,
-    Context
-  >
-  export type PasswordResolver<
-    R = string,
-    Parent = any,
-    Context = any
-  > = Resolver<R, Parent, Context>
-}
-
 export namespace Investments {
   export type Variables = {}
 
@@ -203,6 +221,23 @@ export namespace Investments {
   export type Investments = {
     __typename?: 'Investment'
     id: string
+  }
+}
+
+export namespace User {
+  export type Variables = {
+    where: UserWhereUniqueInput
+  }
+
+  export type Query = {
+    __typename?: 'Query'
+    user?: User | null
+  }
+
+  export type User = {
+    __typename?: 'User'
+    id: string
+    email: string
   }
 }
 
@@ -269,6 +304,19 @@ export class InvestmentsGQL extends Apollo.Query<
     query investments {
       investments {
         id
+      }
+    }
+  `
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class UserGQL extends Apollo.Query<User.Query, User.Variables> {
+  document: any = gql`
+    query user($where: UserWhereUniqueInput!) {
+      user(where: $where) {
+        id
+        email
       }
     }
   `

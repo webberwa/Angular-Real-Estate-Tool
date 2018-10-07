@@ -3,7 +3,6 @@ require('dotenv').config()
 import { prisma } from '../graphql/prisma/__generated__/index'
 const { importSchema } = require('graphql-import')
 const { ApolloServer, gql } = require('apollo-server')
-import { makeExecutableSchema } from 'graphql-tools'
 
 const typeDefs = importSchema('./graphql/schema.graphql')
 

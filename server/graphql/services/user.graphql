@@ -1,3 +1,10 @@
+query user($where: UserWhereUniqueInput!) {
+  user(where: $where) {
+    id
+    email
+  }
+}
+
 mutation createUser($email: String!, $password: String!) {
   createUser(email: $email, password: $password) {
     token

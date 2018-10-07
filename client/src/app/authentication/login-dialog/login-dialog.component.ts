@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-login-dialog',
@@ -12,11 +13,11 @@ export class LoginDialogComponent implements OnInit {
     password: new FormControl('')
   });
 
-  constructor() {}
+  constructor(private auth: AuthenticationService) {}
 
   ngOnInit() {}
 
   login() {
-    console.log('login');
+    this.auth.loginUser(this.loginForm);
   }
 }
