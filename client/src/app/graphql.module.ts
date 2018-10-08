@@ -4,8 +4,10 @@ import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { withClientState } from 'apollo-link-state';
-import { createHttpLink } from 'apollo-link-http';
 import { ApolloLink, concat } from 'apollo-link';
+import { Apollo } from 'apollo-angular';
+import { MeGQL } from './apollo-angular-services';
+import { AuthenticationService } from './authentication/authentication.service';
 
 const createApollo = (httpLink: HttpLink) => {
   const linkCache = new InMemoryCache();
@@ -14,18 +16,15 @@ const createApollo = (httpLink: HttpLink) => {
     uri: 'http://localhost:4000/graphql'
   });
 
-  // This doesn't work with setting headers
-  // const http = createHttpLink({
-  //   uri: 'http://localhost:4000/graphql',
-  //   fetchOptions: {
-  //     watchQuery: {
-  //       fetchPolicy: 'network-only'
-  //     }
-  //   }
-  // });
-
   const localState = withClientState({
     cache: linkCache,
+    defaults: {
+      user: {
+        __typename: 'User',
+        id: null,
+        email: null
+      }
+    },
     resolvers: {
       Mutation: {
         updateNetworkStatus: (_, { isConnected }, { cache }) => {
@@ -37,6 +36,20 @@ const createApollo = (httpLink: HttpLink) => {
           };
           cache.writeData({ data });
           return null;
+        },
+        logout: (_, variables, { cache, getCacheKey }) => {
+          console.log('logout');
+          console.log(cache);
+          cache.writeData({
+            data: {
+              user: {
+                __typename: 'User',
+                id: 1,
+                email: ''
+              }
+            }
+          });
+          return null;
         }
       }
     }
@@ -46,7 +59,21 @@ const createApollo = (httpLink: HttpLink) => {
 
   return {
     link,
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: 'network-only',
+        // fetchPolicy: 'cache-and-network',
+        errorPolicy: 'all'
+      },
+      query: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'all'
+      },
+      mutate: {
+        errorPolicy: 'all'
+      }
+    }
   };
 };
 
@@ -75,4 +102,22 @@ const authMiddleware = new ApolloLink((operation, forward) => {
     }
   ]
 })
-export class GraphQLModule {}
+export class GraphQLModule {
+  constructor(
+    private apollo: Apollo,
+    private meGQL: MeGQL,
+    private authService: AuthenticationService
+  ) {
+    this.apollo
+      .watchQuery({
+        query: meGQL.document
+      })
+      .valueChanges.subscribe(res => {
+        console.log('graphql.module me');
+        const user = res.data.me;
+        this.apollo.getClient().writeData({
+          data: { user }
+        });
+      });
+  }
+}

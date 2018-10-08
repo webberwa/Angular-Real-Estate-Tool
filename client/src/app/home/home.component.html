@@ -1,10 +1,10 @@
-<div *ngIf="me; else showGuest">
+<div *ngIf="localUser | async as user; else showGuest">
   Logged In!
   <p>
-    {{ me.id }}
+    User ID: {{ user.id }}
   </p>
   <p>
-    {{ me.email }}
+    Email: {{ user.email }}
   </p>
   <button (click)="authService.logout()" mat-raised-button color="primary"> Logout </button>
 </div>

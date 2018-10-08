@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import {
@@ -9,8 +10,12 @@ import {
 import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { User } from '../apollo-angular-services';
-
+import gql from 'graphql-tag';
+const LOGOUT = gql`
+  mutation logout {
+    logout @client
+  }
+`;
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +24,7 @@ export class AuthenticationService {
   public readonly user$: Observable<any> = this._user.asObservable();
 
   constructor(
+    private dialog: MatDialog,
     private router: Router,
     private createUserGQL: CreateUserGQL,
     private loginUserGQL: LoginUserGQL,
@@ -42,6 +48,11 @@ export class AuthenticationService {
         return data.me;
       })
     );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.apollo.getClient().resetStore();
   }
 
   createUser(form) {
@@ -73,27 +84,26 @@ export class AuthenticationService {
         variables: {
           email: form.get('email').value,
           password: form.get('password').value
-        },
-        refetchQueries: [
-          {
-            query: this.meGQL.document
-          }
-        ]
+        }
       })
       .subscribe(
         res => {
+          this.dialog.closeAll();
+
           console.log(res);
           const token = res.data.loginUser.token;
+          const user = res.data.loginUser.user;
+
+          console.log(user);
+          this.apollo.getClient().writeData({
+            data: { user }
+          });
           this.storeTokenToLocalStorage(token);
         },
         err => {
           console.log(err.graphQLErrors);
         }
       );
-  }
-
-  logout() {
-    localStorage.removeItem('token');
   }
 
   storeTokenToLocalStorage(jwt) {

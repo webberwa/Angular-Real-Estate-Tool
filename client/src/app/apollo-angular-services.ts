@@ -360,6 +360,7 @@ export namespace LoginUser {
 
   export type User = {
     __typename?: 'User'
+    id: string
     email: string
   }
 }
@@ -473,6 +474,7 @@ export class LoginUserGQL extends Apollo.Mutation<
       loginUser(email: $email, password: $password) {
         token
         user {
+          id
           email
         }
       }
