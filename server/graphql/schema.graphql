@@ -1,12 +1,16 @@
 # import UserWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
+# import InvestmentCreateInput from 'prisma/__generated__/prisma.graphql'
+# import InvestmentWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
 
 type Query {
   investments: [Investment!]!
   user(where: UserWhereUniqueInput): User
+  me: User
 }
 
 type Mutation {
-  addInvestment(address: String!, price: Float, lease: Float): Investment
+  addInvestment(data: InvestmentCreateInput!): Investment!
+  deleteInvestment(where: InvestmentWhereUniqueInput!): Investment!
   createUser(email: String!, password: String!): AuthPayload
   loginUser(email: String!, password: String!): AuthPayload
 }

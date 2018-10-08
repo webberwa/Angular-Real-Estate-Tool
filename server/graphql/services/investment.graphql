@@ -1,5 +1,19 @@
 query investments {
   investments {
     id
+    address
+    price
+  }
+}
+
+mutation addInvestment($data: InvestmentCreateInput!) {
+  addInvestment(data: $data) {
+    address
+  }
+}
+
+mutation deleteInvestment($where: InvestmentWhereUniqueInput!) {
+  deleteInvestment(where: $where) {
+    id
   }
 }

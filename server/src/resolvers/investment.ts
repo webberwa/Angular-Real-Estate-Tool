@@ -5,11 +5,15 @@ export const investment = {
     }
   },
   Mutation: {
-    addInvestment(root, args, context) {
-      return context.prisma.createInvestment({
-        address: args.address,
-        price: args.price,
-        lease: args.lease
+    async addInvestment(root, { data }, context) {
+      console.log(context.scope)
+      return await context.prisma.createInvestment({
+        ...data
+      })
+    },
+    async deleteInvestment(root, { where }, context) {
+      return await context.prisma.deleteInvestment({
+        ...where
       })
     }
   }

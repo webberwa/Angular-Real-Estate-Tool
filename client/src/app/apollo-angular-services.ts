@@ -31,6 +31,7 @@ export type SubscriptionResolver<
 export interface Query {
   investments: Investment[]
   user?: User | null
+  me?: User | null
 }
 
 export interface Investment {
@@ -47,7 +48,8 @@ export interface User {
 }
 
 export interface Mutation {
-  addInvestment?: Investment | null
+  addInvestment: Investment
+  deleteInvestment: Investment
   createUser?: AuthPayload | null
   loginUser?: AuthPayload | null
 }
@@ -61,13 +63,24 @@ export interface UserWhereUniqueInput {
   id?: string | null
   email?: string | null
 }
+
+export interface InvestmentCreateInput {
+  address: string
+  price?: number | null
+  lease?: number | null
+}
+
+export interface InvestmentWhereUniqueInput {
+  id?: string | null
+}
 export interface UserQueryArgs {
   where?: UserWhereUniqueInput | null
 }
 export interface AddInvestmentMutationArgs {
-  address: string
-  price?: number | null
-  lease?: number | null
+  data: InvestmentCreateInput
+}
+export interface DeleteInvestmentMutationArgs {
+  where: InvestmentWhereUniqueInput
 }
 export interface CreateUserMutationArgs {
   email: string
@@ -82,6 +95,7 @@ export namespace QueryResolvers {
   export interface Resolvers<Context = any> {
     investments?: InvestmentsResolver<Investment[], any, Context>
     user?: UserResolver<User | null, any, Context>
+    me?: MeResolver<User | null, any, Context>
   }
 
   export type InvestmentsResolver<
@@ -97,6 +111,12 @@ export namespace QueryResolvers {
   export interface UserArgs {
     where?: UserWhereUniqueInput | null
   }
+
+  export type MeResolver<
+    R = User | null,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context>
 }
 
 export namespace InvestmentResolvers {
@@ -155,20 +175,28 @@ export namespace UserResolvers {
 
 export namespace MutationResolvers {
   export interface Resolvers<Context = any> {
-    addInvestment?: AddInvestmentResolver<Investment | null, any, Context>
+    addInvestment?: AddInvestmentResolver<Investment, any, Context>
+    deleteInvestment?: DeleteInvestmentResolver<Investment, any, Context>
     createUser?: CreateUserResolver<AuthPayload | null, any, Context>
     loginUser?: LoginUserResolver<AuthPayload | null, any, Context>
   }
 
   export type AddInvestmentResolver<
-    R = Investment | null,
+    R = Investment,
     Parent = any,
     Context = any
   > = Resolver<R, Parent, Context, AddInvestmentArgs>
   export interface AddInvestmentArgs {
-    address: string
-    price?: number | null
-    lease?: number | null
+    data: InvestmentCreateInput
+  }
+
+  export type DeleteInvestmentResolver<
+    R = Investment,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context, DeleteInvestmentArgs>
+  export interface DeleteInvestmentArgs {
+    where: InvestmentWhereUniqueInput
   }
 
   export type CreateUserResolver<
@@ -221,6 +249,40 @@ export namespace Investments {
   export type Investments = {
     __typename?: 'Investment'
     id: string
+    address: string
+    price?: number | null
+  }
+}
+
+export namespace AddInvestment {
+  export type Variables = {
+    data: InvestmentCreateInput
+  }
+
+  export type Mutation = {
+    __typename?: 'Mutation'
+    addInvestment: AddInvestment
+  }
+
+  export type AddInvestment = {
+    __typename?: 'Investment'
+    address: string
+  }
+}
+
+export namespace DeleteInvestment {
+  export type Variables = {
+    where: InvestmentWhereUniqueInput
+  }
+
+  export type Mutation = {
+    __typename?: 'Mutation'
+    deleteInvestment: DeleteInvestment
+  }
+
+  export type DeleteInvestment = {
+    __typename?: 'Investment'
+    id: string
   }
 }
 
@@ -235,6 +297,21 @@ export namespace User {
   }
 
   export type User = {
+    __typename?: 'User'
+    id: string
+    email: string
+  }
+}
+
+export namespace Me {
+  export type Variables = {}
+
+  export type Query = {
+    __typename?: 'Query'
+    me?: Me | null
+  }
+
+  export type Me = {
     __typename?: 'User'
     id: string
     email: string
@@ -304,6 +381,38 @@ export class InvestmentsGQL extends Apollo.Query<
     query investments {
       investments {
         id
+        address
+        price
+      }
+    }
+  `
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class AddInvestmentGQL extends Apollo.Mutation<
+  AddInvestment.Mutation,
+  AddInvestment.Variables
+> {
+  document: any = gql`
+    mutation addInvestment($data: InvestmentCreateInput!) {
+      addInvestment(data: $data) {
+        address
+      }
+    }
+  `
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class DeleteInvestmentGQL extends Apollo.Mutation<
+  DeleteInvestment.Mutation,
+  DeleteInvestment.Variables
+> {
+  document: any = gql`
+    mutation deleteInvestment($where: InvestmentWhereUniqueInput!) {
+      deleteInvestment(where: $where) {
+        id
       }
     }
   `
@@ -315,6 +424,19 @@ export class UserGQL extends Apollo.Query<User.Query, User.Variables> {
   document: any = gql`
     query user($where: UserWhereUniqueInput!) {
       user(where: $where) {
+        id
+        email
+      }
+    }
+  `
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class MeGQL extends Apollo.Query<Me.Query, Me.Variables> {
+  document: any = gql`
+    query me {
+      me {
         id
         email
       }

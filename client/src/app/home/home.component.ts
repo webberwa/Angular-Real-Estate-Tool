@@ -1,5 +1,7 @@
 import { AuthenticationComponent } from './../authentication/authentication.component';
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { MeGQL } from '../apollo-angular-services';
 
 @Component({
   providers: [AuthenticationComponent],
@@ -8,15 +10,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(private auth: AuthenticationComponent) {}
+  me;
+  constructor(
+    private meGQL: MeGQL,
+    private authComp: AuthenticationComponent,
+    private authService: AuthenticationService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.meGQL.watch().valueChanges.subscribe(res => {
+      this.me = res.data.me;
+    });
+    // this.me = this.authService.me();
+  }
 
   signup() {
-    this.auth.openSignupDialog();
+    this.authComp.openSignupDialog();
   }
 
   login() {
-    this.auth.openLoginDialog();
+    this.authComp.openLoginDialog();
   }
 }

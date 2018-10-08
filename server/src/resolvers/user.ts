@@ -1,15 +1,43 @@
-import { createLexer } from 'graphql/language'
-
+const { PubSub } = require('apollo-server')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
+const pubsub = new PubSub()
+const USER_STATE_CHANGED = 'USER_STATE_CHANGED'
+
+export const authenticateUser = async ({ req, prisma }) => {
+  const token = req.get('Authorization')
+
+  console.log(token)
+
+  if (!token) {
+    return null
+  }
+
+  const userId = await jwt.verify(
+    token,
+    process.env.JWT_SECRET,
+    (err, decoded) => {
+      const { userId } = decoded
+      return userId
+    }
+  )
+  const user = await prisma.user({
+    id: userId
+  })
+  return user
+}
+
 export const user = {
   Query: {
-    // async user({ email }, args, ctx, info) {
-    //   console.log('user')
-    //   console.log(user)
-    //   return ctx.prisma.user({ where: { email } }, info)
-    // }
+    me(root, args, ctx) {
+      const { user } = ctx
+      return { id: user.id, email: user.email }
+    },
+    async user(root, args, ctx) {
+      console.log(ctx.user)
+      console.log('user')
+    }
   },
   Mutation: {
     async createUser(root, args, ctx) {
