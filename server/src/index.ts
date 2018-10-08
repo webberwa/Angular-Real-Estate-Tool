@@ -1,44 +1,52 @@
 require('dotenv').config()
-import { prisma } from './prisma/generated/index'
+import { authenticateUser } from './resolvers/user'
+import { resolvers } from './resolvers'
+import express from 'express'
+import cors from 'cors'
+import { createServer } from 'http'
+import { prisma } from '../graphql/prisma/__generated__/index'
 const { importSchema } = require('graphql-import')
-const { ApolloServer, gql } = require('apollo-server')
+const { ForbiddenError } = require('apollo-server')
+const { PubSub } = require('apollo-server')
+const { ApolloServer, gql } = require('apollo-server-express')
 
-const resolvers = {
-  Query: {
-    investments(root, args, context) {
-      return context.prisma.investments()
-    }
-  },
-  Mutation: {
-    addInvestment(root, args, context) {
-      return context.prisma.createInvestment({
-        address: args.address,
-        price: args.price,
-        lease: args.lease
-      })
-    }
-  }
+const typeDefs = importSchema('./graphql/schema.graphql')
+
+enum Scope {
+  Guest = 'GUEST',
+  User = 'USER'
 }
 
-const typeDefs = importSchema('schema.graphql')
+const context = async ({ req }) => {
+  console.log(req.get('Authorization'))
+
+  let scope: Scope = Scope.Guest
+  const user = await authenticateUser({ req, prisma })
+
+  if (user) {
+    scope = Scope.User
+    // throw new ForbiddenError(
+    //   'You need to be authenticated to access this schema!'
+    // )
+  }
+  console.log('User scope: ' + scope)
+
+  return { prisma, scope, user }
+}
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: {
-    prisma
-  }
+  context
 })
 
-async function main() {
-  const newInvestment = await prisma.createInvestment({
-    address: 'Address',
-    price: 150000,
-    lease: 1200
-  })
-}
+const app = express()
+app.use(cors())
+server.applyMiddleware({ app, path: '/graphql' })
 
-server.listen().then(({ url }) => {
-  console.log(`Server ready at ${url}`)
-  main().catch(e => console.error(e))
+const httpServer = createServer(app)
+server.installSubscriptionHandlers(httpServer)
+
+httpServer.listen({ port: 4000 }, () => {
+  console.log('Apollo Server on http://localhost:4000/graphql')
 })

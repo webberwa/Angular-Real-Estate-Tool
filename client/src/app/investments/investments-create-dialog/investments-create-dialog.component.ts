@@ -8,16 +8,7 @@ import {
 import { MapsAPILoader } from '@agm/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
-import { Apollo } from 'apollo-angular';
-import gql from 'graphql-tag';
-
-const addInvestment = gql`
-  mutation addInvestment($address: String!, $price: Float, $lease: Float) {
-    addInvestment(address: $address, price: $price, lease: $lease) {
-      address
-    }
-  }
-`;
+import { InvestmentsService } from '../investments.service';
 
 declare let google;
 @Component({
@@ -31,13 +22,6 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
 
   @ViewChild('priceFieldRef')
   priceFieldRef: ElementRef;
-
-  // Used for saving to DB
-  investment = {
-    address: null,
-    price: null,
-    lease: null
-  };
 
   investmentForm = new FormGroup({
     address: new FormControl(''),
@@ -53,7 +37,7 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private httpClient: HttpClient,
-    private apollo: Apollo
+    private investmentService: InvestmentsService
   ) {}
 
   ngOnInit() {
@@ -61,17 +45,7 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
   }
 
   addInvestment() {
-    console.log(this.investment);
-    this.apollo
-      .mutate({
-        mutation: addInvestment,
-        variables: {
-          address: this.investment.address,
-          price: parseFloat(this.investment.price),
-          lease: parseFloat(this.investment.lease)
-        }
-      })
-      .subscribe();
+    this.investmentService.addInvestment(this.investmentForm);
   }
 
   ngAfterViewInit(): void {
@@ -105,9 +79,9 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
           price
         });
         // this.investmentForm.controls.price.markAsTouched();
-        this.priceFieldRef.nativeElement.classList.add(
-          'mat-form-field-should-float'
-        );
+        // this.priceFieldRef.nativeElement.classList.add(
+        //   'mat-form-field-should-float'
+        // );
         // this.investmentForm.controls.price.markAsDirty();
         // this.investmentForm.controls.price.updateValueAndValidity();
       })
@@ -139,7 +113,10 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
           address_components[4].short_name
         }, ${address_components[6].short_name}`;
 
-        this.investment.address = place.formatted_address;
+        const address = place.formatted_address;
+        this.investmentForm.patchValue({
+          address
+        });
 
         // Then get estimate
         this.getEstimate();

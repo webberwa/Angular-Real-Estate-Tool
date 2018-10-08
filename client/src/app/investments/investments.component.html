@@ -1,6 +1,9 @@
 <button mat-raised-button color="primary" (click)="openDialog()"> Add Investments </button>
 
-<li *ngFor="let investment of investments">
+<li *ngFor="let investment of investmentsService.investments | async">
   {{ investment.address }}
   {{ investment.price }}
+  <button mat-raised-button color="primary" (click)="investmentsService.delete(investment.id)"> Delete Investment
+  </button>
+
 </li>

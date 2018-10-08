@@ -2,7 +2,11 @@ export const typeDefs = /* GraphQL */ `type AggregateInvestment {
   count: Int!
 }
 
-type AggregateProviders {
+type AggregateProvider {
+  count: Int!
+}
+
+type AggregateUser {
   count: Int!
 }
 
@@ -143,12 +147,18 @@ type Mutation {
   upsertInvestment(where: InvestmentWhereUniqueInput!, create: InvestmentCreateInput!, update: InvestmentUpdateInput!): Investment!
   deleteInvestment(where: InvestmentWhereUniqueInput!): Investment
   deleteManyInvestments(where: InvestmentWhereInput): BatchPayload!
-  createProviders(data: ProvidersCreateInput!): Providers!
-  updateProviders(data: ProvidersUpdateInput!, where: ProvidersWhereUniqueInput!): Providers
-  updateManyProviderses(data: ProvidersUpdateInput!, where: ProvidersWhereInput): BatchPayload!
-  upsertProviders(where: ProvidersWhereUniqueInput!, create: ProvidersCreateInput!, update: ProvidersUpdateInput!): Providers!
-  deleteProviders(where: ProvidersWhereUniqueInput!): Providers
-  deleteManyProviderses(where: ProvidersWhereInput): BatchPayload!
+  createProvider(data: ProviderCreateInput!): Provider!
+  updateProvider(data: ProviderUpdateInput!, where: ProviderWhereUniqueInput!): Provider
+  updateManyProviders(data: ProviderUpdateInput!, where: ProviderWhereInput): BatchPayload!
+  upsertProvider(where: ProviderWhereUniqueInput!, create: ProviderCreateInput!, update: ProviderUpdateInput!): Provider!
+  deleteProvider(where: ProviderWhereUniqueInput!): Provider
+  deleteManyProviders(where: ProviderWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -168,27 +178,27 @@ type PageInfo {
   endCursor: String
 }
 
-type Providers {
+type Provider {
   id: ID!
   name: String!
 }
 
-type ProvidersConnection {
+type ProviderConnection {
   pageInfo: PageInfo!
-  edges: [ProvidersEdge]!
-  aggregate: AggregateProviders!
+  edges: [ProviderEdge]!
+  aggregate: AggregateProvider!
 }
 
-input ProvidersCreateInput {
+input ProviderCreateInput {
   name: String!
 }
 
-type ProvidersEdge {
-  node: Providers!
+type ProviderEdge {
+  node: Provider!
   cursor: String!
 }
 
-enum ProvidersOrderByInput {
+enum ProviderOrderByInput {
   id_ASC
   id_DESC
   name_ASC
@@ -199,34 +209,34 @@ enum ProvidersOrderByInput {
   updatedAt_DESC
 }
 
-type ProvidersPreviousValues {
+type ProviderPreviousValues {
   id: ID!
   name: String!
 }
 
-type ProvidersSubscriptionPayload {
+type ProviderSubscriptionPayload {
   mutation: MutationType!
-  node: Providers
+  node: Provider
   updatedFields: [String!]
-  previousValues: ProvidersPreviousValues
+  previousValues: ProviderPreviousValues
 }
 
-input ProvidersSubscriptionWhereInput {
+input ProviderSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: ProvidersWhereInput
-  AND: [ProvidersSubscriptionWhereInput!]
-  OR: [ProvidersSubscriptionWhereInput!]
-  NOT: [ProvidersSubscriptionWhereInput!]
+  node: ProviderWhereInput
+  AND: [ProviderSubscriptionWhereInput!]
+  OR: [ProviderSubscriptionWhereInput!]
+  NOT: [ProviderSubscriptionWhereInput!]
 }
 
-input ProvidersUpdateInput {
+input ProviderUpdateInput {
   name: String
 }
 
-input ProvidersWhereInput {
+input ProviderWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -255,12 +265,12 @@ input ProvidersWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  AND: [ProvidersWhereInput!]
-  OR: [ProvidersWhereInput!]
-  NOT: [ProvidersWhereInput!]
+  AND: [ProviderWhereInput!]
+  OR: [ProviderWhereInput!]
+  NOT: [ProviderWhereInput!]
 }
 
-input ProvidersWhereUniqueInput {
+input ProviderWhereUniqueInput {
   id: ID
 }
 
@@ -268,14 +278,135 @@ type Query {
   investment(where: InvestmentWhereUniqueInput!): Investment
   investments(where: InvestmentWhereInput, orderBy: InvestmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Investment]!
   investmentsConnection(where: InvestmentWhereInput, orderBy: InvestmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InvestmentConnection!
-  providers(where: ProvidersWhereUniqueInput!): Providers
-  providerses(where: ProvidersWhereInput, orderBy: ProvidersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Providers]!
-  providersesConnection(where: ProvidersWhereInput, orderBy: ProvidersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProvidersConnection!
+  provider(where: ProviderWhereUniqueInput!): Provider
+  providers(where: ProviderWhereInput, orderBy: ProviderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Provider]!
+  providersConnection(where: ProviderWhereInput, orderBy: ProviderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProviderConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
 
 type Subscription {
   investment(where: InvestmentSubscriptionWhereInput): InvestmentSubscriptionPayload
-  providers(where: ProvidersSubscriptionWhereInput): ProvidersSubscriptionPayload
+  provider(where: ProviderSubscriptionWhereInput): ProviderSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type User {
+  id: ID!
+  email: String!
+  password: String!
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  email: String!
+  password: String!
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  email: String!
+  password: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+  AND: [UserSubscriptionWhereInput!]
+  OR: [UserSubscriptionWhereInput!]
+  NOT: [UserSubscriptionWhereInput!]
+}
+
+input UserUpdateInput {
+  email: String
+  password: String
+}
+
+input UserWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
 }
 `
