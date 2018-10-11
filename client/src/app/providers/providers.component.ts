@@ -36,6 +36,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 50,
       review: 'Excellent service, fast and economic.',
       phone_number: '(418) 345 - 8798',
+      email: 'elrapi@gmail.com',
       address: {
         addr1: '345 Trigger Street',
         addr2: 'California, US',
@@ -50,6 +51,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 35,
       review: 'The best agent in southern California',
       phone_number: '(418) 365 - 9793',
+      email: 'John.Smith@gmail.com',
       address: {
         addr1: '367 5th Avenue',
         addr2: 'California, US',
@@ -64,6 +66,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 90,
       review: 'Investor with good experience',
       phone_number: '(418) 345 - 8798',
+      email: 'D.T.estate@gmail.com',
       address: {
         addr1: '366 48th Street',
         addr2: 'California, US',
@@ -78,6 +81,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 152,
       review: 'Professional and kind',
       phone_number: '(800) 612 - 1238',
+      email: 'caine.cho@gmail.com',
       address: {
         addr1: '999-901 11th Street',
         addr2: 'California, US',
@@ -92,6 +96,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 50,
       review: 'Excellent service, fast and economic.',
       phone_number: '(418) 345 - 8798',
+      email: 'elrapi@gmail.com',
       address: {
         addr1: '345 Trigger Street',
         addr2: 'California, US',
@@ -106,6 +111,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 35,
       review: 'The best agent in southern California',
       phone_number: '(418) 365 - 9793',
+      email: 'John.Smith@gmail.com',
       address: {
         addr1: '367 5th Avenue',
         addr2: 'California, US',
@@ -120,6 +126,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 90,
       review: 'Investor with good experience',
       phone_number: '(418) 345 - 8798',
+      email: 'D.T.estate@gmail.com',
       address: {
         addr1: '366 48th Street',
         addr2: 'California, US',
@@ -134,6 +141,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 152,
       review: 'Professional and kind',
       phone_number: '(800) 612 - 1238',
+      emial: 'caine.cho@gmail.com',
       address: {
         addr1: '999-901 11th Street',
         addr2: 'California, US',
@@ -148,6 +156,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 50,
       review: 'Excellent service, fast and economic.',
       phone_number: '(418) 345 - 8798',
+      email: 'elrapi@gmail.com',
       address: {
         addr1: '345 Trigger Street',
         addr2: 'California, US',
@@ -162,6 +171,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 35,
       review: 'The best agent in southern California',
       phone_number: '(418) 365 - 9793',
+      email: 'John.Smith@gmail.com',
       address: {
         addr1: '367 5th Avenue',
         addr2: 'California, US',
@@ -176,6 +186,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 90,
       review: 'Investor with good experience',
       phone_number: '(418) 345 - 8798',
+      email: 'D.T.estate@gmail.com',
       address: {
         addr1: '366 48th Street',
         addr2: 'California, US',
@@ -190,6 +201,7 @@ export class ProvidersComponent implements OnInit {
       review_number: 152,
       review: 'Professional and kind',
       phone_number: '(800) 612 - 1238',
+      emial: 'caine.cho@gmail.com',
       address: {
         addr1: '999-901 11th Street',
         addr2: 'California, US',
@@ -268,7 +280,9 @@ export class ProvidersComponent implements OnInit {
     { label: "★★★", score: 3 },
     { label: "★★★★", score: 4 },
     { label: "★★★★★", score: 5 }
-  ]
+  ];
+
+  hover_sp = this.service_provider_list[0];
 
   constructor(private ref: ChangeDetectorRef) {}
 
@@ -287,5 +301,9 @@ export class ProvidersComponent implements OnInit {
     }
 
     return this.service_provider_list.filter(sp => sp.type == this.service_provider_type);
+  }
+
+  hoverServiceProvider(sp) {
+    this.hover_sp = sp;
   }
 }

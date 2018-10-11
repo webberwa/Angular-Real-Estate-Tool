@@ -112,7 +112,7 @@ export class GraphQLModule {
       .watchQuery({
         query: meGQL.document
       })
-      .valueChanges.subscribe(res => {
+      .valueChanges.subscribe((res:any) => {
         console.log('graphql.module me');
         const user = res.data.me;
         this.apollo.getClient().writeData({

@@ -13,90 +13,56 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="location">
-    <mat-label>Located in</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let option of options" [value]="option">
-        {{option}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-
   <button mat-stroked-button class="btn">
     <mat-icon>search</mat-icon>
   </button>
 </div>
 
-<div class="filter">
-  <mat-button-toggle-group multiple>
-    <mat-button-toggle [value]="rate.score" *ngFor="let rate of rating">
-      <span class="sp_type">{{rate.label}}</span>
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-</div>
-
 <div class="bottom">
   <div class="content">
-    <mat-list>
-      <mat-divider></mat-divider>
-      <mat-list-item *ngFor="let sp of filterServiceProvider(); let i = index"
-                     (click)="onClickServiceProvider(sp)">
-        <mat-icon mat-list-icon>account_circle</mat-icon>
-        <h4 mat-line class="sp-name">
-          <b>{{i+1}}.&nbsp;{{sp.name}}</b>&nbsp;&nbsp;&nbsp;-&nbsp;<i class="sp-type">{{sp.type}}</i>
-        </h4>
-        <p mat-line>
-          <bar-rating [rate]="sp.rate" [max]="5" readOnly="true"></bar-rating>
-          <span class="rate-detail">{{sp.rate | number:'1.1-1'}}&nbsp;&nbsp;&nbsp;({{sp.review_number}}&nbsp;Reviews)</span>
-        </p>
-        <p mat-line>
-          <span>{{sp.review}} </span>
-          <a href="">Read more...</a>
-        </p>
-        <div class="side-item">
-          <p>{{sp.phone_number}}</p>
-          <p>{{sp.address.addr1}}</p>
-          <p>{{sp.address.addr2}}</p>
-          <button mat-stroked-button color="accent" flex="15">
-            Write Review
-            <mat-icon>border_color</mat-icon>
-          </button>
-        </div>
+    <div class="list">
+      <mat-list>
         <mat-divider></mat-divider>
-      </mat-list-item>
-    </mat-list>
+        <mat-list-item *ngFor="let sp of filterServiceProvider(); let i = index"
+                       (click)="onClickServiceProvider(sp)" >
+          <mat-icon mat-list-icon>account_circle</mat-icon>
+          <h3 mat-line class="sp-name" (mouseenter)="hoverServiceProvider(sp)" (mouseleave)="hoverServiceProvider(null)">
+            {{sp.name}}&nbsp;&nbsp;&nbsp;-&nbsp;<i class="sp-type">{{sp.type}}</i>
+          </h3>
+          <p class="contact" mat-line (mouseenter)="hoverServiceProvider(sp)" (mouseleave)="hoverServiceProvider(null)">{{sp.phone_number}}</p>
+          <p class="contact" mat-line (mouseenter)="hoverServiceProvider(sp)" (mouseleave)="hoverServiceProvider(null)">{{sp.email}}</p>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</div>
 
-    <div class="right">
-      <div class="map">
-        <agm-map [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"
-          [(zoom)]="zoom_level">
-          <agm-marker [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"></agm-marker>
-        </agm-map>
+<div class="right" [hidden]="hover_sp==null">
+  <div class="carousel">
+    <mat-card class="right-card">
+      <bar-rating [rate]="hover_sp?.rate" [max]="5" readOnly="true"></bar-rating>
+      <div class="sp-info">
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <span mat-line class="sp-name">{{hover_sp?.name}}</span>
+        <br/>
+        <span mat-line class="sp-type">{{hover_sp?.type}}</span>
+        <br/><br/>
+        <span>{{hover_sp?.review}} </span>
+        <br/><br/>
+        <span><mat-icon class="info">call</mat-icon>{{hover_sp?.phone_number}}</span>
+        <br/>
+        <span><mat-icon class="info">alternate_email</mat-icon>{{hover_sp?.email}}</span>
+        <br/>
+        <br/>
+        <span class="addr">{{hover_sp?.address.addr1}}</span>
+        <span class="addr">{{hover_sp?.address.addr2}}</span>
       </div>
-      <div class="carousel">
-        <mat-icon class="left arrow">chevron_left</mat-icon>
-        <mat-icon class="right arrow">chevron_right</mat-icon>
-
-        <mat-card>
-          <div class="reviewer-info">
-            <mat-icon mat-list-icon>account_circle</mat-icon>
-            <div class="description">
-              <h4 mat-line class="reviewer-name">&nbsp;Reviewer 1</h4>
-              <span mat-line>
-                <bar-rating [rate]="5" [max]="5" readOnly="true"></bar-rating>
-              </span>
-            </div>
-          </div>
-          <div class="review-date">
-            <span>Arizona, US</span>
-            <br/>
-            <span><b>2014.09.11</b></span>
-          </div>
-          <p class="review-content" mat-line>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer suscipit orci nec leo dictum, sit amet placerat dolor viverra. Donec convallis volutpat orci, vel posuere augue rutrum ut. Vivamus laoreet sagittis arcu vel fringilla. Curabitur vestibulum sodales sagittis. Pellentesque at diam convallis, rhoncus magna a, imperdiet enim. Fusce mattis justo eget vehicula dignissim. Proin elementum nisl et bibendum fringilla. Aliquam nec augue vel mi ullamcorper volutpat ac nec nunc. Duis luctus tristique neque, vel blandit felis semper in. Aenean molestie magna ac risus faucibus porttitor.
-          </p>
-        </mat-card>
-      </div>
+    </mat-card>
+    <div class="map">
+      <agm-map [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"
+               [(zoom)]="zoom_level">
+        <agm-marker [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"></agm-marker>
+      </agm-map>
     </div>
   </div>
 </div>

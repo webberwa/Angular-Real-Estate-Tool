@@ -1,13 +1,16 @@
 div.bottom {
-  width: 97%;
-  margin: auto;
+  position: absolute;
+  height: calc(100% - 150px);
+  width: 100%;
+  overflow-y: auto;
 }
 
 div.content {
-  position: absolute;
-  width: 97%;
+  width: 70%;
   margin-top: 5px;
-  height: calc(100% - 190px);
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .sp_type {
@@ -19,21 +22,18 @@ div.content {
   margin: auto;
 }
 
-mat-list {
-  width: 60%;
-  min-width: 600px;
+div.list {
+  width: 100%;
   height: calc(100% - 8px);
-  float: left;
-  overflow-y: auto;
+  display: inline-block;
 }
 
-mat-list-item {
+mat-list-item /deep/ .mat-list-text *{
   cursor: pointer;
-  border-radius: 5px;
 }
 
-mat-list-item:hover{
-  background-color: rgba(0,0,0,.08);
+mat-list-item /deep/ .mat-list-text:hover *{
+  font-weight: bold;
 }
 
 mat-list-item /deep/ bar-rating .br-unit {
@@ -52,8 +52,14 @@ mat-list-item span.rate-detail {
   flaot: left;
 }
 
-mat-list-item h4.sp-name {
-  margin-bottom: 3px;
+mat-list-item h3.sp-name {
+  font-size: 18px;
+  padding-bottom: 3px;
+  color: midnightblue;
+}
+
+mat-list-item .contact {
+  padding-top: 3px;
 }
 
 mat-list-item div.side-item {
@@ -68,8 +74,17 @@ mat-list-item div.side-item p {
 mat-list-item .mat-list-icon {
   height: auto !important;
   width: auto !important;
-  font-size: 40px !important;
+  font-size: 50px !important;
   color: rgba(0, 0, 0, 0.54);
+}
+
+mat-list-item /deep/ .mat-list-text {
+  width: fit-content !important;
+  padding-left: 10px !important;
+}
+
+mat-list-item /deep/ .mat-list-text * {
+  padding-right: 10px;
 }
 
 span.sp-type {
@@ -103,7 +118,7 @@ div.search {
 }
 
 div.search .info {
-  width: calc(100% - 403px);
+  width: calc(100% - 230px);
 }
 
 div.search .type {
@@ -128,101 +143,104 @@ div.search .btn {
   color: #EDB867;
 }
 
-div.bottom div.right {
+div.right {
+  width: 450px;
+  vertical-align: top;
   position: absolute;
-  right: 0px;
-  width: 40%;
-  height: 100%;
+  right: 15%;
 }
 
-div.bottom div.right div.map {
+div.right div.map {
   margin: 0px 9px;
-  border: 3px solid;
-  height: 300px;
+  height: 200px;
 }
 
 agm-map {
   height: 100%;
 }
 
-div.bottom div.right div.carousel {
-  height: calc(100% - 320px);
+div.right div.carousel {
+  height: 250px;
   margin: 15px 10px;
   position: relative;
 }
 
-div.bottom div.right div.carousel mat-card {
-  padding: 17px 17px;
-  height: calc(100% - 34px);
+div.right div.carousel mat-card {
+  padding: 6px 7px;
 }
 
-div.bottom div.right div.carousel mat-card .mat-list-icon {
+div.right div.carousel mat-card .mat-list-icon {
   height: auto !important;
   width: auto !important;
-  font-size: 40px !important;
+  font-size: 86px !important;
   color: rgba(0, 0, 0, 0.54);
   float: left;
 }
 
-div.bottom div.right div.carousel mat-card .description {
+div.right div.carousel mat-card .description {
   float: left;
 }
-
-div.bottom div.right div.carousel mat-card .reviewer-info .reviewer-name {
-  margin: 0px
+div.right div.carousel mat-card .sp-info {
+  border: 1px solid ghostwhite;
+  border-radius: 5px;
+  padding: 13px;
 }
 
-div.bottom div.right div.carousel mat-card .reviewer-info bar-rating {
+div.right div.carousel mat-card .sp-info bar-rating {
   margin: 0px;
   line-height: 18px;
 }
 
-div.bottom div.right div.carousel mat-card .reviewer-info bar-rating /deep/.br{
+div.right div.carousel mat-card .sp-info bar-rating /deep/.br{
   margin: 0px;
 }
 
-div.bottom div.right div.carousel mat-card .review-content {
-  margin-top: 50px;
-  height: calc(100% - 50px);
-  overflow: hidden;
+div.right div.carousel mat-card .sp-info .sp-name {
+  font-size: 30px;
+  font-weight: bold;
+  padding-top: 14px;
+  display: inline-block;
+  margin-left: 5px;
 }
 
-div.bottom div.right div.carousel .left.arrow {
-  display: none;
+div.right div.carousel mat-card .sp-info .sp-type {
+  font-size: 18px;
+  margin-left: 8px;
 }
 
-div.bottom div.right div.carousel .right.arrow {
-  display: none;
-}
-
-div.bottom div.right div.carousel:hover .left.arrow {
-  display: block;
-}
-
-div.bottom div.right div.carousel:hover .right.arrow {
-  display: block;
-}
-
-div.bottom div.right div.carousel .left.arrow {
+div.right div.carousel mat-card bar-rating /deep/ .br {
   position: absolute;
-  z-index: 99;
-  top: 50%;
-  background-color: #d3d3d382;
-  border-radius: 20px;
-  cursor: pointer;
+  right: 15px;
+  top: 5px;
+  margin: 0;
 }
 
-div.bottom div.right div.carousel .right.arrow {
+div.right div.carousel .info {
+  font-size: 15px;
+  font-weight: bold;
+  height: auto;
+  width: auto;
+  margin-right: 7px;
+}
+
+div.right div.carousel .addr {
+  display: block;
+  text-align: right;
+}
+
+.right-card {
+  background-image: linear-gradient(-45deg, #c3cfe2, #f5f7fa);
+}
+
+.right-card:after {
+  z-index: -1;
   position: absolute;
-  z-index: 99;
-  top: 50%;
-  right: 0px;
-  background-color: #d3d3d382;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-div.bottom div.right div.carousel mat-card .review-date {
-  float: right;
-  font-size: 13px;
+  content: "";
+  bottom: 15px;
+  right: 5px;
+  left: auto;
+  width: 50%;
+  top: 80%;
+  box-shadow: 0 15px 10px #777;
+  transform: rotate(6deg);
 }

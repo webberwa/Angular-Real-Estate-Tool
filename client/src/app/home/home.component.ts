@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
         query: GET_LOCAL_USER
       })
       .valueChanges.pipe(
-        map(({ data }) => {
+        map((data: any) => {
           console.log(data);
           return data.user;
         })
