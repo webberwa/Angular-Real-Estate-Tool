@@ -8,6 +8,7 @@ type Investment {
 type Provider {
   id: ID! @unique
   name: String!
+  phone: Int
 }
 
 type User {

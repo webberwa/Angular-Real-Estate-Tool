@@ -1,4 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {map} from "rxjs/operators";
+import {AddProviderGQL, MeGQL, ProvidersGQL, UserGQL} from "../apollo-angular-services";
+import {Apollo} from "apollo-angular";
 
 @Component({
   selector: 'app-providers',
@@ -216,75 +219,37 @@ export class ProvidersComponent implements OnInit {
   selected_sp = null;
   zoom_level = 16;
 
-  default_map_pos = {
-    lat: 34.020395,
-    lng: -118.288627
-  };
+  hover_sp = null;
 
-  options = [
-    "AL (Alabama)",
-    "AK (Alaska)",
-    "AZ (Arizona)",
-    "AR (Arkansas)",
-    "CA (California)",
-    "CO (Colorado)",
-    "CT (Connecticut)",
-    "DE (Delaware)",
-    "FL (Florida)",
-    "GA (Georgia)",
-    "HI (Hawaii)",
-    "ID (Idaho)",
-    "IL (Illinois)",
-    "IN (Indiana)",
-    "IA (Iowa)",
-    "KS (Kansas)",
-    "KY (Kentucky)",
-    "LA (Louisiana)",
-    "ME (Maine)",
-    "MD (Maryland)",
-    "MA (Massachusetts)",
-    "MI (Michigan)",
-    "MN (Minnesota)",
-    "MS (Mississippi)",
-    "MO (Missouri)",
-    "MT (Montana)",
-    "NE (Nebraska)",
-    "NV (Nevada)",
-    "NH (New Hampshire)",
-    "NJ (New Jersey)",
-    "NM (New Mexico)",
-    "NY (New York)",
-    "NC (North Carolina)",
-    "ND (North Dakota)",
-    "OH (Ohio)",
-    "OK (Oklahoma)",
-    "OR (Oregon)",
-    "PA (Pennsylvania)",
-    "RI (Rhode Island)",
-    "SC (South Carolina)",
-    "SD (South Dakota)",
-    "TN (Tennessee)",
-    "TX (Texas)",
-    "UT (Utah)",
-    "VT (Vermont)",
-    "VA (Virginia)",
-    "WA (Washington)",
-    "WV (West Virginia)",
-    "WI (Wisconsin)",
-    "WY (Wyoming)"
-  ];
+  private serviceProviders;
 
-  rating = [
-    { label: "★", score: 1 },
-    { label: "★★", score: 2 },
-    { label: "★★★", score: 3 },
-    { label: "★★★★", score: 4 },
-    { label: "★★★★★", score: 5 }
-  ];
+  constructor(private ref: ChangeDetectorRef,
+              private apollo: Apollo,
+              private providerGQL: ProvidersGQL,
+              private addProviderGQL: AddProviderGQL) {
+    this.apollo
+      .mutate({
+        mutation: this.addProviderGQL.document,
+        variables: {
+          data: {
+            name: "teset1",
+            phone: 1234
+          }
+        },
+        refetchQueries: [
+          {
+            query: this.providerGQL.document
+          }
+        ]
+      })
+      .subscribe(
+        res => {},
+        err => {
+          console.log(err.graphQLErrors);
+        }
+      );
 
-  hover_sp = this.service_provider_list[0];
-
-  constructor(private ref: ChangeDetectorRef) {}
+  }
 
   ngOnInit() {
     this.ref.detectChanges();

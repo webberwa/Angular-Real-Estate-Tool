@@ -58,11 +58,5 @@
         <span class="addr">{{hover_sp?.address.addr2}}</span>
       </div>
     </mat-card>
-    <div class="map">
-      <agm-map [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"
-               [(zoom)]="zoom_level">
-        <agm-marker [latitude]="selected_sp? selected_sp.address.lat: default_map_pos.lat" [longitude]="selected_sp? selected_sp.address.lng: default_map_pos.lng"></agm-marker>
-      </agm-map>
-    </div>
   </div>
 </div>

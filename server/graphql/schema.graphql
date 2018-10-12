@@ -6,6 +6,7 @@ type Query {
   investments: [Investment!]!
   user(where: UserWhereUniqueInput): User
   me: User
+  providers: [Provider!]!
 }
 
 type Mutation {
@@ -13,6 +14,7 @@ type Mutation {
   deleteInvestment(where: InvestmentWhereUniqueInput!): Investment!
   createUser(email: String!, password: String!): AuthPayload
   loginUser(email: String!, password: String!): AuthPayload
+  addProvider(data: ProviderCreateInput!): Provider!
 }
 
 type Investment {
@@ -26,6 +28,12 @@ type User {
   id: ID!
   email: String!
   password: String!
+}
+
+type Provider {
+  id: ID!
+  name: String!
+  phone: Int
 }
 
 type AuthPayload {

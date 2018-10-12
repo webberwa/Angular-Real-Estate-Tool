@@ -32,6 +32,7 @@ export interface Query {
   investments: Investment[]
   user?: User | null
   me?: User | null
+  providers: Provider[]
 }
 
 export interface Investment {
@@ -47,11 +48,18 @@ export interface User {
   password: string
 }
 
+export interface Provider {
+  id: string
+  name: string
+  phone?: number | null
+}
+
 export interface Mutation {
   addInvestment: Investment
   deleteInvestment: Investment
   createUser?: AuthPayload | null
   loginUser?: AuthPayload | null
+  addProvider: Provider
 }
 
 export interface AuthPayload {
@@ -73,6 +81,11 @@ export interface InvestmentCreateInput {
 export interface InvestmentWhereUniqueInput {
   id?: string | null
 }
+
+export interface ProviderCreateInput {
+  name: string
+  phone?: number | null
+}
 export interface UserQueryArgs {
   where?: UserWhereUniqueInput | null
 }
@@ -90,12 +103,16 @@ export interface LoginUserMutationArgs {
   email: string
   password: string
 }
+export interface AddProviderMutationArgs {
+  data: ProviderCreateInput
+}
 
 export namespace QueryResolvers {
   export interface Resolvers<Context = any> {
     investments?: InvestmentsResolver<Investment[], any, Context>
     user?: UserResolver<User | null, any, Context>
     me?: MeResolver<User | null, any, Context>
+    providers?: ProvidersResolver<Provider[], any, Context>
   }
 
   export type InvestmentsResolver<
@@ -114,6 +131,11 @@ export namespace QueryResolvers {
 
   export type MeResolver<
     R = User | null,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context>
+  export type ProvidersResolver<
+    R = Provider[],
     Parent = any,
     Context = any
   > = Resolver<R, Parent, Context>
@@ -173,12 +195,37 @@ export namespace UserResolvers {
   > = Resolver<R, Parent, Context>
 }
 
+export namespace ProviderResolvers {
+  export interface Resolvers<Context = any> {
+    id?: IdResolver<string, any, Context>
+    name?: NameResolver<string, any, Context>
+    phone?: PhoneResolver<number | null, any, Context>
+  }
+
+  export type IdResolver<R = string, Parent = any, Context = any> = Resolver<
+    R,
+    Parent,
+    Context
+  >
+  export type NameResolver<R = string, Parent = any, Context = any> = Resolver<
+    R,
+    Parent,
+    Context
+  >
+  export type PhoneResolver<
+    R = number | null,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context>
+}
+
 export namespace MutationResolvers {
   export interface Resolvers<Context = any> {
     addInvestment?: AddInvestmentResolver<Investment, any, Context>
     deleteInvestment?: DeleteInvestmentResolver<Investment, any, Context>
     createUser?: CreateUserResolver<AuthPayload | null, any, Context>
     loginUser?: LoginUserResolver<AuthPayload | null, any, Context>
+    addProvider?: AddProviderResolver<Provider, any, Context>
   }
 
   export type AddInvestmentResolver<
@@ -217,6 +264,15 @@ export namespace MutationResolvers {
   export interface LoginUserArgs {
     email: string
     password: string
+  }
+
+  export type AddProviderResolver<
+    R = Provider,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context, AddProviderArgs>
+  export interface AddProviderArgs {
+    data: ProviderCreateInput
   }
 }
 
@@ -282,6 +338,38 @@ export namespace DeleteInvestment {
 
   export type DeleteInvestment = {
     __typename?: 'Investment'
+    id: string
+  }
+}
+
+export namespace Providers {
+  export type Variables = {}
+
+  export type Query = {
+    __typename?: 'Query'
+    providers: Providers[]
+  }
+
+  export type Providers = {
+    __typename?: 'Provider'
+    id: string
+    name: string
+    phone?: number | null
+  }
+}
+
+export namespace AddProvider {
+  export type Variables = {
+    data: ProviderCreateInput
+  }
+
+  export type Mutation = {
+    __typename?: 'Mutation'
+    addProvider: AddProvider
+  }
+
+  export type AddProvider = {
+    __typename?: 'Provider'
     id: string
   }
 }
@@ -413,6 +501,38 @@ export class DeleteInvestmentGQL extends Apollo.Mutation<
   document: any = gql`
     mutation deleteInvestment($where: InvestmentWhereUniqueInput!) {
       deleteInvestment(where: $where) {
+        id
+      }
+    }
+  `
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class ProvidersGQL extends Apollo.Query<
+  Providers.Query,
+  Providers.Variables
+> {
+  document: any = gql`
+    query providers {
+      providers {
+        id
+        name
+        phone
+      }
+    }
+  `
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class AddProviderGQL extends Apollo.Mutation<
+  AddProvider.Mutation,
+  AddProvider.Variables
+> {
+  document: any = gql`
+    mutation addProvider($data: ProviderCreateInput!) {
+      addProvider(data: $data) {
         id
       }
     }

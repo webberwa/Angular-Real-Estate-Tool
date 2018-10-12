@@ -1,0 +1,13 @@
+query providers {
+    providers {
+        id
+        name
+        phone
+    }
+}
+
+mutation addProvider($data: ProviderCreateInput!) {
+    addProvider(data: $data) {
+        id
+    }
+}

@@ -181,6 +181,7 @@ type PageInfo {
 type Provider {
   id: ID!
   name: String!
+  phone: Int
 }
 
 type ProviderConnection {
@@ -191,6 +192,7 @@ type ProviderConnection {
 
 input ProviderCreateInput {
   name: String!
+  phone: Int
 }
 
 type ProviderEdge {
@@ -203,6 +205,8 @@ enum ProviderOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  phone_ASC
+  phone_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -212,6 +216,7 @@ enum ProviderOrderByInput {
 type ProviderPreviousValues {
   id: ID!
   name: String!
+  phone: Int
 }
 
 type ProviderSubscriptionPayload {
@@ -234,6 +239,7 @@ input ProviderSubscriptionWhereInput {
 
 input ProviderUpdateInput {
   name: String
+  phone: Int
 }
 
 input ProviderWhereInput {
@@ -265,6 +271,14 @@ input ProviderWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  phone: Int
+  phone_not: Int
+  phone_in: [Int!]
+  phone_not_in: [Int!]
+  phone_lt: Int
+  phone_lte: Int
+  phone_gt: Int
+  phone_gte: Int
   AND: [ProviderWhereInput!]
   OR: [ProviderWhereInput!]
   NOT: [ProviderWhereInput!]
