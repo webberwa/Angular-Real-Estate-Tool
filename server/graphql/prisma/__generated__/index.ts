@@ -204,8 +204,22 @@ export type ProviderOrderByInput =
   | "id_DESC"
   | "name_ASC"
   | "name_DESC"
-  | "phone_ASC"
-  | "phone_DESC"
+  | "type_ASC"
+  | "type_DESC"
+  | "rate_ASC"
+  | "rate_DESC"
+  | "review_number_ASC"
+  | "review_number_DESC"
+  | "review_ASC"
+  | "review_DESC"
+  | "phone_number_ASC"
+  | "phone_number_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "addr1_ASC"
+  | "addr1_DESC"
+  | "addr2_ASC"
+  | "addr2_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -240,7 +254,14 @@ export type UserWhereUniqueInput = AtLeastOne<{
 
 export interface ProviderCreateInput {
   name: String;
-  phone?: Int;
+  type: String;
+  rate?: Float;
+  review_number?: Int;
+  review?: String;
+  phone_number?: String;
+  email?: String;
+  addr1?: String;
+  addr2?: String;
 }
 
 export interface InvestmentWhereInput {
@@ -322,14 +343,106 @@ export interface ProviderWhereInput {
   name_not_starts_with?: String;
   name_ends_with?: String;
   name_not_ends_with?: String;
-  phone?: Int;
-  phone_not?: Int;
-  phone_in?: Int[] | Int;
-  phone_not_in?: Int[] | Int;
-  phone_lt?: Int;
-  phone_lte?: Int;
-  phone_gt?: Int;
-  phone_gte?: Int;
+  type?: String;
+  type_not?: String;
+  type_in?: String[] | String;
+  type_not_in?: String[] | String;
+  type_lt?: String;
+  type_lte?: String;
+  type_gt?: String;
+  type_gte?: String;
+  type_contains?: String;
+  type_not_contains?: String;
+  type_starts_with?: String;
+  type_not_starts_with?: String;
+  type_ends_with?: String;
+  type_not_ends_with?: String;
+  rate?: Float;
+  rate_not?: Float;
+  rate_in?: Float[] | Float;
+  rate_not_in?: Float[] | Float;
+  rate_lt?: Float;
+  rate_lte?: Float;
+  rate_gt?: Float;
+  rate_gte?: Float;
+  review_number?: Int;
+  review_number_not?: Int;
+  review_number_in?: Int[] | Int;
+  review_number_not_in?: Int[] | Int;
+  review_number_lt?: Int;
+  review_number_lte?: Int;
+  review_number_gt?: Int;
+  review_number_gte?: Int;
+  review?: String;
+  review_not?: String;
+  review_in?: String[] | String;
+  review_not_in?: String[] | String;
+  review_lt?: String;
+  review_lte?: String;
+  review_gt?: String;
+  review_gte?: String;
+  review_contains?: String;
+  review_not_contains?: String;
+  review_starts_with?: String;
+  review_not_starts_with?: String;
+  review_ends_with?: String;
+  review_not_ends_with?: String;
+  phone_number?: String;
+  phone_number_not?: String;
+  phone_number_in?: String[] | String;
+  phone_number_not_in?: String[] | String;
+  phone_number_lt?: String;
+  phone_number_lte?: String;
+  phone_number_gt?: String;
+  phone_number_gte?: String;
+  phone_number_contains?: String;
+  phone_number_not_contains?: String;
+  phone_number_starts_with?: String;
+  phone_number_not_starts_with?: String;
+  phone_number_ends_with?: String;
+  phone_number_not_ends_with?: String;
+  email?: String;
+  email_not?: String;
+  email_in?: String[] | String;
+  email_not_in?: String[] | String;
+  email_lt?: String;
+  email_lte?: String;
+  email_gt?: String;
+  email_gte?: String;
+  email_contains?: String;
+  email_not_contains?: String;
+  email_starts_with?: String;
+  email_not_starts_with?: String;
+  email_ends_with?: String;
+  email_not_ends_with?: String;
+  addr1?: String;
+  addr1_not?: String;
+  addr1_in?: String[] | String;
+  addr1_not_in?: String[] | String;
+  addr1_lt?: String;
+  addr1_lte?: String;
+  addr1_gt?: String;
+  addr1_gte?: String;
+  addr1_contains?: String;
+  addr1_not_contains?: String;
+  addr1_starts_with?: String;
+  addr1_not_starts_with?: String;
+  addr1_ends_with?: String;
+  addr1_not_ends_with?: String;
+  addr2?: String;
+  addr2_not?: String;
+  addr2_in?: String[] | String;
+  addr2_not_in?: String[] | String;
+  addr2_lt?: String;
+  addr2_lte?: String;
+  addr2_gt?: String;
+  addr2_gte?: String;
+  addr2_contains?: String;
+  addr2_not_contains?: String;
+  addr2_starts_with?: String;
+  addr2_not_starts_with?: String;
+  addr2_ends_with?: String;
+  addr2_not_ends_with?: String;
   AND?: ProviderWhereInput[] | ProviderWhereInput;
   OR?: ProviderWhereInput[] | ProviderWhereInput;
   NOT?: ProviderWhereInput[] | ProviderWhereInput;
@@ -440,7 +553,14 @@ export interface UserSubscriptionWhereInput {
 
 export interface ProviderUpdateInput {
   name?: String;
-  phone?: Int;
+  type?: String;
+  rate?: Float;
+  review_number?: Int;
+  review?: String;
+  phone_number?: String;
+  email?: String;
+  addr1?: String;
+  addr2?: String;
 }
 
 export interface NodeNode {
@@ -743,7 +863,14 @@ export interface InvestmentSubscription
 export interface ProviderPreviousValuesNode {
   id: ID_Output;
   name: String;
-  phone?: Int;
+  type: String;
+  rate?: Float;
+  review_number?: Int;
+  review?: String;
+  phone_number?: String;
+  email?: String;
+  addr1?: String;
+  addr2?: String;
 }
 
 export interface ProviderPreviousValues
@@ -751,7 +878,14 @@ export interface ProviderPreviousValues
     Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  phone: () => Promise<Int>;
+  type: () => Promise<String>;
+  rate: () => Promise<Float>;
+  review_number: () => Promise<Int>;
+  review: () => Promise<String>;
+  phone_number: () => Promise<String>;
+  email: () => Promise<String>;
+  addr1: () => Promise<String>;
+  addr2: () => Promise<String>;
 }
 
 export interface ProviderPreviousValuesSubscription
@@ -759,7 +893,14 @@ export interface ProviderPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  phone: () => Promise<AsyncIterator<Int>>;
+  type: () => Promise<AsyncIterator<String>>;
+  rate: () => Promise<AsyncIterator<Float>>;
+  review_number: () => Promise<AsyncIterator<Int>>;
+  review: () => Promise<AsyncIterator<String>>;
+  phone_number: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  addr1: () => Promise<AsyncIterator<String>>;
+  addr2: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserSubscriptionPayloadNode {
@@ -820,13 +961,27 @@ export interface AggregateProviderSubscription
 export interface ProviderNode {
   id: ID_Output;
   name: String;
-  phone?: Int;
+  type: String;
+  rate?: Float;
+  review_number?: Int;
+  review?: String;
+  phone_number?: String;
+  email?: String;
+  addr1?: String;
+  addr2?: String;
 }
 
 export interface Provider extends Promise<ProviderNode>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
-  phone: () => Promise<Int>;
+  type: () => Promise<String>;
+  rate: () => Promise<Float>;
+  review_number: () => Promise<Int>;
+  review: () => Promise<String>;
+  phone_number: () => Promise<String>;
+  email: () => Promise<String>;
+  addr1: () => Promise<String>;
+  addr2: () => Promise<String>;
 }
 
 export interface ProviderSubscription
@@ -834,7 +989,14 @@ export interface ProviderSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
-  phone: () => Promise<AsyncIterator<Int>>;
+  type: () => Promise<AsyncIterator<String>>;
+  rate: () => Promise<AsyncIterator<Float>>;
+  review_number: () => Promise<AsyncIterator<Int>>;
+  review: () => Promise<AsyncIterator<String>>;
+  phone_number: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  addr1: () => Promise<AsyncIterator<String>>;
+  addr2: () => Promise<AsyncIterator<String>>;
 }
 
 /*
