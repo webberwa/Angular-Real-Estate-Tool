@@ -16,7 +16,8 @@ export class InvestmentsComponent {
 
   openDialog() {
     this.dialog.open(InvestmentsCreateDialogComponent, {
-      width: '600px'
+      width: '600px',
+      autoFocus: false
     });
   }
 }

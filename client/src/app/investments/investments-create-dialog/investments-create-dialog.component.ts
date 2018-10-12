@@ -24,8 +24,13 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
   priceFieldRef: ElementRef;
 
   investmentForm = new FormGroup({
-    address: new FormControl(''),
-    price: new FormControl('')
+    address: new FormControl('1111 S Figueroa St, Los Angeles, CA 90015'),
+    price: new FormControl('1200000'),
+    monthly_rent: new FormControl('1500'),
+    mortage_downpayment: new FormControl('200000'),
+    mortage_amount: new FormControl('1200000'),
+    mortage_interest_rate: new FormControl('0.0375'),
+    mortage_period: new FormControl('30')
   });
 
   // Used for GET params to API call

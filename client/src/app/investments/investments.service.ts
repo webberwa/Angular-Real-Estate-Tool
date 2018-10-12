@@ -31,7 +31,15 @@ export class InvestmentsService {
         variables: {
           data: {
             address: form.get('address').value,
-            price: Number.parseFloat(form.get('price').value)
+            price: Number.parseFloat(form.get('price').value),
+            monthly_rent: Number.parseFloat(form.get('monthly_rent').value),
+            mortage_downpayment: Number.parseFloat(
+              form.get('mortage_downpayment').value
+            ),
+            mortage_interest_rate: Number.parseFloat(
+              form.get('mortage_interest_rate').value
+            ),
+            mortage_period: Number.parseFloat(form.get('mortage_period').value)
           }
         },
         refetchQueries: [

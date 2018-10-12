@@ -8,7 +8,7 @@ query investments {
 
 mutation addInvestment($data: InvestmentCreateInput!) {
   addInvestment(data: $data) {
-    address
+    id
   }
 }
 

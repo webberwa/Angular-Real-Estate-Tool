@@ -322,7 +322,7 @@ export namespace AddInvestment {
 
   export type AddInvestment = {
     __typename?: 'Investment'
-    address: string
+    id: string
   }
 }
 
@@ -486,7 +486,7 @@ export class AddInvestmentGQL extends Apollo.Mutation<
   document: any = gql`
     mutation addInvestment($data: InvestmentCreateInput!) {
       addInvestment(data: $data) {
-        address
+        id
       }
     }
   `

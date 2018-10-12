@@ -2,7 +2,11 @@ type Investment {
   id: ID! @unique
   address: String!
   price: Float
-  lease: Float
+  monthly_rent: Float
+  mortage_downpayment: Float
+  mortage_amount: Float
+  mortage_interest_rate: Float
+  mortage_period: Float
 }
 
 type Provider {
