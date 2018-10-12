@@ -1,7 +1,7 @@
 export const provider = {
   Query: {
     providers(root, args, context) {
-      return context.prisma.providers()
+      return context.prisma.providers(args)
     }
   },
 

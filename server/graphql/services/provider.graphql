@@ -1,13 +1,19 @@
-query providers {
-  providers {
-    id
-    name
-    phone
-  }
+query providers ($where: ProviderWhereInput){
+    providers (where: $where){
+        id
+        name
+        type
+        rate
+        review
+        phone_number
+        email
+        addr1
+        addr2
+    }
 }
 
 mutation addProvider($data: ProviderCreateInput!) {
-  addProvider(data: $data) {
-    id
-  }
+    addProvider(data: $data) {
+        id
+    }
 }
