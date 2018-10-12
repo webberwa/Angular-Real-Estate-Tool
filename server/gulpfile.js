@@ -22,14 +22,20 @@ gulp.task('watch-graphql-schema', () => {
   )
 })
 
-gulp.task('watch-prisma-schema', function() {
-  gulp.watch(process.env.PRISMA_SCHEMA, function() {
-    // run('prisma generate').exec()
-    run('prisma deploy')
-      .exec()
-      .on('error', gutil.log)
-  })
+gulp.task('prisma-deploy', () => {
+  // run('prisma generate').exec()
+  run('prisma deploy')
+    .exec()
+    .on('error', gutil.log)
 })
 
-gulp.task('default', ['watch-schema', 'generate-graphql-schema'])
-gulp.task('watch-schema', ['watch-graphql-schema', 'watch-prisma-schema'])
+gulp.task('watch-prisma-deploy', () => {
+  gulp.watch(process.env.PRISMA_SCHEMA, ['prisma-deploy'])
+})
+
+gulp.task('default', [
+  'watch-schema',
+  'generate-graphql-schema',
+  'prisma-deploy'
+])
+gulp.task('watch-schema', ['watch-graphql-schema', 'watch-prisma-deploy'])

@@ -1,13 +1,13 @@
 query providers {
-    providers {
-        id
-        name
-        phone
-    }
+  providers {
+    id
+    name
+    phone
+  }
 }
 
 mutation addProvider($data: ProviderCreateInput!) {
-    addProvider(data: $data) {
-        id
-    }
+  addProvider(data: $data) {
+    id
+  }
 }
