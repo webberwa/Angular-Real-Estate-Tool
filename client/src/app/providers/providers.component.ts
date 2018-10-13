@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AddProviderGQL, ProvidersGQL} from "../apollo-angular-services";
 import {Apollo} from "apollo-angular";
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-providers',
@@ -14,23 +15,16 @@ export class ProvidersComponent implements OnInit {
       value: "All"
     },
     {
-      label: "Investors",
-      value: "Investor"
+      label: "Property Manager",
+      value: "Property Manager"
     },
     {
-      label: "Contractors",
-      value: "Contractor"
-    },
-    {
-      label: "Agents",
-      value: "Agent"
-    },    {
-      label: "Properties",
-      value: "Property"
+      label: "Real Estate Agent",
+      value: "Real Estate Agent"
     }
   ];
 
-  service_provider_list=null;
+  service_provider_list = null;
 
   service_provider_type = "All";
 

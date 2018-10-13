@@ -20,34 +20,28 @@
 </div>
 
 <div class="bottom">
-  <div class="content">
-    <div class="list" *ngIf="service_provider_list!=null">
-      <mat-list>
-        <mat-divider></mat-divider>
-        <mat-list-item *ngFor="let sp of filterServiceProvider(); let i = index">
-          <mat-icon mat-list-icon>account_circle</mat-icon>
-          <h3 mat-line class="sp-name" (mouseenter)="hoverServiceProvider(sp)" (mouseleave)="hoverServiceProvider(null)">
-            {{sp.name}}&nbsp;&nbsp;&nbsp;-&nbsp;<i class="sp-type">{{sp.type}}</i>
-          </h3>
-          <p class="contact" mat-line (mouseenter)="hoverServiceProvider(sp)" (mouseleave)="hoverServiceProvider(null)">{{sp.phone_number}}</p>
-          <p class="contact" mat-line (mouseenter)="hoverServiceProvider(sp)" (mouseleave)="hoverServiceProvider(null)">{{sp.email}}</p>
-        </mat-list-item>
-      </mat-list>
-    </div>
+  <mat-progress-spinner *ngIf="service_provider_list==null" class="loading" color="primary" mode="indeterminate"></mat-progress-spinner>
+  <div class="list" *ngIf="service_provider_list!=null">
+    <mat-list>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngFor="let sp of filterServiceProvider(); let i = index" (mouseenter)="hoverServiceProvider(sp)" (mouseleave)="hoverServiceProvider(null)">
+        <mat-icon mat-list-icon>account_circle</mat-icon>
+        <h3 mat-line class="sp-name">
+          {{sp.name}}&nbsp;&nbsp;&nbsp;-&nbsp;<i class="sp-type">{{sp.type}}</i>
+        </h3>
+        <p class="contact" mat-line>{{sp.phone_number}}</p>
+        <p class="contact" mat-line>{{sp.email}}</p>
+      </mat-list-item>
+    </mat-list>
   </div>
-</div>
 
-<div class="right" [hidden]="hover_sp==null">
-  <div class="carousel">
-    <mat-card class="right-card">
+  <div [hidden]="hover_sp==null">
+    <mat-card class="right-card" [class.investor]="hover_sp?.type=='Investor'">
       <bar-rating [rate]="hover_sp?.rate" [max]="5" readOnly="true"></bar-rating>
       <div class="sp-info">
         <mat-icon mat-list-icon>account_circle</mat-icon>
         <span mat-line class="sp-name">{{hover_sp?.name}}</span>
-        <br/>
         <span mat-line class="sp-type">{{hover_sp?.type}}</span>
-        <br/><br/>
-        <span>{{hover_sp?.review}} </span>
         <br/><br/>
         <span><mat-icon class="info">call</mat-icon>{{hover_sp?.phone_number}}</span>
         <br/>
@@ -61,4 +55,3 @@
   </div>
 </div>
 
-<mat-progress-spinner *ngIf="service_provider_list==null" class="loading" color="primary" mode="indeterminate"></mat-progress-spinner>

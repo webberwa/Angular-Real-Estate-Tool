@@ -1,16 +1,7 @@
 div.bottom {
-  position: absolute;
-  height: calc(100% - 140px);
+  position: relative;
+  height: calc(100% - 80px);
   width: 100%;
-  overflow-y: auto;
-}
-
-div.content {
-  width: 70%;
-  margin-top: 5px;
-  height: 99%;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .sp_type {
@@ -25,15 +16,26 @@ div.content {
 div.list {
   width: 100%;
   height: calc(100% - 8px);
+  min-height: 300px;
   display: inline-block;
+  overflow-y: auto;
 }
 
-mat-list-item /deep/ .mat-list-text *{
-  cursor: pointer;
+.mat-list {
+  width: calc(100% - 500px);
 }
 
-mat-list-item /deep/ .mat-list-text:hover *{
+mat-list-item:hover {
+  background-color: white;
+  box-shadow: inset 0 0 10px rgba(0,0,0,.5);
+}
+
+mat-list-item:hover /deep/ .mat-list-text *{
   font-weight: bold;
+}
+
+mat-list-item{
+  cursor: pointer;
 }
 
 mat-list-item /deep/ bar-rating .br-unit {
@@ -112,8 +114,7 @@ mat-list-item div.side-item mat-icon {
 }
 
 div.search {
-  margin: auto;
-  width: 70%;
+  margin: 10px auto 0px auto;
   min-width: 700px;
 }
 
@@ -143,33 +144,16 @@ div.search .btn {
   color: #EDB867;
 }
 
-div.right {
-  width: 450px;
-  vertical-align: top;
+mat-card.right-card {
   position: absolute;
-  right: 15%;
-}
-
-div.right div.map {
-  margin: 0px 9px;
-  height: 200px;
-}
-
-agm-map {
-  height: 100%;
-}
-
-div.right div.carousel {
-  height: 250px;
-  margin: 15px 10px;
-  position: relative;
-}
-
-div.right div.carousel mat-card {
+  top: 9px;
+  right: 20px;
+  height: 260px;
+  width: 450px;
   padding: 6px 7px;
 }
 
-div.right div.carousel mat-card .mat-list-icon {
+mat-card.right-card .mat-list-icon {
   height: auto !important;
   width: auto !important;
   font-size: 86px !important;
@@ -177,45 +161,46 @@ div.right div.carousel mat-card .mat-list-icon {
   float: left;
 }
 
-div.right div.carousel mat-card .description {
+mat-card.right-card .description {
   float: left;
 }
-div.right div.carousel mat-card .sp-info {
-  border: 1px solid ghostwhite;
-  border-radius: 5px;
+mat-card.right-card .sp-info {
   padding: 13px;
+  height: calc(100% - 28px);
 }
 
-div.right div.carousel mat-card .sp-info bar-rating {
+mat-card.right-card bar-rating {
   margin: 0px;
   line-height: 18px;
 }
 
-div.right div.carousel mat-card .sp-info bar-rating /deep/.br{
+mat-card.right-card bar-rating /deep/.br{
   margin: 0px;
+  position: absolute;
+  right: 15px;
+  top: 5px;
 }
 
-div.right div.carousel mat-card .sp-info .sp-name {
+mat-card.right-card .sp-info .sp-name {
   font-size: 30px;
   font-weight: bold;
-  padding-top: 14px;
+  padding: 10px 0px;
   display: inline-block;
   margin-left: 5px;
+  margin-bottom: 1px;
+  height: 65px;
+  width: calc(100% - 100px);
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  line-height: 30px;
 }
 
-div.right div.carousel mat-card .sp-info .sp-type {
+mat-card.right-card .sp-info .sp-type {
   font-size: 18px;
   margin-left: 8px;
 }
 
-div.right div.carousel mat-card bar-rating /deep/ .br {
-  position: absolute;
-  right: 15px;
-  top: 5px;
-  margin: 0;
-}
-
-div.right div.carousel .info {
+mat-card.right-card .info {
   font-size: 15px;
   font-weight: bold;
   height: auto;
@@ -223,13 +208,19 @@ div.right div.carousel .info {
   margin-right: 7px;
 }
 
-div.right div.carousel .addr {
+mat-card.right-card .addr {
   display: block;
   text-align: right;
 }
 
 .right-card {
-  background-image: linear-gradient(-45deg, #c3cfe2, #f5f7fa);
+  color: #d6ac6e;
+  background-image: linear-gradient(-45deg, #333333, #647184)
+}
+
+.right-card.investor {
+  color: #000000;
+  background-image: linear-gradient(-45deg, #70d1ff, #d1e4ff);
 }
 
 .right-card:after {
@@ -250,5 +241,5 @@ div.right div.carousel .addr {
   align-content: center;
   align-items: center;
   height: 60px;
-  margin: 50px auto auto auto;
+  margin: auto;
 }
