@@ -1,5 +1,5 @@
-import { InvestmentsCreateDialogComponent } from './home/investments/investments-create-dialog/investments-create-dialog.component';
-import { InvestmentsComponent } from './home/investments/investments.component';
+import { InvestmentsCreateDialogComponent } from './investments/investments-create-dialog/investments-create-dialog.component';
+import { InvestmentsComponent } from './investments/investments.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,7 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { FormatDirective } from './format.directive';
 import { YearsPipe } from './years.pipe';
 import { ContainerComponent } from './site/container/container.component';
-import { InvestmentCardComponent } from './home/investments/investment-card/investment-card.component';
+import { InvestmentCardComponent } from './investments/investment-card/investment-card.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },

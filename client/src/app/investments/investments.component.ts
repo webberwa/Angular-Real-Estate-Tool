@@ -1,4 +1,4 @@
-import { AuthenticationService } from './../../authentication/authentication.service';
+import { AuthenticationService } from '../authentication/authentication.service';
 import { Router } from '@angular/router';
 import { Observable } from 'apollo-client/util/Observable';
 import { Component, OnInit } from '@angular/core';

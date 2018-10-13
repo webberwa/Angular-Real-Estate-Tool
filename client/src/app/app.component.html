@@ -20,11 +20,11 @@
 
   <div class="menu-item-container"
     *ngIf="auth.isAuthenticated | async; else showGuest">
-    <mat-icon matBadge="{{alert_number}}"
+    <!-- <mat-icon matBadge="{{alert_number}}"
       matBadgePosition="before"
       matBadgeColor="warn"
       (click)="test_onClickNotification()">{{notification}}</mat-icon>
-    <mat-icon class="profile">account_box</mat-icon>
+    <mat-icon class="profile">account_box</mat-icon> -->
 
     <mat-menu #appMenu="matMenu">
       <button (click)="auth.logout()"
