@@ -1,21 +1,31 @@
 <form [formGroup]="loginForm">
-  <div fxLayout="row" fxLayout.xs="">
+  <div fxLayout="row"
+    fxLayout.xs="">
     <div fxFlex>
       <mat-form-field class="fullWidth">
-        <input matInput placeholder="Email" formControlName="email">
+        <input matInput
+          placeholder="Email"
+          formControlName="email">
       </mat-form-field>
     </div>
   </div>
-  <div fxLayout="row" fxLayout.xs="">
+  <div fxLayout="row"
+    fxLayout.xs="">
     <div fxFlex>
       <mat-form-field>
-        <input matInput placeholder="Password" formControlName="password" type="password">
+        <input matInput
+          placeholder="Password"
+          formControlName="password"
+          type="password">
       </mat-form-field>
     </div>
   </div>
-  <div fxLayout="row" fxLayout.xs="">
+  <div fxLayout="row"
+    fxLayout.xs="">
     <div fxFlex>
-      <button (click)="login()" mat-raised-button color="primary"> Login </button>
+      <button (click)="login()"
+        mat-raised-button
+        color="primary"> Login </button>
     </div>
   </div>
 </form>

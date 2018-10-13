@@ -1,9 +1,19 @@
-<button mat-raised-button color="primary" (click)="openDialog()"> Add Investments </button>
+<div fxLayout="row"
+  fxLayoutAlign="end">
+  <button mat-raised-button
+    class="add-investment"
+    color="primary"
+    (click)="openDialog()"> Add Investments </button>
+</div>
 
-<li *ngFor="let investment of investmentsService.investments | async">
-  {{ investment.address }}
-  {{ investment.price }}
-  <button mat-raised-button color="primary" (click)="investmentsService.delete(investment.id)"> Delete Investment
-  </button>
-
-</li>
+<div fxLayout="row wrap"
+  fxLayoutGap="15px grid"
+  fxItemOffset="-15px"
+  fxLayout.xs="column">
+  <li fxFlex.xs="100%"
+    fxFlex.sm="50%"
+    fxFlex="33.33%"
+    *ngFor="let investment of investmentsService.investments | async">
+    <app-investment-card [investment]="investment"></app-investment-card>
+  </li>
+</div>

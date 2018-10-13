@@ -6,6 +6,7 @@ import {
 import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class InvestmentsService {
   private investments;
 
   constructor(
+    private dialog: MatDialog,
     private apollo: Apollo,
     private investmentsGQL: InvestmentsGQL,
     private addInvestmentGQL: AddInvestmentGQL,
@@ -33,13 +35,18 @@ export class InvestmentsService {
             address: form.get('address').value,
             price: Number.parseFloat(form.get('price').value),
             monthly_rent: Number.parseFloat(form.get('monthly_rent').value),
-            mortage_downpayment: Number.parseFloat(
-              form.get('mortage_downpayment').value
+            mortgage_downpayment: Number.parseFloat(
+              form.get('mortgage_downpayment').value
             ),
-            mortage_interest_rate: Number.parseFloat(
-              form.get('mortage_interest_rate').value
+            mortgage_amount: Number.parseFloat(
+              form.get('mortgage_amount').value
             ),
-            mortage_period: Number.parseFloat(form.get('mortage_period').value)
+            mortgage_interest_rate: Number.parseFloat(
+              form.get('mortgage_interest_rate').value
+            ),
+            mortgage_period: Number.parseFloat(
+              form.get('mortgage_period').value
+            )
           }
         },
         refetchQueries: [
@@ -49,7 +56,10 @@ export class InvestmentsService {
         ]
       })
       .subscribe(
-        res => {},
+        res => {
+          // Close dialog
+          this.dialog.closeAll();
+        },
         err => {
           console.log(err.graphQLErrors);
         }

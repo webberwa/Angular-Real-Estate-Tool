@@ -3,10 +3,10 @@ type Investment {
   address: String!
   price: Float
   monthly_rent: Float
-  mortage_downpayment: Float
-  mortage_amount: Float
-  mortage_interest_rate: Float
-  mortage_period: Float
+  mortgage_downpayment: Float
+  mortgage_amount: Float
+  mortgage_interest_rate: Float
+  mortgage_period: Float
 }
 
 type Provider {

@@ -17,6 +17,8 @@ import { SignupDialogComponent } from './authentication/signup-dialog/signup-dia
 import { HomeComponent } from './home/home.component';
 import { FormatDirective } from './format.directive';
 import { YearsPipe } from './years.pipe';
+import { InvestmentCardComponent } from './investments/investment-card/investment-card.component';
+import { ContainerComponent } from './site/container/container.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -47,7 +49,9 @@ const appRoutes: Routes = [
     SignupDialogComponent,
     HomeComponent,
     FormatDirective,
-    YearsPipe
+    YearsPipe,
+    InvestmentCardComponent,
+    ContainerComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

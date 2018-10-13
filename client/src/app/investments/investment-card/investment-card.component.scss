@@ -1,0 +1,51 @@
+.investment-card {
+  $border-color: rgb(189, 189, 189);
+  .mat-grid-tile {
+    &:nth-child(1) {
+      border-bottom: 1px solid $border-color;
+      border-right: 1px solid $border-color;
+    }
+    &:nth-child(2) {
+      border-bottom: 1px solid $border-color;
+    }
+    &:nth-child(3) {
+      border-right: 1px solid $border-color;
+    }
+    &:nth-child(4) {
+    }
+    .mat-figure {
+      justify-content: center;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+      padding-left: 0.5rem;
+      & > div {
+        display: flex;
+        width: 100%;
+      }
+      .card-subtitle {
+        font-weight: bold;
+      }
+      .card-details {
+        // font-size: 1.25rem;
+        margin-top: 0.15rem;
+        margin-bottom: 0.5rem;
+      }
+      .card-address {
+        text-align: center;
+      }
+    }
+  }
+  .mat-card-header,
+  .mat-card-content {
+    margin: -0.5rem;
+  }
+  .mat-card-header {
+    margin-bottom: 0.25rem;
+  }
+  .mat-card-subtitle {
+  }
+  .mat-card-actions {
+    padding-top: 0;
+  }
+}

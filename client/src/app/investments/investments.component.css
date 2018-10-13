@@ -1,0 +1,8 @@
+li {
+  list-style: none;
+}
+button.add-investment {
+  margin-top: 1rem;
+  text-align: right;
+  margin-bottom: 1rem;
+}

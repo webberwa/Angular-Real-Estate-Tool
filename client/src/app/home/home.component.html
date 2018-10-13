@@ -1,18 +1,43 @@
-<div *ngIf="localUser | async as user; else showGuest">
-  Logged In!
-  <p>
-    User ID: {{ user.id }}
-  </p>
-  <p>
-    Email: {{ user.email }}
-  </p>
-  <button (click)="authService.logout()" mat-raised-button color="primary"> Logout </button>
+<div fxLayout="row wrap"
+  fxLayoutGap="15px grid"
+  fxItemOffset="-15px"
+  fxLayout.xs="column">
+  <div fxFlex="50%"
+    fxFlexAlign="center"
+    fxFlex.sm="100%">
+    <h1>
+      Find Reputable Service Providers For Your Real Estate Project
+    </h1>
+    <h3> Including Loan Providers, Contractors, Property Managers and more!</h3>
+    <a (click)="authComp.openSignupDialog()"
+      mat-raised-button
+      color="accent">Sign Up Today</a>
+  </div>
+  <div fxFlex="50%">
+    <img src="https://loremflickr.com/640/480/houses,architecture/all">
+  </div>
 </div>
-
-<ng-template #showGuest>
-  <p>
-    You are a Guest
-  </p>
-  <button (click)="signup()" mat-raised-button color="primary"> Sign Up </button>
-  <button (click)="login()" mat-raised-button color="primary"> Log In </button>
-</ng-template>
+<div fxLayout="row wrap"
+  fxLayoutAlign="center center">
+  <div class="services-block"
+    fxFlex="33.33%"
+    fxFlex.sm="100%"
+    fxFlexAlign="center">
+    <h4> Investor Tracking Tool </h4>
+    <p> Access a free investor tracking tool so you can better manage your properties.</p>
+  </div>
+  <div class="services-block"
+    fxFlex="33.33%"
+    fxFlex.sm="100%"
+    fxFlexAlign="center">
+    <h4> Verified Businesses </h4>
+    <p> We verify users on the platform so you can be sure the businesses are legitimate. </p>
+  </div>
+  <div class="services-block"
+    fxFlex="33.33%"
+    fxFlex.sm="100%"
+    fxFlexAlign="center">
+    <h4> Trusted Reviews </h4>
+    <p> Browse through the hundreds of reviews given from verified users. </p>
+  </div>
+</div>

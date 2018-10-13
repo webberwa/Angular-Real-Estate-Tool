@@ -3,6 +3,11 @@ query investments {
     id
     address
     price
+    monthly_rent
+    mortgage_amount
+    mortgage_downpayment
+    mortgage_interest_rate
+    mortgage_period
   }
 }
 

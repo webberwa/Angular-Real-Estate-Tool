@@ -39,7 +39,11 @@ export interface Investment {
   id: string
   address: string
   price?: number | null
-  lease?: number | null
+  monthly_rent?: number | null
+  mortgage_amount?: number | null
+  mortgage_downpayment?: number | null
+  mortgage_interest_rate?: number | null
+  mortgage_period?: number | null
 }
 
 export interface User {
@@ -216,7 +220,11 @@ export interface ProviderWhereInput {
 export interface InvestmentCreateInput {
   address: string
   price?: number | null
-  lease?: number | null
+  monthly_rent?: number | null
+  mortgage_downpayment?: number | null
+  mortgage_amount?: number | null
+  mortgage_interest_rate?: number | null
+  mortgage_period?: number | null
 }
 
 export interface InvestmentWhereUniqueInput {
@@ -300,7 +308,19 @@ export namespace InvestmentResolvers {
     id?: IdResolver<string, any, Context>
     address?: AddressResolver<string, any, Context>
     price?: PriceResolver<number | null, any, Context>
-    lease?: LeaseResolver<number | null, any, Context>
+    monthly_rent?: MonthlyRentResolver<number | null, any, Context>
+    mortgage_amount?: MortgageAmountResolver<number | null, any, Context>
+    mortgage_downpayment?: MortgageDownpaymentResolver<
+      number | null,
+      any,
+      Context
+    >
+    mortgage_interest_rate?: MortgageInterestRateResolver<
+      number | null,
+      any,
+      Context
+    >
+    mortgage_period?: MortgagePeriodResolver<number | null, any, Context>
   }
 
   export type IdResolver<R = string, Parent = any, Context = any> = Resolver<
@@ -318,7 +338,27 @@ export namespace InvestmentResolvers {
     Parent = any,
     Context = any
   > = Resolver<R, Parent, Context>
-  export type LeaseResolver<
+  export type MonthlyRentResolver<
+    R = number | null,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context>
+  export type MortgageAmountResolver<
+    R = number | null,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context>
+  export type MortgageDownpaymentResolver<
+    R = number | null,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context>
+  export type MortgageInterestRateResolver<
+    R = number | null,
+    Parent = any,
+    Context = any
+  > = Resolver<R, Parent, Context>
+  export type MortgagePeriodResolver<
     R = number | null,
     Parent = any,
     Context = any
@@ -503,6 +543,11 @@ export namespace Investments {
     id: string
     address: string
     price?: number | null
+    monthly_rent?: number | null
+    mortgage_amount?: number | null
+    mortgage_downpayment?: number | null
+    mortgage_interest_rate?: number | null
+    mortgage_period?: number | null
   }
 }
 
@@ -676,6 +721,11 @@ export class InvestmentsGQL extends Apollo.Query<
         id
         address
         price
+        monthly_rent
+        mortgage_amount
+        mortgage_downpayment
+        mortgage_interest_rate
+        mortgage_period
       }
     }
   `
