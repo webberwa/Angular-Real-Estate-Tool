@@ -9,18 +9,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
-<<<<<<< HEAD
-import {
-  MatAutocompleteModule,
-  MatBadgeModule,
-  MatCardModule,
-=======
-import { MatCardModule } from '@angular/material/card';
 
 import {
+  MatCardModule,
   MatAutocompleteModule,
   MatBadgeModule,
->>>>>>> investments
   MatListModule,
   MatProgressSpinnerModule,
   MatSelectModule

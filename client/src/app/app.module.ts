@@ -1,10 +1,10 @@
+import { InvestmentsCreateDialogComponent } from './home/investments/investments-create-dialog/investments-create-dialog.component';
+import { InvestmentsComponent } from './home/investments/investments.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { InvestmentsComponent } from './investments/investments.component';
 import { ProvidersComponent } from './providers/providers.component';
-import { InvestmentsCreateDialogComponent } from './investments/investments-create-dialog/investments-create-dialog.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
@@ -17,25 +17,13 @@ import { SignupDialogComponent } from './authentication/signup-dialog/signup-dia
 import { HomeComponent } from './home/home.component';
 import { FormatDirective } from './format.directive';
 import { YearsPipe } from './years.pipe';
-import { InvestmentCardComponent } from './investments/investment-card/investment-card.component';
 import { ContainerComponent } from './site/container/container.component';
+import { InvestmentCardComponent } from './home/investments/investment-card/investment-card.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'investments', component: InvestmentsComponent },
   { path: 'providers', component: ProvidersComponent }
-  // { path: 'hero/:id', component: HeroDetailComponent },
-  // {
-  //   path: 'heroes',
-  //   component: HeroListComponent,
-  //   data: { title: 'Heroes List' }
-  // },
-  // {
-  //   path: '',
-  //   redirectTo: '/heroes',
-  //   pathMatch: 'full'
-  // },
-  // { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

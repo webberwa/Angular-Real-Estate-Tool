@@ -1,10 +1,10 @@
+import { AuthenticationService } from './../../authentication/authentication.service';
 import { Router } from '@angular/router';
 import { Observable } from 'apollo-client/util/Observable';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { InvestmentsCreateDialogComponent } from './investments-create-dialog/investments-create-dialog.component';
 import { InvestmentsService } from './investments.service';
-import { AuthenticationService } from '../authentication/authentication.service';
 @Component({
   selector: 'app-investments',
   templateUrl: './investments.component.html',

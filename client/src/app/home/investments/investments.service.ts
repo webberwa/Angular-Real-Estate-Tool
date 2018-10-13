@@ -1,12 +1,12 @@
 import {
-  InvestmentsGQL,
   AddInvestmentGQL,
   DeleteInvestmentGQL
-} from './../apollo-angular-services';
+} from './../../apollo-angular-services';
 import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
+import { InvestmentsGQL } from '../../apollo-angular-services';
 
 @Injectable({
   providedIn: 'root'
