@@ -1,12 +1,59 @@
 <mat-toolbar color="primary">
-  <a routerLink="/" routerLinkActive="active" mat-button>Home</a>
-  <a routerLink="/investments" routerLinkActive="active" mat-button>Investments</a>
-  <a routerLink="/providers" routerLinkActive="active" mat-button>Service Providers</a>
+  <a routerLink="/"
+    routerLinkActive="active"
+    mat-button>Home</a>
+
+  <a routerLink="/investments"
+    *ngIf="auth.isAuthenticated | async; else showInvestmentLogin"
+    routerLinkActive="active"
+    mat-button>Investments</a>
+  <ng-template #showInvestmentLogin>
+    <a (click)="authComp.openLoginDialog()"
+      mat-button>Investments</a>
+  </ng-template>
+
+  <a routerLink="/providers"
+    routerLinkActive="active"
+    mat-button>Service Providers</a>
 
   <span class="spacer"></span>
 
-  <mat-icon matBadge="{{alert_number}}" matBadgePosition="before" matBadgeColor="warn" (click)="test_onClickNotification()">{{notification}}</mat-icon>
-  <mat-icon class="profile">account_box</mat-icon>
+  <div class="menu-item-container"
+    *ngIf="auth.isAuthenticated | async; else showGuest">
+    <mat-icon matBadge="{{alert_number}}"
+      matBadgePosition="before"
+      matBadgeColor="warn"
+      (click)="test_onClickNotification()">{{notification}}</mat-icon>
+    <mat-icon class="profile">account_box</mat-icon>
 
+    <mat-menu #appMenu="matMenu">
+      <button (click)="auth.logout()"
+        mat-menu-item>
+        Log Out
+      </button>
+      <button mat-menu-item>Help</button>
+    </mat-menu>
+
+    <button mat-icon-button
+      class="user-button"
+      [matMenuTriggerFor]="appMenu">
+      <span *ngIf="auth.me | async as user"
+        class="nav-user">
+        {{ user.email }}
+      </span>
+    </button>
+  </div>
+
+  <ng-template #showGuest>
+    <a (click)="authComp.openLoginDialog()"
+      mat-button>Log In</a>
+    <a (click)="authComp.openSignupDialog()"
+      mat-raised-button>Sign Up</a>
+  </ng-template>
 </mat-toolbar>
-<router-outlet></router-outlet>
+
+<div fxLayoutAlign="center">
+  <app-container>
+    <router-outlet></router-outlet>
+  </app-container>
+</div>

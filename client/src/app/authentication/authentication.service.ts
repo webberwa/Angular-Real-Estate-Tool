@@ -1,3 +1,4 @@
+import { GET_LOCAL_USER } from './../local-queries';
 import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';
@@ -23,6 +24,9 @@ export class AuthenticationService {
   private _user: BehaviorSubject<any> = new BehaviorSubject(null);
   public readonly user$: Observable<any> = this._user.asObservable();
 
+  public me;
+  public isAuthenticated;
+
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -32,22 +36,24 @@ export class AuthenticationService {
     private meGQL: MeGQL,
     private apollo: Apollo
   ) {
-    // this.meGQL.watch().valueChanges.subscribe(res => {
-    //   console.log(res);
-    //   this._user.next(res.data.me);
-    // });
-    // // Our subscription
-    // this.user$.subscribe();
-  }
-
-  me() {
-    // return this.user;
-    return this.meGQL.watch().valueChanges.pipe(
-      map(({ data }) => {
-        console.log(data);
-        return data.me;
+    this.isAuthenticated = this.apollo
+      .watchQuery({
+        query: GET_LOCAL_USER
       })
-    );
+      .valueChanges.pipe(
+        map(({ data }: { data: any }) => {
+          return data.user != null ? true : false;
+        })
+      );
+    this.me = this.apollo
+      .watchQuery({
+        query: GET_LOCAL_USER
+      })
+      .valueChanges.pipe(
+        map(({ data }: { data: any }) => {
+          return data.user;
+        })
+      );
   }
 
   logout() {

@@ -1,0 +1,78 @@
+<form [formGroup]="investmentForm">
+  <div fxLayout="row"
+    fxLayout.xs="column">
+    <div fxFlex>
+      <mat-form-field class="fullWidth">
+        <input #googleAddress
+          matInput
+          placeholder="Address"
+          formControlName="address">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row"
+    fxLayout.xs="column">
+    <div fxFlex>
+      <mat-form-field #priceFieldRef>
+        <input matInput
+          [value]="investmentForm.get('price').value | currency: 'USD'"
+          placeholder="Purchase Price"
+          formControlName="price">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field>
+        <input matInput
+          [value]="investmentForm.get('monthly_rent').value | currency: 'USD'"
+          placeholder="Monthly Rent"
+          formControlName="monthly_rent">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row"
+    fxLayout.xs="column">
+    <div fxFlex>
+      <mat-form-field>
+        <input matInput
+          [value]="investmentForm.get('mortgage_downpayment').value | currency: 'USD'"
+          placeholder="Mortgage Downpayment"
+          formControlName="mortgage_downpayment">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field>
+        <input matInput
+          [value]="investmentForm.get('mortgage_amount').value | currency: 'USD'"
+          placeholder="Mortgage Amount"
+          formControlName="mortgage_amount">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row"
+    fxLayout.xs="column">
+    <div fxFlex>
+      <mat-form-field>
+        <input matInput
+          [value]="investmentForm.get('mortgage_interest_rate').value | percent: '1.1-2'"
+          placeholder="Mortgage Interest Rate"
+          formControlName="mortgage_interest_rate">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field>
+        <input matInput
+          [value]="investmentForm.get('mortgage_period').value | years"
+          placeholder="Mortgage Period"
+          formControlName="mortgage_period">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row"
+    fxLayout.xs="column">
+    <div fxFlex>
+      <button (click)="addInvestment()"
+        mat-raised-button
+        color="primary"> Add Investments </button>
+    </div>
+  </div>
+</form>

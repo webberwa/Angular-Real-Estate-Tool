@@ -192,8 +192,16 @@ export type InvestmentOrderByInput =
   | "address_DESC"
   | "price_ASC"
   | "price_DESC"
-  | "lease_ASC"
-  | "lease_DESC"
+  | "monthly_rent_ASC"
+  | "monthly_rent_DESC"
+  | "mortgage_downpayment_ASC"
+  | "mortgage_downpayment_DESC"
+  | "mortgage_amount_ASC"
+  | "mortgage_amount_DESC"
+  | "mortgage_interest_rate_ASC"
+  | "mortgage_interest_rate_DESC"
+  | "mortgage_period_ASC"
+  | "mortgage_period_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -301,14 +309,46 @@ export interface InvestmentWhereInput {
   price_lte?: Float;
   price_gt?: Float;
   price_gte?: Float;
-  lease?: Float;
-  lease_not?: Float;
-  lease_in?: Float[] | Float;
-  lease_not_in?: Float[] | Float;
-  lease_lt?: Float;
-  lease_lte?: Float;
-  lease_gt?: Float;
-  lease_gte?: Float;
+  monthly_rent?: Float;
+  monthly_rent_not?: Float;
+  monthly_rent_in?: Float[] | Float;
+  monthly_rent_not_in?: Float[] | Float;
+  monthly_rent_lt?: Float;
+  monthly_rent_lte?: Float;
+  monthly_rent_gt?: Float;
+  monthly_rent_gte?: Float;
+  mortgage_downpayment?: Float;
+  mortgage_downpayment_not?: Float;
+  mortgage_downpayment_in?: Float[] | Float;
+  mortgage_downpayment_not_in?: Float[] | Float;
+  mortgage_downpayment_lt?: Float;
+  mortgage_downpayment_lte?: Float;
+  mortgage_downpayment_gt?: Float;
+  mortgage_downpayment_gte?: Float;
+  mortgage_amount?: Float;
+  mortgage_amount_not?: Float;
+  mortgage_amount_in?: Float[] | Float;
+  mortgage_amount_not_in?: Float[] | Float;
+  mortgage_amount_lt?: Float;
+  mortgage_amount_lte?: Float;
+  mortgage_amount_gt?: Float;
+  mortgage_amount_gte?: Float;
+  mortgage_interest_rate?: Float;
+  mortgage_interest_rate_not?: Float;
+  mortgage_interest_rate_in?: Float[] | Float;
+  mortgage_interest_rate_not_in?: Float[] | Float;
+  mortgage_interest_rate_lt?: Float;
+  mortgage_interest_rate_lte?: Float;
+  mortgage_interest_rate_gt?: Float;
+  mortgage_interest_rate_gte?: Float;
+  mortgage_period?: Float;
+  mortgage_period_not?: Float;
+  mortgage_period_in?: Float[] | Float;
+  mortgage_period_not_in?: Float[] | Float;
+  mortgage_period_lt?: Float;
+  mortgage_period_lte?: Float;
+  mortgage_period_gt?: Float;
+  mortgage_period_gte?: Float;
   AND?: InvestmentWhereInput[] | InvestmentWhereInput;
   OR?: InvestmentWhereInput[] | InvestmentWhereInput;
   NOT?: InvestmentWhereInput[] | InvestmentWhereInput;
@@ -515,13 +555,21 @@ export interface UserWhereInput {
 export interface InvestmentCreateInput {
   address: String;
   price?: Float;
-  lease?: Float;
+  monthly_rent?: Float;
+  mortgage_downpayment?: Float;
+  mortgage_amount?: Float;
+  mortgage_interest_rate?: Float;
+  mortgage_period?: Float;
 }
 
 export interface InvestmentUpdateInput {
   address?: String;
   price?: Float;
-  lease?: Float;
+  monthly_rent?: Float;
+  mortgage_downpayment?: Float;
+  mortgage_amount?: Float;
+  mortgage_interest_rate?: Float;
+  mortgage_period?: Float;
 }
 
 export interface UserCreateInput {
@@ -793,7 +841,11 @@ export interface InvestmentPreviousValuesNode {
   id: ID_Output;
   address: String;
   price?: Float;
-  lease?: Float;
+  monthly_rent?: Float;
+  mortgage_downpayment?: Float;
+  mortgage_amount?: Float;
+  mortgage_interest_rate?: Float;
+  mortgage_period?: Float;
 }
 
 export interface InvestmentPreviousValues
@@ -802,7 +854,11 @@ export interface InvestmentPreviousValues
   id: () => Promise<ID_Output>;
   address: () => Promise<String>;
   price: () => Promise<Float>;
-  lease: () => Promise<Float>;
+  monthly_rent: () => Promise<Float>;
+  mortgage_downpayment: () => Promise<Float>;
+  mortgage_amount: () => Promise<Float>;
+  mortgage_interest_rate: () => Promise<Float>;
+  mortgage_period: () => Promise<Float>;
 }
 
 export interface InvestmentPreviousValuesSubscription
@@ -811,7 +867,11 @@ export interface InvestmentPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   address: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
-  lease: () => Promise<AsyncIterator<Float>>;
+  monthly_rent: () => Promise<AsyncIterator<Float>>;
+  mortgage_downpayment: () => Promise<AsyncIterator<Float>>;
+  mortgage_amount: () => Promise<AsyncIterator<Float>>;
+  mortgage_interest_rate: () => Promise<AsyncIterator<Float>>;
+  mortgage_period: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface InvestmentSubscriptionPayloadNode {
@@ -841,14 +901,22 @@ export interface InvestmentNode {
   id: ID_Output;
   address: String;
   price?: Float;
-  lease?: Float;
+  monthly_rent?: Float;
+  mortgage_downpayment?: Float;
+  mortgage_amount?: Float;
+  mortgage_interest_rate?: Float;
+  mortgage_period?: Float;
 }
 
 export interface Investment extends Promise<InvestmentNode>, Fragmentable {
   id: () => Promise<ID_Output>;
   address: () => Promise<String>;
   price: () => Promise<Float>;
-  lease: () => Promise<Float>;
+  monthly_rent: () => Promise<Float>;
+  mortgage_downpayment: () => Promise<Float>;
+  mortgage_amount: () => Promise<Float>;
+  mortgage_interest_rate: () => Promise<Float>;
+  mortgage_period: () => Promise<Float>;
 }
 
 export interface InvestmentSubscription
@@ -857,7 +925,11 @@ export interface InvestmentSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   address: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
-  lease: () => Promise<AsyncIterator<Float>>;
+  monthly_rent: () => Promise<AsyncIterator<Float>>;
+  mortgage_downpayment: () => Promise<AsyncIterator<Float>>;
+  mortgage_amount: () => Promise<AsyncIterator<Float>>;
+  mortgage_interest_rate: () => Promise<AsyncIterator<Float>>;
+  mortgage_period: () => Promise<AsyncIterator<Float>>;
 }
 
 export interface ProviderPreviousValuesNode {

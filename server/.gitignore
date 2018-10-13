@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/graphql/prisma/__generated__
 
 
 # production

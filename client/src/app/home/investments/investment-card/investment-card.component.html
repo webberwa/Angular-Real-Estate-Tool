@@ -1,0 +1,63 @@
+<mat-card class="investment-card">
+  <mat-card-header>
+    <mat-card-title>
+      {{ investment.address }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ investment.price | currency: 'USD'}}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image
+    src="https://loremflickr.com/640/480/houses,architecture/all?random-{{investment.id}}">
+
+  <mat-card-content>
+    <mat-grid-list cols="2"
+      rowHeight="60px">
+      <mat-grid-tile>
+        <div class="card-subtitle">
+          Monthly Rent
+        </div>
+        <div class="card-details">
+          {{ investment.monthly_rent | currency: 'USD'}}
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="card-subtitle">
+          Mortgage
+        </div>
+        <div class="card-details">
+          {{ investment.mortgage_amount | currency: 'USD' }}
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="card-subtitle">
+          Downpayment
+        </div>
+        <div class="card-details">
+          {{ investment.mortgage_downpayment | currency: 'USD' }}
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="card-subtitle">
+          Interest Rate
+        </div>
+        <div class="card-details">
+          {{ investment.mortgage_interest_rate | percent: '1.1-2' }}
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <!-- {{ investment.mortgage_period | years}} -->
+  </mat-card-content>
+
+  <mat-card-actions>
+    <div fxLayout="row"
+      fxLayoutAlign="end">
+      <button mat-icon-button
+        class=""
+        color="accent"
+        (click)="investmentsService.delete(investment.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>

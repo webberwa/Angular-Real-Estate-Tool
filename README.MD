@@ -5,6 +5,9 @@
 - `yarn && cd client && yarn && cd ../server && yarn`
 - `yarn dev` at project root
 
+http://zavoloklom.github.io/material-design-iconic-font/icons.html
+https://app.prisma.io/webber-wang-dc19dd/services/prisma-us1/wbit/dev/databrowser/Investment
+
 # ORM Layer
 
 We're using GraphQL & this BaaS Prisma which acts as our ORM / model layer. We define the `datamodel.prisma` & Prisma will auto generate our models for us. It will also create GraphQL mutations that we can use in our resolvers.

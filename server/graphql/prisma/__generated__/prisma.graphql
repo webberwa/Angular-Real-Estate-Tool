@@ -18,7 +18,11 @@ type Investment {
   id: ID!
   address: String!
   price: Float
-  lease: Float
+  monthly_rent: Float
+  mortgage_downpayment: Float
+  mortgage_amount: Float
+  mortgage_interest_rate: Float
+  mortgage_period: Float
 }
 
 type InvestmentConnection {
@@ -30,7 +34,11 @@ type InvestmentConnection {
 input InvestmentCreateInput {
   address: String!
   price: Float
-  lease: Float
+  monthly_rent: Float
+  mortgage_downpayment: Float
+  mortgage_amount: Float
+  mortgage_interest_rate: Float
+  mortgage_period: Float
 }
 
 type InvestmentEdge {
@@ -45,8 +53,16 @@ enum InvestmentOrderByInput {
   address_DESC
   price_ASC
   price_DESC
-  lease_ASC
-  lease_DESC
+  monthly_rent_ASC
+  monthly_rent_DESC
+  mortgage_downpayment_ASC
+  mortgage_downpayment_DESC
+  mortgage_amount_ASC
+  mortgage_amount_DESC
+  mortgage_interest_rate_ASC
+  mortgage_interest_rate_DESC
+  mortgage_period_ASC
+  mortgage_period_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -57,7 +73,11 @@ type InvestmentPreviousValues {
   id: ID!
   address: String!
   price: Float
-  lease: Float
+  monthly_rent: Float
+  mortgage_downpayment: Float
+  mortgage_amount: Float
+  mortgage_interest_rate: Float
+  mortgage_period: Float
 }
 
 type InvestmentSubscriptionPayload {
@@ -81,7 +101,11 @@ input InvestmentSubscriptionWhereInput {
 input InvestmentUpdateInput {
   address: String
   price: Float
-  lease: Float
+  monthly_rent: Float
+  mortgage_downpayment: Float
+  mortgage_amount: Float
+  mortgage_interest_rate: Float
+  mortgage_period: Float
 }
 
 input InvestmentWhereInput {
@@ -121,14 +145,46 @@ input InvestmentWhereInput {
   price_lte: Float
   price_gt: Float
   price_gte: Float
-  lease: Float
-  lease_not: Float
-  lease_in: [Float!]
-  lease_not_in: [Float!]
-  lease_lt: Float
-  lease_lte: Float
-  lease_gt: Float
-  lease_gte: Float
+  monthly_rent: Float
+  monthly_rent_not: Float
+  monthly_rent_in: [Float!]
+  monthly_rent_not_in: [Float!]
+  monthly_rent_lt: Float
+  monthly_rent_lte: Float
+  monthly_rent_gt: Float
+  monthly_rent_gte: Float
+  mortgage_downpayment: Float
+  mortgage_downpayment_not: Float
+  mortgage_downpayment_in: [Float!]
+  mortgage_downpayment_not_in: [Float!]
+  mortgage_downpayment_lt: Float
+  mortgage_downpayment_lte: Float
+  mortgage_downpayment_gt: Float
+  mortgage_downpayment_gte: Float
+  mortgage_amount: Float
+  mortgage_amount_not: Float
+  mortgage_amount_in: [Float!]
+  mortgage_amount_not_in: [Float!]
+  mortgage_amount_lt: Float
+  mortgage_amount_lte: Float
+  mortgage_amount_gt: Float
+  mortgage_amount_gte: Float
+  mortgage_interest_rate: Float
+  mortgage_interest_rate_not: Float
+  mortgage_interest_rate_in: [Float!]
+  mortgage_interest_rate_not_in: [Float!]
+  mortgage_interest_rate_lt: Float
+  mortgage_interest_rate_lte: Float
+  mortgage_interest_rate_gt: Float
+  mortgage_interest_rate_gte: Float
+  mortgage_period: Float
+  mortgage_period_not: Float
+  mortgage_period_in: [Float!]
+  mortgage_period_not_in: [Float!]
+  mortgage_period_lt: Float
+  mortgage_period_lte: Float
+  mortgage_period_gt: Float
+  mortgage_period_gte: Float
   AND: [InvestmentWhereInput!]
   OR: [InvestmentWhereInput!]
   NOT: [InvestmentWhereInput!]

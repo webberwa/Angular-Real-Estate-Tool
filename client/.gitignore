@@ -4,8 +4,9 @@
 /dist
 /tmp
 /out-tsc
+src/app/apollo-angular-services.ts
 
-# dependencies
+# dependencie
 /node_modules
 
 # IDEs and editors

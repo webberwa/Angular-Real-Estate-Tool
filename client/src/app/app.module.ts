@@ -15,6 +15,10 @@ import { AuthenticationComponent } from './authentication/authentication.compone
 import { LoginDialogComponent } from './authentication/login-dialog/login-dialog.component';
 import { SignupDialogComponent } from './authentication/signup-dialog/signup-dialog.component';
 import { HomeComponent } from './home/home.component';
+import { FormatDirective } from './format.directive';
+import { YearsPipe } from './years.pipe';
+import { InvestmentCardComponent } from './investments/investment-card/investment-card.component';
+import { ContainerComponent } from './site/container/container.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -43,7 +47,11 @@ const appRoutes: Routes = [
     AuthenticationComponent,
     LoginDialogComponent,
     SignupDialogComponent,
-    HomeComponent
+    HomeComponent,
+    FormatDirective,
+    YearsPipe,
+    InvestmentCardComponent,
+    ContainerComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
