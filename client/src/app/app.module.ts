@@ -19,11 +19,13 @@ import { FormatDirective } from './format.directive';
 import { YearsPipe } from './years.pipe';
 import { ContainerComponent } from './site/container/container.component';
 import { InvestmentCardComponent } from './investments/investment-card/investment-card.component';
+import { ReviewComponent } from './review/review.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'investments', component: InvestmentsComponent },
-  { path: 'providers', component: ProvidersComponent }
+  { path: 'providers', component: ProvidersComponent },
+  { path: 'review', component: ReviewComponent }
 ];
 
 @NgModule({
@@ -39,7 +41,8 @@ const appRoutes: Routes = [
     FormatDirective,
     YearsPipe,
     InvestmentCardComponent,
-    ContainerComponent
+    ContainerComponent,
+    ReviewComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

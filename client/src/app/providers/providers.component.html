@@ -26,8 +26,8 @@
       <mat-divider></mat-divider>
       <mat-list-item *ngFor="let sp of filterServiceProvider(); let i = index" (mouseenter)="hoverServiceProvider(sp)" (mouseleave)="hoverServiceProvider(null)">
         <mat-icon mat-list-icon>account_circle</mat-icon>
-        <h3 mat-line class="sp-name">
-          {{sp.name}}&nbsp;&nbsp;&nbsp;-&nbsp;<i class="sp-type">{{sp.type}}</i>
+        <h3 mat-line class="sp-name"><a href="../review" style="text-decoration: none;">{{sp.name}}&nbsp;&nbsp;&nbsp;-&nbsp;</a>
+          <i class="sp-type">{{sp.type}}</i>
         </h3>
         <p class="contact" mat-line>{{sp.phone_number}}</p>
         <p class="contact" mat-line>{{sp.email}}</p>
