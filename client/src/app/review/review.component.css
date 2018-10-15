@@ -1,151 +1,170 @@
 #container{
-    margin: 0;
-    padding: 0;
-    background-size: auto, cover;
-    display: inline;
+  margin: 0;
+  padding: 0;
+  background-size: auto, cover;
+  display: inline;
 }
 
 #content {
-    margin: 0;
-    padding: 0;
-    margin-left: 430px;
-    width: calc(100% - 35%);
-    font-size: 1.25em;
-    width: 70%;
-    
+  margin: 0;
+  padding: 0;
+  margin-left: 400px;
+  width: calc(100% - 35%);
+  font-size: 1.25em;
 }
 
 #side{
-    height: 100%;
-    width: 40%;
-    background-repeat: repeat-y;
-    display: inline;
+  height: 100%;
+  width: 40%;
+  background-repeat: repeat-y;
+  display: inline;
 }
 nav {
-    background: #2D2E2E;
-    height: calc(100%);
-    width: 400px;
-    position: absolute;
-    
-    
+  background: #2D2E2E;
+  height: calc(100%);
+  width: 360px;
+  position: absolute;
 }
+
 nav #bottom{
-    bottom: 7%;
-    position: absolute;
-    padding-left: 10%;
-    
+  bottom: 7%;
+  position: absolute;
+  padding-left: 10%;
+
 }
 nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 nav ul li {
-    font: 770;
-    color: #fff;
-    text-align: right;
-    padding-right: 40px;
-    padding-bottom: 8px;
-    
-
+  font: 770;
+  color: #fff;
+  text-align: right;
+  padding: 4px 20px;
 }
 
 nav ul li a {
-    color: #fff;
-    padding-left: 10px;
-    text-decoration: none;
-    
+  color: #fff;
+  padding-left: 10px;
+  text-decoration: none;
+
 }
 nav #bottom a{
-    padding-left: 25px;
-    color: #fff;
-    text-decoration: none;
+  padding-left: 25px;
+  color: #fff;
+  text-decoration: none;
 }
 #intro{
-    
-    width:100%;
-    
+
+  width:100%;
+
 }
 #intro h3{
-    font-size: 350;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 50;
-    
+  font-size: 350;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 50;
+
 }
 
 
 
 #comment{
-    border: 3px;
-    font-family: "Source Sans Pro", Helvetica, sans-serif;
-    border: 2px solid;
-    width: 100%;
-    overflow: hidden;
-    padding-left: 40px;
-    
+  border: 3px;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  border: 2px solid;
+  overflow: hidden;
+  padding-left: 40px;
+
 }
 #comment #column1{
-    width: 15%;
-    float: left;
+  width: 15%;
+  float: left;
 }
 #comment #column2{
-    width: 25%;
-    float: left;
-    
+  width: 25%;
+  float: left;
+
 }
 
 #comment #column2 ul li{
-    
-        list-style: none;
-    
+
+  list-style: none;
+
 }
 #comment #column3{
-    padding-top: 8px;
-    width: calc(100%-40%);
-    
+  padding-top: 8px;
+  width: calc(100%-40%);
+
 }
 
 
 input[type=text], select {
-    width: 100%;
-    height: 50px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 input[type=text2]{
-    width: 100%;
-    height: 200px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    text-align: start;
+  width: 100%;
+  height: 200px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: start;
 }
 input[type=submit] {
-    width: 100%;
-    background-color: rgb(76, 175, 137);
-    color: white;
-    padding: 15px 20px;
-    margin: 8px 0;
-    border-radius: 4px;
-    cursor: pointer;
+  width: 100%;
+  background-color: rgb(76, 175, 137);
+  color: white;
+  padding: 15px 20px;
+  margin: 8px 0;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 input[type=submit]:hover {
-    background-color: #45a08c;
+  background-color: #45a08c;
 }
 
 #footer {
-    border-radius: 10px;
-    background-color: #f2f2f2;
-    padding: 20px;
-    border: solid;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border: solid;
+}
+
+bar-rating {
+  display: inline-block;
+}
+
+bar-rating /deep/ .br {
+  margin: 0;
+}
+
+bar-rating /deep/ .br .br-unit {
+  line-height: 18px;
+}
+
+.set_review {
+  margin-left: 10px;
+}
+
+.set_review /deep/ .br .br-unit {
+  line-height: 30px;
+  font-size: 30px;
+  margin-right: 10px;
+}
+
+.left-nav {
+  position: fixed;
 }

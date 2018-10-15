@@ -13,7 +13,10 @@ span.spacer {
 }
 
 mat-toolbar {
+  position: fixed;
   height: 54px;
+  z-index: 999;
+
   mat-icon {
     font-size: 30px;
     line-height: 24px;

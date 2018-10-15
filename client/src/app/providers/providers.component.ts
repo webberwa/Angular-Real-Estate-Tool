@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {AddProviderGQL, ProvidersGQL} from "../apollo-angular-services";
+import {ProvidersGQL} from "../apollo-angular-services";
 import {Apollo} from "apollo-angular";
-import {isNullOrUndefined} from "util";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-providers',
@@ -33,7 +33,8 @@ export class ProvidersComponent implements OnInit {
   search_text = "";
   search_type = "All";
 
-  constructor(private ref: ChangeDetectorRef,
+  constructor(private router: Router,
+              private ref: ChangeDetectorRef,
               private apollo: Apollo,
               private providerGQL: ProvidersGQL) { }
 
@@ -92,5 +93,9 @@ export class ProvidersComponent implements OnInit {
         type: search_type
       }
     };
+  }
+
+  onClickProvider(sp) {
+    this.router.navigateByUrl('/review/'+sp.id);
   }
 }

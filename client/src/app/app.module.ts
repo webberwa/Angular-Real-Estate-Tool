@@ -25,7 +25,7 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'investments', component: InvestmentsComponent },
   { path: 'providers', component: ProvidersComponent },
-  { path: 'review', component: ReviewComponent }
+  { path: 'review/:id', component: ReviewComponent }
 ];
 
 @NgModule({

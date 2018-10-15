@@ -175,7 +175,7 @@ mat-card.right-card bar-rating {
 }
 
 mat-card.right-card bar-rating /deep/.br{
-  margin: 0px;
+  margin: 3px 0px 0px 0px;
   position: absolute;
   right: 15px;
   top: 5px;

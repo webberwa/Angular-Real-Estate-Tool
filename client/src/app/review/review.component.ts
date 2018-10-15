@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {Apollo} from "apollo-angular";
+import {ProvidersGQL} from "../apollo-angular-services";
 
 @Component({
   selector: 'app-review',
@@ -6,10 +9,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./review.component.css']
 })
 export class ReviewComponent implements OnInit {
+  provider;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private route:  ActivatedRoute,
+              private ref: ChangeDetectorRef,
+              private apollo: Apollo,
+              private providerGQL: ProvidersGQL) {
+    route.paramMap.subscribe((res:any) => {
+      this.getProviderInformation(res.params.id);
+    });
   }
 
+  ngOnInit() { }
+
+  getProviderInformation (id: string) {
+    const variable = {
+      where: {
+        id: id
+      }
+    };
+
+    this.apollo.watchQuery({
+      query: this.providerGQL.document,
+      variables: variable
+    }).valueChanges.subscribe((res: any) => {
+        console.log(res);
+
+        this.provider = res.data.providers[0];
+        this.ref.detectChanges();
+      });
+  }
 }
