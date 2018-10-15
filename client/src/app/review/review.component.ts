@@ -10,6 +10,7 @@ import {ProvidersGQL} from "../apollo-angular-services";
 })
 export class ReviewComponent implements OnInit {
   provider;
+  rate = 5;
 
   constructor(private route:  ActivatedRoute,
               private ref: ChangeDetectorRef,

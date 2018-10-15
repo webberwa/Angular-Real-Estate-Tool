@@ -86,7 +86,7 @@
           <input type="text2" id="comments" name="comments" placeholder="Your comment">
 
           <label for="country">Rating</label>
-          <bar-rating class="set_review" [max]="5"></bar-rating>
+          <bar-rating class="set_review" [(rate)]="rate" [max]="5"></bar-rating> <span>({{rate}} / 5)</span>
 
           <input type="submit" value="Submit">
         </form>

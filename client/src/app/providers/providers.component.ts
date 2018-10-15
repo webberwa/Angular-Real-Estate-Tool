@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-providers',
   templateUrl: './providers.component.html',
-  styleUrls: ['./providers.component.css']
+  styleUrls: ['./providers.component.scss']
 })
 export class ProvidersComponent implements OnInit {
   service_provider_type_list: any[] = [
