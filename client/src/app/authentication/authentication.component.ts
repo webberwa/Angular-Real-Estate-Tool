@@ -2,6 +2,7 @@ import { MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
+import { ResetPasswordDialogComponent } from './reset-password-dialog/reset-password-dialog.component';
 
 @Component({
   selector: 'app-authentication',

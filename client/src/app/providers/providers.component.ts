@@ -1,11 +1,12 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {AddProviderGQL, ProvidersGQL} from "../apollo-angular-services";
+import {ProvidersGQL} from "../apollo-angular-services";
 import {Apollo} from "apollo-angular";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-providers',
   templateUrl: './providers.component.html',
-  styleUrls: ['./providers.component.css']
+  styleUrls: ['./providers.component.scss']
 })
 export class ProvidersComponent implements OnInit {
   service_provider_type_list: any[] = [
@@ -14,23 +15,16 @@ export class ProvidersComponent implements OnInit {
       value: "All"
     },
     {
-      label: "Investors",
-      value: "Investor"
+      label: "Property Manager",
+      value: "Property Manager"
     },
     {
-      label: "Contractors",
-      value: "Contractor"
-    },
-    {
-      label: "Agents",
-      value: "Agent"
-    },    {
-      label: "Properties",
-      value: "Property"
+      label: "Real Estate Agent",
+      value: "Real Estate Agent"
     }
   ];
 
-  service_provider_list=null;
+  service_provider_list = null;
 
   service_provider_type = "All";
 
@@ -39,7 +33,8 @@ export class ProvidersComponent implements OnInit {
   search_text = "";
   search_type = "All";
 
-  constructor(private ref: ChangeDetectorRef,
+  constructor(private router: Router,
+              private ref: ChangeDetectorRef,
               private apollo: Apollo,
               private providerGQL: ProvidersGQL) { }
 
@@ -98,5 +93,9 @@ export class ProvidersComponent implements OnInit {
         type: search_type
       }
     };
+  }
+
+  onClickProvider(sp) {
+    this.router.navigateByUrl('/review/'+sp.id);
   }
 }

@@ -30,3 +30,18 @@ mutation loginUser($email: String!, $password: String!) {
     }
   }
 }
+
+mutation updateUser($data: UserUpdateInput!, $where: UserWhereUniqueInput!) {
+  updateUser(data: $data, where: $where) {
+    id
+    email
+  }
+}
+
+mutation requestResetPassword($email: String!) {
+  requestResetPassword(email: $email)
+}
+
+mutation resetPassword($password: String!, $token: String!) {
+  resetPassword(password: $password, token: $token)
+}

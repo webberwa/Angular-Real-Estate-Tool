@@ -26,4 +26,5 @@ type User {
   id: ID! @unique
   email: String! @unique
   password: String!
+  reset_token: String @unique
 }

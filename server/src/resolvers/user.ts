@@ -1,14 +1,18 @@
+import { randomBytes } from 'crypto'
+import * as crypto from 'crypto'
+
 const { PubSub } = require('apollo-server')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const pubsub = new PubSub()
 const USER_STATE_CHANGED = 'USER_STATE_CHANGED'
 
 export const authenticateUser = async ({ req, prisma }) => {
   const token = req.get('Authorization')
-
-  console.log(token)
 
   if (!token) {
     return null
@@ -34,9 +38,8 @@ export const user = {
       const { user } = ctx
       return { id: user.id, email: user.email }
     },
-    async user(root, args, ctx) {
-      console.log(ctx.user)
-      console.log('user')
+    user(root, args, ctx) {
+      console.log('hi')
     }
   },
   Mutation: {
@@ -68,6 +71,78 @@ export const user = {
         token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
         user
       }
+    },
+    async requestResetPassword(root, { email }, ctx) {
+      /**
+       * 1. Find user
+       */
+      const user = await ctx.prisma.user({
+        email
+      })
+      if (!user) {
+        return false
+      }
+      console.log(user)
+
+      /**
+       * 2. Create token
+       */
+      const token = crypto.randomBytes(20).toString('hex')
+
+      /**
+       * 3. Update user's token in DB
+       */
+      await ctx.prisma.updateUser({
+        where: {
+          email
+        },
+        data: {
+          reset_token: token
+        }
+      })
+
+      /**
+       * 4. Send email
+       */
+      const msg = {
+        to: email,
+        from: 'test@example.com',
+        subject: 'WBIT Password Reset',
+        text: 'Reset your password using the following URL',
+        html: `<a href="http://localhost:4200/reset-password?token=${token}">Reset Password</a>`
+      }
+
+      sgMail.send(msg)
+      return true
+    },
+    async resetPassword(root, { token, password }, ctx) {
+      /**
+       * 1. Check if token matches a user
+       */
+      const user = await ctx.prisma.user({
+        reset_token: token
+      })
+
+      if (!user) {
+        return false
+      }
+
+      /**
+       * 2. Update password
+       */
+      const new_password = await bcrypt.hash(password, 10)
+
+      await ctx.prisma.updateUser({
+        where: {
+          id: user.id
+        },
+        data: {
+          reset_token: '',
+          password: new_password
+        }
+      })
+
+      return true
     }
   }
 }

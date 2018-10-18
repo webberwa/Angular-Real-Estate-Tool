@@ -23,6 +23,15 @@
   <div fxLayout="row"
     fxLayout.xs="">
     <div fxFlex>
+      <p>
+        <a href="#"
+          (click)="openResetPasswordDialog($event)"> Forgot password? </a>
+      </p>
+    </div>
+  </div>
+  <div fxLayout="row"
+    fxLayout.xs="">
+    <div fxFlex>
       <button (click)="login()"
         mat-raised-button
         color="primary"> Login </button>

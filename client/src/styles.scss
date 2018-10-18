@@ -30,3 +30,22 @@ body,
 html {
   font-family: mat-font-family($custom-typography);
 }
+
+* {
+  &::-webkit-scrollbar-track
+  {
+    background-color: #f4f4f4;
+  }
+
+  &::-webkit-scrollbar
+  {
+    width: 8px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb
+  {
+    background-color: #3f51b594;
+    border-radius: 50px;
+  }
+}

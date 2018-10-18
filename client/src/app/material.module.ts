@@ -16,7 +16,8 @@ import {
   MatBadgeModule,
   MatListModule,
   MatProgressSpinnerModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { BarRatingModule } from 'ngx-bar-rating';
@@ -42,7 +43,8 @@ import { AgmCoreModule } from '@agm/core';
     MatSelectModule,
     AgmCoreModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   declarations: [],
   exports: [
@@ -65,7 +67,8 @@ import { AgmCoreModule } from '@agm/core';
     MatSelectModule,
     AgmCoreModule,
     MatCardModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule {

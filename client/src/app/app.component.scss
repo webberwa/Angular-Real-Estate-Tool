@@ -13,7 +13,10 @@ span.spacer {
 }
 
 mat-toolbar {
+  position: fixed;
   height: 54px;
+  z-index: 999;
+
   mat-icon {
     font-size: 30px;
     line-height: 24px;
@@ -31,4 +34,20 @@ mat-toolbar {
 
 .user-button {
   width: auto;
+}
+
+* {
+  ::-webkit-scrollbar-track {
+    background-color: #f4f4f4;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    background-color: #F5F5F5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #9b9999;
+    border-radius: 50px;
+  }
 }

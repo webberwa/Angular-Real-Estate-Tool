@@ -8,6 +8,8 @@ import { ApolloLink, concat } from 'apollo-link';
 import { Apollo } from 'apollo-angular';
 import { MeGQL } from './apollo-angular-services';
 import { AuthenticationService } from './authentication/authentication.service';
+import { SET_LOCAL_USER } from './local-queries';
+import { delay } from 'rxjs/operators';
 
 const createApollo = (httpLink: HttpLink) => {
   const linkCache = new InMemoryCache();
@@ -27,6 +29,15 @@ const createApollo = (httpLink: HttpLink) => {
     },
     resolvers: {
       Mutation: {
+        setLocalUser: (_, { user }, { cache }) => {
+          console.log(user);
+          cache.writeData({
+            data: {
+              user
+            }
+          });
+          return user;
+        },
         updateNetworkStatus: (_, { isConnected }, { cache }) => {
           const data = {
             networkStatus: {
@@ -62,12 +73,12 @@ const createApollo = (httpLink: HttpLink) => {
     cache: new InMemoryCache(),
     defaultOptions: {
       watchQuery: {
-        fetchPolicy: 'network-only',
+        // fetchPolicy: 'network-only',
         // fetchPolicy: 'cache-and-network',
         errorPolicy: 'all'
       },
       query: {
-        fetchPolicy: 'network-only',
+        // fetchPolicy: 'network-only',
         errorPolicy: 'all'
       },
       mutate: {
@@ -113,11 +124,20 @@ export class GraphQLModule {
         query: meGQL.document
       })
       .valueChanges.subscribe((res: any) => {
-        console.log('graphql.module me');
         const user = res.data.me;
-        this.apollo.getClient().writeData({
-          data: { user }
-        });
+
+        this.apollo
+          .mutate({
+            mutation: SET_LOCAL_USER,
+            variables: {
+              user
+            }
+          })
+          .subscribe();
+
+        // this.apollo.getClient().writeData({
+        //   data: { user }
+        // });
       });
   }
 }

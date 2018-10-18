@@ -19,11 +19,17 @@ import { FormatDirective } from './format.directive';
 import { YearsPipe } from './years.pipe';
 import { ContainerComponent } from './site/container/container.component';
 import { InvestmentCardComponent } from './investments/investment-card/investment-card.component';
+import { ReviewComponent } from './review/review.component';
+import { ResetPasswordDialogComponent } from './authentication/reset-password-dialog/reset-password-dialog.component';
+import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
+import { AlertComponent } from './site/alert/alert.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'investments', component: InvestmentsComponent },
-  { path: 'providers', component: ProvidersComponent }
+  { path: 'providers', component: ProvidersComponent },
+  { path: 'review/:id', component: ReviewComponent }
 ];
 
 @NgModule({
@@ -39,7 +45,11 @@ const appRoutes: Routes = [
     FormatDirective,
     YearsPipe,
     InvestmentCardComponent,
-    ContainerComponent
+    ContainerComponent,
+    ReviewComponent,
+    ResetPasswordDialogComponent,
+    ResetPasswordComponent,
+    AlertComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -62,7 +72,9 @@ const appRoutes: Routes = [
   entryComponents: [
     InvestmentsCreateDialogComponent,
     LoginDialogComponent,
-    SignupDialogComponent
+    SignupDialogComponent,
+    ResetPasswordDialogComponent,
+    AlertComponent
   ]
 })
 export class AppModule {}

@@ -1,4 +1,7 @@
 # import UserWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
+# import UserUpdateInput from 'prisma/__generated__/prisma.graphql'
+# import UserWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
+
 # import InvestmentCreateInput from 'prisma/__generated__/prisma.graphql'
 # import InvestmentWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
 
@@ -14,7 +17,10 @@ type Mutation {
   deleteInvestment(where: InvestmentWhereUniqueInput!): Investment!
   createUser(email: String!, password: String!): AuthPayload
   loginUser(email: String!, password: String!): AuthPayload
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   addProvider(data: ProviderCreateInput!): Provider!
+  requestResetPassword(email: String!): Boolean
+  resetPassword(password: String!, token: String!): Boolean
 }
 
 type Investment {

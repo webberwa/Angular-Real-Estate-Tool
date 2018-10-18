@@ -18,7 +18,7 @@ enum Scope {
 }
 
 const context = async ({ req }) => {
-  console.log(req.get('Authorization'))
+  // console.log(req.get('Authorization'))
 
   let scope: Scope = Scope.Guest
   const user = await authenticateUser({ req, prisma })

@@ -3,8 +3,10 @@
     routerLinkActive="active"
     mat-button>Home</a>
 
+
+  <!-- *ngIf="isAuthenticated | async; else showInvestmentLogin" -->
   <a routerLink="/investments"
-    *ngIf="auth.isAuthenticated | async; else showInvestmentLogin"
+    *ngIf="auth.isAuthenticated; else showInvestmentLogin"
     routerLinkActive="active"
     mat-button>Investments</a>
   <ng-template #showInvestmentLogin>
@@ -52,7 +54,8 @@
   </ng-template>
 </mat-toolbar>
 
-<div fxLayoutAlign="center">
+<div fxLayoutAlign="center"
+  style="height: calc(100% - 54px);">
   <app-container>
     <router-outlet></router-outlet>
   </app-container>
