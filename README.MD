@@ -5,16 +5,20 @@
 - `yarn && cd client && yarn && cd ../server && yarn`
 - `yarn dev` at project root
 
-http://zavoloklom.github.io/material-design-iconic-font/icons.html
-https://app.prisma.io/webber-wang-dc19dd/services/prisma-us1/wbit/dev/databrowser/Investment
+# Steps to creating a model
 
-# ORM Layer
+1. Edit [Prisma Model](https://www.prisma.io/docs/data-model-and-migrations/data-model-knul/) @ `server/graphql/prisma/datamodel.prisma`
 
-We're using GraphQL & this BaaS Prisma which acts as our ORM / model layer. We define the `datamodel.prisma` & Prisma will auto generate our models for us. It will also create GraphQL mutations that we can use in our resolvers.
+- Prisma uses a very similar syntax to GraphQL, with some additions like `@unique` decorators.
+- Once you edit that file, the generator will update `server/graphql/prisma/__generated__`, which creates schema that we import into our app.
+- Also Prisma will deploy the updated schema to [Prisma Cloud](https://app.prisma.io/webber-wang-dc19dd/services/prisma-us1/wbit/dev/databrowser/), which contains the dashboard where you can view the database.
 
-If you've worked with Mongoose, Prisma replaces that & auto - generates our models and methods for us. Prisma communicates to the database directly, so we indirectly interact with the database through Prisma.
+2. Edit Query/Mutation
 
-# GraphQL Server
+- Earlier we defined Prisma schema which defines the database & it helps generate some code for us to use. We'll use using some of those codes now
+- Edit `server/graphql/schema.graphql` for the root `Query` & `Mutation` schema
+- Edit `server/graphql/services/` for the actual query & mutation calls, those will be used to generated Angular components to be used
 
-We'll update our `schema.graphql`, which is the mutations/queries that are front end will call.
-We then add our resolvers in `./server/src/index.ts`, which dictate how we'll access the Prisma auto-generated methods.
+3. Edit resolvers
+
+- We then add our resolvers in `./server/src/index.ts`, this what the frontend GraphQL requests will call. Within these resolvers, we use Prisma to access the database
