@@ -1,4 +1,12 @@
+<h2 align="center">Login</h2>
 <form [formGroup]="loginForm">
+    <div fxLayout="row"
+    fxLayout.xs=""
+    *ngIf = "loginFailed">
+      <div [@invalidLoginAlert] class="invalid-login" fxFlex>
+        <p>The user credientials entered cannot be identified!</p>
+      </div>
+    </div>
   <div fxLayout="row"
     fxLayout.xs="">
     <div fxFlex>

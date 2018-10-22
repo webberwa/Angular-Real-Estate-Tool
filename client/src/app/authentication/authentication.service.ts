@@ -26,6 +26,7 @@ export class AuthenticationService {
 
   public me;
   public isAuthenticated;
+  public loginFailed = false;
 
   constructor(
     private dialog: MatDialog,
@@ -94,7 +95,12 @@ export class AuthenticationService {
       })
       .subscribe(
         res => {
-          this.dialog.closeAll();
+          if (res.data.loginUser !== null) {
+            this.dialog.closeAll();
+            this.loginFailed = false;
+          } else {
+            this.loginFailed = true;
+          }
 
           console.log(res);
           const token = res.data.loginUser.token;

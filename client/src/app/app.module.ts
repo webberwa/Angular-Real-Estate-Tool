@@ -9,7 +9,7 @@ import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {  BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { LoginDialogComponent } from './authentication/login-dialog/login-dialog.component';
@@ -58,7 +58,8 @@ const appRoutes: Routes = [
     BrowserModule,
     GraphQLModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

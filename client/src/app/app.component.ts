@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationComponent } from './authentication/authentication.component';
 
 @Component({
-  providers: [AuthenticationComponent],
+  providers: [AuthenticationComponent, AuthenticationService],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
