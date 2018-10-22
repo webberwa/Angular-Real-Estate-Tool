@@ -9,6 +9,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import {
   MatCardModule,
@@ -17,7 +18,8 @@ import {
   MatListModule,
   MatProgressSpinnerModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatFormFieldModule
 } from '@angular/material';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { BarRatingModule } from 'ngx-bar-rating';
@@ -31,8 +33,10 @@ import { AgmCoreModule } from '@agm/core';
     MatMenuModule,
     MatIconModule,
     MatBadgeModule,
+    MatFormFieldModule,
     MatToolbarModule,
     MatDialogModule,
+    MatCheckboxModule,
     MatGridListModule,
     MatInputModule,
     FlexLayoutModule,
@@ -50,14 +54,13 @@ import { AgmCoreModule } from '@agm/core';
   exports: [
     BrowserAnimationsModule,
     MatButtonModule,
+    MatFormFieldModule,
     MatMenuModule,
     MatIconModule,
     MatBadgeModule,
     MatToolbarModule,
     MatDialogModule,
     MatGridListModule,
-    MatInputModule,
-    FlexLayoutModule,
     MatInputModule,
     FlexLayoutModule,
     MatListModule,
@@ -67,6 +70,7 @@ import { AgmCoreModule } from '@agm/core';
     MatSelectModule,
     AgmCoreModule,
     MatCardModule,
+    MatCheckboxModule,
     MatProgressSpinnerModule,
     MatSnackBarModule
   ]

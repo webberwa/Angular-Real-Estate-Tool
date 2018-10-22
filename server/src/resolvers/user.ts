@@ -1,9 +1,9 @@
-import { randomBytes } from 'crypto'
 import * as crypto from 'crypto'
 
 const { PubSub } = require('apollo-server')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const speakeasy = require('speakeasy')
 
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
@@ -34,15 +34,19 @@ export const authenticateUser = async ({ req, prisma }) => {
 
 export const user = {
   Query: {
-    me(root, args, ctx) {
-      const { user } = ctx
-      return { id: user.id, email: user.email }
-    },
     user(root, args, ctx) {
-      console.log('hi')
+      const { user } = ctx
+      return {
+        id: user.id,
+        email: user.email,
+        has_two_factor: user.has_two_factor
+      }
     }
   },
   Mutation: {
+    test() {
+      console.log('test')
+    },
     async createUser(root, args, ctx) {
       const password = await bcrypt.hash(args.password, 10)
       const user = await ctx.prisma.createUser({
@@ -54,7 +58,7 @@ export const user = {
         user
       }
     },
-    async loginUser(root, { email, password }, ctx, info) {
+    async loginUser(root, { email, password, code }, ctx, info) {
       const user = await ctx.prisma.user({
         email
       })
@@ -67,8 +71,25 @@ export const user = {
         throw new Error('Invalid password')
       }
 
+      /**
+       * Extra check for 2 factor
+       */
+      if (user.has_two_factor) {
+        const verified = speakeasy.totp.verify({
+          secret: user.qr_secret,
+          encoding: 'base32',
+          token: code
+        })
+
+        if (!verified) {
+          throw new Error('Invalid 2FA code')
+        }
+      }
+
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)
+
       return {
-        token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),
+        token,
         user
       }
     },
@@ -143,6 +164,62 @@ export const user = {
       })
 
       return true
+    },
+    async updateUser(root, { data, where }, ctx) {
+      console.log(data, where)
+      return await ctx.prisma.updateUser({
+        where,
+        data
+      })
+    },
+    async generateQRCode(root, {}, ctx) {
+      const { user } = ctx
+      const QRCode = require('qrcode')
+      const secret = speakeasy.generateSecret({ length: 20 })
+
+      var url = speakeasy.otpauthURL({
+        secret: secret.ascii,
+        label: 'WBIT'
+      })
+
+      await ctx.prisma.updateUser({
+        where: {
+          id: user.id
+        },
+        data: {
+          qr_secret: secret.base32
+        }
+      })
+
+      return QRCode.toDataURL(url)
+    },
+    async verify2faCode(root, { code }, ctx) {
+      const { user } = ctx
+
+      const currentUser = await ctx.prisma.user({
+        id: user.id
+      })
+
+      // Verify code
+      const verified = speakeasy.totp.verify({
+        secret: currentUser.qr_secret,
+        encoding: 'base32',
+        token: code
+      })
+
+      if (!verified) return false
+
+      // Enable 2FA for user
+      await ctx.prisma.updateUser({
+        where: {
+          id: user.id
+        },
+        data: {
+          has_two_factor: true
+        }
+      })
+
+      return verified
     }
   }
 }

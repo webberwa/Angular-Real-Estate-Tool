@@ -5,11 +5,11 @@ import { SignupDialogComponent } from './signup-dialog/signup-dialog.component';
 import { ResetPasswordDialogComponent } from './reset-password-dialog/reset-password-dialog.component';
 
 @Component({
-  selector: 'app-authentication',
-  templateUrl: './authentication.component.html',
-  styleUrls: ['./authentication.component.css']
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.css']
 })
-export class AuthenticationComponent implements OnInit {
+export class UserComponent implements OnInit {
   constructor(private dialog: MatDialog) {}
 
   ngOnInit() {}

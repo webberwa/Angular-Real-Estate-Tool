@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from './../authentication.service';
+import { UserService } from '../user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -13,10 +13,7 @@ export class ResetPasswordComponent implements OnInit {
     password: new FormControl('')
   });
   token;
-  constructor(
-    private auth: AuthenticationService,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private auth: UserService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {

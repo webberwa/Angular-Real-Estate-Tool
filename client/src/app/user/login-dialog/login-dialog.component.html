@@ -1,5 +1,5 @@
 <form [formGroup]="loginForm">
-  <div fxLayout="row"
+  <div fxLayout=""
     fxLayout.xs="">
     <div fxFlex>
       <mat-form-field class="fullWidth">
@@ -23,6 +23,17 @@
   <div fxLayout="row"
     fxLayout.xs="">
     <div fxFlex>
+      <mat-checkbox formControlName="has_two_factor">I have 2FA enabled</mat-checkbox>
+      <mat-form-field *ngIf="loginForm.get('has_two_factor').value">
+        <input matInput
+          placeholder="Code"
+          formControlName="code">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row"
+    fxLayout.xs="">
+    <div fxFlex>
       <p>
         <a href="#"
           (click)="openResetPasswordDialog($event)"> Forgot password? </a>
@@ -35,6 +46,11 @@
       <button (click)="login()"
         mat-raised-button
         color="primary"> Login </button>
+    </div>
+    <div fxFlex>
+      <button (click)="reset()"
+        mat-raised-button
+        color="primary"> Reset </button>
     </div>
   </div>
 </form>

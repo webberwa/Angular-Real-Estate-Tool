@@ -1,0 +1,8 @@
+.mat-snack-bar-container {
+  &.error {
+    background: rgb(194, 65, 65) !important;
+  }
+  &.success {
+    background: rgb(37, 165, 88);
+  }
+}

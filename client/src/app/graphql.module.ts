@@ -5,11 +5,8 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { withClientState } from 'apollo-link-state';
 import { ApolloLink, concat } from 'apollo-link';
-import { Apollo } from 'apollo-angular';
-import { MeGQL } from './apollo-angular-services';
-import { AuthenticationService } from './authentication/authentication.service';
-import { SET_LOCAL_USER } from './local-queries';
-import { delay } from 'rxjs/operators';
+import { UserService } from './user/user.service';
+import { onError } from 'apollo-link-error';
 
 const createApollo = (httpLink: HttpLink) => {
   const linkCache = new InMemoryCache();
@@ -18,55 +15,51 @@ const createApollo = (httpLink: HttpLink) => {
     uri: 'http://localhost:4000/graphql'
   });
 
+  const userStub = {
+    __typename: 'User',
+    id: null,
+    email: null,
+    has_two_factor: false
+  };
+
   const localState = withClientState({
     cache: linkCache,
     defaults: {
-      user: {
-        __typename: 'User',
-        id: null,
-        email: null
-      }
+      user: userStub
     },
     resolvers: {
       Mutation: {
         setLocalUser: (_, { user }, { cache }) => {
-          console.log(user);
           cache.writeData({
             data: {
               user
             }
           });
           return user;
-        },
-        updateNetworkStatus: (_, { isConnected }, { cache }) => {
-          const data = {
-            networkStatus: {
-              __typename: 'NetworkStatus',
-              isConnected
-            }
-          };
-          cache.writeData({ data });
-          return null;
-        },
-        logout: (_, variables, { cache, getCacheKey }) => {
-          console.log('logout');
-          console.log(cache);
-          cache.writeData({
-            data: {
-              user: {
-                __typename: 'User',
-                id: 1,
-                email: ''
-              }
-            }
-          });
-          return null;
         }
       }
     }
   });
 
-  const link = ApolloLink.from([localState, concat(authMiddleware, http)]);
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    console.log('onError');
+    if (graphQLErrors) {
+      graphQLErrors.map(({ message, locations, path }) => {
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        );
+      });
+    }
+    if (networkError) {
+      console.log(`[Network error]: ${networkError}`);
+    }
+  });
+
+  const link = ApolloLink.from([
+    // errorLink,
+    localState,
+    concat(authMiddleware, http)
+  ]);
 
   return {
     link,
@@ -114,30 +107,12 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   ]
 })
 export class GraphQLModule {
-  constructor(
-    private apollo: Apollo,
-    private meGQL: MeGQL,
-    private authService: AuthenticationService
-  ) {
-    this.apollo
-      .watchQuery({
-        query: meGQL.document
-      })
-      .valueChanges.subscribe((res: any) => {
-        const user = res.data.me;
-
-        this.apollo
-          .mutate({
-            mutation: SET_LOCAL_USER,
-            variables: {
-              user
-            }
-          })
-          .subscribe();
-
-        // this.apollo.getClient().writeData({
-        //   data: { user }
-        // });
-      });
+  constructor(private user: UserService) {
+    // user.isAuthenticated$.subscribe(isAuthenticated => {
+    //   if (isAuthenticated) {
+    //     console.log('graphql.module.ts fetch');
+    //     user.fetchMe();
+    //   }
+    // });
   }
 }

@@ -1,0 +1,20 @@
+<form [formGroup]="twoFactorForm">
+  <div fxLayout="row"
+    fxLayout.xs="">
+    <div fxFlex>
+      <mat-form-field class="fullWidth">
+        <input matInput
+          placeholder="Code"
+          formControlName="code">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row"
+    fxLayout.xs="">
+    <div fxFlex>
+      <button (click)="submitCode()"
+        mat-raised-button
+        color="primary"> Login </button>
+    </div>
+  </div>
+</form>

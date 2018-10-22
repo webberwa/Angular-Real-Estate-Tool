@@ -1,4 +1,4 @@
-import { AuthenticationService } from './../authentication.service';
+import { UserService } from '../user.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,7 +13,7 @@ export class SignupDialogComponent implements OnInit {
     password: new FormControl('')
   });
 
-  constructor(private auth: AuthenticationService) {}
+  constructor(private auth: UserService) {}
 
   ngOnInit() {}
 

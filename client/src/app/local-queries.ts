@@ -5,6 +5,7 @@ export const GET_LOCAL_USER = gql`
     user @client {
       id
       email
+      has_two_factor
     }
   }
 `;

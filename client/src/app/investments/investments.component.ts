@@ -1,4 +1,4 @@
-import { AuthenticationService } from '../authentication/authentication.service';
+import { UserService } from '../user/user.service';
 import { Router } from '@angular/router';
 import { Observable } from 'apollo-client/util/Observable';
 import { Component, OnInit } from '@angular/core';
@@ -12,7 +12,7 @@ import { InvestmentsService } from './investments.service';
 })
 export class InvestmentsComponent {
   constructor(
-    private auth: AuthenticationService,
+    private auth: UserService,
     private router: Router,
     private dialog: MatDialog,
     private investmentsService: InvestmentsService

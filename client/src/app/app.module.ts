@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { InvestmentsCreateDialogComponent } from './investments/investments-create-dialog/investments-create-dialog.component';
 import { InvestmentsComponent } from './investments/investments.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,23 +12,36 @@ import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from '@agm/core';
-import { AuthenticationComponent } from './authentication/authentication.component';
-import { LoginDialogComponent } from './authentication/login-dialog/login-dialog.component';
-import { SignupDialogComponent } from './authentication/signup-dialog/signup-dialog.component';
+import { UserComponent } from './user/user.component';
+import { LoginDialogComponent } from './user/login-dialog/login-dialog.component';
+import { SignupDialogComponent } from './user/signup-dialog/signup-dialog.component';
 import { HomeComponent } from './home/home.component';
 import { FormatDirective } from './format.directive';
 import { YearsPipe } from './years.pipe';
 import { ContainerComponent } from './site/container/container.component';
 import { InvestmentCardComponent } from './investments/investment-card/investment-card.component';
 import { ReviewComponent } from './review/review.component';
-import { ResetPasswordDialogComponent } from './authentication/reset-password-dialog/reset-password-dialog.component';
-import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
+import { ResetPasswordDialogComponent } from './user/reset-password-dialog/reset-password-dialog.component';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { AlertComponent } from './site/alert/alert.component';
+import { NavComponent } from './site/nav/nav.component';
+import { SettingsComponent } from './user/settings/settings.component';
+import { TwoFactorCodeComponent } from './user/two-factor-code/two-factor-code.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'investments', component: InvestmentsComponent },
+  { path: 'login', component: LoginDialogComponent },
+  { path: 'two-factor', component: TwoFactorCodeComponent },
+  { path: 'signup', component: SignupDialogComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'investments',
+    component: InvestmentsComponent,
+    canActivate: [AuthGuard]
+  },
   { path: 'providers', component: ProvidersComponent },
   { path: 'review/:id', component: ReviewComponent }
 ];
@@ -38,7 +52,7 @@ const appRoutes: Routes = [
     InvestmentsComponent,
     ProvidersComponent,
     InvestmentsCreateDialogComponent,
-    AuthenticationComponent,
+    UserComponent,
     LoginDialogComponent,
     SignupDialogComponent,
     HomeComponent,
@@ -49,7 +63,11 @@ const appRoutes: Routes = [
     ReviewComponent,
     ResetPasswordDialogComponent,
     ResetPasswordComponent,
-    AlertComponent
+    AlertComponent,
+    NavComponent,
+    SettingsComponent,
+    TwoFactorCodeComponent,
+    ProfileComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

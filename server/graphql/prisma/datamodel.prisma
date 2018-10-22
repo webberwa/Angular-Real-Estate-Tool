@@ -26,5 +26,8 @@ type User {
   id: ID! @unique
   email: String! @unique
   password: String!
+  has_two_factor: Boolean! @default(value: false)
   reset_token: String @unique
+  qr_secret: String @unique
+  code: String
 }

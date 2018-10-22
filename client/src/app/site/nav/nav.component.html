@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+  <a routerLink="/"
+    routerLinkActive="active"
+    mat-button>Home</a>
+
+  <a routerLink="/investments"
+    routerLinkActive="active"
+    mat-button>Investments</a>
+
+  <a routerLink="/providers"
+    routerLinkActive="active"
+    mat-button>Service Providers</a>
+
+  <span class="spacer"></span>
+
+  <div class="menu-item-container"
+    *ngIf="user.isAuthenticated$ | async; else showGuest">
+    <!-- <mat-icon matBadge="{{alert_number}}"
+      matBadgePosition="before"
+      matBadgeColor="warn"
+      (click)="test_onClickNotification()">{{notification}}</mat-icon>
+    <mat-icon class="profile">account_box</mat-icon> -->
+
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item
+        routerLink="/profile"
+        routerLinkActive="active">Profile</button>
+      <button mat-menu-item
+        routerLink="/settings"
+        routerLinkActive="active">Settings</button>
+      <button (click)="user.logout()"
+        mat-menu-item>
+        Log Out
+      </button>
+    </mat-menu>
+
+    <button mat-icon-button
+      class="user-button"
+      [matMenuTriggerFor]="appMenu">
+      <span *ngIf="user.me$ | async as user"
+        class="nav-user">
+        {{ user.email }}
+      </span>
+    </button>
+  </div>
+
+  <ng-template #showGuest>
+    <a routerLink="/login"
+      routerLinkActive="active"
+      mat-button>Log In</a>
+    <a routerLink="/signup"
+      routerLinkActive="active"
+      mat-raised-button>Sign Up</a>
+  </ng-template>
+
+</mat-toolbar>

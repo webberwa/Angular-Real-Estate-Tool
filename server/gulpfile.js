@@ -4,6 +4,8 @@ const run = require('gulp-run')
 const gutil = require('gulp-util')
 
 gulp.task('generate-graphql-schema', () => {
+  console.log(process.env.GRAPHQL_SCHEMA)
+  console.log(process.env.GRAPHQL_SERVICES_OUTPUT)
   run(
     `gql-gen --schema ${
       process.env.GRAPHQL_SCHEMA

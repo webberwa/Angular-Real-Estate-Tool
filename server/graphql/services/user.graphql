@@ -1,14 +1,18 @@
+fragment userFields on User {
+  id
+  email
+  has_two_factor
+}
+
 query user($where: UserWhereUniqueInput!) {
   user(where: $where) {
-    id
-    email
+    ...userFields
   }
 }
 
 query me {
-  me {
-    id
-    email
+  user {
+    ...userFields
   }
 }
 
@@ -21,12 +25,11 @@ mutation createUser($email: String!, $password: String!) {
   }
 }
 
-mutation loginUser($email: String!, $password: String!) {
-  loginUser(email: $email, password: $password) {
+mutation loginUser($email: String!, $password: String!, $code: String) {
+  loginUser(email: $email, password: $password, code: $code) {
     token
     user {
-      id
-      email
+      ...userFields
     }
   }
 }
@@ -44,4 +47,16 @@ mutation requestResetPassword($email: String!) {
 
 mutation resetPassword($password: String!, $token: String!) {
   resetPassword(password: $password, token: $token)
+}
+
+mutation generateQRCode {
+  generateQRCode
+}
+
+mutation verify2faCode($code: String!) {
+  verify2faCode(code: $code)
+}
+
+mutation test {
+  test
 }

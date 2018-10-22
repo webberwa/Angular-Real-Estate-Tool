@@ -1,6 +1,6 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../authentication.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-reset-password-dialog',
@@ -12,7 +12,7 @@ export class ResetPasswordDialogComponent implements OnInit {
     email: new FormControl('')
   });
 
-  constructor(private auth: AuthenticationService) {}
+  constructor(private auth: UserService) {}
 
   ngOnInit() {}
 }

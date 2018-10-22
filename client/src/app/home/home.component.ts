@@ -1,7 +1,7 @@
 import { GET_LOCAL_USER } from './../local-queries';
-import { AuthenticationComponent } from './../authentication/authentication.component';
+import { UserComponent } from '../user/user.component';
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { UserService } from '../user/user.service';
 import { MeGQL } from '../apollo-angular-services';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
@@ -14,7 +14,7 @@ const LOGOUT = gql`
 `;
 
 @Component({
-  providers: [AuthenticationComponent],
+  providers: [UserComponent],
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -23,15 +23,15 @@ export class HomeComponent {
   constructor(
     private apollo: Apollo,
     private meGQL: MeGQL,
-    private authComp: AuthenticationComponent,
-    private authService: AuthenticationService
+    private userComp: UserComponent,
+    private userService: UserService
   ) {}
 
   signup() {
-    this.authComp.openSignupDialog();
+    this.userComp.openSignupDialog();
   }
 
   login() {
-    this.authComp.openLoginDialog();
+    this.userComp.openLoginDialog();
   }
 }

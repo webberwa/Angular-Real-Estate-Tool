@@ -16,11 +16,15 @@ type Mutation {
   addInvestment(data: InvestmentCreateInput!): Investment!
   deleteInvestment(where: InvestmentWhereUniqueInput!): Investment!
   createUser(email: String!, password: String!): AuthPayload
-  loginUser(email: String!, password: String!): AuthPayload
+  loginUser(email: String!, password: String!, code: String): AuthPayload
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   addProvider(data: ProviderCreateInput!): Provider!
   requestResetPassword(email: String!): Boolean
   resetPassword(password: String!, token: String!): Boolean
+  generateQRCode: String!
+  # Verify for the 1st time
+  verify2faCode(code: String!): Boolean
+  test: Boolean
 }
 
 type Investment {
@@ -38,6 +42,7 @@ type User {
   id: ID!
   email: String!
   password: String!
+  has_two_factor: Boolean!
 }
 
 type Provider {
