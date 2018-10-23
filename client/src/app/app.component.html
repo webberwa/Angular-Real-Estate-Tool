@@ -1,4 +1,4 @@
-<app-nav></app-nav>
+<app-nav *ngIf="user.userLoaded | async"></app-nav>
 <div fxLayoutAlign="center"
   style="height: calc(100% - 54px);">
   <app-container>

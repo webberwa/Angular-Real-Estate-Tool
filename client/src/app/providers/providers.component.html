@@ -1,59 +1,81 @@
 <div class="search">
   <mat-form-field class="info">
     <mat-label>Search service provider by</mat-label>
-    <input [(ngModel)]="search_text" (keyup.enter)="searchServiceProvider()"
-           type="text" placeholder="Service provider information" matInput>
+    <input [(ngModel)]="search_text"
+      (keyup.enter)="searchServiceProvider()"
+      type="text"
+      placeholder="Service provider information"
+      matInput>
   </mat-form-field>
 
   <mat-form-field class="type">
     <mat-label>Type is</mat-label>
     <mat-select [(value)]="search_type">
-      <mat-option [value]="sp_type.value" *ngFor="let sp_type of service_provider_type_list">
+      <mat-option [value]="sp_type.value"
+        *ngFor="let sp_type of service_provider_type_list">
         {{sp_type.label}}
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <button mat-stroked-button class="btn" (click)="searchServiceProvider()">
+  <button mat-stroked-button
+    class="btn"
+    (click)="searchServiceProvider()">
     <mat-icon>search</mat-icon>
   </button>
 </div>
 
 <div class="bottom">
-  <mat-progress-spinner *ngIf="service_provider_list==null" class="loading" color="primary" mode="indeterminate"></mat-progress-spinner>
-  <div class="list" *ngIf="service_provider_list!=null">
+  <mat-progress-spinner *ngIf="service_provider_list==null"
+    class="loading"
+    color="primary"
+    mode="indeterminate"></mat-progress-spinner>
+  <div class="list"
+    *ngIf="service_provider_list!=null">
     <mat-list>
       <mat-divider></mat-divider>
       <mat-list-item *ngFor="let sp of filterServiceProvider()"
-                     (mouseenter)="hoverServiceProvider(sp)" (mouseleave)="hoverServiceProvider(null)"
-                     (click)="onClickProvider(sp)">
+        (mouseenter)="hoverServiceProvider(sp)"
+        (mouseleave)="hoverServiceProvider(null)"
+        (click)="onClickProvider(sp)">
         <mat-icon mat-list-icon>account_circle</mat-icon>
-        <h3 mat-line class="sp-name">
+        <h3 mat-line
+          class="sp-name">
           {{sp.name}}&nbsp;&nbsp;&nbsp;-&nbsp;<i class="sp-type">{{sp.type}}</i>
         </h3>
-        <p class="contact" mat-line>{{sp.phone_number}}</p>
-        <p class="contact" mat-line>{{sp.email}}</p>
+        <p class="contact"
+          mat-line>{{sp.phone_number}}</p>
+        <p class="contact"
+          mat-line>{{sp.email}}</p>
       </mat-list-item>
     </mat-list>
   </div>
 
   <div [hidden]="hover_sp==null">
-    <mat-card class="right-card" [class.investor]="hover_sp?.type=='Investor'">
-      <bar-rating [rate]="hover_sp?.rate" [max]="5" readOnly="true"></bar-rating>
+    <mat-card class="right-card"
+      [class.investor]="hover_sp?.type=='Investor'">
+      <bar-rating [rate]="hover_sp?.rate"
+        [max]="5"
+        readOnly="true"></bar-rating>
       <div class="sp-info">
         <mat-icon mat-list-icon>account_circle</mat-icon>
-        <span mat-line class="sp-name">{{hover_sp?.name}}</span>
-        <span mat-line class="sp-type">{{hover_sp?.type}}</span>
-        <br/><br/>
-        <span><mat-icon class="info">call</mat-icon>{{hover_sp?.phone_number}}</span>
-        <br/>
-        <span><mat-icon class="info">alternate_email</mat-icon>{{hover_sp?.email}}</span>
-        <br/>
-        <br/>
+        <span mat-line
+          class="sp-name">{{hover_sp?.name}}</span>
+        <span mat-line
+          class="sp-type">{{hover_sp?.type}}</span>
+        <br /><br />
+        <span>
+          <mat-icon class="info">call</mat-icon>{{hover_sp?.phone_number}}
+        </span>
+        <br />
+        <span>
+          <mat-icon class="info">alternate_email</mat-icon>{{hover_sp?.email}}
+        </span>
+        <br />
+        <br />
         <span class="addr">{{hover_sp?.addr1}}</span>
         <span class="addr">{{hover_sp?.addr2}}</span>
       </div>
     </mat-card>
   </div>
 </div>
-

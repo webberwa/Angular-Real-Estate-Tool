@@ -107,12 +107,5 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   ]
 })
 export class GraphQLModule {
-  constructor(private user: UserService) {
-    // user.isAuthenticated$.subscribe(isAuthenticated => {
-    //   if (isAuthenticated) {
-    //     console.log('graphql.module.ts fetch');
-    //     user.fetchMe();
-    //   }
-    // });
-  }
+  constructor(private user: UserService) {}
 }

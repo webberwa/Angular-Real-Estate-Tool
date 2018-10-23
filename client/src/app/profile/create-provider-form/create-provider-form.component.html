@@ -1,0 +1,58 @@
+<form [formGroup]="providersForm">
+  <div fxLayout="column">
+    <div fxFlex>
+      <mat-form-field class="fullWidth">
+        <input matInput
+          placeholder="Name"
+          formControlName="name">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field>
+        <mat-select placeholder="Provider Types"
+          formControlName="type">
+          <mat-option *ngFor="let type of providerTypes"
+            [value]="type.value">
+            {{type.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field class="fullWidth">
+        <input matInput
+          placeholder="Phone Number"
+          formControlName="phone_number">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field class="fullWidth">
+        <input matInput
+          placeholder="Email"
+          formControlName="email">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field class="fullWidth">
+        <input matInput
+          placeholder="Address 1"
+          formControlName="addr1">
+      </mat-form-field>
+    </div>
+    <div fxFlex>
+      <mat-form-field class="fullWidth">
+        <input matInput
+          placeholder="Address 2"
+          formControlName="addr2">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row"
+    fxLayout.xs="column">
+    <div fxFlex>
+      <button mat-raised-button
+        (click)="providers.addProvider(providersForm)"
+        color="primary"> Create Provider </button>
+    </div>
+  </div>
+</form>

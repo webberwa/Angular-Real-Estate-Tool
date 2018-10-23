@@ -44,7 +44,7 @@ div.bottom div.list mat-list {
 
     &:hover {
       background-color: white;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, .5);
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 
       /deep/ .mat-list-text * {
         font-weight: bold;
@@ -53,7 +53,7 @@ div.bottom div.list mat-list {
   }
 }
 
-div.bottom mat-list-item{
+div.bottom mat-list-item {
   h3.sp-name {
     font-size: 18px;
     padding-bottom: 3px;
@@ -105,7 +105,7 @@ mat-card.right-card {
   &:after {
     z-index: -1;
     position: absolute;
-    content: "";
+    content: '';
     bottom: 15px;
     right: 5px;
     left: auto;
@@ -169,7 +169,7 @@ mat-card.right-card bar-rating {
   margin: 0px;
   line-height: 18px;
 
-  /deep/.br{
+  /deep/.br {
     margin: 3px 0px 0px 0px;
     position: absolute;
     right: 15px;

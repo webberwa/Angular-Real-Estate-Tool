@@ -18,6 +18,7 @@ import {
   ResetPasswordGQL,
   RequestResetPasswordGQL
 } from '../apollo-angular-services';
+import { Observable, BehaviorSubject } from 'rxjs';
 const LOGOUT = gql`
   mutation logout {
     logout @client
@@ -27,6 +28,10 @@ const LOGOUT = gql`
   providedIn: 'root'
 })
 export class UserService {
+  // let us know when to load the nav
+  userLoaded = new BehaviorSubject(false);
+
+  isAuthenticated = false;
   isAuthenticated$;
   me$;
   me;
@@ -72,6 +77,64 @@ export class UserService {
       );
     this.me$.subscribe(me => {
       this.me = me;
+    });
+  }
+
+  updateAuthStatus() {
+    return new Promise((resolve, reject) => {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        return reject();
+      }
+
+      this.apollo
+        .watchQuery({
+          query: this.meGQL.document
+          // fetchPolicy: 'network-only'
+        })
+        .valueChanges.subscribe((res: any) => {
+          const user = res.data.user;
+
+          // console.log('meGQL', user);
+
+          this.apollo
+            .mutate({
+              mutation: SET_LOCAL_USER,
+              variables: {
+                user
+              }
+            })
+            .subscribe(r => {
+              const localUser = r.data.setLocalUser;
+              // console.log('mutate SET_LOCAL_USER');
+              console.log(localUser.id);
+              if (localUser.id) {
+                this.isAuthenticated = true;
+              }
+
+              // Fire observable
+              this.userLoaded.next(true);
+              resolve(true);
+            });
+        });
+
+      // this.apollo
+      //   .watchQuery({
+      //     query: GET_LOCAL_USER
+      //   })
+      //   .valueChanges.pipe(
+      //     map(({ data }: { data: any }) => {
+      //       const { user } = data;
+      //       // console.log('query GET_LOCAL_USER: isAuthenticated$', user);
+      //       if (!user) {
+      //         return (this.isAuthenticated = false);
+      //       }
+      //       this.isAuthenticated = user.id != null ? true : false;
+      //       console.log('isAuthenticated', this.isAuthenticated);
+      //     })
+      //   )
+      //   .subscribe();
     });
   }
 

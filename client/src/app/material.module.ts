@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import {
   MatCardModule,
@@ -35,6 +36,7 @@ import { AgmCoreModule } from '@agm/core';
     MatBadgeModule,
     MatFormFieldModule,
     MatToolbarModule,
+    MatTabsModule,
     MatDialogModule,
     MatCheckboxModule,
     MatGridListModule,
@@ -63,6 +65,7 @@ import { AgmCoreModule } from '@agm/core';
     MatGridListModule,
     MatInputModule,
     FlexLayoutModule,
+    MatTabsModule,
     MatListModule,
     MatButtonToggleModule,
     BarRatingModule,

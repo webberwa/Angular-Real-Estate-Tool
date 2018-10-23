@@ -1,5 +1,4 @@
-import { Router } from '@angular/router';
-import { Injectable, Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
@@ -11,13 +10,15 @@ import { UserService } from './user/user.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
-  constructor(private user: UserService, private route: Router) {}
+export class UserGuard implements CanActivate {
+  constructor(private user: UserService) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('authGuard', this.user.isAuthenticated);
-    return this.user.isAuthenticated;
+    return this.user.updateAuthStatus().then(() => {
+      console.log('user guard', this.user.isAuthenticated);
+      return true;
+    });
   }
 }

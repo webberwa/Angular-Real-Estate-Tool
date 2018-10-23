@@ -14,7 +14,7 @@
   <span class="spacer"></span>
 
   <div class="menu-item-container"
-    *ngIf="user.isAuthenticated$ | async; else showGuest">
+    *ngIf="(user.isAuthenticated$ | async) || user.isAuthenticated; else showGuest">
     <!-- <mat-icon matBadge="{{alert_number}}"
       matBadgePosition="before"
       matBadgeColor="warn"

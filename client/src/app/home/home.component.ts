@@ -19,13 +19,17 @@ const LOGOUT = gql`
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   constructor(
     private apollo: Apollo,
     private meGQL: MeGQL,
     private userComp: UserComponent,
     private userService: UserService
   ) {}
+
+  ngOnInit() {
+    console.log('home component');
+  }
 
   signup() {
     this.userComp.openSignupDialog();

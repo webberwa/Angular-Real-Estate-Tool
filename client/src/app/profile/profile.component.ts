@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProvidersService } from '../providers/providers.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  myProviders;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(providers: ProvidersService) {
+    this.myProviders = providers.myProviders;
   }
 
+  ngOnInit() {}
 }

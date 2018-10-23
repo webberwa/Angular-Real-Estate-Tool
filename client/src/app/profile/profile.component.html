@@ -1,3 +1,14 @@
-<p>
-  profile works!
-</p>
+<!-- <mat-tab-group>
+  <mat-tab label="Create">
+    <h3> Add a Service Provider </h3>
+    <app-create-provider-form></app-create-provider-form>
+  </mat-tab>
+  <mat-tab label="Current">
+  </mat-tab>
+  <mat-tab label="Third"> Content 3
+  </mat-tab>
+</mat-tab-group> -->
+
+<div *ngFor="let provider of myProviders | async">
+  <h3>{{ provider.name }}</h3>
+</div>

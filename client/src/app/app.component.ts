@@ -1,3 +1,4 @@
+import { UserService } from './user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { NavComponent } from './site/nav/nav.component';
 
@@ -8,7 +9,9 @@ import { NavComponent } from './site/nav/nav.component';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor() {}
+  constructor(private user: UserService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('app component');
+  }
 }

@@ -25,30 +25,28 @@ export class NavComponent implements OnInit {
   title = 'client';
   notification = 'notifications_active';
   alert_number = 15;
-  me;
 
   ngOnInit() {
-    this.apollo
-      .watchQuery({
-        query: this.meGQL.document,
-        fetchPolicy: 'network-only'
-      })
-      .valueChanges.subscribe((res: any) => {
-        const user = res.data.me;
-
-        console.log('meGQL', res);
-
-        this.apollo
-          .mutate({
-            mutation: SET_LOCAL_USER,
-            variables: {
-              user
-            }
-          })
-          .subscribe(_ => {
-            console.log('mutate SET_LOCAL_USER');
-          });
-      });
+    console.log('nav component');
+    // this.apollo
+    //   .watchQuery({
+    //     query: this.meGQL.document,
+    //     fetchPolicy: 'network-only'
+    //   })
+    //   .valueChanges.subscribe((res: any) => {
+    //     const user = res.data.me;
+    //     console.log('meGQL', res);
+    //     this.apollo
+    //       .mutate({
+    //         mutation: SET_LOCAL_USER,
+    //         variables: {
+    //           user
+    //         }
+    //       })
+    //       .subscribe(_ => {
+    //         console.log('mutate SET_LOCAL_USER');
+    //       });
+    //   });
   }
 
   test_onClickNotification() {
