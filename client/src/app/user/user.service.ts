@@ -27,6 +27,7 @@ const LOGOUT = gql`
   providedIn: 'root'
 })
 export class UserService {
+  loginFailed = false;
   isAuthenticated$;
   me$;
   me;
@@ -139,6 +140,13 @@ export class UserService {
       })
       .subscribe(
         res => {
+          if (res.data.loginUser !== null) {
+            this.dialog.closeAll();
+            this.loginFailed = false;
+          } else {
+            this.loginFailed = true;
+          }
+
           console.log('loginUser() subscribe');
           const token = res.data.loginUser.token;
           const user = res.data.loginUser.user;
