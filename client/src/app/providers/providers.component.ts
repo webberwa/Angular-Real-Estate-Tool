@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ProvidersGQL } from '../apollo-angular-services';
 import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
+import { ProvidersService } from './providers.service';
 
 @Component({
   selector: 'app-providers',
@@ -37,7 +38,8 @@ export class ProvidersComponent implements OnInit {
     private router: Router,
     private ref: ChangeDetectorRef,
     private apollo: Apollo,
-    private providerGQL: ProvidersGQL
+    private providerGQL: ProvidersGQL,
+    private providersService: ProvidersService
   ) {}
 
   ngOnInit() {

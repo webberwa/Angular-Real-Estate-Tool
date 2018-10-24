@@ -1,0 +1,11 @@
+fragment reviewFields on Review {
+  id
+  rating
+  text
+}
+
+query reviews($where: ReviewWhereInput!) {
+  reviews(where: $where) {
+    ...reviewFields
+  }
+}

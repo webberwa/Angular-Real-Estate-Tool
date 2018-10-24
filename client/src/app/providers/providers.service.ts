@@ -1,6 +1,10 @@
 import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';
-import { AddProviderGQL, ProvidersGQL } from '../apollo-angular-services';
+import {
+  AddProviderGQL,
+  ProvidersGQL,
+  ProviderGQL
+} from '../apollo-angular-services';
 import { UserService } from '../user/user.service';
 import { map } from 'rxjs/operators';
 
@@ -9,7 +13,7 @@ import { map } from 'rxjs/operators';
 })
 export class ProvidersService {
   public myProviders;
-  test = 'test';
+  allProviders;
 
   serviceProviderTypes = [
     {
@@ -30,9 +34,9 @@ export class ProvidersService {
     private apollo: Apollo,
     private addProvidersGQL: AddProviderGQL,
     private providersGQL: ProvidersGQL,
+    private providerGQL: ProviderGQL,
     private userService: UserService
   ) {
-    console.log('providers service');
     const user = userService.me;
     this.myProviders = this.apollo
       .watchQuery({
@@ -51,6 +55,13 @@ export class ProvidersService {
           return data.providers;
         })
       );
+
+    this.allProviders = this.providersGQL.watch().valueChanges.pipe(
+      map(({ data }: { data: any }) => {
+        console.log(data.providers);
+        return data.providers;
+      })
+    );
   }
 
   addProvider(form) {
@@ -73,7 +84,23 @@ export class ProvidersService {
       });
   }
 
-  getMyProviders() {}
+  getProvider(id) {
+    return this.apollo
+      .watchQuery({
+        query: this.providerGQL.document,
+        variables: {
+          where: {
+            id
+          }
+        }
+      })
+      .valueChanges.pipe(
+        map(({ data }: { data: any }) => {
+          console.log(data.provider);
+          return data.provider;
+        })
+      );
+  }
 
   getProviderTypes() {
     return this.serviceProviderTypes;

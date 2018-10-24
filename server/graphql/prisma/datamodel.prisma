@@ -13,9 +13,7 @@ type Provider {
   id: ID! @unique
   name: String!
   type: String!
-  rate: Float
-  review_number: Int
-  review: String
+  reviews: [Review!]! @relation(name: "ReviewsForProviders")
   phone_number: String
   email: String
   addr1: String
@@ -33,4 +31,11 @@ type User {
   qr_secret: String @unique
   code: String
   providers: [Provider!]!
+}
+
+type Review {
+  id: ID! @unique
+  rating: Int!
+  text: String
+  provider: Provider! @relation(name: "ReviewsForProviders")
 }

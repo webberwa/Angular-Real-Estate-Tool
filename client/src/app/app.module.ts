@@ -31,6 +31,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateProviderFormComponent } from './profile/create-provider-form/create-provider-form.component';
 import { UserService } from './user/user.service';
 import { UserGuard } from './user.guard';
+import { ProviderCardComponent } from './providers/provider-card/provider-card.component';
+import { ProvidersDetailsComponent } from './providers/providers-details/providers-details.component';
+import { SidenavComponent } from './site/sidenav/sidenav.component';
 
 const appRoutes: Routes = [
   {
@@ -58,7 +61,11 @@ const appRoutes: Routes = [
         component: InvestmentsComponent,
         canActivate: [AuthGuard]
       },
-      { path: 'providers', component: ProvidersComponent },
+      {
+        path: 'providers',
+        component: ProvidersComponent
+      },
+      { path: 'providers/:id', component: ProvidersDetailsComponent },
       { path: 'review/:id', component: ReviewComponent }
     ]
   }
@@ -86,7 +93,10 @@ const appRoutes: Routes = [
     SettingsComponent,
     TwoFactorCodeComponent,
     ProfileComponent,
-    CreateProviderFormComponent
+    CreateProviderFormComponent,
+    ProviderCardComponent,
+    ProvidersDetailsComponent,
+    SidenavComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

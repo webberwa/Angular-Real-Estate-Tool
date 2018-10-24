@@ -1,0 +1,22 @@
+<div fxLayout="row">
+  <div fxFlex>
+    <a routerLink="/providers/{{provider.id}}"
+      routerLinkActive="active">
+      {{ provider.name }}
+    </a>
+    <bar-rating [rate]="provider.rate"
+      [max]="5"
+      readOnly="true"></bar-rating>
+  </div>
+  <div fxFlex>
+    <p>
+      {{ provider.phone_number }}
+    </p>
+    <p>
+      {{ provider.addr1 }}
+    </p>
+    <p>
+      {{ provider.addr2 }}
+    </p>
+  </div>
+</div>

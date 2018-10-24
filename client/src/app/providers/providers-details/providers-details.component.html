@@ -1,0 +1,12 @@
+<div>
+  {{ (provider | async)?.name }}
+  <ul>
+    <li *ngFor="let review of (provider | async)?.reviews">
+      <bar-rating [rate]="review.rating"
+        [max]="5"
+        readOnly="true"></bar-rating>
+      {{ review.text }}
+    </li>
+  </ul>
+  <!-- {{ provider.reviews }} reviews -->
+</div>

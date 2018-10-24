@@ -1,11 +1,24 @@
 export const provider = {
   Query: {
-    providers(root, args, context) {
+    async providers(parent, args, ctx, info) {
       console.log(args)
-      return context.prisma.providers(args)
+      const providers = await ctx.prisma.providers(args, info)
+      return providers
+    },
+    async provider(parent, args, ctx, info) {
+      const provider = await ctx.prisma.provider({
+        id: args.where.id
+      })
+      const reviews = await ctx.prisma
+        .provider({
+          id: args.where.id
+        })
+        .reviews()
+
+      provider.reviews = reviews
+      return provider
     }
   },
-
   Mutation: {
     async addProvider(root, { data }, context) {
       const { user } = context

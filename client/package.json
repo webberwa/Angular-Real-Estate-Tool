@@ -36,6 +36,7 @@
     "apollo-link-error": "^1.1.1",
     "apollo-link-http": "^1.5.5",
     "apollo-link-state": "^0.4.2",
+    "bootstrap": "^4.1.3",
     "core-js": "^2.5.4",
     "dotenv": "^6.0.0",
     "graphql": "^14.0.2",

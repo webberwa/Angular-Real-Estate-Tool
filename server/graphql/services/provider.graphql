@@ -3,8 +3,27 @@ query providers($where: ProviderWhereInput) {
     id
     name
     type
-    rate
-    review
+    reviews {
+      rating
+      text
+    }
+    phone_number
+    email
+    addr1
+    addr2
+  }
+}
+
+query provider($where: ProviderWhereUniqueInput!) {
+  provider(where: $where) {
+    id
+    name
+    type
+    reviews {
+      id
+      rating
+      text
+    }
     phone_number
     email
     addr1

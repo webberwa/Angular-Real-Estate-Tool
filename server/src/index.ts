@@ -31,7 +31,7 @@ const context = async ({ req }) => {
   }
   console.log('User scope: ' + scope)
 
-  return { prisma, scope, user }
+  return { ...req, prisma, scope, user }
 }
 
 const server = new ApolloServer({
