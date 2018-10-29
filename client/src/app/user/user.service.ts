@@ -85,7 +85,8 @@ export class UserService {
       const token = localStorage.getItem('token');
 
       if (!token) {
-        return reject();
+        this.userLoaded.next(true);
+        return resolve(false);
       }
 
       this.apollo
@@ -163,8 +164,14 @@ export class UserService {
   }
 
   logout() {
+    this.isAuthenticated = false;
     localStorage.removeItem('token');
     this.apollo.getClient().resetStore();
+    this.alert.open({
+      message: 'Logout successful',
+      type: Alert.SUCCESS
+    });
+    this.router.navigate(['/']);
   }
 
   createUser(form) {
@@ -222,9 +229,10 @@ export class UserService {
                 message: 'Login successful',
                 type: Alert.SUCCESS
               });
+              this.isAuthenticated = true;
 
-              this.router.navigate(['/profile']);
               this.storeTokenToLocalStorage(token);
+              this.router.navigate(['/profile']);
             });
         },
         err => {

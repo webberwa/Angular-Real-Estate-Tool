@@ -1,0 +1,27 @@
+// Box on right with review button
+.Review-actionBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.Review-title {
+  margin-bottom: 0px;
+}
+.Review-rating--avg {
+  position: relative;
+  top: -2px;
+}
+
+.Provider-reviewRating {
+  margin-top: -10px;
+}
+.Provider-verificationStatus {
+  font-size: 1rem;
+  i {
+    position: relative;
+    top: 4px;
+    color: red;
+  }
+}

@@ -1,11 +1,12 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { GET_LOCAL_USER } from './../local-queries';
 import { UserComponent } from '../user/user.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UserService } from '../user/user.service';
 import { MeGQL } from '../apollo-angular-services';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
-import { map } from 'rxjs/operators';
+import { DOCUMENT } from '@angular/common';
 
 const LOGOUT = gql`
   mutation logout {
@@ -17,19 +18,22 @@ const LOGOUT = gql`
   providers: [UserComponent],
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  url;
   constructor(
     private apollo: Apollo,
     private meGQL: MeGQL,
     private userComp: UserComponent,
-    private userService: UserService
-  ) {}
-
-  ngOnInit() {
-    console.log('home component');
+    private userService: UserService,
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    this.url = router.url;
   }
+
+  ngOnInit() {}
 
   signup() {
     this.userComp.openSignupDialog();

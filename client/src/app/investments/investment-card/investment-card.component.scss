@@ -1,5 +1,6 @@
 .investment-card {
   $border-color: rgb(189, 189, 189);
+  margin-bottom: 15px;
   .mat-grid-tile {
     &:nth-child(1) {
       border-bottom: 1px solid $border-color;

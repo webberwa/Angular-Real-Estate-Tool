@@ -4,8 +4,13 @@ query providers($where: ProviderWhereInput) {
     name
     type
     reviews {
+      id
       rating
       text
+    }
+    provider_stats {
+      review_count
+      review_avg
     }
     phone_number
     email
@@ -24,6 +29,10 @@ query provider($where: ProviderWhereUniqueInput!) {
       rating
       text
     }
+    provider_stats {
+      review_count
+      review_avg
+    }
     phone_number
     email
     addr1
@@ -34,5 +43,13 @@ query provider($where: ProviderWhereUniqueInput!) {
 mutation addProvider($data: ProviderCreateInput!) {
   addProvider(data: $data) {
     id
+    name
+  }
+}
+
+mutation deleteProvider($where: ProviderWhereUniqueInput!) {
+  deleteProvider(where: $where) {
+    id
+    name
   }
 }

@@ -1,21 +1,54 @@
-<!-- <mat-tab-group>
-  <mat-tab label="Create">
-    <h3> Add a Service Provider </h3>
-    <app-create-provider-form></app-create-provider-form>
-  </mat-tab>
-  <mat-tab label="Current">
-  </mat-tab>
-  <mat-tab label="Third"> Content 3
-  </mat-tab>
-</mat-tab-group> -->
-<div fxLayout="row">
-  <div fxFlex.sm="15%"
-    fxFlex="25%">
-    <app-sidenav></app-sidenav>
-  </div>
-  <div fxFlex>
-    <div *ngFor="let provider of myProviders | async">
-      <h3>{{ provider.name }}</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-sm-9">
+      <button mat-raised-button
+        color="primary"
+        (click)="openAddProviderDialog()"> Add Provider </button>
+      <br>
+      <div>
+        <h3> Providers </h3>
+      </div>
+      <mat-table #table
+        [dataSource]="dataSource"
+        class=""
+        matSort
+        matSortActive="created"
+        matSortDisableClear
+        matSortDirection="asc">
+
+        <!--- Note that these columns can be defined in any order.
+   The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Number Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>Provider Name</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef>Provider Type</mat-header-cell>
+          <mat-cell *matCellDef="let row">{{ providers.getProviderTypeLabel(row.type) }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button mat-raised-button
+              color="primary"
+              (click)="editProvider(row.id)"> Edit </button>
+            &nbsp;
+            <button mat-raised-button
+              color="primary"
+              (click)="deleteProvider(row.id)"> Delete </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
     </div>
   </div>
 </div>

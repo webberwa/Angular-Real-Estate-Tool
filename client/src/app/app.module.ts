@@ -34,6 +34,9 @@ import { UserGuard } from './user.guard';
 import { ProviderCardComponent } from './providers/provider-card/provider-card.component';
 import { ProvidersDetailsComponent } from './providers/providers-details/providers-details.component';
 import { SidenavComponent } from './site/sidenav/sidenav.component';
+import { AddReviewFormComponent } from './review/add-review-form/add-review-form.component';
+import { ProvidersReviewSnippetComponent } from './providers/providers-review-snippet/providers-review-snippet.component';
+import { SearchFilterComponent } from './providers/search-filter/search-filter.component';
 
 const appRoutes: Routes = [
   {
@@ -90,13 +93,16 @@ const appRoutes: Routes = [
     ResetPasswordComponent,
     AlertComponent,
     NavComponent,
+    CreateProviderFormComponent,
     SettingsComponent,
     TwoFactorCodeComponent,
     ProfileComponent,
-    CreateProviderFormComponent,
     ProviderCardComponent,
     ProvidersDetailsComponent,
-    SidenavComponent
+    SidenavComponent,
+    AddReviewFormComponent,
+    ProvidersReviewSnippetComponent,
+    SearchFilterComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -121,7 +127,9 @@ const appRoutes: Routes = [
     LoginDialogComponent,
     SignupDialogComponent,
     ResetPasswordDialogComponent,
-    AlertComponent
+    AlertComponent,
+    CreateProviderFormComponent,
+    AddReviewFormComponent
   ]
 })
 export class AppModule {

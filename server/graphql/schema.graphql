@@ -21,17 +21,23 @@ type Query {
 }
 
 type Mutation {
-  addInvestment(data: InvestmentCreateInput!): Investment!
-  deleteInvestment(where: InvestmentWhereUniqueInput!): Investment!
+  # User
   createUser(email: String!, password: String!): AuthPayload
   loginUser(email: String!, password: String!, code: String): AuthPayload
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
-  addProvider(data: ProviderCreateInput!): Provider!
   requestResetPassword(email: String!): Boolean
   resetPassword(password: String!, token: String!): Boolean
+  verify2faCode(code: String!): Boolean # Verify for the 1st time
+  # Investment
+  addInvestment(data: InvestmentCreateInput!): Investment!
+  deleteInvestment(where: InvestmentWhereUniqueInput!): Investment!
+  # Provider
+  addProvider(data: ProviderCreateInput!): Provider!
+  deleteProvider(where: ProviderWhereUniqueInput!): Provider
   generateQRCode: String!
-  # Verify for the 1st time
-  verify2faCode(code: String!): Boolean
+  # Review
+  addReview(data: ReviewCreateInput!): Review!
+
   test: Boolean
 }
 
@@ -40,6 +46,11 @@ type Review {
   rating: Int
   text: String
   provider: Provider
+}
+
+type ProviderStats {
+  review_count: Int
+  review_avg: Float
 }
 
 type Investment {
@@ -61,6 +72,27 @@ type User {
 }
 
 # import Provider from 'prisma/__generated__/prisma.graphql'
+type Provider {
+  id: ID!
+  name: String!
+  type: String!
+  provider_stats: ProviderStats
+  reviews(
+    where: ReviewWhereInput
+    orderBy: ReviewOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Review!]
+  phone_number: String
+  email: String
+  addr1: String
+  addr2: String
+  is_verified: Boolean!
+  owner: User
+}
 
 type AuthPayload {
   token: String!

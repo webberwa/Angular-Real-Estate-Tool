@@ -23,7 +23,10 @@
               "node_modules/bootstrap/scss/bootstrap.scss",
               "src/assets/scss/main.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/assets/scss"]
+            }
           },
           "configurations": {
             "production": {
@@ -109,5 +112,10 @@
       }
     }
   },
-  "defaultProject": "client"
+  "defaultProject": "client",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

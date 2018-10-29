@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatTableModule } from '@angular/material/table';
 
 import {
   MatCardModule,
@@ -50,7 +51,8 @@ import { AgmCoreModule } from '@agm/core';
     AgmCoreModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule
   ],
   declarations: [],
   exports: [
@@ -75,7 +77,8 @@ import { AgmCoreModule } from '@agm/core';
     MatCardModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule
   ]
 })
 export class MaterialModule {

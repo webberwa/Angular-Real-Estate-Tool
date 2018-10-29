@@ -13,7 +13,7 @@ type Provider {
   id: ID! @unique
   name: String!
   type: String!
-  reviews: [Review!]! @relation(name: "ReviewsForProviders")
+  reviews: [Review!]! @relation(name: "ReviewsForProviders", onDelete: CASCADE)
   phone_number: String
   email: String
   addr1: String

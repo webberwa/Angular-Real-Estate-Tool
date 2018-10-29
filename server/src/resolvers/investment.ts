@@ -12,6 +12,7 @@ export const investment = {
       })
     },
     async deleteInvestment(root, { where }, context) {
+      console.log(where)
       return await context.prisma.deleteInvestment({
         ...where
       })

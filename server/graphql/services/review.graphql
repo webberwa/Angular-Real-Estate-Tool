@@ -9,3 +9,11 @@ query reviews($where: ReviewWhereInput!) {
     ...reviewFields
   }
 }
+
+mutation addReview($data: ReviewCreateInput!) {
+  addReview(data: $data) {
+    id
+    rating
+    text
+  }
+}

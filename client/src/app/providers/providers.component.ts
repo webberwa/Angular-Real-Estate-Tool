@@ -31,6 +31,8 @@ export class ProvidersComponent implements OnInit {
 
   hover_sp = null;
 
+  allProviders;
+
   search_text = '';
   search_type = 'All';
 
@@ -40,20 +42,11 @@ export class ProvidersComponent implements OnInit {
     private apollo: Apollo,
     private providerGQL: ProvidersGQL,
     private providersService: ProvidersService
-  ) {}
-
-  ngOnInit() {
-    this.apollo
-      .watchQuery({
-        query: this.providerGQL.document
-      })
-      .valueChanges.subscribe((res: any) => {
-        this.service_provider_list = res.data.providers;
-        this.ref.detectChanges();
-      });
-
-    this.ref.detectChanges();
+  ) {
+    this.allProviders = providersService.allProviders();
   }
+
+  ngOnInit() {}
 
   filterServiceProvider() {
     if (this.service_provider_type === 'All') {

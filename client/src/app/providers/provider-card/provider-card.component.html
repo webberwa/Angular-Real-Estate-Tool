@@ -1,22 +1,23 @@
-<div fxLayout="row">
-  <div fxFlex>
+<hr />
+<div class="row">
+  <div class="col-sm-6">
     <a routerLink="/providers/{{provider.id}}"
       routerLinkActive="active">
       {{ provider.name }}
     </a>
-    <bar-rating [rate]="provider.rate"
-      [max]="5"
-      readOnly="true"></bar-rating>
+    <app-providers-review-snippet [provider]="provider"></app-providers-review-snippet>
   </div>
-  <div fxFlex>
-    <p>
-      {{ provider.phone_number }}
-    </p>
+  <div class="col-sm-6">
     <p>
       {{ provider.addr1 }}
     </p>
     <p>
       {{ provider.addr2 }}
+    </p>
+    <p>
+      <a href="tel:{{provider.phone_number}}">
+        {{ provider.phone_number }}
+      </a>
     </p>
   </div>
 </div>

@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import {
@@ -7,13 +8,17 @@ import {
 } from '../apollo-angular-services';
 import { UserService } from '../user/user.service';
 import { map } from 'rxjs/operators';
+import { findIndex } from 'lodash';
+import { DeleteProviderGQL } from '../apollo-angular-services';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProvidersService {
   public myProviders;
-  allProviders;
+  private me;
+
+  myProviderQuery;
 
   serviceProviderTypes = [
     {
@@ -31,32 +36,38 @@ export class ProvidersService {
   ];
 
   constructor(
+    private dialog: MatDialog,
     private apollo: Apollo,
     private addProvidersGQL: AddProviderGQL,
     private providersGQL: ProvidersGQL,
     private providerGQL: ProviderGQL,
-    private userService: UserService
+    private userService: UserService,
+    private deleteProviderGQL: DeleteProviderGQL
   ) {
-    const user = userService.me;
-    this.myProviders = this.apollo
-      .watchQuery({
-        query: this.providersGQL.document,
-        variables: {
-          where: {
-            owner: {
-              id: user.id
-            }
+    this.me = userService.me;
+    this.myProviderQuery = {
+      query: this.providersGQL.document,
+      variables: {
+        where: {
+          owner: {
+            id: this.me.id
           }
         }
-      })
+      }
+    };
+
+    this.myProviders = this.apollo
+      .watchQuery(this.myProviderQuery)
       .valueChanges.pipe(
         map(({ data }: { data: any }) => {
           console.log(data);
           return data.providers;
         })
       );
+  }
 
-    this.allProviders = this.providersGQL.watch().valueChanges.pipe(
+  allProviders() {
+    return this.providersGQL.watch().valueChanges.pipe(
       map(({ data }: { data: any }) => {
         console.log(data.providers);
         return data.providers;
@@ -68,6 +79,7 @@ export class ProvidersService {
     this.apollo
       .mutate({
         mutation: this.addProvidersGQL.document,
+        refetchQueries: [this.myProviderQuery],
         variables: {
           data: {
             name: form.get('name').value,
@@ -80,6 +92,7 @@ export class ProvidersService {
         }
       })
       .subscribe(res => {
+        this.dialog.closeAll();
         console.log(res);
       });
   }
@@ -102,7 +115,30 @@ export class ProvidersService {
       );
   }
 
+  deleteProvider(id) {
+    this.apollo
+      .mutate({
+        mutation: this.deleteProviderGQL.document,
+        refetchQueries: [this.myProviderQuery],
+        variables: {
+          where: {
+            id
+          }
+        }
+      })
+      .subscribe();
+  }
+
   getProviderTypes() {
     return this.serviceProviderTypes;
+  }
+
+  getProviderTypeLabel(type) {
+    if (type) {
+      const index = findIndex(this.serviceProviderTypes, { value: type });
+      const label = this.serviceProviderTypes[index].label;
+      // console.log(label);
+      return label;
+    }
   }
 }

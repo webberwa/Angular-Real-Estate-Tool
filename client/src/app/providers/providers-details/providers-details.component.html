@@ -1,12 +1,48 @@
-<div>
-  {{ (provider | async)?.name }}
-  <ul>
-    <li *ngFor="let review of (provider | async)?.reviews">
-      <bar-rating [rate]="review.rating"
-        [max]="5"
-        readOnly="true"></bar-rating>
-      {{ review.text }}
-    </li>
-  </ul>
+<div class="container"
+  *ngIf="(provider | async)">
+  <div class="row">
+    <div class="col-sm-6">
+
+      <h1 class="Review-title"> {{ (provider | async)?.name }}
+        <span class="Provider-verificationStatus">
+          <span *ngIf="(provider | async)?.is_verified === true; else unverified">
+            <i class="material-icons success">
+              check_circle_outline
+            </i>
+            Verified
+          </span>
+          <ng-template #unverified>
+            <span>
+              <i class="material-icons danger">
+                cancel
+              </i>
+              Unverified
+            </span>
+          </ng-template>
+        </span>
+      </h1>
+
+      <app-providers-review-snippet [provider]="(provider |async)"></app-providers-review-snippet>
+
+
+    </div><!-- /.col-sm-6 -->
+    <div class="col-sm-6 Review-actionBox">
+      <button mat-raised-button
+        class="add-investment"
+        color="primary"
+        (click)="addReview()"> Write a Review </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div *ngFor="let review of (provider | async)?.reviews">
+        <bar-rating [rate]="review.rating"
+          [max]="5"
+          readOnly="true"></bar-rating>
+        {{ review.text }}
+      </div>
+    </div>
+  </div>
   <!-- {{ provider.reviews }} reviews -->
 </div>

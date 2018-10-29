@@ -1,37 +1,56 @@
-span.spacer {
-  flex: 1 1 auto;
-}
+@import 'variables.scss';
 
-.menu-item-container {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-.profile {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-mat-toolbar {
-  position: fixed;
-  height: 54px;
-  z-index: 999;
-
-  mat-icon {
-    font-size: 30px;
-    line-height: 24px;
-    cursor: pointer;
+.Nav {
+  // Fix for drop menu link
+  .ng-star-inserted a {
+    &:hover {
+      cursor: mouse;
+    }
+    padding-bottom: 7px;
   }
-  > a {
-    margin: 0 0.5rem;
+  a {
+    color: $Nav-color--text;
+    border-bottom: 2px solid transparent;
+    margin: 0 1rem;
+    font-family: $Heading-font;
+    font-size: $Nav-size--primary;
+    &:not(.Nav-logo):hover {
+      text-decoration: none;
+      border-bottom: 2px solid $Nav-color--text;
+    }
   }
-}
+  .Nav-left {
+    display: flex;
+  }
+  .Nav-right {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+  .Nav-logo {
+    display: flex;
+    justify-content: flex-start;
+    img {
+      width: 40px;
+      height: 60px;
+    }
+  }
+  .mat-toolbar.mat-primary {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
 
-.container {
-  padding-left: 15px;
-  padding-right: 15px;
-}
+    // Nav item size
+    span {
+      font-size: $Nav-size--primary;
+    }
 
-.user-button {
-  width: auto;
+    // Home Nav
+    .Home-body & {
+      background: transparent;
+      position: fixed;
+      z-index: 10;
+      color: $white;
+    }
+  }
 }
