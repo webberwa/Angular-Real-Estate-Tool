@@ -28,10 +28,14 @@ const LOGOUT = gql`
   providedIn: 'root'
 })
 export class UserService {
+<<<<<<< HEAD
   // let us know when to load the nav
   userLoaded = new BehaviorSubject(false);
 
   isAuthenticated = false;
+=======
+  loginFailed = false;
+>>>>>>> 7ddcd059f3821e23857b4ae4d734f104d061e04b
   isAuthenticated$;
   me$;
   me;
