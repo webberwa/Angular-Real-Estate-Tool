@@ -27,6 +27,7 @@ import { NavComponent } from './site/nav/nav.component';
 import { SettingsComponent } from './user/settings/settings.component';
 import { TwoFactorCodeComponent } from './user/two-factor-code/two-factor-code.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { CreateProviderFormComponent } from './profile/create-provider-form/create-provider-form.component';
 import { UserService } from './user/user.service';
 import { UserGuard } from './user.guard';
@@ -45,38 +46,38 @@ import {
 
 const appRoutes: Routes = [
   {
-    path: '',
-    // UserGuard loads user data before entering any route
-    canActivate: [UserGuard],
-    children: [
-      { path: '', component: HomeComponent },
-      { path: 'reset-password', component: ResetPasswordComponent },
-      { path: 'login', component: LoginDialogComponent },
-      { path: 'two-factor', component: TwoFactorCodeComponent },
-      { path: 'signup', component: SignupDialogComponent },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'settings',
-        component: SettingsComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'investments',
-        component: InvestmentsComponent,
-        canActivate: [AuthGuard]
-      },
-      {
-        path: 'providers',
-        component: ProvidersComponent
-      },
-      { path: 'providers/:id', component: ProvidersDetailsComponent },
-      { path: 'review/:id', component: ReviewComponent }
-    ]
-  }
+  path: '',
+  // UserGuard loads user data before entering any route
+  canActivate: [UserGuard],
+  children: [
+    { path: '', component: HomeComponent },
+    { path: 'reset-password', component: ResetPasswordComponent },
+    { path: 'login', component: LoginDialogComponent },
+    { path: 'two-factor', component: TwoFactorCodeComponent },
+    { path: 'signup', component: SignupDialogComponent },
+    {
+      path: 'profile',
+      component: ProfileComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'settings',
+      component: SettingsComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'investments',
+      component: InvestmentsComponent,
+      canActivate: [AuthGuard]
+    },
+    {
+      path: 'providers',
+      component: ProvidersComponent
+    },
+    { path: 'providers/:id', component: ProvidersDetailsComponent },
+    { path: 'review/:id', component: ReviewComponent }
+  ]
+}
 ];
 
 export function getAuthServiceConfigs() {
@@ -139,7 +140,8 @@ export function getAuthServiceConfigs() {
     GraphQLModule,
     FormsModule,
     HttpClientModule,
-    SocialLoginModule
+    SocialLoginModule,
+    AngularFontAwesomeModule
     ],
   providers: [
     {

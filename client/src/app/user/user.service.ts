@@ -34,8 +34,9 @@ import {
   providedIn: 'root'
 })
 export class UserService {
-  // let us know when to load the nav
-  userLoaded = new BehaviorSubject(false);
+  loginFailed = false;
+    // let us know when to load the nav
+    userLoaded = new BehaviorSubject(false);
 
   isAuthenticated = false;
   isAuthenticated$;
@@ -436,10 +437,13 @@ export class UserService {
     let socialPlatformProvider;
     if (socialPlatform === 'facebook') {
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    } else if (socialPlatform === 'google') {
-      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }
-      return this.socialAuthService.signIn(socialPlatformProvider).then(
+    // TODO: add domain auth for google along with website name.
+    /*
+    else if (socialPlatform === 'google') {
+      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    }*/
+      this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
         console.log(socialPlatform + ' sign in data : ' , userData);
         // sign-in with userData else sign up
