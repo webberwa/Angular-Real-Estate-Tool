@@ -10,7 +10,6 @@ import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AgmCoreModule } from '@agm/core';
 import { UserComponent } from './user/user.component';
 import { LoginDialogComponent } from './user/login-dialog/login-dialog.component';
@@ -28,6 +27,12 @@ import { NavComponent } from './site/nav/nav.component';
 import { SettingsComponent } from './user/settings/settings.component';
 import { TwoFactorCodeComponent } from './user/two-factor-code/two-factor-code.component';
 import { ProfileComponent } from './profile/profile.component';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from 'angular5-social-login';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -45,6 +50,21 @@ const appRoutes: Routes = [
   { path: 'providers', component: ProvidersComponent },
   { path: 'review/:id', component: ReviewComponent }
 ];
+
+export function getAuthServiceConfigs() {
+  const config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider('158673211754613')
+        },
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider('Your-Google-Client-Id')
+        },
+      ]);
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -83,9 +103,15 @@ const appRoutes: Routes = [
     BrowserModule,
     GraphQLModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule
+    ],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
   ],
-  providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
     InvestmentsCreateDialogComponent,

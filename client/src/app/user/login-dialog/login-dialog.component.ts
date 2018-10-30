@@ -34,7 +34,7 @@ export class LoginDialogComponent implements OnInit {
     private dialog: MatDialog,
     private apollo: Apollo,
     private formBuilder: FormBuilder
-  ) {}
+      ) {}
 
   ngOnInit() {
     this.loginFailed = false;
@@ -46,13 +46,23 @@ export class LoginDialogComponent implements OnInit {
    });
   }
 
+  // convenience getter for easy access to form fields
+  get f() { return this.loginForm.controls; }
+
+  socialSignIn(socialPlatform: string) {
+    this.auth.socialAuthentication(socialPlatform, true);
+  }
+
   login() {
     this.loginFailed = false;
      // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
-     this.auth.loginUser(this.loginForm);
+    const email = this.loginForm.get('email').value;
+    const password = this.loginForm.get('password').value;
+    const code = this.loginForm.get('password').value;
+    this.auth.loginUser(email, password, code);
     this.loginFailed = this.auth.loginFailed;
   }
 

@@ -1,5 +1,5 @@
 import { UserService } from '../user.service';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,16 +8,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup-dialog.component.css']
 })
 export class SignupDialogComponent implements OnInit {
-  signupForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
-  });
+  signupForm: FormGroup;
 
-  constructor(private auth: UserService) {}
+  constructor(private auth: UserService,
+              private formBuilder: FormBuilder) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.signupForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+   });
+  }
+
+  socialSignUp(socialPlatform: string) {
+    this.auth.socialAuthentication(socialPlatform, false);
+  }
 
   signup() {
-    this.auth.createUser(this.signupForm);
+
+    if (this.signupForm.invalid) {
+      return;
+    }
+    const email = this.signupForm.get('email').value;
+    const password = this.signupForm.get('password').value;
+    this.auth.createUser(email, password);
   }
 }

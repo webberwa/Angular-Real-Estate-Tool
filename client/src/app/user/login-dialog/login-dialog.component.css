@@ -7,3 +7,15 @@
   color: red;
   font-size: 14px;
 }
+
+.icon {
+  font-size:22px
+}
+
+.fa-facebook-official:hover {
+  color: blue;
+}
+
+.fa-google:hover {
+  color: #dd4b39;
+}

@@ -1,4 +1,8 @@
 <h2 align="center">Login</h2>
+<div fxLayout="" fxLayout.xs="">
+  <div fxFlex (click)="socialSignIn('facebook')"><i class="fa fa-facebook-official icon"></i></div>
+  <div fxFlex (click)="socialSignIn('google')"><i class="fa fa-google icon"></i></div> 
+</div>
 <form [formGroup]="loginForm">
   <div fxLayout="row"
   fxLayout.xs=""
