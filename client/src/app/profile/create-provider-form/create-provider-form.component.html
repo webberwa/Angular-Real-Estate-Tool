@@ -1,0 +1,55 @@
+<form [formGroup]="providersForm">
+  <div class="row">
+    <div class="col-sm-12">
+      <mat-form-field>
+        <input matInput
+          placeholder="Name"
+          formControlName="name">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field>
+        <mat-select placeholder="Provider Types"
+          formControlName="type">
+          <mat-option *ngFor="let type of providerTypes"
+            [value]="type.value">
+            {{type.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field>
+        <input matInput
+          placeholder="Phone Number"
+          formControlName="phone_number">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field>
+        <input matInput
+          placeholder="Email"
+          formControlName="email">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field>
+        <input matInput
+          placeholder="Address 1"
+          formControlName="addr1">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field>
+        <input matInput
+          placeholder="Address 2"
+          formControlName="addr2">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <button mat-raised-button
+        (click)="providers.addProvider(providersForm)"
+        color="primary"> Create Provider </button>
+    </div>
+  </div>
+</form>

@@ -27,6 +27,15 @@ import { NavComponent } from './site/nav/nav.component';
 import { SettingsComponent } from './user/settings/settings.component';
 import { TwoFactorCodeComponent } from './user/two-factor-code/two-factor-code.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CreateProviderFormComponent } from './profile/create-provider-form/create-provider-form.component';
+import { UserService } from './user/user.service';
+import { UserGuard } from './user.guard';
+import { ProviderCardComponent } from './providers/provider-card/provider-card.component';
+import { ProvidersDetailsComponent } from './providers/providers-details/providers-details.component';
+import { SidenavComponent } from './site/sidenav/sidenav.component';
+import { AddReviewFormComponent } from './review/add-review-form/add-review-form.component';
+import { ProvidersReviewSnippetComponent } from './providers/providers-review-snippet/providers-review-snippet.component';
+import { SearchFilterComponent } from './providers/search-filter/search-filter.component';
 import {
   SocialLoginModule,
   AuthServiceConfig,
@@ -35,20 +44,39 @@ import {
 } from 'angular5-social-login';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'login', component: LoginDialogComponent },
-  { path: 'two-factor', component: TwoFactorCodeComponent },
-  { path: 'signup', component: SignupDialogComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   {
-    path: 'investments',
-    component: InvestmentsComponent,
-    canActivate: [AuthGuard]
-  },
-  { path: 'providers', component: ProvidersComponent },
-  { path: 'review/:id', component: ReviewComponent }
+    path: '',
+    // UserGuard loads user data before entering any route
+    canActivate: [UserGuard],
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'reset-password', component: ResetPasswordComponent },
+      { path: 'login', component: LoginDialogComponent },
+      { path: 'two-factor', component: TwoFactorCodeComponent },
+      { path: 'signup', component: SignupDialogComponent },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'investments',
+        component: InvestmentsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'providers',
+        component: ProvidersComponent
+      },
+      { path: 'providers/:id', component: ProvidersDetailsComponent },
+      { path: 'review/:id', component: ReviewComponent }
+    ]
+  }
 ];
 
 export function getAuthServiceConfigs() {
@@ -85,9 +113,16 @@ export function getAuthServiceConfigs() {
     ResetPasswordComponent,
     AlertComponent,
     NavComponent,
+    CreateProviderFormComponent,
     SettingsComponent,
     TwoFactorCodeComponent,
-    ProfileComponent
+    ProfileComponent,
+    ProviderCardComponent,
+    ProvidersDetailsComponent,
+    SidenavComponent,
+    AddReviewFormComponent,
+    ProvidersReviewSnippetComponent,
+    SearchFilterComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -118,7 +153,13 @@ export function getAuthServiceConfigs() {
     LoginDialogComponent,
     SignupDialogComponent,
     ResetPasswordDialogComponent,
-    AlertComponent
+    AlertComponent,
+    CreateProviderFormComponent,
+    AddReviewFormComponent
   ]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(user: UserService) {
+    user.updateAuthStatus();
+  }
+}

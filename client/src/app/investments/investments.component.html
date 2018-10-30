@@ -1,19 +1,17 @@
-<div fxLayout="row"
-  fxLayoutAlign="end">
-  <button mat-raised-button
-    class="add-investment"
-    color="primary"
-    (click)="openDialog()"> Add Investments </button>
-</div>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <button mat-raised-button
+        class="add-investment"
+        color="primary"
+        (click)="openDialog()"> Add Investments </button>
+    </div>
+  </div>
 
-<div fxLayout="row wrap"
-  fxLayoutGap="15px grid"
-  fxItemOffset="-15px"
-  fxLayout.xs="column">
-  <li fxFlex.xs="100%"
-    fxFlex.sm="50%"
-    fxFlex="33.33%"
-    *ngFor="let investment of investmentsService.investments | async">
-    <app-investment-card [investment]="investment"></app-investment-card>
-  </li>
+  <div class="row">
+    <div class="col-sm-4"
+      *ngFor="let investment of investmentsService.investments | async">
+      <app-investment-card [investment]="investment"></app-investment-card>
+    </div>
+  </div>
 </div>

@@ -18,6 +18,7 @@ import {
   ResetPasswordGQL,
   RequestResetPasswordGQL
 } from '../apollo-angular-services';
+import { Observable, BehaviorSubject } from 'rxjs';
 const LOGOUT = gql`
   mutation logout {
     logout @client
@@ -33,7 +34,10 @@ import {
   providedIn: 'root'
 })
 export class UserService {
-  loginFailed = false;
+  // let us know when to load the nav
+  userLoaded = new BehaviorSubject(false);
+
+  isAuthenticated = false;
   isAuthenticated$;
   me$;
   me;
@@ -83,6 +87,65 @@ export class UserService {
     });
   }
 
+  updateAuthStatus() {
+    return new Promise((resolve, reject) => {
+      const token = localStorage.getItem('token');
+
+      if (!token) {
+        this.userLoaded.next(true);
+        return resolve(false);
+      }
+
+      this.apollo
+        .watchQuery({
+          query: this.meGQL.document
+          // fetchPolicy: 'network-only'
+        })
+        .valueChanges.subscribe((res: any) => {
+          const user = res.data.user;
+
+          // console.log('meGQL', user);
+
+          this.apollo
+            .mutate({
+              mutation: SET_LOCAL_USER,
+              variables: {
+                user
+              }
+            })
+            .subscribe(r => {
+              const localUser = r.data.setLocalUser;
+              // console.log('mutate SET_LOCAL_USER');
+              console.log(localUser.id);
+              if (localUser.id) {
+                this.isAuthenticated = true;
+              }
+
+              // Fire observable
+              this.userLoaded.next(true);
+              resolve(true);
+            });
+        });
+
+      // this.apollo
+      //   .watchQuery({
+      //     query: GET_LOCAL_USER
+      //   })
+      //   .valueChanges.pipe(
+      //     map(({ data }: { data: any }) => {
+      //       const { user } = data;
+      //       // console.log('query GET_LOCAL_USER: isAuthenticated$', user);
+      //       if (!user) {
+      //         return (this.isAuthenticated = false);
+      //       }
+      //       this.isAuthenticated = user.id != null ? true : false;
+      //       console.log('isAuthenticated', this.isAuthenticated);
+      //     })
+      //   )
+      //   .subscribe();
+    });
+  }
+
   fetchMe() {
     this.apollo
       .watchQuery({
@@ -108,8 +171,14 @@ export class UserService {
   }
 
   logout() {
+    this.isAuthenticated = false;
     localStorage.removeItem('token');
     this.apollo.getClient().resetStore();
+    this.alert.open({
+      message: 'Logout successful',
+      type: Alert.SUCCESS
+    });
+    this.router.navigate(['/']);
   }
 
   createUser(email, password) {
@@ -174,9 +243,10 @@ export class UserService {
                 message: 'Login successful',
                 type: Alert.SUCCESS
               });
+              this.isAuthenticated = true;
 
-              this.router.navigate(['/profile']);
               this.storeTokenToLocalStorage(token);
+              this.router.navigate(['/profile']);
             });
         },
         err => {

@@ -1,56 +1,50 @@
-<mat-toolbar color="primary">
-  <a routerLink="/"
-    routerLinkActive="active"
-    mat-button>Home</a>
+<nav class="Nav">
+  <mat-toolbar color="primary">
 
-  <a routerLink="/investments"
-    routerLinkActive="active"
-    mat-button>Investments</a>
+    <div class="Nav-left">
+      <a class="Nav-logo"
+        routerLink="/"
+        routerLinkActive="active"><img src="/assets/image/airbnb-logo.svg"></a>
+    </div><!-- /.Nav-left -->
 
-  <a routerLink="/providers"
-    routerLinkActive="active"
-    mat-button>Service Providers</a>
+    <div class="Nav-right">
 
-  <span class="spacer"></span>
+      <a routerLink="/investments"
+        routerLinkActive="active">Track Investments</a>
 
-  <div class="menu-item-container"
-    *ngIf="user.isAuthenticated$ | async; else showGuest">
-    <!-- <mat-icon matBadge="{{alert_number}}"
-      matBadgePosition="before"
-      matBadgeColor="warn"
-      (click)="test_onClickNotification()">{{notification}}</mat-icon>
-    <mat-icon class="profile">account_box</mat-icon> -->
+      <a routerLink="/providers"
+        routerLinkActive="active">Browse Providers</a>
 
-    <mat-menu #appMenu="matMenu">
-      <button mat-menu-item
-        routerLink="/profile"
-        routerLinkActive="active">Profile</button>
-      <button mat-menu-item
-        routerLink="/settings"
-        routerLinkActive="active">Settings</button>
-      <button (click)="user.logout()"
-        mat-menu-item>
-        Log Out
-      </button>
-    </mat-menu>
+      <div *ngIf="(user.isAuthenticated$ | async) || user.isAuthenticated; else showGuest">
 
-    <button mat-icon-button
-      class="user-button"
-      [matMenuTriggerFor]="appMenu">
-      <span *ngIf="user.me$ | async as user"
-        class="nav-user">
-        {{ user.email }}
-      </span>
-    </button>
-  </div>
+        <a [matMenuTriggerFor]="appMenu">
+          <span *ngIf="user.me$ | async as user">
+            {{ user.email }}
+          </span>
+        </a>
 
-  <ng-template #showGuest>
-    <a routerLink="/login"
-      routerLinkActive="active"
-      mat-button>Log In</a>
-    <a routerLink="/signup"
-      routerLinkActive="active"
-      mat-raised-button>Sign Up</a>
-  </ng-template>
+        <mat-menu #appMenu="matMenu">
+          <button mat-menu-item
+            routerLink="/profile"
+            routerLinkActive="active">Profile</button>
+          <button mat-menu-item
+            routerLink="/settings"
+            routerLinkActive="active">Settings</button>
+          <button (click)="user.logout()"
+            mat-menu-item>
+            Log Out
+          </button>
+        </mat-menu>
+      </div>
 
-</mat-toolbar>
+      <ng-template #showGuest>
+        <a routerLink="/signup"
+          routerLinkActive="active">Sign Up</a>
+        <a routerLink="/login"
+          routerLinkActive="active">Log In</a>
+      </ng-template>
+
+    </div><!-- /.Nav-right -->
+
+  </mat-toolbar>
+</nav>

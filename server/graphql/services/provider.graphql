@@ -1,19 +1,55 @@
-query providers ($where: ProviderWhereInput){
-    providers (where: $where){
-        id
-        name
-        type
-        rate
-        review
-        phone_number
-        email
-        addr1
-        addr2
+query providers($where: ProviderWhereInput) {
+  providers(where: $where) {
+    id
+    name
+    type
+    reviews {
+      id
+      rating
+      text
     }
+    provider_stats {
+      review_count
+      review_avg
+    }
+    phone_number
+    email
+    addr1
+    addr2
+  }
+}
+
+query provider($where: ProviderWhereUniqueInput!) {
+  provider(where: $where) {
+    id
+    name
+    type
+    reviews {
+      id
+      rating
+      text
+    }
+    provider_stats {
+      review_count
+      review_avg
+    }
+    phone_number
+    email
+    addr1
+    addr2
+  }
 }
 
 mutation addProvider($data: ProviderCreateInput!) {
-    addProvider(data: $data) {
-        id
-    }
+  addProvider(data: $data) {
+    id
+    name
+  }
+}
+
+mutation deleteProvider($where: ProviderWhereUniqueInput!) {
+  deleteProvider(where: $where) {
+    id
+    name
+  }
 }

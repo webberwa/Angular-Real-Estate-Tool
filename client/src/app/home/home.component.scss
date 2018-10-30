@@ -1,0 +1,23 @@
+.Home-banner--bg {
+  background-image: url('/assets/image/home-background.jpg');
+  min-height: 800px;
+  height: 80vh;
+  width: 100%;
+  position: relative;
+  background-size: cover;
+  background-position: center center;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(162, 162, 162, 0.4) 25%
+    );
+    opacity: 0.6;
+  }
+}

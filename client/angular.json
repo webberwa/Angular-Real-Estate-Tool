@@ -19,8 +19,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss", "node_modules/font-awesome/css/font-awesome.css"],
-            "scripts": []
+            "styles": [
+              "src/styles.scss",
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "src/assets/scss/main.scss",
+              "node_modules/font-awesome/css/font-awesome.css"
+            ],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/assets/scss"]
+            }
           },
           "configurations": {
             "production": {
@@ -106,5 +114,10 @@
       }
     }
   },
-  "defaultProject": "client"
+  "defaultProject": "client",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

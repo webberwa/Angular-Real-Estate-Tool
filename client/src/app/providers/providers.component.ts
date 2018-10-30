@@ -1,7 +1,8 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ProvidersGQL} from "../apollo-angular-services";
-import {Apollo} from "apollo-angular";
-import {Router} from "@angular/router";
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ProvidersGQL } from '../apollo-angular-services';
+import { Apollo } from 'apollo-angular';
+import { Router } from '@angular/router';
+import { ProvidersService } from './providers.service';
 
 @Component({
   selector: 'app-providers',
@@ -11,52 +12,50 @@ import {Router} from "@angular/router";
 export class ProvidersComponent implements OnInit {
   service_provider_type_list: any[] = [
     {
-      label: "All",
-      value: "All"
+      label: 'All',
+      value: 'All'
     },
     {
-      label: "Property Manager",
-      value: "Property Manager"
+      label: 'Property Manager',
+      value: 'Property Manager'
     },
     {
-      label: "Real Estate Agent",
-      value: "Real Estate Agent"
+      label: 'Real Estate Agent',
+      value: 'Real Estate Agent'
     }
   ];
 
   service_provider_list = null;
 
-  service_provider_type = "All";
+  service_provider_type = 'All';
 
   hover_sp = null;
 
-  search_text = "";
-  search_type = "All";
+  allProviders;
 
-  constructor(private router: Router,
-              private ref: ChangeDetectorRef,
-              private apollo: Apollo,
-              private providerGQL: ProvidersGQL) { }
+  search_text = '';
+  search_type = 'All';
 
-  ngOnInit() {
-    this.apollo
-      .watchQuery({
-        query: this.providerGQL.document
-      })
-      .valueChanges.subscribe((res: any) => {
-      this.service_provider_list = res.data.providers;
-      this.ref.detectChanges();
-    });
-
-    this.ref.detectChanges();
+  constructor(
+    private router: Router,
+    private ref: ChangeDetectorRef,
+    private apollo: Apollo,
+    private providerGQL: ProvidersGQL,
+    private providersService: ProvidersService
+  ) {
+    this.allProviders = providersService.allProviders();
   }
 
+  ngOnInit() {}
+
   filterServiceProvider() {
-    if (this.service_provider_type == "All") {
+    if (this.service_provider_type === 'All') {
       return this.service_provider_list;
     }
 
-    return this.service_provider_list.filter(sp => sp.type == this.service_provider_type);
+    return this.service_provider_list.filter(
+      sp => sp.type === this.service_provider_type
+    );
   }
 
   hoverServiceProvider(sp) {
@@ -75,17 +74,19 @@ export class ProvidersComponent implements OnInit {
         variables: this.getSearchServiceProviderVariable(this.search_type)
       })
       .valueChanges.subscribe((res: any) => {
-      this.service_provider_list = res.data.providers.filter(sp => {
-        const info = [sp.name, sp.phone_number, sp.email, sp.addr1].join(" ").toLowerCase();
-        return filter.some(target => info.includes(target));
+        this.service_provider_list = res.data.providers.filter(sp => {
+          const info = [sp.name, sp.phone_number, sp.email, sp.addr1]
+            .join(' ')
+            .toLowerCase();
+          return filter.some(target => info.includes(target));
+        });
+        this.ref.detectChanges();
       });
-      this.ref.detectChanges();
-    });
   }
 
   getSearchServiceProviderVariable(search_type) {
-    if (search_type == "All") {
-      return {}
+    if (search_type === 'All') {
+      return {};
     }
 
     return {
@@ -96,6 +97,6 @@ export class ProvidersComponent implements OnInit {
   }
 
   onClickProvider(sp) {
-    this.router.navigateByUrl('/review/'+sp.id);
+    this.router.navigateByUrl('/review/' + sp.id);
   }
 }

@@ -1,6 +1,12 @@
 require('dotenv').config()
 import { authenticateUser } from './resolvers/user'
 import { resolvers } from './resolvers'
+import {
+  makeExecutableSchema,
+  addMockFunctionsToSchema,
+  mergeSchemas
+} from 'graphql-tools'
+
 import express from 'express'
 import cors from 'cors'
 import { createServer } from 'http'
@@ -10,7 +16,7 @@ const { ForbiddenError } = require('apollo-server')
 const { PubSub } = require('apollo-server')
 const { ApolloServer, gql } = require('apollo-server-express')
 
-const typeDefs = importSchema('./graphql/schema.graphql')
+const mySchema = importSchema('./graphql/schema.graphql')
 
 enum Scope {
   Guest = 'GUEST',
@@ -31,11 +37,11 @@ const context = async ({ req }) => {
   }
   console.log('User scope: ' + scope)
 
-  return { prisma, scope, user }
+  return { ...req, prisma, scope, user }
 }
 
 const server = new ApolloServer({
-  typeDefs,
+  typeDefs: mySchema,
   resolvers,
   context
 })

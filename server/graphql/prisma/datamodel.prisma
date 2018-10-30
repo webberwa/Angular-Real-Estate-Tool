@@ -13,13 +13,13 @@ type Provider {
   id: ID! @unique
   name: String!
   type: String!
-  rate: Float
-  review_number: Int
-  review: String
+  reviews: [Review!]! @relation(name: "ReviewsForProviders", onDelete: CASCADE)
   phone_number: String
   email: String
   addr1: String
   addr2: String
+  is_verified: Boolean! @default(value: false)
+  owner: User
 }
 
 type User {
@@ -30,4 +30,12 @@ type User {
   reset_token: String @unique
   qr_secret: String @unique
   code: String
+  providers: [Provider!]!
+}
+
+type Review {
+  id: ID! @unique
+  rating: Int!
+  text: String
+  provider: Provider! @relation(name: "ReviewsForProviders")
 }
