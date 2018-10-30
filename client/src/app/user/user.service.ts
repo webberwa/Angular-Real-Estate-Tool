@@ -24,6 +24,12 @@ const LOGOUT = gql`
     logout @client
   }
 `;
+import {
+  AuthService,
+  FacebookLoginProvider,
+  GoogleLoginProvider
+} from 'angular5-social-login';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -49,7 +55,8 @@ export class UserService {
     private generateQRCodeGQL: GenerateQrCodeGQL,
     private alert: AlertService,
     private apollo: Apollo,
-    private router: Router
+    private router: Router,
+    private socialAuthService: AuthService
   ) {
     this.isAuthenticated$ = this.apollo
       .watchQuery({
@@ -174,13 +181,13 @@ export class UserService {
     this.router.navigate(['/']);
   }
 
-  createUser(form) {
+  createUser(email, password) {
     this.apollo
       .mutate({
         mutation: this.createUserGQL.document,
         variables: {
-          email: form.get('email').value,
-          password: form.get('password').value
+          email: email,
+          password: password
         }
       })
       .subscribe(
@@ -196,15 +203,15 @@ export class UserService {
       );
   }
 
-  loginUser(form) {
+  loginUser(email, password, code) {
     console.log('loginUser()');
     this.apollo
       .mutate({
         mutation: this.loginUserGQL.document,
         variables: {
-          email: form.get('email').value,
-          password: form.get('password').value,
-          code: form.get('code').value
+          email: email,
+          password: password,
+          code: code
         }
       })
       .subscribe(
@@ -424,4 +431,23 @@ export class UserService {
   resetQRCode() {
     this.qrCode = null;
   }
+
+  socialAuthentication(socialPlatform: string, logIn: boolean) {
+    let socialPlatformProvider;
+    if (socialPlatform === 'facebook') {
+      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    } else if (socialPlatform === 'google') {
+      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    }
+      return this.socialAuthService.signIn(socialPlatformProvider).then(
+      (userData) => {
+        console.log(socialPlatform + ' sign in data : ' , userData);
+        // sign-in with userData else sign up
+        if (logIn) {
+          this.loginUser(userData.email, userData.id, '');
+        } else {
+          this.createUser(userData.email, userData.id);
+        }
+      });
+    }
 }

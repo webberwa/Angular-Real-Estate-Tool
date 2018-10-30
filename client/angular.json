@@ -20,8 +20,10 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
+              "src/styles.scss",
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "src/assets/scss/main.scss"
+              "src/assets/scss/main.scss",
+              "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": [],
             "stylePreprocessorOptions": {

@@ -1,22 +1,26 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-6 offset-sm-3">
-      <form [formGroup]="signupForm">
-        <mat-form-field class="fullWidth">
-          <input matInput
-            placeholder="Email"
-            formControlName="email">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput
-            placeholder="Password"
-            formControlName="password"
-            type="password">
-        </mat-form-field>
-        <button (click)="signup()"
-          mat-raised-button
-          color="primary"> Signup </button>
-      </form>
-    </div><!-- /.col-sm-6 -->
-  </div><!-- /.row -->
-</div><!-- /.container -->
+<form [formGroup]="signupForm">
+  <div fxLayout="" fxLayout.xs="">
+      <div fxFlex (click)="socialSignUp('facebook')"><i class="fa fa-facebook-official icon"></i></div>
+      <div fxFlex (click)="socialSignUp('google')"><i class="fa fa-google icon"></i></div> 
+  </div>
+  <div fxLayout="row" fxLayout.xs="">
+    <div fxFlex>
+      <mat-form-field class="fullWidth">
+        <input matInput placeholder="Email" formControlName="email">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.xs="">
+    <div fxFlex>
+      <mat-form-field>
+        <input matInput placeholder="Password" formControlName="password" type="password">
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.xs="">
+    <div fxFlex>
+      <button (click)="signup()" mat-raised-button color="primary"> Signup </button>
+    </div>
+  </div>
+</form>
+
