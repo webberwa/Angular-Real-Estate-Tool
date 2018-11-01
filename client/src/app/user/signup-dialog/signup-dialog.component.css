@@ -1,3 +1,15 @@
 .mat-form-field {
   width: 100%;
 }
+
+.icon {
+  font-size:22px
+}
+
+.fa-facebook-official:hover {
+  color: blue;
+}
+
+.fa-google:hover {
+  color: #dd4b39;
+}

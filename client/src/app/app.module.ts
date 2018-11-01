@@ -10,7 +10,6 @@ import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AgmCoreModule } from '@agm/core';
 import { UserComponent } from './user/user.component';
 import { LoginDialogComponent } from './user/login-dialog/login-dialog.component';
@@ -28,6 +27,7 @@ import { NavComponent } from './site/nav/nav.component';
 import { SettingsComponent } from './user/settings/settings.component';
 import { TwoFactorCodeComponent } from './user/two-factor-code/two-factor-code.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { CreateProviderFormComponent } from './profile/create-provider-form/create-provider-form.component';
 import { UserService } from './user/user.service';
 import { UserGuard } from './user.guard';
@@ -39,6 +39,12 @@ import { ProvidersReviewSnippetComponent } from './providers/providers-review-sn
 import { SearchFilterComponent } from './providers/search-filter/search-filter.component';
 import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
 import { HitsComponent } from './search/hits/hits.component';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from 'angular5-social-login';
 
 const appRoutes: Routes = [
   {
@@ -75,6 +81,20 @@ const appRoutes: Routes = [
     ]
   }
 ];
+
+export function getAuthServiceConfigs() {
+  const config = new AuthServiceConfig([
+    {
+      id: FacebookLoginProvider.PROVIDER_ID,
+      provider: new FacebookLoginProvider('158673211754613')
+    },
+    {
+      id: GoogleLoginProvider.PROVIDER_ID,
+      provider: new GoogleLoginProvider('Your-Google-Client-Id')
+    }
+  ]);
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -122,9 +142,16 @@ const appRoutes: Routes = [
     BrowserModule,
     GraphQLModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule,
+    AngularFontAwesomeModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     InvestmentsCreateDialogComponent,

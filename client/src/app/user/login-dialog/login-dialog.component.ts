@@ -32,8 +32,21 @@ export class LoginDialogComponent implements OnInit {
     });
   }
 
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.loginForm.controls;
+  }
+
+  socialSignIn(socialPlatform: string) {
+    this.auth.socialAuthentication(socialPlatform, true);
+  }
+
   login() {
-    this.auth.loginUser(this.loginForm);
+    // stop here if form is invalid
+    const email = this.loginForm.get('email').value;
+    const password = this.loginForm.get('password').value;
+    const code = this.loginForm.get('password').value;
+    this.auth.loginUser(email, password, code);
   }
 
   reset() {
