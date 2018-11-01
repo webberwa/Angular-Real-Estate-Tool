@@ -6,18 +6,47 @@
     <!-- Filters -->
     <div class="col-sm-12">
       <div class="">
-        <app-search-filter></app-search-filter>
+        <form class="row"
+          [formGroup]="searchForm">
+          <div class="col-sm-6">
+            <mat-form-field class="info">
+              <mat-label>Search by:</mat-label>
+              <input (input)="handleChange($event.target.value)"
+                type="text"
+                autocomplete="off"
+                placeholder="Service provider information"
+                formControlName="text"
+                matInput>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field>
+              <mat-label>Provider Type</mat-label>
+              <mat-select placeholder="Provider Types"
+                (selectionChange)="handleTypeChange($event.value)"
+                formControlName="type">
+                <mat-option *ngFor="let type of providerTypes"
+                  [value]="type.value">
+                  {{type.label}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
       </div>
     </div>
     <!-- Providers -->
     <div class="col-sm-8">
       <div class="row">
-        <app-hits></app-hits>
         <div class="col-sm-12"
           *ngFor="let provider of allProviders | async">
           <app-provider-card [provider]="provider">
           </app-provider-card>
         </div>
+        <mat-paginator [length]="length"
+          (page)="onPaginateChange($event)"
+          [pageSize]="pageSize">
+        </mat-paginator>
       </div>
     </div>
   </div>

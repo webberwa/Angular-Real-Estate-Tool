@@ -17,10 +17,6 @@ export class SearchFilterComponent implements OnInit {
   });
   providerTypes;
   // Define SearchBox initial state
-  state: { query: string; refine: Function } = {
-    query: '',
-    refine() {}
-  };
 
   constructor(
     private providersService: ProvidersService,
@@ -29,24 +25,7 @@ export class SearchFilterComponent implements OnInit {
     this.providerTypes = providersService.getProviderTypes();
   }
 
-  ngOnInit() {
-    const widget = connectSearchBox(this.updateState);
-    this.searchService.search.addWidget(widget());
-  }
+  ngOnInit() {}
 
-  handleChange(query) {
-    this.state.refine(query);
-  }
-
-  updateState = (state, isFirstRendering) => {
-    // asynchronous update of the state
-    // avoid `ExpressionChangedAfterItHasBeenCheckedError`
-    if (isFirstRendering) {
-      return Promise.resolve(null).then(() => {
-        this.state = state;
-      });
-    }
-
-    this.state = state;
-  }
+  handleChange() {}
 }

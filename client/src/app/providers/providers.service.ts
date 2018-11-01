@@ -1,6 +1,6 @@
 import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
-import { Injectable } from '@angular/core';
+import { Injectable, ChangeDetectorRef } from '@angular/core';
 import {
   AddProviderGQL,
   ProvidersGQL,
@@ -10,6 +10,7 @@ import { UserService } from '../user/user.service';
 import { map } from 'rxjs/operators';
 import { findIndex } from 'lodash';
 import { DeleteProviderGQL } from '../apollo-angular-services';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,11 @@ import { DeleteProviderGQL } from '../apollo-angular-services';
 export class ProvidersService {
   public myProviders;
   private me;
+  searchStream = new BehaviorSubject('');
+  searchInput = '';
+  searchType = '';
+  searchSkip = 0;
+  allProviders;
 
   myProviderQuery;
 
@@ -66,13 +72,25 @@ export class ProvidersService {
       );
   }
 
-  allProviders() {
-    return this.providersGQL.watch().valueChanges.pipe(
-      map(({ data }: { data: any }) => {
-        console.log(data.providers);
-        return data.providers;
+  searchProviders() {
+    return this.apollo
+      .watchQuery({
+        query: this.providersGQL.document,
+        variables: {
+          where: {
+            name_contains: this.searchInput,
+            type_contains: this.searchType
+          },
+          first: 10,
+          skip: this.searchSkip
+        }
       })
-    );
+      .valueChanges.pipe(
+        map(({ data }: { data: any }) => {
+          console.log(data.providers);
+          return data.providers;
+        })
+      );
   }
 
   addProvider(form) {

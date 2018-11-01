@@ -2,112 +2,66 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
-  AfterViewInit
+  AfterViewInit,
+  ViewEncapsulation
 } from '@angular/core';
 import { ProvidersGQL } from '../apollo-angular-services';
 import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
 import { ProvidersService } from './providers.service';
 import { InstantsearchService } from '../search/instantsearch.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-providers',
   templateUrl: './providers.component.html',
-  styleUrls: ['./providers.component.scss']
+  styleUrls: ['./providers.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class ProvidersComponent implements OnInit, AfterViewInit {
-  service_provider_type_list: any[] = [
-    {
-      label: 'All',
-      value: 'All'
-    },
-    {
-      label: 'Property Manager',
-      value: 'Property Manager'
-    },
-    {
-      label: 'Real Estate Agent',
-      value: 'Real Estate Agent'
-    }
-  ];
-
-  service_provider_list = null;
-
-  service_provider_type = 'All';
-
-  hover_sp = null;
-
+export class ProvidersComponent implements OnInit {
   allProviders;
-
-  search_text = '';
-  search_type = 'All';
-
+  searchForm = new FormGroup({
+    text: new FormControl(''),
+    type: new FormControl('')
+  });
+  providerTypes;
+  // Number of items
+  length = 50;
+  // number of items per page
+  pageSize = 10;
+  // MatPaginator Output
   constructor(
+    private ref: ChangeDetectorRef,
     private searchService: InstantsearchService,
     private router: Router,
-    private ref: ChangeDetectorRef,
     private apollo: Apollo,
     private providerGQL: ProvidersGQL,
     private providersService: ProvidersService
   ) {
-    this.allProviders = providersService.allProviders();
+    this.allProviders = providersService.searchProviders();
+    this.providerTypes = providersService.getProviderTypes();
   }
 
   ngOnInit() {}
 
-  ngAfterViewInit() {
-    this.searchService.search.start();
+  handleChange(text) {
+    this.providersService.searchInput = text;
+    this.search();
   }
 
-  filterServiceProvider() {
-    if (this.service_provider_type === 'All') {
-      return this.service_provider_list;
-    }
-
-    return this.service_provider_list.filter(
-      sp => sp.type === this.service_provider_type
-    );
+  handleTypeChange(type) {
+    this.providersService.searchType = type;
+    this.search();
   }
 
-  hoverServiceProvider(sp) {
-    this.hover_sp = sp;
+  search() {
+    this.allProviders = this.providersService.searchProviders();
   }
 
-  searchServiceProvider() {
-    this.service_provider_list = null;
-    this.ref.detectChanges();
-
-    const filter = this.search_text.toLowerCase().split(/[\s,]+/);
-
-    this.apollo
-      .watchQuery({
-        query: this.providerGQL.document,
-        variables: this.getSearchServiceProviderVariable(this.search_type)
-      })
-      .valueChanges.subscribe((res: any) => {
-        this.service_provider_list = res.data.providers.filter(sp => {
-          const info = [sp.name, sp.phone_number, sp.email, sp.addr1]
-            .join(' ')
-            .toLowerCase();
-          return filter.some(target => info.includes(target));
-        });
-        this.ref.detectChanges();
-      });
-  }
-
-  getSearchServiceProviderVariable(search_type) {
-    if (search_type === 'All') {
-      return {};
-    }
-
-    return {
-      where: {
-        type: search_type
-      }
-    };
-  }
-
-  onClickProvider(sp) {
-    this.router.navigateByUrl('/review/' + sp.id);
+  onPaginateChange(event) {
+    this.providersService.searchSkip = event.pageIndex * this.pageSize;
+    console.log(event);
+    this.allProviders = this.providersService.searchProviders();
   }
 }
