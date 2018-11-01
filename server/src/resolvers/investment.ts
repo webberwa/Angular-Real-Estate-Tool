@@ -5,9 +5,8 @@ export const investment = {
     }
   },
   Mutation: {
-    async addInvestment(root, { data }, context) {
-      console.log(context.scope)
-      return await context.prisma.createInvestment({
+    async addInvestment(root, { data }, ctx) {
+      return await ctx.prisma.createInvestment({
         ...data
       })
     },

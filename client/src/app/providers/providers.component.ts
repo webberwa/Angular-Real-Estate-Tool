@@ -1,15 +1,21 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  AfterViewInit
+} from '@angular/core';
 import { ProvidersGQL } from '../apollo-angular-services';
 import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
 import { ProvidersService } from './providers.service';
+import { InstantsearchService } from '../search/instantsearch.service';
 
 @Component({
   selector: 'app-providers',
   templateUrl: './providers.component.html',
   styleUrls: ['./providers.component.scss']
 })
-export class ProvidersComponent implements OnInit {
+export class ProvidersComponent implements OnInit, AfterViewInit {
   service_provider_type_list: any[] = [
     {
       label: 'All',
@@ -37,6 +43,7 @@ export class ProvidersComponent implements OnInit {
   search_type = 'All';
 
   constructor(
+    private searchService: InstantsearchService,
     private router: Router,
     private ref: ChangeDetectorRef,
     private apollo: Apollo,
@@ -47,6 +54,10 @@ export class ProvidersComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  ngAfterViewInit() {
+    this.searchService.search.start();
+  }
 
   filterServiceProvider() {
     if (this.service_provider_type === 'All') {

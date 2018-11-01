@@ -1,19 +1,26 @@
-<mat-form-field class="info">
-  <mat-label>Search by:</mat-label>
-  <input [(ngModel)]="search_text"
-    (keyup.enter)="searchServiceProvider()"
-    type="text"
-    autocomplete="off"
-    placeholder="Service provider information"
-    matInput>
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Provider Type</mat-label>
-  <mat-select placeholder="Provider Types"
-    formControlName="type">
-    <mat-option *ngFor="let type of providerTypes"
-      [value]="type.value">
-      {{type.label}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<form class="row"
+  [formGroup]="searchForm">
+  <div class="col-sm-6">
+    <mat-form-field class="info">
+      <mat-label>Search by:</mat-label>
+      <input (input)="handleChange($event.target.value)"
+        type="text"
+        autocomplete="off"
+        placeholder="Service provider information"
+        formControlName="text"
+        matInput>
+    </mat-form-field>
+  </div>
+  <div class="col-sm-3">
+    <mat-form-field>
+      <mat-label>Provider Type</mat-label>
+      <mat-select placeholder="Provider Types"
+        formControlName="type">
+        <mat-option *ngFor="let type of providerTypes"
+          [value]="type.value">
+          {{type.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>

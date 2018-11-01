@@ -5,11 +5,12 @@
     </div>
     <div class="col-sm-9">
       <button mat-raised-button
+        class="float-right"
         color="primary"
         (click)="openAddProviderDialog()"> Add Provider </button>
       <br>
       <div>
-        <h3> Providers </h3>
+        <h3> My Providers </h3>
       </div>
       <mat-table #table
         [dataSource]="dataSource"
@@ -25,10 +26,21 @@
         <!-- Number Column -->
         <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef>Provider Name</mat-header-cell>
-          <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+          <mat-cell *matCellDef="let row">
+            <a routerLink="/providers/{{row.id}}"
+              routerLinkActive="active">{{row.name}}</a>
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef>Reviews</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <app-providers-review-snippet [provider]="row"></app-providers-review-snippet>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="
+              type">
           <mat-header-cell *matHeaderCellDef>Provider Type</mat-header-cell>
           <mat-cell *matCellDef="let row">{{ providers.getProviderTypeLabel(row.type) }}</mat-cell>
         </ng-container>

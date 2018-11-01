@@ -3,27 +3,13 @@ import { UserService } from '../user.service';
 import { MatDialog } from '@angular/material';
 import { ResetPasswordDialogComponent } from '../reset-password-dialog/reset-password-dialog.component';
 import { Component, OnInit } from '@angular/core';
-import { animate, transition, trigger, state, style, keyframes } from '@angular/animations';
+
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-dialog',
   templateUrl: './login-dialog.component.html',
-  styleUrls: ['./login-dialog.component.css'],
-  animations: [
-    trigger('invalidLoginAlert', [
-      state('added', style({
-        transform: 'translateX(0px)'
-      })),
-      transition('void => *', [
-        animate(300, keyframes([
-          style({ transform: 'translateX(20px)'}), style({ transform: 'translateX(0px)'}),
-          style({ transform: 'translateX(-20px)'}), style({ transform: 'translateX(0px)'}),
-          style({ transform: 'translateX(20px)' }), style({ transform: 'translateX(0px)'}),
-          style({ transform: 'translateX(-20px)'}), style({ transform: 'translateX(0px)'})
-        ])
-      )])
-  ])]
+  styleUrls: ['./login-dialog.component.css']
 })
 export class LoginDialogComponent implements OnInit {
   loginForm: FormGroup;
@@ -43,17 +29,11 @@ export class LoginDialogComponent implements OnInit {
       password: ['', Validators.required],
       has_two_factor: new FormControl(false),
       code: new FormControl('')
-   });
+    });
   }
 
   login() {
-    this.loginFailed = false;
-     // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
-     this.auth.loginUser(this.loginForm);
-    this.loginFailed = this.auth.loginFailed;
+    this.auth.loginUser(this.loginForm);
   }
 
   reset() {

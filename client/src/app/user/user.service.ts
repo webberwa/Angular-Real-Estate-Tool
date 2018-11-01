@@ -209,18 +209,18 @@ export class UserService {
       })
       .subscribe(
         res => {
-          if (res.data.loginUser !== null) {
-            this.dialog.closeAll();
-            this.loginFailed = false;
-          } else {
-            this.loginFailed = true;
+          console.log('loginUser() subscribe');
+          console.log(res);
+
+          if (!res.data.loginUser) {
+            return this.alert.open({
+              message: 'Something went wrong, please try again.',
+              type: Alert.ERROR
+            });
           }
 
-          console.log('loginUser() subscribe');
           const token = res.data.loginUser.token;
           const user = res.data.loginUser.user;
-
-          // console.log(user);
 
           // Set local user
           this.apollo

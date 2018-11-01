@@ -37,6 +37,8 @@ import { SidenavComponent } from './site/sidenav/sidenav.component';
 import { AddReviewFormComponent } from './review/add-review-form/add-review-form.component';
 import { ProvidersReviewSnippetComponent } from './providers/providers-review-snippet/providers-review-snippet.component';
 import { SearchFilterComponent } from './providers/search-filter/search-filter.component';
+import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
+import { HitsComponent } from './search/hits/hits.component';
 
 const appRoutes: Routes = [
   {
@@ -102,13 +104,15 @@ const appRoutes: Routes = [
     SidenavComponent,
     AddReviewFormComponent,
     ProvidersReviewSnippetComponent,
-    SearchFilterComponent
+    SearchFilterComponent,
+    HitsComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA7mvpUb9Mut9i8EVo8lQn6P1OIrU3-C5U',
       libraries: ['places']
     }),
+    JwSocialButtonsModule,
     MaterialModule,
     RouterModule.forRoot(
       appRoutes,
