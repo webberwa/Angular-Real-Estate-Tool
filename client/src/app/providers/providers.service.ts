@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 import {
   AddProviderGQL,
   ProvidersGQL,
-  ProviderGQL
+  ProviderGQL,
+  UpdateProviderGQL
 } from '../apollo-angular-services';
 import { UserService } from '../user/user.service';
 import { map } from 'rxjs/operators';
@@ -17,7 +18,7 @@ import { DeleteProviderGQL } from '../apollo-angular-services';
 export class ProvidersService {
   public myProviders;
   private me;
-
+  editID;
   myProviderQuery;
 
   serviceProviderTypes = [
@@ -42,7 +43,8 @@ export class ProvidersService {
     private providersGQL: ProvidersGQL,
     private providerGQL: ProviderGQL,
     private userService: UserService,
-    private deleteProviderGQL: DeleteProviderGQL
+    private deleteProviderGQL: DeleteProviderGQL,
+    private updateProviderGQL: UpdateProviderGQL
   ) {
     this.me = userService.me;
     this.myProviderQuery = {
@@ -97,6 +99,30 @@ export class ProvidersService {
       });
   }
 
+  updateProvider(form,id) {
+    this.apollo
+      .mutate({
+        mutation: this.updateProviderGQL.document,
+        refetchQueries: [this.myProviderQuery],
+        variables: {
+          data: {
+            name: form.get('name').value,
+            type: form.get('type').value,
+            phone_number: form.get('phone_number').value,
+            email: form.get('email').value,
+            addr1: form.get('addr1').value,
+            addr2: form.get('addr2').value
+          },
+          where: {
+            id
+          }
+        }
+      })
+      .subscribe(res => {
+        this.dialog.closeAll();
+        console.log(res);
+      });
+  }
   getProvider(id) {
     return this.apollo
       .watchQuery({

@@ -65,6 +65,13 @@ export const provider = {
         ...data
       })
     },
+    async updateProvider(root, { data, where }, ctx) {
+      console.log(data, where)
+      return await ctx.prisma.updateProvider({
+        where,
+        data
+      })
+    },
     async deleteProvider(root, { where }, ctx, info) {
       console.log(where)
       // Delete all reviews on provider

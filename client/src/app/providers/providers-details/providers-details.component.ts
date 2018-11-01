@@ -3,6 +3,7 @@ import { ProvidersService } from './../providers.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AddReviewFormComponent } from '../../review/add-review-form/add-review-form.component';
+import { EditformComponent } from '../../editform/editform.component';
 
 @Component({
   selector: 'app-providers-details',
@@ -28,6 +29,16 @@ export class ProvidersDetailsComponent implements OnInit {
       data: {
         provider_id: this.providersId
       },
+      width: '600px',
+      autoFocus: false
+    });
+  }
+  
+
+  openEditProviderDialog() {
+    this.providersService.editID=this.providersId;
+    console.log(this.providersId);
+    this.dialog.open(EditformComponent, {
       width: '600px',
       autoFocus: false
     });

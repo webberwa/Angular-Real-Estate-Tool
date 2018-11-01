@@ -43,6 +43,7 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider,
 } from 'angular5-social-login';
+import { EditformComponent } from './editform/editform.component';
 
 const appRoutes: Routes = [
   {
@@ -123,7 +124,8 @@ export function getAuthServiceConfigs() {
     SidenavComponent,
     AddReviewFormComponent,
     ProvidersReviewSnippetComponent,
-    SearchFilterComponent
+    SearchFilterComponent,
+    EditformComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -135,6 +137,7 @@ export function getAuthServiceConfigs() {
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
     ),
+  
     ReactiveFormsModule,
     BrowserModule,
     GraphQLModule,
@@ -157,6 +160,7 @@ export function getAuthServiceConfigs() {
     ResetPasswordDialogComponent,
     AlertComponent,
     CreateProviderFormComponent,
+    EditformComponent,
     AddReviewFormComponent
   ]
 })

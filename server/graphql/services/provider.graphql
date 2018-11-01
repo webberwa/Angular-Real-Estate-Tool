@@ -53,3 +53,10 @@ mutation deleteProvider($where: ProviderWhereUniqueInput!) {
     name
   }
 }
+
+mutation updateProvider($data: ProviderUpdateInput!,$where: ProviderWhereUniqueInput!) {
+  updateProvider(data: $data,where: $where) {
+    id
+    name
+  }
+}

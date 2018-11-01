@@ -34,6 +34,7 @@ type Mutation {
   # Provider
   addProvider(data: ProviderCreateInput!): Provider!
   deleteProvider(where: ProviderWhereUniqueInput!): Provider
+  updateProvider(data: ProviderUpdateInput!,where: ProviderWhereUniqueInput!): Provider!
   generateQRCode: String!
   # Review
   addReview(data: ReviewCreateInput!): Review!

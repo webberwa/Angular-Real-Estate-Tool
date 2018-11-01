@@ -21,7 +21,10 @@
           </ng-template>
         </span>
       </h1>
-
+      <button mat-raised-button
+        class="add-investment"
+        color="primary"
+        (click)="openEditProviderDialog()"> Edit Profile </button>
       <app-providers-review-snippet [provider]="(provider |async)"></app-providers-review-snippet>
 
 
