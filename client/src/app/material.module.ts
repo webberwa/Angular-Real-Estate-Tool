@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import {
   MatCardModule,
@@ -32,6 +33,7 @@ import { AgmCoreModule } from '@agm/core';
     CommonModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    MatPaginatorModule,
     MatMenuModule,
     MatIconModule,
     MatBadgeModule,
@@ -78,6 +80,7 @@ import { AgmCoreModule } from '@agm/core';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    MatPaginatorModule,
     MatTableModule
   ]
 })

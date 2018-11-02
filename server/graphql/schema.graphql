@@ -15,7 +15,7 @@ type Query {
   investments: [Investment!]!
   user(where: UserWhereUniqueInput): User
   me: User
-  providers(where: ProviderWhereInput): [Provider!]!
+  providers(where: ProviderWhereInput, skip: Int, first: Int): [Provider]!
   provider(where: ProviderWhereUniqueInput): Provider!
   reviews(where: ReviewWhereInput): [Review!]!
 }

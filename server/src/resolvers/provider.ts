@@ -1,4 +1,5 @@
 import { meanBy } from 'lodash'
+import { prisma } from '../../graphql/prisma/__generated__/index'
 const algoliasearch = require('algoliasearch')
 const client = algoliasearch('TQ3TDPJYHR', '0e672819466641d3e76c3aea82ec9395')
 const index = client.initIndex('dev_WBIT')
@@ -82,6 +83,17 @@ export const provider = {
         console.log('after algolia')
         console.log(content)
       })
+
+      // const providers = await context.prisma.providers()
+      // console.log(providers)
+      // providers.forEach(provider => {
+      //   provider.objectID = provider.id
+      //   console.log('before algolia')
+      //   index.addObject(provider, function(err, content) {
+      //     console.log('after algolia')
+      //     console.log(content)
+      //   })
+      // })
 
       return provider
     },

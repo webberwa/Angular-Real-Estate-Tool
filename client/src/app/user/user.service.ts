@@ -35,8 +35,8 @@ import {
 })
 export class UserService {
   loginFailed = false;
-    // let us know when to load the nav
-    userLoaded = new BehaviorSubject(false);
+  // let us know when to load the nav
+  userLoaded = new BehaviorSubject(false);
 
   isAuthenticated = false;
   isAuthenticated$;
@@ -443,15 +443,14 @@ export class UserService {
     else if (socialPlatform === 'google') {
       socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     }*/
-      this.socialAuthService.signIn(socialPlatformProvider).then(
-      (userData) => {
-        console.log(socialPlatform + ' sign in data : ' , userData);
-        // sign-in with userData else sign up
-        if (logIn) {
-          this.loginUser(userData.email, userData.id, '');
-        } else {
-          this.createUser(userData.email, userData.id);
-        }
-      });
-    }
+    this.socialAuthService.signIn(socialPlatformProvider).then(userData => {
+      console.log(socialPlatform + ' sign in data : ', userData);
+      // sign-in with userData else sign up
+      if (logIn) {
+        this.loginUser(userData.email, userData.id, '');
+      } else {
+        this.createUser(userData.email, userData.id);
+      }
+    });
+  }
 }

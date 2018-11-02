@@ -1,5 +1,5 @@
-query providers($where: ProviderWhereInput) {
-  providers(where: $where) {
+query providers($where: ProviderWhereInput, $skip: Int, $first: Int) {
+  providers(where: $where, skip: $skip, first: $first) {
     id
     name
     type
