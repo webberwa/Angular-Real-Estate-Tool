@@ -127,7 +127,6 @@ export function getAuthServiceConfigs() {
     ProvidersReviewSnippetComponent,
     SearchFilterComponent,
     EditformComponent
-    HitsComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -140,7 +139,6 @@ export function getAuthServiceConfigs() {
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
     ),
-  
     ReactiveFormsModule,
     BrowserModule,
     GraphQLModule,
