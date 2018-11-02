@@ -37,62 +37,63 @@ import { SidenavComponent } from './site/sidenav/sidenav.component';
 import { AddReviewFormComponent } from './review/add-review-form/add-review-form.component';
 import { ProvidersReviewSnippetComponent } from './providers/providers-review-snippet/providers-review-snippet.component';
 import { SearchFilterComponent } from './providers/search-filter/search-filter.component';
+import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
+import { HitsComponent } from './search/hits/hits.component';
 import {
   SocialLoginModule,
   AuthServiceConfig,
   GoogleLoginProvider,
-  FacebookLoginProvider,
+  FacebookLoginProvider
 } from 'angular5-social-login';
 import { EditformComponent } from './editform/editform.component';
 
 const appRoutes: Routes = [
   {
-  path: '',
-  // UserGuard loads user data before entering any route
-  canActivate: [UserGuard],
-  children: [
-    { path: '', component: HomeComponent },
-    { path: 'reset-password', component: ResetPasswordComponent },
-    { path: 'login', component: LoginDialogComponent },
-    { path: 'two-factor', component: TwoFactorCodeComponent },
-    { path: 'signup', component: SignupDialogComponent },
-    {
-      path: 'profile',
-      component: ProfileComponent,
-      canActivate: [AuthGuard]
-    },
-    {
-      path: 'settings',
-      component: SettingsComponent,
-      canActivate: [AuthGuard]
-    },
-    {
-      path: 'investments',
-      component: InvestmentsComponent,
-      canActivate: [AuthGuard]
-    },
-    {
-      path: 'providers',
-      component: ProvidersComponent
-    },
-    { path: 'providers/:id', component: ProvidersDetailsComponent },
-    { path: 'review/:id', component: ReviewComponent }
-  ]
-}
+    path: '',
+    // UserGuard loads user data before entering any route
+    canActivate: [UserGuard],
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'reset-password', component: ResetPasswordComponent },
+      { path: 'login', component: LoginDialogComponent },
+      { path: 'two-factor', component: TwoFactorCodeComponent },
+      { path: 'signup', component: SignupDialogComponent },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'investments',
+        component: InvestmentsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'providers',
+        component: ProvidersComponent
+      },
+      { path: 'providers/:id', component: ProvidersDetailsComponent },
+      { path: 'review/:id', component: ReviewComponent }
+    ]
+  }
 ];
 
 export function getAuthServiceConfigs() {
-  const config = new AuthServiceConfig(
-      [
-        {
-          id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider('158673211754613')
-        },
-        {
-          id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('Your-Google-Client-Id')
-        },
-      ]);
+  const config = new AuthServiceConfig([
+    {
+      id: FacebookLoginProvider.PROVIDER_ID,
+      provider: new FacebookLoginProvider('158673211754613')
+    },
+    {
+      id: GoogleLoginProvider.PROVIDER_ID,
+      provider: new GoogleLoginProvider('Your-Google-Client-Id')
+    }
+  ]);
   return config;
 }
 
@@ -126,12 +127,14 @@ export function getAuthServiceConfigs() {
     ProvidersReviewSnippetComponent,
     SearchFilterComponent,
     EditformComponent
+    HitsComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA7mvpUb9Mut9i8EVo8lQn6P1OIrU3-C5U',
       libraries: ['places']
     }),
+    JwSocialButtonsModule,
     MaterialModule,
     RouterModule.forRoot(
       appRoutes,
@@ -145,7 +148,7 @@ export function getAuthServiceConfigs() {
     HttpClientModule,
     SocialLoginModule,
     AngularFontAwesomeModule
-    ],
+  ],
   providers: [
     {
       provide: AuthServiceConfig,

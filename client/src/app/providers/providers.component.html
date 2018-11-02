@@ -1,14 +1,18 @@
 <div class="container">
   <div class="row">
+    <div class="col-sm-12">
+      <h2> Browse Providers </h2>
+    </div>
     <!-- Filters -->
     <div class="col-sm-12">
-      <div class="Filter-input">
+      <div class="">
         <app-search-filter></app-search-filter>
       </div>
     </div>
     <!-- Providers -->
     <div class="col-sm-8">
       <div class="row">
+        <app-hits></app-hits>
         <div class="col-sm-12"
           *ngFor="let provider of allProviders | async">
           <app-provider-card [provider]="provider">

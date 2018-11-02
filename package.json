@@ -4,7 +4,7 @@
   "main": "src/index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently -k -p \"[{name}]\" -n \"Client,Server,Prisma\" -c \"yellow.bold,blue.bold,green.bold\" \"cd client && ng serve\" \"npm start --prefix server\" \"cd server && gulp\"",
+    "dev": "concurrently -k -p \"[{name}]\" -n \"Client,Server,Prisma\" -c \"yellow.bold,blue.bold,green.bold\" \"npm start --prefix client\" \"npm start --prefix server\" \"cd server && gulp\"",
     "start": "cd server && node dist/index.js",
     "deploy": "yarn --cwd client build && yarn --cwd server build && yarn gcloud:activate && gcloud app deploy --quiet && gcloud app browse",
     "deploy:function": "yarn gcloud:activate && cd gcloud && gcloud beta functions deploy getZillowPropertyInfo --runtime nodejs8 --trigger-http",

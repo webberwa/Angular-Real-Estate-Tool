@@ -7,6 +7,7 @@ type Investment {
   mortgage_amount: Float
   mortgage_interest_rate: Float
   mortgage_period: Float
+  owner: User!
 }
 
 type Provider {
@@ -31,6 +32,7 @@ type User {
   qr_secret: String @unique
   code: String
   providers: [Provider!]!
+  investments: [Investment!]!
 }
 
 type Review {

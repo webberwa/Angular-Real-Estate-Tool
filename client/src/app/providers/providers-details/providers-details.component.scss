@@ -25,3 +25,22 @@
     color: red;
   }
 }
+
+.Social-share--container {
+  display: flex;
+  &Left {
+    display: flex;
+  }
+  &Right {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+  }
+  .Social-share {
+    display: flex;
+    margin-left: 5px;
+    &--fb {
+      margin-top: -4px;
+    }
+  }
+}

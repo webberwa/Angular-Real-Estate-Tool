@@ -1,9 +1,10 @@
 import { MatDialog } from '@angular/material';
 import { ProvidersService } from './../providers.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddReviewFormComponent } from '../../review/add-review-form/add-review-form.component';
 import { EditformComponent } from '../../editform/editform.component';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-providers-details',
@@ -13,8 +14,10 @@ import { EditformComponent } from '../../editform/editform.component';
 export class ProvidersDetailsComponent implements OnInit {
   provider;
   providersId;
+  url;
   constructor(
     private dialog: MatDialog,
+    private router: Router,
     private route: ActivatedRoute,
     private providersService: ProvidersService
   ) {
@@ -22,6 +25,7 @@ export class ProvidersDetailsComponent implements OnInit {
       this.providersId = res.params.id;
       this.provider = providersService.getProvider(this.providersId);
     });
+    this.url = window.location.href;
   }
 
   addReview() {

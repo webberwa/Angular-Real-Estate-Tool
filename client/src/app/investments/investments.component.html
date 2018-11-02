@@ -2,13 +2,21 @@
   <div class="row">
     <div class="col-sm-12">
       <button mat-raised-button
-        class="add-investment"
+        class="float-right"
+        color="primary"
+        (click)="openDialog()"> Export CSV </button>
+      <button mat-raised-button
+        class="float-right mr-2"
         color="primary"
         (click)="openDialog()"> Add Investments </button>
     </div>
   </div>
 
   <div class="row">
+    <div class="col-sm-12">
+      <h2> My Investment Properties </h2>
+      <br />
+    </div>
     <div class="col-sm-4"
       *ngFor="let investment of investmentsService.investments | async">
       <app-investment-card [investment]="investment"></app-investment-card>

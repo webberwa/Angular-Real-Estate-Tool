@@ -1,8 +1,8 @@
 <div class="container"
   *ngIf="(provider | async)">
   <div class="row">
-    <div class="col-sm-6">
 
+    <div class="col-sm-6">
       <h1 class="Review-title"> {{ (provider | async)?.name }}
         <span class="Provider-verificationStatus">
           <span *ngIf="(provider | async)?.is_verified === true; else unverified">
@@ -25,26 +25,69 @@
         class="add-investment"
         color="primary"
         (click)="openEditProviderDialog()"> Edit Profile </button>
+      <!-- Reviews -->
       <app-providers-review-snippet [provider]="(provider |async)"></app-providers-review-snippet>
 
+      <br />
+      <p class="mb-0">
+        {{ (provider | async).addr1 }}
+      </p>
+      <p class="mb-0">
+        {{ (provider | async).addr2 }}
+      </p>
 
     </div><!-- /.col-sm-6 -->
-    <div class="col-sm-6 Review-actionBox">
-      <button mat-raised-button
-        class="add-investment"
-        color="primary"
-        (click)="addReview()"> Write a Review </button>
+
+    <div class="col-sm-6">
+      <div class="Social-share--container">
+        <div class="Social-share--containerLeft">
+          <button mat-raised-button
+            color="primary"
+            (click)="addReview()"> Write a Review </button>
+        </div>
+        <div class="Social-share--containerRight">
+          <span class="Social-share Social-share--fb">
+            <fb-like></fb-like>
+          </span>
+          <span class="Social-share">
+            <linkedin-share></linkedin-share>
+          </span>
+          <span class="Social-share">
+            <tweet text="WBIT"></tweet>
+          </span>
+        </div>
+      </div>
     </div>
+
   </div>
+
+  <hr />
 
   <div class="row">
     <div class="col-sm-8">
+      <h4> Community Reviews </h4>
       <div *ngFor="let review of (provider | async)?.reviews">
+        <hr />
         <bar-rating [rate]="review.rating"
           [max]="5"
           readOnly="true"></bar-rating>
         {{ review.text }}
       </div>
+    </div>
+    <div class="col-sm-4">
+      <h4 class="mb-4"> Contact Provider </h4>
+      <h6 class="mb-2">Email: </h6>
+      <p class="mb-3">
+        <a href="mailto:{{(provider|async).email}}">
+          {{ (provider | async).email }}
+        </a>
+      </p>
+      <h6 class="mb-2">Phone Number: </h6>
+      <p class="mb-3">
+        <a href="tel:{{(provider|async).phone_number}}">
+          {{ (provider | async).phone_number }}
+        </a>
+      </p>
     </div>
   </div>
   <!-- {{ provider.reviews }} reviews -->

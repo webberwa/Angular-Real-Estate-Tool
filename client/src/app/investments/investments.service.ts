@@ -1,3 +1,4 @@
+import { UserService } from './../user/user.service';
 import { InvestmentsGQL } from './../apollo-angular-services';
 import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';
@@ -19,7 +20,8 @@ export class InvestmentsService {
     private apollo: Apollo,
     private investmentsGQL: InvestmentsGQL,
     private addInvestmentGQL: AddInvestmentGQL,
-    private deleteInvestmentGQL: DeleteInvestmentGQL
+    private deleteInvestmentGQL: DeleteInvestmentGQL,
+    private userService: UserService
   ) {
     this.investments = this.investmentsGQL
       .watch()
@@ -46,7 +48,12 @@ export class InvestmentsService {
             ),
             mortgage_period: Number.parseFloat(
               form.get('mortgage_period').value
-            )
+            ),
+            owner: {
+              connect: {
+                id: this.userService.me.id
+              }
+            }
           }
         },
         refetchQueries: [
