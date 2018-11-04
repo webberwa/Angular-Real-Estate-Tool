@@ -1,32 +1,34 @@
-<form [formGroup]="userSettingsForm">
-  <div fxLayout="column">
-    <div fxFlex>
-      <button mat-raised-button
-        *ngIf="!(user.me$ | async)?.has_two_factor; else showDeactivate"
-        [disabled]="isActivating"
-        (click)="activate2fa()"
-        color="primary"> Activate 2-factor </button>
-      <ng-template #showDeactivate>
+<div class="container">
+  <form [formGroup]="userSettingsForm">
+    <div fxLayout="column">
+      <div fxFlex>
         <button mat-raised-button
-          (click)="deactivate2fa()"
-          color="primary"> Deactivate 2-factor </button>
-      </ng-template>
-    </div>
-    <div fxFlex
-      *ngIf="user.qrCode && !(user.me$ | async)?.has_two_factor">
-      <p> 1. Please scan this QR Code with Google Authenticator. </p>
-      <img src="{{user.qrCode}}" />
-      <p> 2. Then verify with the generated code. </p>
-      <div>
-        <mat-form-field>
-          <input matInput
-            placeholder="Code"
-            formControlName="code">
-        </mat-form-field>
+          *ngIf="!(user.me$ | async)?.has_two_factor; else showDeactivate"
+          [disabled]="isActivating"
+          (click)="activate2fa()"
+          color="primary"> Activate 2-factor </button>
+        <ng-template #showDeactivate>
+          <button mat-raised-button
+            (click)="deactivate2fa()"
+            color="primary"> Deactivate 2-factor </button>
+        </ng-template>
       </div>
-      <button (click)="user.verify2fa(userSettingsForm)"
-        mat-raised-button
-        color="primary"> Verify 2FA </button>
+      <div fxFlex
+        *ngIf="user.qrCode && !(user.me$ | async)?.has_two_factor">
+        <p> 1. Please scan this QR Code with Google Authenticator. </p>
+        <img src="{{user.qrCode}}" />
+        <p> 2. Then verify with the generated code. </p>
+        <div>
+          <mat-form-field>
+            <input matInput
+              placeholder="Code"
+              formControlName="code">
+          </mat-form-field>
+        </div>
+        <button (click)="user.verify2fa(userSettingsForm)"
+          mat-raised-button
+          color="primary"> Verify 2FA </button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>

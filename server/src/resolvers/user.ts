@@ -75,6 +75,7 @@ export const user = {
        * Extra check for 2 factor
        */
       if (user.has_two_factor) {
+        console.log('has', code, password)
         const verified = speakeasy.totp.verify({
           secret: user.qr_secret,
           encoding: 'base32',

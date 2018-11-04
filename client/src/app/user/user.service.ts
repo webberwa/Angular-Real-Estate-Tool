@@ -205,7 +205,6 @@ export class UserService {
   }
 
   loginUser(email, password, code) {
-    console.log('loginUser()');
     this.apollo
       .mutate({
         mutation: this.loginUserGQL.document,

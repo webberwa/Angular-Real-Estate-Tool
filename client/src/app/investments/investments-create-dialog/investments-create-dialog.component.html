@@ -15,7 +15,9 @@
     <div fxFlex>
       <mat-form-field #priceFieldRef>
         <input matInput
-          [value]="investmentForm.get('price').value | currency: 'USD'"
+          [value]="investmentForm.get('price').value"
+          (blur)="updateCurrency($event, 'price')"
+          (focus)="resetField('price')"
           placeholder="Purchase Price"
           formControlName="price">
       </mat-form-field>
@@ -23,7 +25,9 @@
     <div fxFlex>
       <mat-form-field>
         <input matInput
-          [value]="investmentForm.get('monthly_rent').value | currency: 'USD'"
+          [value]="investmentForm.get('monthly_rent').value"
+          (blur)="updateCurrency($event, 'monthly_rent')"
+          (focus)="resetField('monthly_rent')"
           placeholder="Monthly Rent"
           formControlName="monthly_rent">
       </mat-form-field>
@@ -34,7 +38,9 @@
     <div fxFlex>
       <mat-form-field>
         <input matInput
-          [value]="investmentForm.get('mortgage_downpayment').value | currency: 'USD'"
+          [value]="investmentForm.get('mortgage_downpayment').value "
+          (blur)="updateCurrency($event, 'mortgage_downpayment')"
+          (focus)="resetField('mortgage_downpayment')"
           placeholder="Mortgage Downpayment"
           formControlName="mortgage_downpayment">
       </mat-form-field>
@@ -42,7 +48,9 @@
     <div fxFlex>
       <mat-form-field>
         <input matInput
-          [value]="investmentForm.get('mortgage_amount').value | currency: 'USD'"
+          [value]="investmentForm.get('mortgage_amount').value"
+          (blur)="updateCurrency($event, 'mortgage_amount')"
+          (focus)="resetField('mortgage_amount')"
           placeholder="Mortgage Amount"
           formControlName="mortgage_amount">
       </mat-form-field>
@@ -54,6 +62,8 @@
       <mat-form-field>
         <input matInput
           [value]="investmentForm.get('mortgage_interest_rate').value | percent: '1.1-2'"
+          (blur)="updatePercent($event, 'mortgage_interest_rate')"
+          (focus)="resetField('mortgage_interest_rate')"
           placeholder="Mortgage Interest Rate"
           formControlName="mortgage_interest_rate">
       </mat-form-field>
@@ -61,7 +71,8 @@
     <div fxFlex>
       <mat-form-field>
         <input matInput
-          [value]="investmentForm.get('mortgage_period').value | years"
+          [value]="investmentForm.get('mortgage_period').value"
+          (focus)="resetField('mortgage_period')"
           placeholder="Mortgage Period"
           formControlName="mortgage_period">
       </mat-form-field>

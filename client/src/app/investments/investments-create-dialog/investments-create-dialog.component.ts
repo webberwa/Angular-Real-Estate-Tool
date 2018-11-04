@@ -9,6 +9,8 @@ import { MapsAPILoader } from '@agm/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { InvestmentsService } from '../investments.service';
+import { formatCurrency, formatPercent } from '@angular/common';
+import { YearsPipe } from '../../years.pipe';
 
 declare let google;
 @Component({
@@ -24,13 +26,13 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
   priceFieldRef: ElementRef;
 
   investmentForm = new FormGroup({
-    address: new FormControl('1111 S Figueroa St, Los Angeles, CA 90015'),
-    price: new FormControl('1200000'),
-    monthly_rent: new FormControl('1500'),
-    mortgage_downpayment: new FormControl('200000'),
-    mortgage_amount: new FormControl('1200000'),
-    mortgage_interest_rate: new FormControl('0.0375'),
-    mortgage_period: new FormControl('30')
+    address: new FormControl(''),
+    price: new FormControl(''),
+    monthly_rent: new FormControl(''),
+    mortgage_downpayment: new FormControl(''),
+    mortgage_amount: new FormControl(''),
+    mortgage_interest_rate: new FormControl(''),
+    mortgage_period: new FormControl('')
   });
 
   // Used for GET params to API call
@@ -126,6 +128,27 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
         // Then get estimate
         this.getEstimate();
       });
+    });
+  }
+  updateCurrency(event, field) {
+    console.log(event.target.value);
+    const value = event.target.value;
+    this.investmentForm.patchValue({
+      [field]: formatCurrency(value, 'en_EN', '$')
+    });
+  }
+
+  updatePercent(event, field) {
+    const value = event.target.value;
+    this.investmentForm.patchValue({
+      [field]: formatPercent(value, '1.1-2')
+    });
+  }
+
+  resetField(field) {
+    console.log(field);
+    this.investmentForm.patchValue({
+      [field]: null
     });
   }
 }

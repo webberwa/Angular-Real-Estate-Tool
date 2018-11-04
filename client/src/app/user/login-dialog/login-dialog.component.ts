@@ -45,7 +45,7 @@ export class LoginDialogComponent implements OnInit {
     // stop here if form is invalid
     const email = this.loginForm.get('email').value;
     const password = this.loginForm.get('password').value;
-    const code = this.loginForm.get('password').value;
+    const code = this.loginForm.get('code').value;
     this.auth.loginUser(email, password, code);
   }
 

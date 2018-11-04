@@ -35,16 +35,18 @@ export class InvestmentsService {
         variables: {
           data: {
             address: form.get('address').value,
-            price: Number.parseFloat(form.get('price').value),
-            monthly_rent: Number.parseFloat(form.get('monthly_rent').value),
+            price: Number.parseFloat(form.get('price').value.replace('$', '')),
+            monthly_rent: Number.parseFloat(
+              form.get('monthly_rent').value.replace('$', '')
+            ),
             mortgage_downpayment: Number.parseFloat(
-              form.get('mortgage_downpayment').value
+              form.get('mortgage_downpayment').value.replace('$', '')
             ),
             mortgage_amount: Number.parseFloat(
-              form.get('mortgage_amount').value
+              form.get('mortgage_amount').value.replace('$', '')
             ),
             mortgage_interest_rate: Number.parseFloat(
-              form.get('mortgage_interest_rate').value
+              form.get('mortgage_interest_rate').value.replace('%', '')
             ),
             mortgage_period: Number.parseFloat(
               form.get('mortgage_period').value
