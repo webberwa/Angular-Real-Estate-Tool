@@ -40,10 +40,11 @@
 
     <div class="col-sm-6">
       <div class="Social-share--container">
-        <div class="Social-share--containerLeft">
+        <div class="Social-share--containerLeft" matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can write a review'}}">
           <button mat-raised-button
             color="primary"
-            (click)="addReview()"> Write a Review </button>
+            (click)="addReview()"
+            [disabled]="!this.userService.isAuthenticated"> Write a Review </button>
         </div>
         <div class="Social-share--containerRight">
           <span class="Social-share Social-share--fb">
