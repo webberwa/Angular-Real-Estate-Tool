@@ -28,6 +28,12 @@ export class InvestmentsService {
       .valueChanges.pipe(map(({ data }) => data.investments));
   }
 
+  formatPrice(price) {
+    let newPrice = price.replace('$', '');
+    newPrice = newPrice.replace(/,/g, '');
+    return Number.parseFloat(newPrice);
+  }
+
   addInvestment(form) {
     this.apollo
       .mutate({
@@ -35,20 +41,18 @@ export class InvestmentsService {
         variables: {
           data: {
             address: form.get('address').value,
-            price: Number.parseFloat(form.get('price').value.replace('$', '')),
-            monthly_rent: Number.parseFloat(
-              form.get('monthly_rent').value.replace('$', '')
+            price: this.formatPrice(form.get('price').value),
+            monthly_rent: this.formatPrice(form.get('monthly_rent').value),
+            mortgage_downpayment: this.formatPrice(
+              form.get('mortgage_downpayment').value
             ),
-            mortgage_downpayment: Number.parseFloat(
-              form.get('mortgage_downpayment').value.replace('$', '')
+            mortgage_amount: this.formatPrice(
+              form.get('mortgage_amount').value
             ),
-            mortgage_amount: Number.parseFloat(
-              form.get('mortgage_amount').value.replace('$', '')
+            mortgage_interest_rate: this.formatPrice(
+              form.get('mortgage_interest_rate').value
             ),
-            mortgage_interest_rate: Number.parseFloat(
-              form.get('mortgage_interest_rate').value.replace('%', '')
-            ),
-            mortgage_period: Number.parseFloat(
+            mortgage_period: this.formatPrice(
               form.get('mortgage_period').value
             ),
             owner: {
