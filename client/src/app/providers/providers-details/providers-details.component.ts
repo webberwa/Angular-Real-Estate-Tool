@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddReviewFormComponent } from '../../review/add-review-form/add-review-form.component';
 import { EditformComponent } from '../../editform/editform.component';
-import { Route } from '@angular/compiler/src/core';
+import {UserService} from "../../user/user.service";
 
 @Component({
   selector: 'app-providers-details',
@@ -19,7 +19,8 @@ export class ProvidersDetailsComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private providersService: ProvidersService
+    private providersService: ProvidersService,
+    public userService: UserService
   ) {
     route.paramMap.subscribe((res: any) => {
       this.providersId = res.params.id;
@@ -37,15 +38,15 @@ export class ProvidersDetailsComponent implements OnInit {
       autoFocus: false
     });
   }
-  
 
   openEditProviderDialog() {
-    this.providersService.editID=this.providersId;
+    this.providersService.editID = this.providersId;
     console.log(this.providersId);
     this.dialog.open(EditformComponent, {
       width: '600px',
       autoFocus: false
     });
   }
+
   ngOnInit() {}
 }
