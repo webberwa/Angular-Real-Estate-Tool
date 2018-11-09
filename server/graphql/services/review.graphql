@@ -2,6 +2,7 @@ fragment reviewFields on Review {
   id
   rating
   text
+  date
 }
 
 query reviews($where: ReviewWhereInput!) {
@@ -15,5 +16,6 @@ mutation addReview($data: ReviewCreateInput!) {
     id
     rating
     text
+    date
   }
 }

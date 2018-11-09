@@ -39,6 +39,7 @@ export class ReviewService {
           data: {
             rating: form.get('rating').value,
             text: form.get('text').value,
+            date: form.get('date').value,
             provider: {
               connect: {
                 id: provider_id

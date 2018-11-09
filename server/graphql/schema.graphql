@@ -46,6 +46,7 @@ type Review {
   id: ID!
   rating: Int
   text: String
+  date: String
   provider: Provider
 }
 

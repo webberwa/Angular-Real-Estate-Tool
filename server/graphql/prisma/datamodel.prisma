@@ -39,5 +39,6 @@ type Review {
   id: ID! @unique
   rating: Int!
   text: String
+  date: String
   provider: Provider! @relation(name: "ReviewsForProviders")
 }
