@@ -182,11 +182,13 @@ export class UserService {
     this.router.navigate(['/']);
   }
 
-  createUser(email, password) {
+  createUser(email, password, firstname, lastname) {
     this.apollo
       .mutate({
         mutation: this.createUserGQL.document,
         variables: {
+          firstname: firstname,
+          lastname: lastname,
           email: email,
           password: password
         }
@@ -194,6 +196,7 @@ export class UserService {
       .subscribe(
         res => {
           // This is our success callback
+          console.log(res);
           const token = res.data.createUser.token;
           this.storeTokenToLocalStorage(token);
         },
@@ -448,7 +451,8 @@ export class UserService {
       if (logIn) {
         this.loginUser(userData.email, userData.id, '');
       } else {
-        this.createUser(userData.email, userData.id);
+        const nameArray = userData.name.split(' ');
+        this.createUser(userData.email, userData.id, nameArray[0], nameArray[1]);
       }
     });
   }

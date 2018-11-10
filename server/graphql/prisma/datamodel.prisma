@@ -25,6 +25,8 @@ type Provider {
 
 type User {
   id: ID! @unique
+  firstname: String
+  lastname: String
   email: String! @unique
   password: String!
   has_two_factor: Boolean! @default(value: false)

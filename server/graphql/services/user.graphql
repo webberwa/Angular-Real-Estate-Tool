@@ -1,5 +1,7 @@
 fragment userFields on User {
   id
+  firstname
+  lastname
   email
   has_two_factor
 }
@@ -16,8 +18,8 @@ query me {
   }
 }
 
-mutation createUser($email: String!, $password: String!) {
-  createUser(email: $email, password: $password) {
+mutation createUser($email: String!, $password: String!, $firstname: String, $lastname: String) {
+  createUser(email: $email, password: $password, firstname: $firstname, lastname: $lastname) {
     token
     user {
       email

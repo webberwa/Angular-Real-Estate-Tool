@@ -2,16 +2,15 @@
   <form [formGroup]="signupForm">
     <div class="row">
       <div class="col-sm-6 offset-sm-3">
-        <div class="mat-form-field-infix">
+        <div class="mat-form-field" style="margin-bottom: 10px;">
           <button mat-raised-button
             color="primary"
             (click)="socialSignUp('facebook')">
             Facebook
             <i class="fa fa-facebook-official icon"></i>
           </button>
-        </div>
-        <div class="mat-form-field-infix">
           <button mat-raised-button
+            style="margin-left: 10px;"
             color="primary"
             (click)="socialSignUp('google')">
             Google
@@ -20,16 +19,45 @@
         </div>
         <mat-form-field class="fullWidth">
           <input matInput
+            placeholder="First Name"
+            formControlName="firstname"
+            [errorStateMatcher]="matcher">
+            <mat-error *ngIf="signupForm.get('firstname').hasError('required')">
+              FirstName is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="fullWidth">
+          <input matInput
+            placeholder="Last Name"
+            formControlName="lastname"
+            [errorStateMatcher]="matcher">
+            <mat-error *ngIf="signupForm.get('lastname').hasError('required')">
+              LastName is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="fullWidth">
+          <input matInput
             placeholder="Email"
-            formControlName="email">
+            formControlName="email"
+           [errorStateMatcher]="matcher">
+           <mat-error *ngIf="signupForm.get('email').hasError('email') && !signupForm.get('email').hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+           <mat-error *ngIf="signupForm.get('email').hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput
             placeholder="Password"
             formControlName="password"
             type="password">
+            <mat-error *ngIf="signupForm.get('password').hasError('required')">
+                Password is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
         <button (click)="signup()"
+          style="margin-top: 10px;"
           mat-raised-button
           color="primary"> Signup </button>
       </div>

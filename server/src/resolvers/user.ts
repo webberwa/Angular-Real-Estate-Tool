@@ -51,7 +51,9 @@ export const user = {
       const password = await bcrypt.hash(args.password, 10)
       const user = await ctx.prisma.createUser({
         email: args.email,
-        password
+        password,
+        firstname: args.firstname,
+        lastname: args.lastname
       })
       return {
         token: jwt.sign({ userId: user.id }, process.env.JWT_SECRET),

@@ -2,17 +2,16 @@
   <div class="row">
     <div class="col-sm-6 offset-sm-3">
       <form [formGroup]="loginForm">
-        <div class="mat-form-field-infix">
+        <div class="mat-form-field">
           <button mat-raised-button
             color="primary"
             (click)="socialSignIn('facebook')">
             Facebook
             <i class="fa fa-facebook-official icon"></i>
           </button>
-        </div>
-        <div class="mat-form-field-infix">
           <button mat-raised-button
             color="primary"
+            style="margin-left: 10px;"
             (click)="socialSignIn('google')">
             Google
             <i class="fa fa-google icon"></i>

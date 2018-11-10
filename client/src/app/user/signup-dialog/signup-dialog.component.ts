@@ -1,6 +1,14 @@
 import { UserService } from '../user.service';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import {ErrorStateMatcher} from '@angular/material/core';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-signup-dialog',
@@ -8,17 +16,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup-dialog.component.css']
 })
 export class SignupDialogComponent implements OnInit {
-  signupForm: FormGroup;
+  signupForm: FormGroup = this.formBuilder.group({
+    firstname: ['', Validators.required],
+    lastname: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]});
+
+  matcher = new MyErrorStateMatcher();
 
   constructor(private auth: UserService,
               private formBuilder: FormBuilder) {}
 
-  ngOnInit() {
-    this.signupForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
-   });
-  }
+  ngOnInit() {}
 
   socialSignUp(socialPlatform: string) {
     this.auth.socialAuthentication(socialPlatform, false);
@@ -31,6 +40,8 @@ export class SignupDialogComponent implements OnInit {
     }
     const email = this.signupForm.get('email').value;
     const password = this.signupForm.get('password').value;
-    this.auth.createUser(email, password);
+    const firstname = this.signupForm.get('firstname').value;
+    const lastname = this.signupForm.get('lastname').value;
+    this.auth.createUser(email, password, firstname, lastname);
   }
 }

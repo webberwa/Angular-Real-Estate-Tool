@@ -22,7 +22,7 @@ type Query {
 
 type Mutation {
   # User
-  createUser(email: String!, password: String!): AuthPayload
+  createUser(email: String!, password: String!, firstname: String!, lastname: String!): AuthPayload
   loginUser(email: String!, password: String!, code: String): AuthPayload
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   requestResetPassword(email: String!): Boolean
@@ -68,6 +68,8 @@ type Investment {
 
 type User {
   id: ID!
+  firstname: String
+  lastname: String
   email: String!
   password: String!
   has_two_factor: Boolean!
