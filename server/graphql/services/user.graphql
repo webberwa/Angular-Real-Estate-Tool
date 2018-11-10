@@ -18,8 +18,18 @@ query me {
   }
 }
 
-mutation createUser($email: String!, $password: String!, $firstname: String, $lastname: String) {
-  createUser(email: $email, password: $password, firstname: $firstname, lastname: $lastname) {
+mutation createUser(
+  $email: String!
+  $password: String!
+  $firstname: String
+  $lastname: String
+) {
+  createUser(
+    email: $email
+    password: $password
+    firstname: $firstname
+    lastname: $lastname
+  ) {
     token
     user {
       email

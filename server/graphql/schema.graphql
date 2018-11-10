@@ -22,7 +22,12 @@ type Query {
 
 type Mutation {
   # User
-  createUser(email: String!, password: String!, firstname: String!, lastname: String!): AuthPayload
+  createUser(
+    email: String!
+    password: String!
+    firstname: String
+    lastname: String
+  ): AuthPayload
   loginUser(email: String!, password: String!, code: String): AuthPayload
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   requestResetPassword(email: String!): Boolean
@@ -34,7 +39,10 @@ type Mutation {
   # Provider
   addProvider(data: ProviderCreateInput!): Provider!
   deleteProvider(where: ProviderWhereUniqueInput!): Provider
-  updateProvider(data: ProviderUpdateInput!,where: ProviderWhereUniqueInput!): Provider!
+  updateProvider(
+    data: ProviderUpdateInput!
+    where: ProviderWhereUniqueInput!
+  ): Provider!
   generateQRCode: String!
   # Review
   addReview(data: ReviewCreateInput!): Review!

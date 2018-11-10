@@ -1,12 +1,26 @@
 import { UserService } from '../user.service';
-import { FormGroup, FormControl, FormGroupDirective, NgForm, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  FormGroupDirective,
+  NgForm,
+  FormBuilder,
+  Validators
+} from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 
@@ -20,12 +34,12 @@ export class SignupDialogComponent implements OnInit {
     firstname: ['', Validators.required],
     lastname: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]});
+    password: ['', Validators.required]
+  });
 
   matcher = new MyErrorStateMatcher();
 
-  constructor(private auth: UserService,
-              private formBuilder: FormBuilder) {}
+  constructor(private auth: UserService, private formBuilder: FormBuilder) {}
 
   ngOnInit() {}
 
@@ -34,7 +48,6 @@ export class SignupDialogComponent implements OnInit {
   }
 
   signup() {
-
     if (this.signupForm.invalid) {
       return;
     }

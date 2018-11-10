@@ -127,23 +127,6 @@ export class UserService {
               resolve(true);
             });
         });
-
-      // this.apollo
-      //   .watchQuery({
-      //     query: GET_LOCAL_USER
-      //   })
-      //   .valueChanges.pipe(
-      //     map(({ data }: { data: any }) => {
-      //       const { user } = data;
-      //       // console.log('query GET_LOCAL_USER: isAuthenticated$', user);
-      //       if (!user) {
-      //         return (this.isAuthenticated = false);
-      //       }
-      //       this.isAuthenticated = user.id != null ? true : false;
-      //       console.log('isAuthenticated', this.isAuthenticated);
-      //     })
-      //   )
-      //   .subscribe();
     });
   }
 
@@ -199,6 +182,7 @@ export class UserService {
           console.log(res);
           const token = res.data.createUser.token;
           this.storeTokenToLocalStorage(token);
+          location.reload();
         },
         err => {
           // Need to access GraphQL error object to see errors
@@ -293,21 +277,6 @@ export class UserService {
             type: Alert.SUCCESS
           });
           console.log(err.graphQLErrors);
-        }
-      );
-  }
-
-  test() {
-    this.apollo
-      .mutate({
-        mutation: this.testGQL.document
-      })
-      .subscribe(
-        res => {
-          console.log('res');
-        },
-        err => {
-          console.log('err');
         }
       );
   }

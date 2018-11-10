@@ -1,3 +1,4 @@
+import { AuthenticatedGuard } from './authenticated.guard';
 import { AuthGuard } from './auth.guard';
 import { InvestmentsCreateDialogComponent } from './investments/investments-create-dialog/investments-create-dialog.component';
 import { InvestmentsComponent } from './investments/investments.component';
@@ -55,9 +56,17 @@ const appRoutes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'reset-password', component: ResetPasswordComponent },
-      { path: 'login', component: LoginDialogComponent },
+      {
+        path: 'login',
+        component: LoginDialogComponent,
+        canActivate: [AuthenticatedGuard]
+      },
       { path: 'two-factor', component: TwoFactorCodeComponent },
-      { path: 'signup', component: SignupDialogComponent },
+      {
+        path: 'signup',
+        component: SignupDialogComponent,
+        canActivate: [AuthenticatedGuard]
+      },
       {
         path: 'profile',
         component: ProfileComponent,
