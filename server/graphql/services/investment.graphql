@@ -11,6 +11,25 @@ query investments {
   }
 }
 
+query getInvestment($where: InvestmentWhereUniqueInput!) {
+  getInvestment(where: $where) {
+    id
+    address
+    price
+    monthly_rent
+    mortgage_amount
+    mortgage_downpayment
+    mortgage_interest_rate
+    mortgage_period
+    expenses {
+      id
+      title
+      description
+      price
+    }
+  }
+}
+
 mutation addInvestment($data: InvestmentCreateInput!) {
   addInvestment(data: $data) {
     id

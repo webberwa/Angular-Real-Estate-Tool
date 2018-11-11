@@ -1,0 +1,11 @@
+mutation addExpense($data: ExpenseCreateInput!) {
+  addExpense(data: $data) {
+    id
+  }
+}
+
+mutation deleteExpense($where: ExpenseWhereUniqueInput!) {
+  deleteExpense(where: $where) {
+    id
+  }
+}

@@ -21,7 +21,8 @@ export class InvestmentsService {
     private investmentsGQL: InvestmentsGQL,
     private addInvestmentGQL: AddInvestmentGQL,
     private deleteInvestmentGQL: DeleteInvestmentGQL,
-    private userService: UserService
+    private userService: UserService,
+    private investmentGQL: InvestmentsGQL
   ) {
     this.investments = this.investmentsGQL
       .watch()
