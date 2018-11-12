@@ -73,6 +73,7 @@
           [max]="5"
           readOnly="true"></bar-rating>
         {{ review.text }}
+        <span class="date">{{convertMilliSecToDate(review.date)}}</span>
       </div>
     </div>
     <div class="col-sm-4">

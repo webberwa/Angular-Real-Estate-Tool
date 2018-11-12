@@ -20,7 +20,7 @@ type Query {
   me: User
   providers(where: ProviderWhereInput, skip: Int, first: Int): [Provider]!
   provider(where: ProviderWhereUniqueInput): Provider!
-  reviews(where: ReviewWhereInput): [Review!]!
+  reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput): [Review!]!
   expenses: [Expense!]!
 }
 
@@ -69,7 +69,7 @@ type Review {
   id: ID!
   rating: Int
   text: String
-  date: String
+  date: String!
   provider: Provider
 }
 

@@ -49,4 +49,9 @@ export class ProvidersDetailsComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  convertMilliSecToDate(timestamp: String): String {
+    const date = new Date(Number(timestamp));
+    return date.toLocaleDateString();
+  }
 }

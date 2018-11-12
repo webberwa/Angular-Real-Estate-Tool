@@ -17,7 +17,9 @@ const withReviews = async (provider, id, prisma) => {
     .provider({
       id
     })
-    .reviews()
+    .reviews({
+        orderBy: "updatedAt_DESC"
+    })
 
   provider.reviews = reviews
 
