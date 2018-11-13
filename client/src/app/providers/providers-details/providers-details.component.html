@@ -12,15 +12,18 @@
             Verified
           </span>
           <ng-template #unverified>
-            
+
           </ng-template>
         </span>
       </h1>
-      <button mat-raised-button
-        class="add-investment"
-        color="primary"
-        (click)="openEditProviderDialog()"> Edit Profile </button>
+      <div class="outer-button" matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can edit this profile'}}">
+        <button mat-raised-button
+          class="add-investment"
+          color="primary"
+          (click)="openEditProviderDialog()"
+          [disabled]="!this.userService.isAuthenticated"> Edit Profile </button>
       <!-- Reviews -->
+      </div>
       <app-providers-review-snippet [provider]="(provider |async)"></app-providers-review-snippet>
 
       <br />
@@ -35,7 +38,7 @@
 
     <div class="col-sm-6">
       <div class="Social-share--container">
-        <div class="Social-share--containerLeft" matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can write a review'}}">
+        <div class="Social-share--containerLeft outer-button" matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can write a review'}}">
           <button mat-raised-button
             color="primary"
             (click)="addReview()"
