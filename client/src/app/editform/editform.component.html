@@ -1,12 +1,10 @@
-<p>
-  editform works!
-</p>
+
 <form [formGroup]="providersForm">
   <div class="row">
     <div class="col-sm-12">
       <mat-form-field>
         <input matInput
-          placeholder="Name"
+          placeholder="{{ (providerBeingEdited | async)?.name }}"
           formControlName="name">
       </mat-form-field>
     </div>
@@ -25,28 +23,28 @@
       <mat-form-field>
         <input matInput
           placeholder="Phone Number"
-          formControlName="phone_number">
+          formControlName="phone_number" value="{{ (providerBeingEdited | async)?.phone_number }}">
       </mat-form-field>
     </div>
     <div class="col-sm-12">
       <mat-form-field>
         <input matInput
           placeholder="Email"
-          formControlName="email">
+          formControlName="email" value="{{ (providerBeingEdited | async)?.email }}">
       </mat-form-field>
     </div>
     <div class="col-sm-12">
       <mat-form-field>
         <input matInput
           placeholder="Address 1"
-          formControlName="addr1">
+          formControlName="addr1" value="{{ (providerBeingEdited | async)?.addr1 }}">
       </mat-form-field>
     </div>
     <div class="col-sm-12">
       <mat-form-field>
         <input matInput
           placeholder="Address 2"
-          formControlName="addr2">
+          formControlName="addr2" value="{{ (providerBeingEdited | async)?.addr2 }}">
       </mat-form-field>
     </div>
     <div class="col-sm-12">
