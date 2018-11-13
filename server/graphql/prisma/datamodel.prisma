@@ -8,6 +8,16 @@ type Investment {
   mortgage_interest_rate: Float
   mortgage_period: Float
   owner: User!
+  expenses: [Expense!]!
+    @relation(name: "ExpensesForInvestment", onDelete: CASCADE)
+}
+
+type Expense {
+  id: ID! @unique
+  title: String!
+  description: String!
+  price: Float
+  investment: Investment! @relation(name: "ExpensesForInvestment")
 }
 
 type Provider {
@@ -41,6 +51,6 @@ type Review {
   id: ID! @unique
   rating: Int!
   text: String
-  date: String
+  date: String!
   provider: Provider! @relation(name: "ReviewsForProviders")
 }

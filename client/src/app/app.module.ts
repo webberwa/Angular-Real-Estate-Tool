@@ -47,6 +47,8 @@ import {
   FacebookLoginProvider
 } from 'angular5-social-login';
 import { EditformComponent } from './editform/editform.component';
+import { InvestmentsDetailsComponent } from './investments/investments-details/investments-details.component';
+import { ExpensesCreateComponent } from './investment/expenses-create/expenses-create.component';
 
 const appRoutes: Routes = [
   {
@@ -80,6 +82,11 @@ const appRoutes: Routes = [
       {
         path: 'investments',
         component: InvestmentsComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'investments/:id',
+        component: InvestmentsDetailsComponent,
         canActivate: [AuthGuard]
       },
       {
@@ -135,7 +142,9 @@ export function getAuthServiceConfigs() {
     AddReviewFormComponent,
     ProvidersReviewSnippetComponent,
     SearchFilterComponent,
-    EditformComponent
+    EditformComponent,
+    InvestmentsDetailsComponent,
+    ExpensesCreateComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -171,7 +180,8 @@ export function getAuthServiceConfigs() {
     AlertComponent,
     CreateProviderFormComponent,
     EditformComponent,
-    AddReviewFormComponent
+    AddReviewFormComponent,
+    ExpensesCreateComponent
   ]
 })
 export class AppModule {

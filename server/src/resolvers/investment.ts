@@ -2,6 +2,24 @@ export const investment = {
   Query: {
     investments(root, args, context) {
       return context.prisma.investments()
+    },
+    async getInvestment(roots, args, ctx) {
+      console.log('investment')
+      console.log(args)
+      const { where } = args
+      const investment = await ctx.prisma.investment({ ...where })
+
+      // Expense
+      const expenses = await ctx.prisma
+        .investment({
+          id: investment.id
+        })
+        .expenses()
+
+      investment.expenses = expenses
+
+      console.log(investment)
+      return investment
     }
   },
   Mutation: {

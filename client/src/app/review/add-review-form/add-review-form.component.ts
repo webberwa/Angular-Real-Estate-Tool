@@ -20,7 +20,6 @@ export class AddReviewFormComponent implements OnInit {
   });
   error = false;
   errorMessage: string;
-  date: string = new Date().toLocaleDateString();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -45,7 +44,7 @@ export class AddReviewFormComponent implements OnInit {
       this.errorMessage = 'Rate the business to submit your review';
       return;
     }
-    this.reviewForm.patchValue({date: this.date});
+    this.reviewForm.patchValue({date: String(Date.now())});
     this.reviewService.createReview(this.reviewForm);
   }
 

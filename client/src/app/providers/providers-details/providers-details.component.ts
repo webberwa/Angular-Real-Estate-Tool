@@ -15,6 +15,7 @@ export class ProvidersDetailsComponent implements OnInit {
   provider;
   providersId;
   url;
+  dialogRef;
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -42,11 +43,16 @@ export class ProvidersDetailsComponent implements OnInit {
   openEditProviderDialog() {
     this.providersService.editID = this.providersId;
     console.log(this.providersId);
-    this.dialog.open(EditformComponent, {
+    this.dialogRef =this.dialog.open(EditformComponent, {
       width: '600px',
       autoFocus: false
     });
   }
 
   ngOnInit() {}
+
+  convertMilliSecToDate(timestamp: String): String {
+    const date = new Date(Number(timestamp));
+    return date.toLocaleDateString();
+  }
 }

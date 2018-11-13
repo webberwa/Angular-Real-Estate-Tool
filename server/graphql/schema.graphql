@@ -11,13 +11,17 @@
 # import ProviderWhereInput from 'prisma/__generated__/prisma.graphql'
 # import ProviderWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
 
+# import InvestmentWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
+
 type Query {
   investments: [Investment!]!
+  getInvestment(where: InvestmentWhereUniqueInput): Investment!
   user(where: UserWhereUniqueInput): User
   me: User
   providers(where: ProviderWhereInput, skip: Int, first: Int): [Provider]!
   provider(where: ProviderWhereUniqueInput): Provider!
-  reviews(where: ReviewWhereInput): [Review!]!
+  reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput): [Review!]!
+  expenses: [Expense!]!
 }
 
 type Mutation {
@@ -46,15 +50,26 @@ type Mutation {
   generateQRCode: String!
   # Review
   addReview(data: ReviewCreateInput!): Review!
+  # Expense
+  addExpense(data: ExpenseCreateInput!): Expense!
+  deleteExpense(where: ExpenseWhereUniqueInput!): Expense!
 
   test: Boolean
+}
+
+type Expense {
+  id: ID!
+  title: String!
+  description: String!
+  price: Float
+  investment: Investment!
 }
 
 type Review {
   id: ID!
   rating: Int
   text: String
-  date: String
+  date: String!
   provider: Provider
 }
 
@@ -72,6 +87,7 @@ type Investment {
   mortgage_downpayment: Float
   mortgage_interest_rate: Float
   mortgage_period: Float
+  expenses: [Expense!]
 }
 
 type User {

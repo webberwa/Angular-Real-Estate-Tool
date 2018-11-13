@@ -1,0 +1,29 @@
+<form [formGroup]="expenseForm">
+  <mat-form-field>
+    <input
+      matInput
+      [value]="expenseForm.get('title').value"
+      placeholder="Expense Title"
+      formControlName="title"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [value]="expenseForm.get('description').value"
+      placeholder="Expense Description"
+      formControlName="description"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [value]="expenseForm.get('price').value"
+      placeholder="Expense Price"
+      formControlName="price"
+    />
+  </mat-form-field>
+  <button (click)="addExpense()" mat-raised-button color="primary">
+    Add Expense
+  </button>
+</form>

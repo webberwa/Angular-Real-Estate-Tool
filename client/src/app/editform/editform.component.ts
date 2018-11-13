@@ -9,9 +9,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class EditformComponent implements OnInit {
   providerTypes;
-
+  providerBeingEdited;
+  placeholderName;
   providersForm = new FormGroup({
-    name: new FormControl('Name'),
+    name: new FormControl(this.placeholderName),
     type: new FormControl(''),
     phone_number: new FormControl('1'),
     email: new FormControl('Email'),
@@ -21,12 +22,15 @@ export class EditformComponent implements OnInit {
 
   constructor(private providers: ProvidersService) {
     this.providerTypes = providers.getProviderTypes();
+    this.providerBeingEdited=this.providers.getProvider(this.providers.editID);
+    this.placeholderName=this.providerBeingEdited.name;
   }
 
   edit(form){
     
     this.providers.updateProvider(form,this.providers.editID);
   }
+
   ngOnInit() {
   }
 
