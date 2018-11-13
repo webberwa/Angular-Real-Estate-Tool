@@ -39,7 +39,7 @@
           <input matInput
             placeholder="Email"
             formControlName="email"
-           [errorStateMatcher]="matcher">
+           [errorStateMatcher]="this.auth.matcher">
            <mat-error *ngIf="signupForm.get('email').hasError('email') && !signupForm.get('email').hasError('required')">
             Please enter a valid email address
           </mat-error>

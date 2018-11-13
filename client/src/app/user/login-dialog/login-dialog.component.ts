@@ -25,7 +25,7 @@ export class LoginDialogComponent implements OnInit {
   ngOnInit() {
     this.loginFailed = false;
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       has_two_factor: new FormControl(false),
       code: new FormControl('')

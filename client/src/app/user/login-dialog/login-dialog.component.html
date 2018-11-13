@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-sm-6 offset-sm-3">
       <form [formGroup]="loginForm">
-        <div class="mat-form-field">
+        <div class="mat-form-field" style="margin-bottom: 10px;">
           <button mat-raised-button
             color="primary"
             (click)="socialSignIn('facebook')">
@@ -20,13 +20,23 @@
         <mat-form-field class="fullWidth">
           <input matInput
             placeholder="Email"
-            formControlName="email">
+            formControlName="email"
+            [errorStateMatcher]="this.auth.matcher">
+            <mat-error *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+            <mat-error *ngIf="loginForm.get('email').hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
         <mat-form-field>
           <input matInput
             placeholder="Password"
             formControlName="password"
             type="password">
+            <mat-error *ngIf="loginForm.get('password').hasError('required')">
+                Password is <strong>required</strong>
+            </mat-error>
         </mat-form-field>
         <mat-checkbox formControlName="has_two_factor">I have 2FA enabled</mat-checkbox>
         <mat-form-field *ngIf="loginForm.get('has_two_factor').value">
