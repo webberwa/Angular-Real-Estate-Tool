@@ -24,7 +24,11 @@ export class InvestmentsService {
     private userService: UserService,
     private investmentGQL: InvestmentsGQL
   ) {
-    this.investments = this.investmentsGQL
+    this.investments = this.getInvestments();
+  }
+
+  public getInvestments() {
+    return this.investmentsGQL
       .watch()
       .valueChanges.pipe(map(({ data }) => data.investments));
   }
