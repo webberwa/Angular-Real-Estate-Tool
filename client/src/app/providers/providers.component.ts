@@ -13,6 +13,7 @@ import { InstantsearchService } from '../search/instantsearch.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import {MatDialog, PageEvent} from '@angular/material';
 import {CreateProviderFormComponent} from '../profile/create-provider-form/create-provider-form.component';
+import { EMPTY } from 'rxjs'
 
 @Component({
   selector: 'app-providers',
@@ -35,6 +36,8 @@ export class ProvidersComponent implements OnInit {
   loading = true;
 
   addNewProvider = false;
+
+  searchTimer;
 
   // MatPaginator Output
   constructor(
@@ -69,14 +72,19 @@ export class ProvidersComponent implements OnInit {
   search() {
     this.loading = true;
     this.addNewProvider = false;
-    this.allProviders = this.providersService.searchProviders();
-    this.allProviders.subscribe((data: any) => {
-      this.loading = false;
+    this.allProviders = EMPTY;
 
-      if (data == null || data.length === 0) {
-        this.addNewProvider = true;
-      }
-    });
+    clearTimeout(this.searchTimer);
+    this.searchTimer = setTimeout(() => {
+      this.allProviders = this.providersService.searchProviders();
+      this.allProviders.subscribe((data: any) => {
+        this.loading = false;
+
+        if (data == null || data.length === 0) {
+          this.addNewProvider = true;
+        }
+      });
+    }, 1000);
   }
 
   onPaginateChange(event) {
