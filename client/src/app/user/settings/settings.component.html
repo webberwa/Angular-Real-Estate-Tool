@@ -6,11 +6,11 @@
           *ngIf="!(user.me$ | async)?.has_two_factor; else showDeactivate"
           [disabled]="isActivating"
           (click)="activate2fa()"
-          color="primary"> Activate 2-factor </button>
+          color="primary"> Activate TWO-FACTOR AUTHENTICATION </button>
         <ng-template #showDeactivate>
           <button mat-raised-button
             (click)="deactivate2fa()"
-            color="primary"> Deactivate 2-factor </button>
+            color="primary"> Deactivate TWO-FACTOR AUTHENTICATION </button>
         </ng-template>
       </div>
       <div fxFlex

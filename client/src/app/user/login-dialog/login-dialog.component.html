@@ -38,7 +38,7 @@
                 Password is <strong>required</strong>
             </mat-error>
         </mat-form-field>
-        <mat-checkbox formControlName="has_two_factor">I have 2FA enabled</mat-checkbox>
+        <mat-checkbox formControlName="has_two_factor">I have two-factor authentication enabled</mat-checkbox>
         <mat-form-field *ngIf="loginForm.get('has_two_factor').value">
           <input matInput
             placeholder="Code"
