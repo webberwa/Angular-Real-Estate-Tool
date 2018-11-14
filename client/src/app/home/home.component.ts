@@ -22,6 +22,8 @@ const LOGOUT = gql`
 })
 export class HomeComponent implements OnInit {
   url;
+  panel_status: string;
+
   constructor(
     private apollo: Apollo,
     private meGQL: MeGQL,
@@ -41,5 +43,9 @@ export class HomeComponent implements OnInit {
 
   login() {
     this.userComp.openLoginDialog();
+  }
+
+  expand_panel(event, location: string) {
+    this.panel_status = location+"-hover";
   }
 }

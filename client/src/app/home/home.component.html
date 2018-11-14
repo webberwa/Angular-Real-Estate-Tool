@@ -29,4 +29,50 @@
 </div> -->
 
 
-<div class="Home-banner--bg"></div>
+<div class="Home-banner--bg">
+  <div class="a" [ngClass]="panel_status" (mouseleave)="expand_panel($event, '')">
+    <div class="right panel">
+      <div class="cover"></div>
+      <div class="content before-hover">
+        <h2>Providers</h2>
+        <h4>Find your best real estate providers</h4>
+      </div>
+      <div class="content after-hover">
+        <h2>Providers</h2>
+        <h4>Find providers and see contract</h4>
+        <h4>and check their reviews</h4>
+        <button class="browse" mat-button>Browse Providers</button>
+        <span></span>
+      </div>
+      <div class="hover-area"
+           routerLink="/providers"
+           routerLinkActive="active"
+           (mouseenter)="expand_panel($event, 'right')"></div>
+    </div>
+    <div class="b">
+      <div class="left panel">
+        <div class="cover"></div>
+        <div class="content before-hover">
+          <h2>Investments</h2>
+          <h4>Start tracking your investments</h4>
+        </div>
+        <div class="content after-hover">
+          <h2>Investments</h2>
+          <h4>Check your investments status</h4>
+          <h4>and update information</h4>
+          <button class="browse" mat-button>Track Providers</button>
+        </div>
+        <div class="hover-area"
+             routerLink="/investments"
+             routerLinkActive="active"
+             (mouseenter)="expand_panel($event, 'left')"></div>
+      </div>
+      <div class="c"></div>
+    </div>
+  </div>
+
+  <div class="desc">
+    <h2>Real Estate Investment and Review Tool</h2>
+    <h4>An online resource to help real estate investors track investments and evaluate resources related to property scouting, acquisition, maintenance, and management through community reviews and referrals.</h4>
+  </div>
+</div>
