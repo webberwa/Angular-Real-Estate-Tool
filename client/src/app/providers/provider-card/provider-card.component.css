@@ -2,3 +2,7 @@ p {
   margin-bottom: 0;
   /* line-height: 32px; */
 }
+
+hr {
+  margin-top: 0;
+}

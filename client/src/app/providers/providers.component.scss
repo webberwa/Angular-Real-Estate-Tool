@@ -5,3 +5,18 @@
 .mat-paginator-range-label {
   display: none;
 }
+
+.loading{
+  height: 2.5px !important;
+}
+
+.row {
+  .new-provider-msg {
+    color: gray;
+  }
+
+  .new-provider-link {
+    color: blue;
+    cursor: pointer;
+  }
+}

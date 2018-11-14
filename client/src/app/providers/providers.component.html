@@ -36,8 +36,16 @@
       </div>
     </div>
     <!-- Providers -->
-    <div class="col-sm-8">
+    <div class="col-sm-9">
       <div class="row">
+        <div class="col-sm-12"
+             [hidden]="!addNewProvider">
+          <span class="new-provider-msg">There is no providers found. Do you want to add a </span>
+          <span class="new-provider-link" (click)="openAddNewProviderPopup()">new provider?</span>
+        </div>
+        <div class="col-sm-12" [hidden]="!loading">
+          <mat-progress-bar class="loading" mode="indeterminate"></mat-progress-bar>
+        </div>
         <div class="col-sm-12"
           *ngFor="let provider of allProviders | async">
           <app-provider-card [provider]="provider">

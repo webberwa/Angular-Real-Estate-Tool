@@ -90,7 +90,6 @@ export class ProvidersService {
       })
       .valueChanges.pipe(
         map(({ data }: { data: any }) => {
-          console.log(data.providers);
           return data.providers;
         })
       );
@@ -114,7 +113,6 @@ export class ProvidersService {
       })
       .subscribe(res => {
         this.dialog.closeAll();
-        console.log(res);
       });
   }
 

@@ -22,7 +22,7 @@ import {
   MatProgressSpinnerModule,
   MatSelectModule,
   MatSnackBarModule,
-  MatFormFieldModule, MatTooltipModule
+  MatFormFieldModule, MatTooltipModule, MatProgressBarModule
 } from '@angular/material';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { BarRatingModule } from 'ngx-bar-rating';
@@ -55,7 +55,8 @@ import { AgmCoreModule } from '@agm/core';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatTableModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressBarModule
   ],
   declarations: [],
   exports: [
@@ -83,7 +84,8 @@ import { AgmCoreModule } from '@agm/core';
     MatSnackBarModule,
     MatPaginatorModule,
     MatTableModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatProgressBarModule
   ]
 })
 export class MaterialModule {

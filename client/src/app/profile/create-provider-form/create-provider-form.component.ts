@@ -11,12 +11,12 @@ export class CreateProviderFormComponent implements OnInit {
   providerTypes;
 
   providersForm = new FormGroup({
-    name: new FormControl('Name'),
+    name: new FormControl(''),
     type: new FormControl(''),
-    phone_number: new FormControl('1'),
-    email: new FormControl('Email'),
-    addr1: new FormControl('Addr1'),
-    addr2: new FormControl('Addr2')
+    phone_number: new FormControl(''),
+    email: new FormControl(''),
+    addr1: new FormControl(''),
+    addr2: new FormControl('')
   });
 
   constructor(private providers: ProvidersService) {
