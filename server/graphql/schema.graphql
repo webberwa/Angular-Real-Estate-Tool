@@ -107,7 +107,6 @@ type Provider {
   provider_stats: ProviderStats
   reviews(
     where: ReviewWhereInput
-    orderBy: ReviewOrderByInput
     skip: Int
     after: String
     before: String
