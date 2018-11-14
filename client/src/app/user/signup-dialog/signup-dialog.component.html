@@ -19,7 +19,7 @@
         </div>
         <mat-form-field class="fullWidth">
           <input matInput
-            placeholder="First Name"
+            placeholder="First Name*"
             formControlName="firstname"
             [errorStateMatcher]="matcher">
             <mat-error *ngIf="signupForm.get('firstname').hasError('required')">
@@ -28,7 +28,7 @@
         </mat-form-field>
         <mat-form-field class="fullWidth">
           <input matInput
-            placeholder="Last Name"
+            placeholder="Last Name*"
             formControlName="lastname"
             [errorStateMatcher]="matcher">
             <mat-error *ngIf="signupForm.get('lastname').hasError('required')">
@@ -37,7 +37,7 @@
         </mat-form-field>
         <mat-form-field class="fullWidth">
           <input matInput
-            placeholder="Email"
+            placeholder="Email*"
             formControlName="email"
            [errorStateMatcher]="this.auth.matcher">
            <mat-error *ngIf="signupForm.get('email').hasError('email') && !signupForm.get('email').hasError('required')">
@@ -49,7 +49,7 @@
         </mat-form-field>
         <mat-form-field>
           <input matInput
-            placeholder="Password"
+            placeholder="Password*"
             formControlName="password"
             type="password">
             <mat-error *ngIf="signupForm.get('password').hasError('required')">
