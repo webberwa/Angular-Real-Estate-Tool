@@ -4,11 +4,13 @@
   // Fix for drop menu link
   .ng-star-inserted a {
     &:hover {
-      cursor: mouse;
+      cursor: pointer;
     }
     padding-bottom: 7px;
   }
   a {
+    display: block;
+    padding-bottom: 0 !important;
     color: $Nav-color--text;
     border-bottom: 2px solid transparent;
     margin: 0 1rem;
@@ -31,8 +33,8 @@
     display: flex;
     justify-content: flex-start;
     img {
-      width: 80px;
-      height: 40px;
+      width: 110px;
+      height: 55px;
     }
   }
   .mat-toolbar.mat-primary {

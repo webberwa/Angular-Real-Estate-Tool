@@ -3,7 +3,13 @@
   <div class="row">
 
     <div class="col-sm-6">
-      <h1 class="Review-title"> {{ (provider | async)?.name }}
+      <h1 class="Review-title">
+        <span>{{ (provider | async)?.name }}</span>
+        <button class="edit-profile"
+                (click)="openEditProviderDialog()"
+                [hidden]="!this.userService.isAuthenticated"
+                matTooltip="Edit this provider's profile"
+                mat-button><mat-icon>mode_edit</mat-icon></button>
         <span class="Provider-verificationStatus">
           <span *ngIf="(provider | async)?.is_verified === true; else unverified">
             <i class="material-icons success">
@@ -16,14 +22,6 @@
           </ng-template>
         </span>
       </h1>
-      <div class="outer-button" matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can edit this profile'}}">
-        <button mat-raised-button
-          class="add-investment"
-          color="primary"
-          (click)="openEditProviderDialog()"
-          [disabled]="!this.userService.isAuthenticated"> Edit Profile </button>
-      <!-- Reviews -->
-      </div>
       <app-providers-review-snippet [provider]="(provider |async)"></app-providers-review-snippet>
 
       <br />

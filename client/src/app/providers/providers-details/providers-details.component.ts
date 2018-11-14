@@ -41,6 +41,10 @@ export class ProvidersDetailsComponent implements OnInit {
   }
 
   openEditProviderDialog() {
+    if (false == this.userService.isAuthenticated) {
+      return;
+    }
+
     this.providersService.editID = this.providersId;
     console.log(this.providersId);
     this.dialogRef =this.dialog.open(EditformComponent, {
