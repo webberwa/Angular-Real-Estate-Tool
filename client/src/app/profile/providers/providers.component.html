@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12"><h2>Browse Providers</h2></div>
+    <!-- Filters -->
+    <div class="col-sm-12">
+      <div class="">
+        <form class="row" [formGroup]="searchForm">
+          <div class="col-sm-6">
+            <mat-form-field class="info">
+              <mat-label>Search by:</mat-label>
+              <input
+                (input)="handleChange($event.target.value)"
+                type="text"
+                autocomplete="off"
+                placeholder="Service provider information"
+                formControlName="text"
+                matInput
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-sm-3">
+            <mat-form-field>
+              <mat-label>Provider Type</mat-label>
+              <mat-select
+                placeholder="Provider Types"
+                (selectionChange)="handleTypeChange($event.value)"
+                formControlName="type"
+              >
+                <mat-option
+                  *ngFor="let type of providerTypes"
+                  [value]="type.value"
+                >
+                  {{ type.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Providers -->
+    <div class="col-sm-9">
+      <div class="row">
+        <div class="col-sm-12" [hidden]="!addNewProvider">
+          <span class="new-provider-msg"
+            >There is no providers found. Do you want to add a
+          </span>
+          <span class="new-provider-link" (click)="openAddNewProviderPopup()"
+            >new provider?</span
+          >
+        </div>
+        <div class="col-sm-12" [hidden]="!loading">
+          <mat-progress-bar
+            class="loading"
+            mode="indeterminate"
+          ></mat-progress-bar>
+        </div>
+        <div
+          class="col-sm-12"
+          *ngFor="let provider of (allProviders | async)?.data"
+        >
+          <app-provider-card [provider]="provider"> </app-provider-card>
+        </div>
+        <mat-paginator
+          [length]="(allProviders | async)?.count"
+          (page)="onPaginateChange($event)"
+          [pageSize]="pageSize"
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

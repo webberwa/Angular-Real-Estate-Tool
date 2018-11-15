@@ -18,6 +18,7 @@ type Expense {
   description: String!
   price: Float
   investment: Investment! @relation(name: "ExpensesForInvestment")
+  date: String
 }
 
 type Provider {

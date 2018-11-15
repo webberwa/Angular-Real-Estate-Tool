@@ -18,7 +18,7 @@ const withReviews = async (provider, id, prisma) => {
       id
     })
     .reviews({
-        orderBy: "updatedAt_DESC"
+      orderBy: 'updatedAt_DESC'
     })
 
   provider.reviews = reviews
@@ -40,6 +40,8 @@ export const provider = {
     async providers(parent, args, ctx, info) {
       const providers = await ctx.prisma.providers(args, info)
 
+      const providersCount = (await ctx.prisma.providers()).length
+
       const providersWithReviews = await Promise.all(
         await providers.map(async provider => {
           const providerWithReview = await withReviews(
@@ -47,12 +49,16 @@ export const provider = {
             provider.id,
             ctx.prisma
           )
-          // console.log(providerWithReview)
           return providerWithReview
         })
       )
 
-      return providersWithReviews
+      const providersData = {
+        count: providersCount,
+        data: providersWithReviews
+      }
+
+      return providersData
     },
     async provider(parent, args, ctx, info) {
       const provider = await ctx.prisma.provider({
@@ -64,6 +70,7 @@ export const provider = {
   },
   Mutation: {
     async addProvider(root, { data }, context) {
+      console.log(data)
       const { user } = context
       // Assign user to it
       data.owner = {
@@ -77,25 +84,6 @@ export const provider = {
       })
 
       console.log('provider', provider)
-
-      // Add to algolia
-      provider.objectID = provider.id
-      console.log('before algolia')
-      index.addObject(provider, function(err, content) {
-        console.log('after algolia')
-        console.log(content)
-      })
-
-      // const providers = await context.prisma.providers()
-      // console.log(providers)
-      // providers.forEach(provider => {
-      //   provider.objectID = provider.id
-      //   console.log('before algolia')
-      //   index.addObject(provider, function(err, content) {
-      //     console.log('after algolia')
-      //     console.log(content)
-      //   })
-      // })
 
       return provider
     },

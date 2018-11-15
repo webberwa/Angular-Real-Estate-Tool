@@ -1,9 +1,9 @@
+import { ProvidersService } from '../providers/providers.service';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
-import { AddReviewGQL, ProviderGQL } from '../apollo-angular-services';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProvidersService } from '../providers/providers.service';
+import { AddReviewGQL, ProviderGQL } from 'src/app/apollo-angular-services';
 
 @Injectable({
   providedIn: 'root'

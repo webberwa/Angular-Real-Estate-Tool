@@ -1,7 +1,13 @@
 export const investment = {
   Query: {
-    investments(root, args, context) {
-      return context.prisma.investments()
+    async investments(root, args, ctx) {
+      const investments = await ctx.prisma
+        .user({
+          id: ctx.user.id
+        })
+        .investments()
+      console.log(investments)
+      return investments
     },
     async getInvestment(roots, args, ctx) {
       console.log('investment')
@@ -24,6 +30,7 @@ export const investment = {
   },
   Mutation: {
     async addInvestment(root, { data }, ctx) {
+      console.log(data)
       return await ctx.prisma.createInvestment({
         ...data
       })

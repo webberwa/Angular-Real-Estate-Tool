@@ -1,4 +1,3 @@
-import { InstantsearchService } from './../../search/instantsearch.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ProvidersService } from '../providers.service';
@@ -18,10 +17,7 @@ export class SearchFilterComponent implements OnInit {
   providerTypes;
   // Define SearchBox initial state
 
-  constructor(
-    private providersService: ProvidersService,
-    private searchService: InstantsearchService
-  ) {
+  constructor(private providersService: ProvidersService) {
     this.providerTypes = providersService.getProviderTypes();
   }
 

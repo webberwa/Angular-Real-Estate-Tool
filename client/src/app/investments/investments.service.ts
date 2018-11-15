@@ -33,10 +33,16 @@ export class InvestmentsService {
       .valueChanges.pipe(map(({ data }) => data.investments));
   }
 
-  formatPrice(price) {
-    let newPrice = price.replace('$', '');
-    newPrice = newPrice.replace(/,/g, '');
-    return Number.parseFloat(newPrice);
+  formatFloat(string) {
+    // let newPrice = price.replace('$', '');
+    // newPrice = newPrice.replace(/,/g, '');
+    return Number.parseFloat(string);
+  }
+
+  formatPercent(percent) {
+    let newPercent = percent.replace('%', '');
+    newPercent = newPercent.replace(/,/g, '');
+    return Number.parseFloat(newPercent) / 100;
   }
 
   addInvestment(form) {
@@ -46,18 +52,18 @@ export class InvestmentsService {
         variables: {
           data: {
             address: form.get('address').value,
-            price: this.formatPrice(form.get('price').value),
-            monthly_rent: this.formatPrice(form.get('monthly_rent').value),
-            mortgage_downpayment: this.formatPrice(
+            price: this.formatFloat(form.get('price').value),
+            monthly_rent: this.formatFloat(form.get('monthly_rent').value),
+            mortgage_downpayment: this.formatFloat(
               form.get('mortgage_downpayment').value
             ),
-            mortgage_amount: this.formatPrice(
+            mortgage_amount: this.formatFloat(
               form.get('mortgage_amount').value
             ),
-            mortgage_interest_rate: this.formatPrice(
+            mortgage_interest_rate: this.formatPercent(
               form.get('mortgage_interest_rate').value
             ),
-            mortgage_period: this.formatPrice(
+            mortgage_period: this.formatFloat(
               form.get('mortgage_period').value
             ),
             owner: {

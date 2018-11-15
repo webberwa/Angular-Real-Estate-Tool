@@ -1,22 +1,25 @@
 query providers($where: ProviderWhereInput, $skip: Int, $first: Int) {
   providers(where: $where, skip: $skip, first: $first) {
-    id
-    name
-    type
-    reviews {
+    count
+    data {
       id
-      rating
-      text
-      date
+      name
+      type
+      reviews {
+        id
+        rating
+        text
+        date
+      }
+      provider_stats {
+        review_count
+        review_avg
+      }
+      phone_number
+      email
+      addr1
+      addr2
     }
-    provider_stats {
-      review_count
-      review_avg
-    }
-    phone_number
-    email
-    addr1
-    addr2
   }
 }
 
@@ -56,8 +59,11 @@ mutation deleteProvider($where: ProviderWhereUniqueInput!) {
   }
 }
 
-mutation updateProvider($data: ProviderUpdateInput!,$where: ProviderWhereUniqueInput!) {
-  updateProvider(data: $data,where: $where) {
+mutation updateProvider(
+  $data: ProviderUpdateInput!
+  $where: ProviderWhereUniqueInput!
+) {
+  updateProvider(data: $data, where: $where) {
     id
     name
   }

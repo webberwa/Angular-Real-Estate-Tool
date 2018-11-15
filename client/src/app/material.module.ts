@@ -13,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import {
   MatCardModule,
@@ -22,7 +23,10 @@ import {
   MatProgressSpinnerModule,
   MatSelectModule,
   MatSnackBarModule,
-  MatFormFieldModule, MatTooltipModule, MatProgressBarModule
+  MatFormFieldModule,
+  MatTooltipModule,
+  MatProgressBarModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { BarRatingModule } from 'ngx-bar-rating';
@@ -32,6 +36,7 @@ import { AgmCoreModule } from '@agm/core';
   imports: [
     CommonModule,
     BrowserAnimationsModule,
+    MatDatepickerModule,
     MatButtonModule,
     MatPaginatorModule,
     MatMenuModule,
@@ -39,6 +44,7 @@ import { AgmCoreModule } from '@agm/core';
     MatBadgeModule,
     MatFormFieldModule,
     MatToolbarModule,
+    MatNativeDateModule,
     MatTabsModule,
     MatDialogModule,
     MatCheckboxModule,
@@ -83,6 +89,8 @@ import { AgmCoreModule } from '@agm/core';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatPaginatorModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatTableModule,
     MatTooltipModule,
     MatProgressBarModule

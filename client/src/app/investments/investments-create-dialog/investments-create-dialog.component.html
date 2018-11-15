@@ -1,89 +1,110 @@
-<form [formGroup]="investmentForm">
-  <div fxLayout="row"
-    fxLayout.xs="column">
+<form [formGroup]="investmentForm" (ngSubmit)="onSubmit()">
+  <div fxLayout="row" fxLayout.xs="column">
     <div fxFlex>
       <mat-form-field class="fullWidth">
-        <input #googleAddress
+        <input
+          #googleAddress
           matInput
           placeholder="Address"
-          formControlName="address">
+          formControlName="address"
+        />
+        <!--
+          <mat-error *ngIf="investmentForm.get('address').hasError('required')">
+            Address is <strong>required</strong>
+          </mat-error>
+        -->
       </mat-form-field>
     </div>
   </div>
-  <div fxLayout="row"
-    fxLayout.xs="column">
+  <div fxLayout="row" fxLayout.xs="column">
     <div fxFlex>
-      <mat-form-field #priceFieldRef>
-        <input matInput
+      <mat-form-field>
+        <input
+          matInput
+          appCurrency
           [value]="investmentForm.get('price').value"
-          (blur)="updateCurrency($event, 'price')"
-          (focus)="resetField('price')"
+          (blur)="priceUpdated()"
           placeholder="Purchase Price"
-          formControlName="price">
+          formControlName="price"
+        />
+        <!--
+          <mat-error *ngIf="investmentForm.get('price').hasError('required')">
+            Price is <strong>required</strong>
+          </mat-error>
+        -->
       </mat-form-field>
     </div>
     <div fxFlex>
       <mat-form-field>
-        <input matInput
+        <input
+          matInput
+          appCurrency
           [value]="investmentForm.get('monthly_rent').value"
-          (blur)="updateCurrency($event, 'monthly_rent')"
-          (focus)="resetField('monthly_rent')"
           placeholder="Monthly Rent"
-          formControlName="monthly_rent">
+          formControlName="monthly_rent"
+        />
       </mat-form-field>
     </div>
   </div>
-  <div fxLayout="row"
-    fxLayout.xs="column">
+  <div fxLayout="row" fxLayout.xs="column">
     <div fxFlex>
       <mat-form-field>
-        <input matInput
-          [value]="investmentForm.get('mortgage_downpayment').value "
-          (blur)="updateCurrency($event, 'mortgage_downpayment')"
-          (focus)="resetField('mortgage_downpayment')"
+        <input
+          #downPayment
+          matInput
+          appCurrency
+          [value]="investmentForm.get('mortgage_downpayment').value"
           placeholder="Mortgage Downpayment"
-          formControlName="mortgage_downpayment">
+          formControlName="mortgage_downpayment"
+        />
       </mat-form-field>
     </div>
     <div fxFlex>
       <mat-form-field>
-        <input matInput
+        <input
+          #mortgageAmount
+          matInput
+          appCurrency
           [value]="investmentForm.get('mortgage_amount').value"
-          (blur)="updateCurrency($event, 'mortgage_amount')"
-          (focus)="resetField('mortgage_amount')"
           placeholder="Mortgage Amount"
-          formControlName="mortgage_amount">
+          formControlName="mortgage_amount"
+        />
       </mat-form-field>
     </div>
   </div>
-  <div fxLayout="row"
-    fxLayout.xs="column">
+  <div fxLayout="row" fxLayout.xs="column">
     <div fxFlex>
       <mat-form-field>
-        <input matInput
-          [value]="investmentForm.get('mortgage_interest_rate').value | percent: '1.1-2'"
-          (blur)="updatePercent($event, 'mortgage_interest_rate')"
-          (focus)="resetField('mortgage_interest_rate')"
+        <input
+          matInput
+          appPercentage
+          [value]="investmentForm.get('mortgage_interest_rate').value"
           placeholder="Mortgage Interest Rate"
-          formControlName="mortgage_interest_rate">
+          formControlName="mortgage_interest_rate"
+        />
       </mat-form-field>
     </div>
     <div fxFlex>
       <mat-form-field>
-        <input matInput
+        <input
+          matInput
           [value]="investmentForm.get('mortgage_period').value"
-          (focus)="resetField('mortgage_period')"
-          placeholder="Mortgage Period"
-          formControlName="mortgage_period">
+          placeholder="Mortgage Period (Years)"
+          formControlName="mortgage_period"
+        />
       </mat-form-field>
     </div>
   </div>
-  <div fxLayout="row"
-    fxLayout.xs="column">
+  <div fxLayout="row" fxLayout.xs="column">
     <div fxFlex>
-      <button (click)="addInvestment()"
+      <button
+        type="submit"
         mat-raised-button
-        color="primary"> Add Investments </button>
+        color="primary"
+        [disabled]="!investmentForm.valid"
+      >
+        Add Investments
+      </button>
     </div>
   </div>
 </form>

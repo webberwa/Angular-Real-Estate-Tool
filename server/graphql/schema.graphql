@@ -18,10 +18,15 @@ type Query {
   getInvestment(where: InvestmentWhereUniqueInput): Investment!
   user(where: UserWhereUniqueInput): User
   me: User
-  providers(where: ProviderWhereInput, skip: Int, first: Int): [Provider]!
+  providers(where: ProviderWhereInput, skip: Int, first: Int): ProviderFeed
   provider(where: ProviderWhereUniqueInput): Provider!
   reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput): [Review!]!
   expenses: [Expense!]!
+}
+
+type ProviderFeed {
+  data: [Provider]!
+  count: Int!
 }
 
 type Mutation {

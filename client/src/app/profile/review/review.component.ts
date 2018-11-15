@@ -1,7 +1,7 @@
+import { ProvidersGQL } from './../../apollo-angular-services';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import { ProvidersGQL } from '../apollo-angular-services';
 
 @Component({
   selector: 'app-review',

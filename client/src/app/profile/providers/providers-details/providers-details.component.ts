@@ -3,8 +3,8 @@ import { ProvidersService } from './../providers.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddReviewFormComponent } from '../../review/add-review-form/add-review-form.component';
-import { EditformComponent } from '../../editform/editform.component';
-import {UserService} from "../../user/user.service";
+import { UserService } from 'src/app/user/user.service';
+import { EditformComponent } from 'src/app/editform/editform.component';
 
 @Component({
   selector: 'app-providers-details',
@@ -41,13 +41,13 @@ export class ProvidersDetailsComponent implements OnInit {
   }
 
   openEditProviderDialog() {
-    if (false == this.userService.isAuthenticated) {
+    if (false === this.userService.isAuthenticated) {
       return;
     }
 
     this.providersService.editID = this.providersId;
     console.log(this.providersId);
-    this.dialogRef =this.dialog.open(EditformComponent, {
+    this.dialogRef = this.dialog.open(EditformComponent, {
       width: '600px',
       autoFocus: false
     });

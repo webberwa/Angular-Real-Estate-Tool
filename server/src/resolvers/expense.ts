@@ -1,4 +1,3 @@
-import { DeleteExpense } from '../../../client/src/app/apollo-angular-services'
 export const expense = {
   Query: {
     expenses(roots, args, ctx) {

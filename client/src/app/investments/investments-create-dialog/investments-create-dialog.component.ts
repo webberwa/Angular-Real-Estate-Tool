@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvestmentsService } from '../investments.service';
 import { formatCurrency, formatPercent } from '@angular/common';
 import { YearsPipe } from '../../years.pipe';
@@ -22,17 +22,20 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
   @ViewChild('googleAddress')
   searchElementRef: ElementRef;
 
-  @ViewChild('priceFieldRef')
-  priceFieldRef: ElementRef;
+  @ViewChild('downPayment')
+  downPaymentRef: ElementRef;
+
+  @ViewChild('mortgageAmount')
+  mortgageAmountRef: ElementRef;
 
   investmentForm = new FormGroup({
-    address: new FormControl(''),
-    price: new FormControl(''),
-    monthly_rent: new FormControl(''),
-    mortgage_downpayment: new FormControl(''),
-    mortgage_amount: new FormControl(''),
-    mortgage_interest_rate: new FormControl(''),
-    mortgage_period: new FormControl('')
+    address: new FormControl('', Validators.required),
+    price: new FormControl('', Validators.required),
+    monthly_rent: new FormControl('', Validators.required),
+    mortgage_downpayment: new FormControl('', Validators.required),
+    mortgage_amount: new FormControl('', Validators.required),
+    mortgage_interest_rate: new FormControl('', Validators.required),
+    mortgage_period: new FormControl('30', Validators.required)
   });
 
   // Used for GET params to API call
@@ -48,11 +51,30 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit() {
-    this.investmentForm.valueChanges.subscribe(console.log);
+    this.investmentForm.valueChanges.subscribe(val => {
+      console.log(val);
+    });
   }
 
-  addInvestment() {
+  onSubmit() {
     this.investmentService.addInvestment(this.investmentForm);
+  }
+
+  priceUpdated() {
+    this.investmentForm.patchValue({
+      mortgage_downpayment: this.investmentForm.get('price').value * 0.2
+    });
+    this.investmentForm.patchValue({
+      mortgage_amount:
+        this.investmentForm.get('price').value -
+        this.investmentForm.get('mortgage_downpayment').value
+    });
+    setTimeout(() => {
+      this.downPaymentRef.nativeElement.focus();
+      this.downPaymentRef.nativeElement.blur();
+      this.mortgageAmountRef.nativeElement.focus();
+      this.mortgageAmountRef.nativeElement.blur();
+    }, 50);
   }
 
   ngAfterViewInit(): void {
@@ -85,20 +107,8 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
         this.investmentForm.patchValue({
           price
         });
-        // this.investmentForm.controls.price.markAsTouched();
-        // this.priceFieldRef.nativeElement.classList.add(
-        //   'mat-form-field-should-float'
-        // );
-        // this.investmentForm.controls.price.markAsDirty();
-        // this.investmentForm.controls.price.updateValueAndValidity();
       })
       .catch(console.log);
-  }
-
-  addClass() {
-    this.priceFieldRef.nativeElement.classList.add(
-      'mat-form-field-should-float'
-    );
   }
 
   findAddress() {
@@ -126,29 +136,8 @@ export class InvestmentsCreateDialogComponent implements AfterViewInit, OnInit {
         });
 
         // Then get estimate
-        this.getEstimate();
+        // this.getEstimate();
       });
-    });
-  }
-  updateCurrency(event, field) {
-    console.log(event.target.value);
-    const value = event.target.value;
-    this.investmentForm.patchValue({
-      [field]: formatCurrency(value, 'en_EN', '$')
-    });
-  }
-
-  updatePercent(event, field) {
-    const value = event.target.value;
-    this.investmentForm.patchValue({
-      [field]: formatPercent(value, '1.1-2')
-    });
-  }
-
-  resetField(field) {
-    console.log(field);
-    this.investmentForm.patchValue({
-      [field]: null
     });
   }
 }

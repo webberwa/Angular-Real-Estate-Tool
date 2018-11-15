@@ -23,7 +23,23 @@
       formControlName="price"
     />
   </mat-form-field>
-  <button (click)="addExpense()" mat-raised-button color="primary">
+  <mat-form-field>
+    <input
+      matInput
+      [value]="expenseForm.get('date').value"
+      [matDatepicker]="picker"
+      placeholder="Choose a date"
+      formControlName="date"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <button
+    (click)="addExpense()"
+    mat-raised-button
+    color="primary"
+    [disabled]="!expenseForm.valid"
+  >
     Add Expense
   </button>
 </form>

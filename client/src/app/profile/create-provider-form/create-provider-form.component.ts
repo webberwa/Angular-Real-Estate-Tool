@@ -1,6 +1,6 @@
-import { ProvidersService } from './../../providers/providers.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ProvidersService } from '../providers/providers.service';
 
 @Component({
   selector: 'app-create-provider-form',
@@ -11,12 +11,15 @@ export class CreateProviderFormComponent implements OnInit {
   providerTypes;
 
   providersForm = new FormGroup({
-    name: new FormControl(''),
-    type: new FormControl(''),
-    phone_number: new FormControl(''),
-    email: new FormControl(''),
-    addr1: new FormControl(''),
-    addr2: new FormControl('')
+    name: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
+    phone_number: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10)
+    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    addr1: new FormControl('', Validators.required),
+    addr2: new FormControl('', Validators.required)
   });
 
   constructor(private providers: ProvidersService) {

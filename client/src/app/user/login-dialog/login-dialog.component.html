@@ -3,55 +3,70 @@
     <div class="col-sm-6 offset-sm-3">
       <form [formGroup]="loginForm">
         <div class="mat-form-field" style="margin-bottom: 10px;">
-          <button mat-raised-button
+          <button
+            mat-raised-button
             color="primary"
-            (click)="socialSignIn('facebook')">
-            Facebook
-            <i class="fa fa-facebook-official icon"></i>
+            (click)="socialSignIn('facebook')"
+          >
+            Facebook <i class="fa fa-facebook-official icon"></i>
           </button>
-          <button mat-raised-button
+          <button
+            mat-raised-button
             color="primary"
             style="margin-left: 10px;"
-            (click)="socialSignIn('google')">
-            Google
-            <i class="fa fa-google icon"></i>
+            (click)="socialSignIn('google')"
+          >
+            Google <i class="fa fa-google icon"></i>
           </button>
         </div>
         <mat-form-field class="fullWidth">
-          <input matInput
+          <input
+            matInput
             placeholder="Email"
             formControlName="email"
-            [errorStateMatcher]="this.auth.matcher">
-            <mat-error *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">
+            [errorStateMatcher]="this.auth.matcher"
+          />
+          <mat-error
+            *ngIf="
+              loginForm.get('email').hasError('email') &&
+              !loginForm.get('email').hasError('required')
+            "
+          >
             Please enter a valid email address
           </mat-error>
-            <mat-error *ngIf="loginForm.get('email').hasError('required')">
+          <mat-error *ngIf="loginForm.get('email').hasError('required')">
             Email is <strong>required</strong>
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input matInput
+          <input
+            matInput
             placeholder="Password"
             formControlName="password"
-            type="password">
-            <mat-error *ngIf="loginForm.get('password').hasError('required')">
-                Password is <strong>required</strong>
-            </mat-error>
+            type="password"
+          />
+          <mat-error *ngIf="loginForm.get('password').hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
         </mat-form-field>
-        <mat-checkbox formControlName="has_two_factor">I have two-factor authentication enabled</mat-checkbox>
+        <mat-checkbox formControlName="has_two_factor"
+          >I have two-factor authentication enabled</mat-checkbox
+        >
         <mat-form-field *ngIf="loginForm.get('has_two_factor').value">
-          <input matInput
-            placeholder="Code"
-            formControlName="code">
+          <input matInput placeholder="Code" formControlName="code" />
         </mat-form-field>
         <p>
-          <a href="#"
-            (click)="openResetPasswordDialog($event)"> Forgot password? </a>
+          <a href="#" (click)="openResetPasswordDialog($event)">
+            Forgot password?
+          </a>
         </p>
-        <button (click)="login()"
-          mat-raised-button
-          color="primary"> Login </button>
+        <button (click)="login()" mat-raised-button color="primary">
+          Login
+        </button>
       </form>
-    </div><!-- /.col-sm-6 -->
-  </div><!-- /.row -->
-</div><!-- /.container -->
+    </div>
+    <!-- /.col-sm-6 -->
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /.container -->

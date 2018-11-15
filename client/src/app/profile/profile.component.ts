@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ProvidersService } from '../providers/providers.service';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { CreateProviderFormComponent } from './create-provider-form/create-provider-form.component';
+import { ProvidersService } from './providers/providers.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,13 +22,22 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.providers.myProviders.subscribe(data => {
-      this.dataSource.data = data;
+    this.providers.myProviders.subscribe(res => {
+      console.log(res);
+      this.dataSource.data = res.data;
     });
   }
 
   editProvider(id) {
-    console.log(id);
+    const provider = this.providers.getProvider(id);
+    console.log(provider);
+    this.dialog.open(CreateProviderFormComponent, {
+      width: '600px',
+      autoFocus: false,
+      data: {
+        provider
+      }
+    });
   }
 
   deleteProvider(id) {

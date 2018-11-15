@@ -3,7 +3,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { ReviewService } from '../review.service';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { UserService } from '../../user/user.service';
 
 @Component({
   selector: 'app-add-review-form',
@@ -44,7 +43,7 @@ export class AddReviewFormComponent implements OnInit {
       this.errorMessage = 'Rate the business to submit your review';
       return;
     }
-    this.reviewForm.patchValue({date: String(Date.now())});
+    this.reviewForm.patchValue({ date: String(Date.now()) });
     this.reviewService.createReview(this.reviewForm);
   }
 

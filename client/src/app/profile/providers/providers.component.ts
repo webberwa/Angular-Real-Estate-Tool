@@ -5,15 +5,14 @@ import {
   AfterViewInit,
   ViewEncapsulation
 } from '@angular/core';
-import { ProvidersGQL } from '../apollo-angular-services';
 import { Apollo } from 'apollo-angular';
 import { Router } from '@angular/router';
 import { ProvidersService } from './providers.service';
-import { InstantsearchService } from '../search/instantsearch.service';
 import { FormGroup, FormControl } from '@angular/forms';
-import {MatDialog, PageEvent} from '@angular/material';
-import {CreateProviderFormComponent} from '../profile/create-provider-form/create-provider-form.component';
-import { EMPTY } from 'rxjs'
+import { MatDialog, PageEvent } from '@angular/material';
+import { EMPTY } from 'rxjs';
+import { ProvidersGQL } from 'src/app/apollo-angular-services';
+import { CreateProviderFormComponent } from '../create-provider-form/create-provider-form.component';
 
 @Component({
   selector: 'app-providers',
@@ -42,13 +41,12 @@ export class ProvidersComponent implements OnInit {
   // MatPaginator Output
   constructor(
     private ref: ChangeDetectorRef,
-    private searchService: InstantsearchService,
     private router: Router,
     private apollo: Apollo,
     private providerGQL: ProvidersGQL,
     private providersService: ProvidersService,
-    private dialog: MatDialog,
-  ) { }
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.allProviders = this.providersService.searchProviders();

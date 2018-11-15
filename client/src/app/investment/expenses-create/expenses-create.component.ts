@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Apollo } from 'apollo-angular';
 import { AddExpenseGQL, GetInvestmentGQL } from '../../apollo-angular-services';
 import { ActivatedRoute } from '@angular/router';
@@ -12,9 +12,10 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 })
 export class ExpensesCreateComponent implements OnInit {
   expenseForm = new FormGroup({
-    title: new FormControl(''),
-    description: new FormControl(''),
-    price: new FormControl('')
+    title: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+    price: new FormControl('', Validators.required),
+    date: new FormControl('', Validators.required)
   });
 
   @Input()

@@ -693,6 +693,18 @@ angular-socialshare@^2.3.11:
   resolved "https://registry.yarnpkg.com/angular-socialshare/-/angular-socialshare-2.3.11.tgz#05328b33d985fd9b7e1500263c20a9aa0f842c99"
   integrity sha1-BTKLM9mF/Zt+FQAmPCCpqg+ELJk=
 
+angular-ui-mask@^1.8.7:
+  version "1.8.7"
+  resolved "https://registry.yarnpkg.com/angular-ui-mask/-/angular-ui-mask-1.8.7.tgz#2935ae82345aded60e7b8c997f3902dfb8ed465b"
+  integrity sha1-KTWugjRa3tYOe4yZfzkC37jtRls=
+
+angular2-text-mask@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/angular2-text-mask/-/angular2-text-mask-9.0.0.tgz#70490170a8096241fc3ce9482ed6a758ddbce8ea"
+  integrity sha512-iALcnhJPS1zvX48d86rgUgDe/crX6XfhZrXC4Gdlo2/YwZW7u7KJZY6/b3ieSCIWVq/E6p+wDCzeo3E6leRjDA==
+  dependencies:
+    text-mask-core "^5.0.0"
+
 angular5-social-login@^1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/angular5-social-login/-/angular5-social-login-1.0.9.tgz#6e4808da883da273c52618decca8c2274158fabf"
@@ -3058,6 +3070,11 @@ form-data@~2.3.1, form-data@~2.3.2:
     combined-stream "1.0.6"
     mime-types "^2.1.12"
 
+format-as-currency@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/format-as-currency/-/format-as-currency-3.1.3.tgz#c1c82f9070979fb05145a538b07052ccd4124cee"
+  integrity sha1-wcgvkHCXn7BRRaU4sHBSzNQSTO4=
+
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
@@ -5071,10 +5088,29 @@ neo-async@^2.5.0:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.2.tgz#489105ce7bc54e709d736b195f82135048c50fcc"
   integrity sha512-vdqTKI9GBIYcAEbFAcpKPErKINfPF5zIuz3/niBfq8WUZjpT2tytLlFVrBgWdOtqI4uaA/Rb6No0hux39XXDuw==
 
+ng2-currency-mask@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/ng2-currency-mask/-/ng2-currency-mask-5.3.1.tgz#d73e27bf60ea423dfc0040106c8ea17316d07aab"
+  integrity sha1-1z4nv2DqQj38AEAQbI6hcxbQeqs=
+
 ngx-bar-rating@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ngx-bar-rating/-/ngx-bar-rating-1.1.0.tgz#47a260812b47bc6df157e0aaecae5b29249407c4"
   integrity sha1-R6JggStHvG3xV+Cq7K5bKSSUB8Q=
+
+ngx-mask@^6.5.18:
+  version "6.5.18"
+  resolved "https://registry.yarnpkg.com/ngx-mask/-/ngx-mask-6.5.18.tgz#8d3081668e34f8e41895615a4b8a0ab653f2654e"
+  integrity sha512-WxAh02Ju8AA3rXyDFNZyhbhlrHyaB0HBBG3acqEIpXsHuvKzzGzGh+KZzLwiES0fBDW4lZG1d++iSTOAqccwyA==
+  dependencies:
+    tslib "^1.9.0"
+
+ngx-phone-mask@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/ngx-phone-mask/-/ngx-phone-mask-3.2.2.tgz#f6edce86d2ae073c6038b232c6bb033e8df65867"
+  integrity sha512-BvOVpVkyPgzqG+qdlEi+v5/oIMEXvbNCECK72UsWfMpjKR4i19JX5gThm050Hjt9SQkpsrKTTYE5S+R6kE02UQ==
+  dependencies:
+    tslib "^1.9.0"
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -7206,6 +7242,11 @@ tar@^4:
     mkdirp "^0.5.0"
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
+
+text-mask-core@^5.0.0:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/text-mask-core/-/text-mask-core-5.1.2.tgz#80dd5ebe04825757e46619e691407a9f8b3c1b6f"
+  integrity sha1-gN1evgSCV1fkZhnmkUB6n4s8G28=
 
 through2@^2.0.0:
   version "2.0.3"

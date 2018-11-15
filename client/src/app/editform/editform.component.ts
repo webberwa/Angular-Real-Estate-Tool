@@ -1,6 +1,6 @@
-import { ProvidersService } from '../providers/providers.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ProvidersService } from '../profile/providers/providers.service';
 
 @Component({
   selector: 'app-editform',
@@ -22,19 +22,13 @@ export class EditformComponent implements OnInit {
 
   constructor(private providers: ProvidersService) {
     this.providerTypes = providers.getProviderTypes();
-    this.providerBeingEdited=this.providers.getProvider(this.providers.editID);
-    this.placeholderName=this.providerBeingEdited.name;
+    this.providerBeingEdited = this.providers.getProvider(this.providers.editID);
+    this.placeholderName = this.providerBeingEdited.name;
   }
 
-  edit(form){
-    
-    this.providers.updateProvider(form,this.providers.editID);
+  edit(form) {
+    this.providers.updateProvider(form, this.providers.editID);
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
-
-
-
