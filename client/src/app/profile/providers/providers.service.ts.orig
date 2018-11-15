@@ -11,13 +11,18 @@ import {
   ProviderGQL,
   DeleteProviderGQL,
   UpdateProviderGQL
+<<<<<<< HEAD:client/src/app/profile/providers/providers.service.ts
 } from 'src/app/apollo-angular-services';
 import { UserService } from 'src/app/user/user.service';
+=======
+} from '../apollo-angular-services';
+import { UserService } from '../user/user.service';
 import { map } from 'rxjs/operators';
 import { findIndex } from 'lodash';
 import { DeleteProviderGQL } from '../apollo-angular-services';
 import { BehaviorSubject } from 'rxjs';
 import { parsePhoneNumber, AsYouType } from 'libphonenumber-js';
+>>>>>>> f0a203c24360f1f27918a451c337d8fe791f7650:client/src/app/providers/providers.service.ts
 
 @Injectable({
   providedIn: 'root'
@@ -99,7 +104,11 @@ export class ProvidersService {
     { name: 'washington', abbr: 'WA' },
     { name: 'west virginia', abbr: 'WV' },
     { name: 'wisconsin', abbr: 'WI' },
+<<<<<<< HEAD:client/src/app/profile/providers/providers.service.ts
+    { name: 'wyoming', abbr: 'Wy ' }
+=======
     { name: 'wyoming', abbr: 'WY '}
+>>>>>>> f0a203c24360f1f27918a451c337d8fe791f7650:client/src/app/providers/providers.service.ts
   ];
 
   constructor(

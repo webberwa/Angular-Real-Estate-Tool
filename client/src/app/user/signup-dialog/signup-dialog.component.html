@@ -25,6 +25,9 @@
             <mat-error *ngIf="signupForm.get('firstname').hasError('required')">
               FirstName is <strong>required</strong>
             </mat-error>
+            <mat-error *ngIf="signupForm.get('firstname').hasError('pattern')">
+                FirstName can only conatin <strong>letters</strong> 
+            </mat-error>
         </mat-form-field>
         <mat-form-field class="fullWidth">
           <input matInput
@@ -33,6 +36,9 @@
             [errorStateMatcher]="matcher">
             <mat-error *ngIf="signupForm.get('lastname').hasError('required')">
               LastName is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="signupForm.get('lastname').hasError('pattern')">
+                LastName can only conatin <strong>letters</strong> 
             </mat-error>
         </mat-form-field>
         <mat-form-field class="fullWidth">
@@ -55,8 +61,12 @@
             <mat-error *ngIf="signupForm.get('password').hasError('required')">
                 Password is <strong>required</strong>
             </mat-error>
+            <mat-error *ngIf="signupForm.get('password').hasError('minlength')">
+                Password has to be <strong>8</strong> characters long
+            </mat-error>
         </mat-form-field>
         <button (click)="signup()"
+          [disabled]="!signupForm.valid"
           style="margin-top: 10px;"
           mat-raised-button
           color="primary"> Signup </button>

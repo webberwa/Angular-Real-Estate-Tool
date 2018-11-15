@@ -2,7 +2,11 @@
   <div class="row">
     <div class="col-sm-12">
       <mat-form-field>
+<<<<<<< HEAD
         <input matInput placeholder="Name" formControlName="name" />
+=======
+        <input matInput
+          placeholder="Name"
           formControlName="name"
           [errorStateMatcher]="matcher">
         <mat-error *ngIf="providersForm.get('name').hasError('required')">
@@ -11,15 +15,23 @@
         <mat-error *ngIf="providersForm.get('name').hasError('pattern')">
             Name cannot contain <strong>numbers</strong>
         </mat-error>
+>>>>>>> f0a203c24360f1f27918a451c337d8fe791f7650
       </mat-form-field>
     </div>
     <div class="col-sm-12">
       <mat-form-field>
+<<<<<<< HEAD
         <mat-select placeholder="Provider Types" formControlName="type">
-          formControlName="type"
-          [errorStateMatcher]="matcher">
           <mat-option *ngFor="let type of providerTypes" [value]="type.value">
             {{ type.label }}
+=======
+        <mat-select placeholder="Provider Types"
+          formControlName="type"
+          [errorStateMatcher]="matcher">
+          <mat-option *ngFor="let type of providerTypes"
+            [value]="type.value">
+            {{type.label}}
+>>>>>>> f0a203c24360f1f27918a451c337d8fe791f7650
           </mat-option>
         </mat-select>
         <mat-error *ngIf="providersForm.get('address.state').hasError('required')">
@@ -29,9 +41,15 @@
     </div>
     <div class="col-sm-12">
       <mat-form-field>
+<<<<<<< HEAD
         <input
           matInput
           mask="(000) 000-0000"
+          placeholder="Phone Number"
+          formControlName="phone_number"
+        />
+=======
+        <input matInput
           placeholder="Phone Number (XXXXXXXXXX)"
           formControlName="phone_number"
           [errorStateMatcher]="matcher">
@@ -41,11 +59,31 @@
         <mat-error *ngIf="providersForm.get('phone_number').hasError('minlength') || providersForm.get('phone_number').hasError('maxlength')">
             Phone Number is not <strong>valid</strong>
         </mat-error>
+>>>>>>> f0a203c24360f1f27918a451c337d8fe791f7650
       </mat-form-field>
     </div>
     <div class="col-sm-12">
       <mat-form-field>
+<<<<<<< HEAD
         <input matInput placeholder="Email" formControlName="email" />
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field>
+        <input matInput placeholder="Address 1" formControlName="addr1" />
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <mat-form-field>
+        <input matInput placeholder="Address 2" formControlName="addr2" />
+      </mat-form-field>
+    </div>
+    <div class="col-sm-12">
+      <button
+        mat-raised-button
+=======
+        <input matInput
+          placeholder="Email"
           formControlName="email"
           [errorStateMatcher]="matcher">
         <mat-error *ngIf="providersForm.get('email').hasError('email') && !providersForm.get('email').hasError('required')">
@@ -57,7 +95,7 @@
       </mat-form-field>
     </div>
     <div class="row" formGroupName="address" style="margin-right: 0px; margin-left: 0px;">
-    <div class="col-sm-12">
+      <div class="col-sm-12">
         <mat-form-field>
           <input matInput
             placeholder="Street"
@@ -69,7 +107,7 @@
         </mat-form-field>
       </div>
       <div class="col-sm-4">
-      <mat-form-field>
+        <mat-form-field>
           <input matInput
             placeholder="City"
             formControlName="city"
@@ -91,11 +129,11 @@
               <mat-error *ngIf="providersForm.get('address.state').hasError('required')">
                   State is <strong>required</strong>
               </mat-error>
-      </mat-form-field>
-    </div>
+          </mat-form-field>
+      </div>
       <div class="col-sm-4">
-      <mat-form-field>
-        <input matInput placeholder="Address 2" formControlName="addr2" />
+          <mat-form-field>
+            <input matInput
               placeholder="Zip"
               formControlName="zip"
               [errorStateMatcher]="matcher">
@@ -105,12 +143,13 @@
             <mat-error *ngIf="providersForm.get('address.zip').hasError('minlength') || providersForm.get('address.zip').hasError('maxlength')">
                 Zipcode is <strong>invalid</strong>
             </mat-error>
-      </mat-form-field>
+          </mat-form-field>
       </div>
     </div>
     <div class="col-sm-12">
       <button mat-raised-button
         [disabled]="!providersForm.valid"
+>>>>>>> f0a203c24360f1f27918a451c337d8fe791f7650
         (click)="providers.addProvider(providersForm)"
         [disabled]="!providersForm.valid"
         color="primary"
