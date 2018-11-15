@@ -19,7 +19,7 @@ import {
   RequestResetPasswordGQL
 } from '../apollo-angular-services';
 import { BehaviorSubject } from 'rxjs';
-// import { MyErrorStateMatcher } from '../error.state.catcher.class';
+import { MyErrorStateMatcher } from '../error.state.catcher.class';
 
 const LOGOUT = gql`
   mutation logout {
@@ -39,7 +39,7 @@ export class UserService {
   loginFailed = false;
   // let us know when to load the nav
   userLoaded = new BehaviorSubject(false);
-  matcher = null;
+  matcher = new MyErrorStateMatcher();
 
   isAuthenticated = false;
   isAuthenticated$;

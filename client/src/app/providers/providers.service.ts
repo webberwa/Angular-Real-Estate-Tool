@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { findIndex } from 'lodash';
 import { DeleteProviderGQL } from '../apollo-angular-services';
 import { BehaviorSubject } from 'rxjs';
+import { parsePhoneNumber, AsYouType } from 'libphonenumber-js';
 
 @Injectable({
   providedIn: 'root'
@@ -44,56 +45,56 @@ export class ProvidersService {
   ];
 
   states = [
-    { name: "alabama", abbr: "AL" },
-    { name: "alaska", abbr: "AK" },
-    { name: "arizona", abbr: "AZ" },
-    { name: "arkansas", abbr:"AR" },
-    { name: "california", abbr:"CA" },
-    { name: "colorado", abbr:"CO" },
-    { name: "connecticut", abbr:"CT" },
-    { name: "delaware", abbr:"DE" },
-    { name: "florida", abbr:"FL" },
-    { name: "georgia", abbr:"GA" },
-    { name: "hawaii", abbr:"HI" },
-    { name: "idaho", abbr:"ID" },
-    { name: "illinois", abbr:"IL" },
-    { name: "indiana", abbr:"IN" },
-    { name: "iowa", abbr:"IA" },
-    { name: "kansas", abbr:"KS" },
-    { name: "kentucky", abbr:"KY" },
-    { name: "louisiana", abbr:"LA" },
-    { name: "maine", abbr:"ME" },
-    { name: "maryland", abbr:"MD" },
-    { name: "massachusetts", abbr:"MA" },
-    { name: "michigan", abbr:"MI" },
-    { name: "minnesota", abbr:"MN" },
-    { name: "mississippi", abbr:"MS" },
-    { name: "missouri", abbr:"MO" },
-    { name: "montana", abbr:"MT" },
-    { name: "nebraska", abbr:"NE" },
-    { name: "nevada", abbr:"NV" },
-    { name: "new hampshire", abbr:"NH" },
-    { name: "new jersey", abbr:"NJ" },
-    { name: "new mexico", abbr:"NM" },
-    { name: "new york", abbr:"NY" },
-    { name: "north carolina", abbr:"NC" },
-    { name: "north dakota", abbr:"ND" },
-    { name: "ohio", abbr:"OH" },
-    { name: "oklahoma", abbr:"OK" },
-    { name: "oregon", abbr:"OR" },
-    { name: "pennsylvania", abbr:"PA" },
-    { name: "rhode island", abbr:"RI" },
-    { name: "south carolina", abbr:"SC" },
-    { name: "south dakota", abbr:"SD" },
-    { name: "tennessee", abbr:"TN" },
-    { name: "texas", abbr:"TX" },
-    { name: "utah", abbr:"UT" },
-    { name: "vermont", abbr:"VT" },
-    { name: "virginia", abbr:"VA" },
-    { name: "washington", abbr:"WA" },
-    { name: "west virginia", abbr:"WV" },
-    { name: "wisconsin", abbr:"WI" },
-    { name: "wyoming", abbr:"Wy "}
+    { name: 'alabama', abbr: 'AL' },
+    { name: 'alaska', abbr: 'AK' },
+    { name: 'arizona', abbr: 'AZ' },
+    { name: 'arkansas', abbr: 'AR' },
+    { name: 'california', abbr: 'CA' },
+    { name: 'colorado', abbr: 'CO' },
+    { name: 'connecticut', abbr: 'CT' },
+    { name: 'delaware', abbr: 'DE' },
+    { name: 'florida', abbr: 'FL' },
+    { name: 'georgia', abbr: 'GA' },
+    { name: 'hawaii', abbr: 'HI' },
+    { name: 'idaho', abbr: 'ID' },
+    { name: 'illinois', abbr: 'IL' },
+    { name: 'indiana', abbr: 'IN' },
+    { name: 'iowa', abbr: 'IA' },
+    { name: 'kansas', abbr: 'KS' },
+    { name: 'kentucky', abbr: 'KY' },
+    { name: 'louisiana', abbr: 'LA' },
+    { name: 'maine', abbr: 'ME' },
+    { name: 'maryland', abbr: 'MD' },
+    { name: 'massachusetts', abbr: 'MA' },
+    { name: 'michigan', abbr: 'MI' },
+    { name: 'minnesota', abbr: 'MN' },
+    { name: 'mississippi', abbr: 'MS' },
+    { name: 'missouri', abbr: 'MO' },
+    { name: 'montana', abbr: 'MT' },
+    { name: 'nebraska', abbr: 'NE' },
+    { name: 'nevada', abbr: 'NV' },
+    { name: 'new hampshire', abbr: 'NH' },
+    { name: 'new jersey', abbr: 'NJ' },
+    { name: 'new mexico', abbr: 'NM' },
+    { name: 'new york', abbr: 'NY' },
+    { name: 'north carolina', abbr: 'NC' },
+    { name: 'north dakota', abbr: 'ND' },
+    { name: 'ohio', abbr: 'OH' },
+    { name: 'oklahoma', abbr: 'OK' },
+    { name: 'oregon', abbr: 'OR' },
+    { name: 'pennsylvania', abbr: 'PA' },
+    { name: 'rhode island', abbr: 'RI' },
+    { name: 'south carolina', abbr: 'SC' },
+    { name: 'south dakota', abbr: 'SD' },
+    { name: 'tennessee', abbr: 'TN' },
+    { name: 'texas', abbr: 'TX' },
+    { name: 'utah', abbr: 'UT' },
+    { name: 'vermont', abbr: 'VT' },
+    { name: 'virginia', abbr: 'VA' },
+    { name: 'washington', abbr: 'WA' },
+    { name: 'west virginia', abbr: 'WV' },
+    { name: 'wisconsin', abbr: 'WI' },
+    { name: 'wyoming', abbr: 'WY '}
   ];
 
   constructor(
@@ -145,7 +146,7 @@ export class ProvidersService {
           { addr1_contains: input },
           { addr2_contains: input }
         ]
-      }
+      };
     });
 
     return this.apollo
@@ -178,10 +179,10 @@ export class ProvidersService {
           data: {
             name: form.get('name').value,
             type: form.get('type').value,
-            phone_number: form.get('phone_number').value,
+            phone_number: new AsYouType('US').input((form.get('phone_number').value)),
             email: form.get('email').value,
-            addr1: form.get('addr1').value,
-            addr2: form.get('addr2').value
+            addr1: form.get('address.street').value,
+            addr2: form.get('address.city').value + ' ' + form.get('address.state').value.abbr + ' ' +  form.get('address.zip').value
           }
         }
       })
@@ -190,7 +191,7 @@ export class ProvidersService {
       });
   }
 
-  updateProvider(form,id) {
+  updateProvider(form, id) {
     this.apollo
       .mutate({
         mutation: this.updateProviderGQL.document,
@@ -199,10 +200,10 @@ export class ProvidersService {
           data: {
             name: form.get('name').value,
             type: form.get('type').value,
-            phone_number: form.get('phone_number').value,
+            phone_number: new AsYouType('US').input((form.get('phone_number').value)),
             email: form.get('email').value,
-            addr1: form.get('addr1').value,
-            addr2: form.get('addr2').value
+            addr1: form.get('address.street').value,
+            addr2: form.get('address.city').value + ' ' + form.get('address.state').value.abbr + ' ' +  form.get('address.zip').value
           },
           where: {
             id
