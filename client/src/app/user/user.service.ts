@@ -69,7 +69,7 @@ export class UserService {
       .valueChanges.pipe(
         map(({ data }: { data: any }) => {
           const { user } = data;
-          console.log('query GET_LOCAL_USER: isAuthenticated$', user);
+          // console.log('query GET_LOCAL_USER: isAuthenticated$', user);
           if (!user) {
             return false;
           }
@@ -82,7 +82,7 @@ export class UserService {
       })
       .valueChanges.pipe(
         map(({ data }: { data: any }) => {
-          console.log('query GET_LOCAL_USER: me$', data.user);
+          // console.log('query GET_LOCAL_USER: me$', data.user);
           return data.user;
         })
       );
@@ -120,7 +120,7 @@ export class UserService {
             .subscribe(r => {
               const localUser = r.data.setLocalUser;
               // console.log('mutate SET_LOCAL_USER');
-              console.log(localUser.id);
+              // console.log(localUser.id);
               if (localUser.id) {
                 this.isAuthenticated = true;
               }
@@ -142,7 +142,7 @@ export class UserService {
       .valueChanges.subscribe((res: any) => {
         const user = res.data.user;
 
-        console.log('meGQL', user);
+        // console.log('meGQL', user);
 
         this.apollo
           .mutate({
@@ -206,8 +206,8 @@ export class UserService {
       })
       .subscribe(
         res => {
-          console.log('loginUser() subscribe');
-          console.log(res);
+          // console.log('loginUser() subscribe');
+          // console.log(res);
 
           if (!res.data.loginUser) {
             return this.alert.open({

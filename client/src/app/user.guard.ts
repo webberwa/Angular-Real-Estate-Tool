@@ -17,7 +17,7 @@ export class UserGuard implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     return this.user.updateAuthStatus().then(() => {
-      console.log('user guard', this.user.isAuthenticated);
+      // console.log('user guard', this.user.isAuthenticated);
       return true;
     });
   }

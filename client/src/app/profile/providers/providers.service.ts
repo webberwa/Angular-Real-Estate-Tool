@@ -2,9 +2,11 @@ import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
 import { Injectable, ChangeDetectorRef } from '@angular/core';
 
+import { UserService } from 'src/app/user/user.service';
 import { map } from 'rxjs/operators';
 import { findIndex } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
+import { parsePhoneNumber, AsYouType } from 'libphonenumber-js';
 import {
   AddProviderGQL,
   ProvidersGQL,
@@ -12,12 +14,6 @@ import {
   DeleteProviderGQL,
   UpdateProviderGQL
 } from 'src/app/apollo-angular-services';
-import { UserService } from 'src/app/user/user.service';
-import { map } from 'rxjs/operators';
-import { findIndex } from 'lodash';
-import { DeleteProviderGQL } from '../apollo-angular-services';
-import { BehaviorSubject } from 'rxjs';
-import { parsePhoneNumber, AsYouType } from 'libphonenumber-js';
 
 @Injectable({
   providedIn: 'root'
@@ -99,7 +95,7 @@ export class ProvidersService {
     { name: 'washington', abbr: 'WA' },
     { name: 'west virginia', abbr: 'WV' },
     { name: 'wisconsin', abbr: 'WI' },
-    { name: 'wyoming', abbr: 'WY '}
+    { name: 'wyoming', abbr: 'WY ' }
   ];
 
   constructor(
@@ -172,7 +168,7 @@ export class ProvidersService {
       })
       .valueChanges.pipe(
         map(({ data }: { data: any }) => {
-          console.log(data);
+          // console.log(data);
           return data.providers;
         })
       );
@@ -187,10 +183,14 @@ export class ProvidersService {
           data: {
             name: form.get('name').value,
             type: form.get('type').value,
-            phone_number: new AsYouType('US').input((form.get('phone_number').value)),
+            phone_number: new AsYouType('US').input(
+              form.get('phone_number').value
+            ),
             email: form.get('email').value,
-            addr1: form.get('address.street').value,
-            addr2: form.get('address.city').value + ' ' + form.get('address.state').value.abbr + ' ' +  form.get('address.zip').value
+            street: form.get('address.street').value,
+            city: form.get('address.city').value,
+            state: form.get('address.state').value,
+            zip: form.get('address.zip').value
           }
         }
       })
@@ -208,10 +208,17 @@ export class ProvidersService {
           data: {
             name: form.get('name').value,
             type: form.get('type').value,
-            phone_number: new AsYouType('US').input((form.get('phone_number').value)),
+            phone_number: new AsYouType('US').input(
+              form.get('phone_number').value
+            ),
             email: form.get('email').value,
             addr1: form.get('address.street').value,
-            addr2: form.get('address.city').value + ' ' + form.get('address.state').value.abbr + ' ' +  form.get('address.zip').value
+            addr2:
+              form.get('address.city').value +
+              ' ' +
+              form.get('address.state').value.abbr +
+              ' ' +
+              form.get('address.zip').value
           },
           where: {
             id

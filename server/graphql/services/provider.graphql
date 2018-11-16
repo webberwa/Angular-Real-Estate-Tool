@@ -19,6 +19,10 @@ query providers($where: ProviderWhereInput, $skip: Int, $first: Int) {
       email
       addr1
       addr2
+      street
+      city
+      state
+      zip
     }
   }
 }
@@ -42,6 +46,10 @@ query provider($where: ProviderWhereUniqueInput!) {
     email
     addr1
     addr2
+    street
+    city
+    state
+    zip
   }
 }
 

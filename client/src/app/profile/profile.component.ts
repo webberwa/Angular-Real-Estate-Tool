@@ -2,6 +2,9 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { CreateProviderFormComponent } from './create-provider-form/create-provider-form.component';
 import { ProvidersService } from './providers/providers.service';
+import { Apollo } from 'apollo-angular';
+import { ProviderGQL } from '../apollo-angular-services';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -16,6 +19,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private providers: ProvidersService,
     private dialog: MatDialog,
+    private apollo: Apollo,
+    private providerGQL: ProviderGQL,
     private changeDetectorRefs: ChangeDetectorRef
   ) {
     this.myProviders = providers.myProviders;
@@ -29,15 +34,29 @@ export class ProfileComponent implements OnInit {
   }
 
   editProvider(id) {
-    const provider = this.providers.getProvider(id);
-    console.log(provider);
-    this.dialog.open(CreateProviderFormComponent, {
-      width: '600px',
-      autoFocus: false,
-      data: {
-        provider
-      }
-    });
+    this.apollo
+      .watchQuery({
+        query: this.providerGQL.document,
+        variables: {
+          where: {
+            id
+          }
+        }
+      })
+      .valueChanges.pipe(
+        map(({ data }: { data: any }) => {
+          return data.provider;
+        })
+      )
+      .subscribe(provider => {
+        this.dialog.open(CreateProviderFormComponent, {
+          width: '600px',
+          autoFocus: false,
+          data: {
+            provider
+          }
+        });
+      });
   }
 
   deleteProvider(id) {

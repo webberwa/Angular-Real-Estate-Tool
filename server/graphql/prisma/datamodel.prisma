@@ -30,6 +30,10 @@ type Provider {
   email: String
   addr1: String
   addr2: String
+  street: String
+  city: String
+  state: String
+  zip: String
   is_verified: Boolean! @default(value: false)
   owner: User
 }

@@ -124,6 +124,10 @@ type Provider {
   addr2: String
   is_verified: Boolean!
   owner: User
+  street: String
+  city: String
+  state: String
+  zip: String
 }
 
 type AuthPayload {
