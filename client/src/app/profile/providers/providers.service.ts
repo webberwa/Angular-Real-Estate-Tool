@@ -114,7 +114,7 @@ export class ProvidersService {
       variables: {
         where: {
           owner: {
-            id: this.me.id
+            id: this.me && this.me.id ? this.me.id : null
           }
         }
       }
@@ -146,8 +146,10 @@ export class ProvidersService {
           { name_contains: input },
           { phone_number_contains: input },
           { email_contains: input },
-          { addr1_contains: input },
-          { addr2_contains: input }
+          { street_contains: input },
+          { city_contains: input },
+          { state_contains: input },
+          { zip_contains: input }
         ]
       };
     });
@@ -168,13 +170,14 @@ export class ProvidersService {
       })
       .valueChanges.pipe(
         map(({ data }: { data: any }) => {
-          // console.log(data);
+          console.log(data);
           return data.providers;
         })
       );
   }
 
   addProvider(form) {
+    console.log('add provider');
     this.apollo
       .mutate({
         mutation: this.addProvidersGQL.document,
@@ -183,14 +186,12 @@ export class ProvidersService {
           data: {
             name: form.get('name').value,
             type: form.get('type').value,
-            phone_number: new AsYouType('US').input(
-              form.get('phone_number').value
-            ),
+            phone_number: form.get('phone_number').value,
             email: form.get('email').value,
-            street: form.get('address.street').value,
-            city: form.get('address.city').value,
-            state: form.get('address.state').value,
-            zip: form.get('address.zip').value
+            street: form.get('street').value,
+            city: form.get('city').value,
+            state: form.get('state').value.abbr,
+            zip: form.get('zip').value
           }
         }
       })
@@ -200,6 +201,8 @@ export class ProvidersService {
   }
 
   updateProvider(form, id) {
+    console.log(form);
+    console.log(id);
     this.apollo
       .mutate({
         mutation: this.updateProviderGQL.document,
@@ -208,17 +211,12 @@ export class ProvidersService {
           data: {
             name: form.get('name').value,
             type: form.get('type').value,
-            phone_number: new AsYouType('US').input(
-              form.get('phone_number').value
-            ),
+            phone_number: form.get('phone_number').value,
             email: form.get('email').value,
-            addr1: form.get('address.street').value,
-            addr2:
-              form.get('address.city').value +
-              ' ' +
-              form.get('address.state').value.abbr +
-              ' ' +
-              form.get('address.zip').value
+            street: form.get('street').value,
+            city: form.get('city').value,
+            state: form.get('state').value.abbr,
+            zip: form.get('zip').value
           },
           where: {
             id
@@ -270,7 +268,6 @@ export class ProvidersService {
     if (type) {
       const index = findIndex(this.serviceProviderTypes, { value: type });
       const label = this.serviceProviderTypes[index].label;
-      // console.log(label);
       return label;
     }
   }

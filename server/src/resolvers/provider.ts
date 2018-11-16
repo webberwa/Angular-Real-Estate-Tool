@@ -70,6 +70,53 @@ export const provider = {
   },
   Mutation: {
     async addProvider(root, { data }, context) {
+      /**
+       * Temp
+       */
+      // Read data
+      // const file = require('path').resolve(__dirname, 'data.csv')
+
+      // const csv = require('csvtojson')
+
+      // csv()
+      //   .fromFile(file)
+      //   .then(res => {
+      //     const providers = res.map(async data => {
+      //       const address = data['Address']
+      //       var parser = require('parse-address')
+      //       var parsed = parser.parseLocation(address)
+
+      //       const provider = {
+      //         name: data['Business Name'],
+      //         email: data['Email'],
+      //         phone_number: data['Contact #'].replace(/\D/g, ''),
+      //         street: `${parsed.number} ${parsed.prefix} ${parsed.street} ${
+      //           parsed.type
+      //         }`,
+      //         city: parsed.city,
+      //         state: parsed.state,
+      //         zip: parsed.zip,
+      //         type: data.Category.replace(' ', '_').toLowerCase()
+      //       }
+
+      //       // console.log(provider)
+      //       await context.prisma.createProvider({
+      //         ...provider
+      //       })
+      //       return provider
+      //     })
+      //     console.log(providers)
+      //   })
+
+      // Delete all
+      // const providers = await context.prisma.providers()
+
+      // await providers.forEach(async provider => {
+      //   await context.prisma.deleteProvider({
+      //     id: provider.id
+      //   })
+      // })
+
       console.log(data)
       const { user } = context
       // Assign user to it

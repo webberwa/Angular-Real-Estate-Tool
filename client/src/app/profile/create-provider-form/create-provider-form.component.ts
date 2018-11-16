@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '../../error.state.catcher.class';
 import { ProvidersService } from '../providers/providers.service';
+import { find } from 'lodash';
 
 @Component({
   selector: 'app-create-provider-form',
@@ -17,6 +18,7 @@ export class CreateProviderFormComponent implements OnInit {
   action = 'Create';
 
   submitCb;
+  submitArgs;
 
   constructor(
     private providers: ProvidersService,
@@ -33,18 +35,15 @@ export class CreateProviderFormComponent implements OnInit {
       provider = data.provider;
       this.action = 'Update';
     } else {
-      // Set submit args
-      this.submitCb = providers.addProvider;
-
       provider = {
-        name: '',
-        type: '',
-        phone_number: '',
-        email: '',
-        street: '',
-        city: '',
-        state: '',
-        zip: ''
+        name: 'Test Provider',
+        type: 'contractor',
+        phone_number: '6265925201',
+        email: 'webberwa@usc.edu',
+        street: '1203 Street',
+        city: 'Los Angeles',
+        state: { name: 'california', abbr: 'CA' },
+        zip: '90024'
       };
     }
 
@@ -80,7 +79,10 @@ export class CreateProviderFormComponent implements OnInit {
           Validators.pattern('^[a-zA-Z ]*$')
         ])
       ],
-      state: [provider.state, Validators.required],
+      state: [
+        find(this.providers.states, ['abbr', provider.state]),
+        Validators.required
+      ],
       zip: [
         provider.zip,
         Validators.compose([
@@ -90,12 +92,22 @@ export class CreateProviderFormComponent implements OnInit {
         ])
       ]
     });
+
+    // Set args
+    if (data) {
+      this.submitCb = providers.updateProvider;
+      this.submitArgs = [this.providersForm, provider.id];
+    } else {
+      // Set submit args
+      this.submitCb = providers.addProvider;
+      this.submitArgs = [this.providersForm];
+    }
   }
 
   ngOnInit() {}
 
   onSubmit(cb, args) {
-    // (click)="providers.addProvider(providersForm)"
-    cb.call(args);
+    console.log(args);
+    cb.apply(this.providers, args);
   }
 }

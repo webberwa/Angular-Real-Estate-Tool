@@ -120,8 +120,6 @@ type Provider {
   ): [Review!]
   phone_number: String
   email: String
-  addr1: String
-  addr2: String
   is_verified: Boolean!
   owner: User
   street: String

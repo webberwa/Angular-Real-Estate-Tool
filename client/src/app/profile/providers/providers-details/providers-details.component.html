@@ -1,86 +1,91 @@
-<div class="container"
-  *ngIf="(provider | async)">
+<div class="container" *ngIf="(provider | async)">
   <div class="row">
-
     <div class="col-sm-6">
       <h1 class="Review-title">
         <span>{{ (provider | async)?.name }}</span>
-        <button class="edit-profile"
-                (click)="openEditProviderDialog()"
-                [hidden]="!this.userService.isAuthenticated"
-                matTooltip="Edit this provider's profile"
-                mat-button><mat-icon>mode_edit</mat-icon></button>
+        <button
+          class="edit-profile"
+          (click)="openEditProviderDialog()"
+          [hidden]="!this.userService.isAuthenticated"
+          matTooltip="Edit this provider's profile"
+          mat-button
+        >
+          <mat-icon>mode_edit</mat-icon>
+        </button>
         <span class="Provider-verificationStatus">
-          <span *ngIf="(provider | async)?.is_verified === true; else unverified">
-            <i class="material-icons success">
-              check_circle_outline
-            </i>
+          <span
+            *ngIf="(provider | async)?.is_verified === true; else: unverified"
+          >
+            <i class="material-icons success"> check_circle_outline </i>
             Verified
           </span>
-          <ng-template #unverified>
-
-          </ng-template>
+          <ng-template #unverified> </ng-template>
         </span>
       </h1>
-      <app-providers-review-snippet [provider]="(provider |async)"></app-providers-review-snippet>
+      <app-providers-review-snippet
+        [provider]="provider | async"
+      ></app-providers-review-snippet>
 
       <br />
+      <p class="mb-0">{{ (provider | async).street }}</p>
       <p class="mb-0">
-        {{ (provider | async).addr1 }}
+        {{ (provider | async).city }}, {{ (provider | async).state }}
+        {{ (provider | async).zip }}
       </p>
-      <p class="mb-0">
-        {{ (provider | async).addr2 }}
-      </p>
-
-    </div><!-- /.col-sm-6 -->
+    </div>
+    <!-- /.col-sm-6 -->
 
     <div class="col-sm-6">
       <div class="Social-share--container">
-        <div class="Social-share--containerLeft outer-button" matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can write a review'}}">
-          <button mat-raised-button
+        <div
+          class="Social-share--containerLeft outer-button"
+          matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can write a review'}}"
+        >
+          <button
+            mat-raised-button
             color="primary"
             (click)="addReview()"
-            [disabled]="!this.userService.isAuthenticated"> Write a Review </button>
+            [disabled]="!this.userService.isAuthenticated"
+          >
+            Write a Review
+          </button>
         </div>
         <div class="Social-share--containerRight">
           <span class="Social-share Social-share--fb">
             <fb-like></fb-like>
           </span>
-          <span class="Social-share">
-            <linkedin-share></linkedin-share>
-          </span>
-          <span class="Social-share">
-            <tweet text="WBIT"></tweet>
-          </span>
+          <span class="Social-share"> <linkedin-share></linkedin-share> </span>
+          <span class="Social-share"> <tweet text="WBIT"></tweet> </span>
         </div>
       </div>
     </div>
-
   </div>
 
   <hr />
 
   <div class="row">
     <div class="col-sm-8">
-      <h4> Community Reviews </h4>
+      <h4>Community Reviews</h4>
       <div *ngFor="let review of (provider | async)?.reviews">
         <hr />
-        <bar-rating [rate]="review.rating"
+        <bar-rating
+          [rate]="review.rating"
           [max]="5"
-          readOnly="true"></bar-rating>
+          readOnly="true"
+        ></bar-rating>
         {{ review.text }}
-        <span class="date">{{convertMilliSecToDate(review.date)}}</span>
+        <span class="date">{{ convertMilliSecToDate(review.date) }}</span>
       </div>
     </div>
     <div class="col-sm-4">
-      <h4 class="mb-4"> Contact Provider </h4>
-      <h6 class="mb-2">Email: </h6>
+      <h4 class="mb-4">Contact Provider</h4>
+      <h6 class="mb-2">Email:</h6>
       <p class="mb-3">
         <a href="mailto:{{(provider|async).email}}">
           {{ (provider | async).email }}
         </a>
       </p>
-      <h6 class="mb-2">Phone Number: </h6>
+      <h6 class="mb-2">Phone Number:</h6>
       <p class="mb-3">
         <a href="tel:{{(provider|async).phone_number}}">
           {{ (provider | async).phone_number }}

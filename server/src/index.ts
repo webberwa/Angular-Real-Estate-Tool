@@ -15,6 +15,8 @@ const { importSchema } = require('graphql-import')
 const { ForbiddenError } = require('apollo-server')
 const { PubSub } = require('apollo-server')
 const { ApolloServer, gql } = require('apollo-server-express')
+import fs from 'fs'
+import path from 'path'
 
 const mySchema = importSchema('./graphql/schema.graphql')
 

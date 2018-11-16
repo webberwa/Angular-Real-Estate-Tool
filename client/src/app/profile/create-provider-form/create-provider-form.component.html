@@ -33,7 +33,8 @@
       <mat-form-field>
         <input
           matInput
-          placeholder="Phone Number (XXXXXXXXXX)"
+          placeholder="Phone Number (xxx) xxx-xxxx"
+          mask="(000) 000-0000"
           formControlName="phone_number"
           [errorStateMatcher]="matcher"
         />
@@ -147,7 +148,7 @@
       <button
         mat-raised-button
         [disabled]="!providersForm.valid"
-        (click)="onSubmit(this.submitCb, this.providersForm)"
+        (click)="onSubmit(this.submitCb, this.submitArgs)"
         color="primary"
       >
         {{ action }} Provider

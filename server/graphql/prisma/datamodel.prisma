@@ -26,14 +26,12 @@ type Provider {
   name: String!
   type: String!
   reviews: [Review!]! @relation(name: "ReviewsForProviders", onDelete: CASCADE)
-  phone_number: String
-  email: String
-  addr1: String
-  addr2: String
-  street: String
-  city: String
-  state: String
-  zip: String
+  phone_number: String!
+  email: String!
+  street: String!
+  city: String!
+  state: String!
+  zip: String!
   is_verified: Boolean! @default(value: false)
   owner: User
 }

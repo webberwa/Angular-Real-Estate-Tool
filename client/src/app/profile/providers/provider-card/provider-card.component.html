@@ -9,8 +9,8 @@
     ></app-providers-review-snippet>
   </div>
   <div class="col-sm-6">
-    <p>{{ provider.addr1 }}</p>
-    <p>{{ provider.addr2 }}</p>
+    <p>{{ provider.street }}</p>
+    <p>{{ provider.city }}, {{ provider.state }} {{ provider.zip }}</p>
     <p>
       <a href="tel:{{provider.phone_number}}"> {{ provider.phone_number }} </a>
     </p>

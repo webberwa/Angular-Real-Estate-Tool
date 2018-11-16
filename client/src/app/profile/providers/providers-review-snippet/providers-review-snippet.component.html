@@ -1,10 +1,14 @@
 <div class="Provider-reviewRating">
-  <bar-rating [rate]="(provider)?.provider_stats.review_avg"
+  <bar-rating
+    [rate]="provider?.provider_stats.review_avg"
     [max]="5"
-    readOnly="true">
+    readOnly="true"
+  >
   </bar-rating>
-  <span class="Review-rating--avg"> {{ (provider)?.provider_stats.review_count }} reviews </span>
+  <span class="Review-rating--avg">
+    {{ provider?.provider_stats.review_count }} reviews
+  </span>
 </div>
 <div class="Provider-type">
-  {{ providersService.getProviderTypeLabel((provider)?.type) }}
+  {{ providersService.getProviderTypeLabel(provider?.type) }}
 </div>

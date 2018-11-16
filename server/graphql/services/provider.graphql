@@ -17,8 +17,6 @@ query providers($where: ProviderWhereInput, $skip: Int, $first: Int) {
       }
       phone_number
       email
-      addr1
-      addr2
       street
       city
       state
@@ -44,8 +42,6 @@ query provider($where: ProviderWhereUniqueInput!) {
     }
     phone_number
     email
-    addr1
-    addr2
     street
     city
     state
