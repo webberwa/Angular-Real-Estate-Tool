@@ -29,6 +29,8 @@ import { NavComponent } from './site/nav/nav.component';
 import { SettingsComponent } from './user/settings/settings.component';
 import { TwoFactorCodeComponent } from './user/two-factor-code/two-factor-code.component';
 import { ProfileComponent } from './profile/profile.component';
+import {DialogOverviewExampleDialog} from './profile/profile.component';
+import {confirmDialog} from './investments/investments.service';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgxPhoneMaskModule } from 'ngx-phone-mask';
 
@@ -60,6 +62,7 @@ import { ProvidersReviewSnippetComponent } from './profile/providers/providers-r
 import { SearchFilterComponent } from './profile/providers/search-filter/search-filter.component';
 import { ReviewComponent } from './profile/review/review.component';
 import { AddReviewFormComponent } from './profile/review/add-review-form/add-review-form.component';
+import { Deletepop1Component } from './profile/profile/deletepop1/deletepop1.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'left',
@@ -167,7 +170,10 @@ export function getAuthServiceConfigs() {
     InvestmentsDetailsComponent,
     ExpensesCreateComponent,
     CurrencyDirective,
-    PercentageDirective
+    PercentageDirective,
+    Deletepop1Component,
+    DialogOverviewExampleDialog,
+    confirmDialog
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -208,7 +214,9 @@ export function getAuthServiceConfigs() {
     CreateProviderFormComponent,
     EditformComponent,
     AddReviewFormComponent,
-    ExpensesCreateComponent
+    ExpensesCreateComponent,
+    DialogOverviewExampleDialog,
+    confirmDialog
   ]
 })
 export class AppModule {

@@ -22,6 +22,7 @@ export class ProvidersService {
   public myProviders;
   private me;
   editID;
+  deletetrue;
   searchStream = new BehaviorSubject('');
   searchInput = '';
   searchType = '';
@@ -31,6 +32,10 @@ export class ProvidersService {
   myProviderQuery;
 
   serviceProviderTypes = [
+    {
+      label: 'All',
+      value: ''
+    },
     {
       label: 'Property Manager',
       value: 'property_manager'

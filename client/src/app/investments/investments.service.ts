@@ -1,7 +1,7 @@
 import { UserService } from './../user/user.service';
 import { InvestmentsGQL } from './../apollo-angular-services';
 import { Apollo } from 'apollo-angular';
-import { Injectable } from '@angular/core';
+import { Injectable,Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import {
@@ -9,12 +9,48 @@ import {
   DeleteInvestmentGQL
 } from '../apollo-angular-services';
 
+import {MatTableDataSource } from '@angular/material';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+export interface DialogData {
+}
+
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class InvestmentsService {
-  private investments;
 
+//newly added
+deleteid;
+dia:confirmDialog;
+openDialog(id): void {
+  this.deleteid=id;
+  const dialogRef = this.dialog.open(confirmDialog, {
+    width: '250px'
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    //this.animal = result;
+    if(this.deletetrue)
+      this.delete(this.deleteid);
+      this.deletetrue=false;
+  });
+}
+
+
+
+
+
+
+
+
+
+
+
+  private investments;
+  public deletetrue;
   constructor(
     private dialog: MatDialog,
     private apollo: Apollo,
@@ -92,7 +128,8 @@ export class InvestmentsService {
 
   delete(id) {
     console.log(id);
-    this.apollo
+    //if(this.deletetrue){
+      this.apollo
       .mutate({
         mutation: this.deleteInvestmentGQL.document,
         variables: {
@@ -114,5 +151,32 @@ export class InvestmentsService {
           console.log(err);
         }
       );
+    //}
+    //this.deletetrue=false;
   }
+}
+
+
+
+
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'exampledialog.html',
+})
+export class confirmDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<confirmDialog>,
+    private investmentsService: InvestmentsService,
+    /*@Inject(MAT_DIALOG_DATA) public data: DialogData*/) {}
+    public deletetrue:boolean;
+  onNoClick(): void {
+    this.investmentsService.deletetrue=true;
+    this.dialogRef.close();
+  }
+  cancel():void {
+    this.dialogRef.close();
+  }
+
 }
