@@ -13,6 +13,7 @@ import { MatDialog, PageEvent } from '@angular/material';
 import { EMPTY } from 'rxjs';
 import { ProvidersGQL } from 'src/app/apollo-angular-services';
 import { CreateProviderFormComponent } from '../create-provider-form/create-provider-form.component';
+import {UserService} from "../../user/user.service";
 
 @Component({
   selector: 'app-providers',
@@ -45,7 +46,8 @@ export class ProvidersComponent implements OnInit {
     private apollo: Apollo,
     private providerGQL: ProvidersGQL,
     private providersService: ProvidersService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public userService: UserService
   ) {}
 
   ngOnInit() {
@@ -78,7 +80,7 @@ export class ProvidersComponent implements OnInit {
       this.allProviders.subscribe((data: any) => {
         this.loading = false;
 
-        if (data == null || data.length === 0) {
+        if (data == null || data.data == null || data.data.length === 0) {
           this.addNewProvider = true;
         }
       });
