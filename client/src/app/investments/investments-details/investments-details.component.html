@@ -3,14 +3,21 @@
     <div class="col-sm-12">
       <button
         mat-raised-button
+        class="float-left mr-2"
+        color="primary"
+        routerLink="/investments"
+        routerLinkActive="active">
+        Back to Investments
+      </button>
+      <button
+        mat-raised-button
         class="float-right mr-2"
         color="primary"
-        (click)="openExpenseDialog()"
-      >
+        (click)="openExpenseDialog()">
         Add Expense
       </button>
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-12" style="margin-top:10px">
       <h2>Property Details</h2>
       <dl>
         <dt>Purchase Date</dt>
@@ -33,7 +40,7 @@
           {{ (investment | async)?.mortgage_downpayment | currency: 'USD' }}
         </dd>
 
-        <dt>Mortgage Interest Ratte</dt>
+        <dt>Mortgage Interest Rate</dt>
         <dd>
           {{ (investment | async)?.mortgage_interest_rate | percent: '1.1-2' }}
         </dd>
