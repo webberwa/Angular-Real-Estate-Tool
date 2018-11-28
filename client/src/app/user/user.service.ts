@@ -20,6 +20,7 @@ import {
 } from '../apollo-angular-services';
 import { BehaviorSubject } from 'rxjs';
 import { MyErrorStateMatcher } from '../error.state.catcher.class';
+import 'rxjs/add/operator/catch';
 
 const LOGOUT = gql`
   mutation logout {
@@ -211,7 +212,7 @@ export class UserService {
 
           if (!res.data.loginUser) {
             return this.alert.open({
-              message: 'Something went wrong, please try again.',
+              message: 'The username/password is not valid',
               type: Alert.ERROR
             });
           }
@@ -300,24 +301,22 @@ export class UserService {
           /**
            * TODO
            */
-          this.dialog.closeAll();
-          this.alert.open({
-            message: 'You have successfully reset your password',
-            type: Alert.SUCCESS
-          });
-
-          this.router.navigate(['/']);
-        },
-        err => {
-          this.dialog.closeAll();
-          this.alert.open({
-            message:
-              'We ran into some issues, please request another reset URL',
-            type: Alert.ERROR
-          });
-          console.log(err.graphQLErrors);
+          if (res.hasOwnProperty('errors')) {
+            this.dialog.closeAll();
+            this.alert.open({
+              message:
+                res.errors[0].message,
+              type: Alert.ERROR
+            });
+          } else {
+            this.dialog.closeAll();
+            this.alert.open({
+              message: 'You have successfully reset your password',
+              type: Alert.SUCCESS
+            });
         }
-      );
+          this.router.navigate(['/']);
+        });
   }
 
   storeTokenToLocalStorage(jwt) {
