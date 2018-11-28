@@ -195,7 +195,7 @@ export class ProvidersService {
             email: form.get('email').value,
             street: form.get('street').value,
             city: form.get('city').value,
-            state: form.get('state').value.abbr,
+            state: form.get('state').value,
             zip: form.get('zip').value
           }
         }
@@ -220,7 +220,7 @@ export class ProvidersService {
             email: form.get('email').value,
             street: form.get('street').value,
             city: form.get('city').value,
-            state: form.get('state').value.abbr,
+            state: form.get('state').value,
             zip: form.get('zip').value
           },
           where: {
