@@ -29,8 +29,8 @@ import { NavComponent } from './site/nav/nav.component';
 import { SettingsComponent } from './user/settings/settings.component';
 import { TwoFactorCodeComponent } from './user/two-factor-code/two-factor-code.component';
 import { ProfileComponent } from './profile/profile.component';
-import {DialogOverviewExampleDialog} from './profile/profile.component';
-import {confirmDialog} from './investments/investments.service';
+import { DialogOverviewExampleDialog } from './profile/profile.component';
+import { confirmDialog } from './investments/investments.service';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgxPhoneMaskModule } from 'ngx-phone-mask';
 
@@ -63,7 +63,7 @@ import { SearchFilterComponent } from './profile/providers/search-filter/search-
 import { ReviewComponent } from './profile/review/review.component';
 import { AddReviewFormComponent } from './profile/review/add-review-form/add-review-form.component';
 import { Deletepop1Component } from './profile/profile/deletepop1/deletepop1.component';
-import {AutoCompleteAddressDirective} from "./auto-complete-address.directive";
+import { AutoCompleteAddressDirective } from './auto-complete-address.directive';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'left',

@@ -1,65 +1,51 @@
 import { UserService } from './../user/user.service';
-import { InvestmentsGQL } from './../apollo-angular-services';
+import {
+  InvestmentsGQL,
+  UpdateInvestmentGQL
+} from './../apollo-angular-services';
 import { Apollo } from 'apollo-angular';
-import { Injectable,Component } from '@angular/core';
+import { Injectable, Component } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { MatDialog } from '@angular/material';
-import { UpdateInvestmentGQL } from '../apollo-angular-services';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import {
   AddInvestmentGQL,
   DeleteInvestmentGQL
 } from '../apollo-angular-services';
 
-import {MatTableDataSource } from '@angular/material';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-export interface DialogData {
-}
-
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class InvestmentsService {
-
-//newly added
-deleteid;
-dia:confirmDialog;
-openDialog(id): void {
-  this.deleteid=id;
-  const dialogRef = this.dialog.open(confirmDialog, {
-    width: '250px'
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-    //this.animal = result;
-    if(this.deletetrue)
-      this.delete(this.deleteid);
-      this.deletetrue=false;
-  });
-}
-
-
-
-
-
-
-
-
-
-
-
   private investments;
-  public deletetrue;
+  // newly added
+  deleteid;
+  dia: confirmDialog;
+  deletetrue;
+  openDialog(id): void {
+    this.deleteid = id;
+    const dialogRef = this.dialog.open(confirmDialog, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.animal = result;
+      if (this.deletetrue) {
+        this.delete(this.deleteid);
+      }
+      this.deletetrue = false;
+    });
+  }
+
   constructor(
     private dialog: MatDialog,
     private apollo: Apollo,
     private investmentsGQL: InvestmentsGQL,
     private addInvestmentGQL: AddInvestmentGQL,
+    private updateInvestmentGQL: UpdateInvestmentGQL,
     private deleteInvestmentGQL: DeleteInvestmentGQL,
     private userService: UserService,
-    private updateInvestmentGQL: UpdateInvestmentGQL
+    private investmentGQL: InvestmentsGQL
   ) {
     this.investments = this.getInvestments();
   }
@@ -77,10 +63,9 @@ openDialog(id): void {
   }
 
   formatPercent(percent) {
-    console.log(percent);
-    // let newPercent = percent.replace('%', '');
-    // newPercent = newPercent.replace(/,/g, '');
-    return Number.parseFloat(percent) / 100;
+    let newPercent = percent.replace('%', '');
+    newPercent = newPercent.replace(/,/g, '');
+    return Number.parseFloat(newPercent) / 100;
   }
 
   addInvestment(form) {
@@ -104,6 +89,7 @@ openDialog(id): void {
             mortgage_period: this.formatFloat(
               form.get('mortgage_period').value
             ),
+            purchase_date: form.get('purchase_date').value,
             owner: {
               connect: {
                 id: this.userService.me.id
@@ -154,6 +140,7 @@ openDialog(id): void {
             mortgage_period: this.formatFloat(
               form.get('mortgage_period').value
             ),
+            purchase_date: form.get('purchase_date').value,
             owner: {
               connect: {
                 id: this.userService.me.id
@@ -171,6 +158,7 @@ openDialog(id): void {
         res => {
           // Close dialog
           this.dialog.closeAll();
+          console.log('close all');
         },
         err => {
           console.log(err.graphQLErrors);
@@ -180,8 +168,7 @@ openDialog(id): void {
 
   delete(id) {
     console.log(id);
-    //if(this.deletetrue){
-      this.apollo
+    this.apollo
       .mutate({
         mutation: this.deleteInvestmentGQL.document,
         variables: {
@@ -203,32 +190,24 @@ openDialog(id): void {
           console.log(err);
         }
       );
-    //}
-    //this.deletetrue=false;
   }
 }
 
-
-
-
-
 @Component({
   selector: 'dialog-overview-example-dialog',
-  templateUrl: 'exampledialog.html',
+  templateUrl: 'exampledialog.html'
 })
 export class confirmDialog {
-
   constructor(
     public dialogRef: MatDialogRef<confirmDialog>,
-    private investmentsService: InvestmentsService,
-    /*@Inject(MAT_DIALOG_DATA) public data: DialogData*/) {}
-    public deletetrue:boolean;
+    private investmentsService: InvestmentsService
+  ) /*@Inject(MAT_DIALOG_DATA) public data: DialogData*/ {}
+  public deletetrue: boolean;
   onNoClick(): void {
-    this.investmentsService.deletetrue=true;
+    this.investmentsService.deletetrue = true;
     this.dialogRef.close();
   }
-  cancel():void {
+  cancel(): void {
     this.dialogRef.close();
   }
-
 }

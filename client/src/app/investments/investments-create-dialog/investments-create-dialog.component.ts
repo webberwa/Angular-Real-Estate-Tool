@@ -58,7 +58,8 @@ export class InvestmentsCreateDialogComponent implements OnInit {
         mortgage_downpayment: '',
         mortgage_amount: '',
         mortgage_interest_rate: 0,
-        mortgage_period: 30
+        mortgage_period: 30,
+        purchase_date: ''
       };
     }
 
@@ -85,6 +86,10 @@ export class InvestmentsCreateDialogComponent implements OnInit {
       ),
       mortgage_period: new FormControl(
         investment.mortgage_period,
+        Validators.required
+      ),
+      purchase_date: new FormControl(
+        investment.purchase_date,
         Validators.required
       )
     });

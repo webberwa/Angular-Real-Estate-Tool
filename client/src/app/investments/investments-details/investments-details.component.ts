@@ -9,6 +9,7 @@ import {
   DeleteExpenseGQL
 } from '../../apollo-angular-services';
 import { MatDialog } from '@angular/material';
+import Chart from 'chart.js';
 
 @Component({
   selector: 'app-investments-details',
@@ -18,6 +19,7 @@ import { MatDialog } from '@angular/material';
 export class InvestmentsDetailsComponent implements OnInit {
   investmentId;
   investment;
+  investmentChart;
   constructor(
     private apollo: Apollo,
     private investmentGQL: GetInvestmentGQL,
@@ -47,9 +49,82 @@ export class InvestmentsDetailsComponent implements OnInit {
           return data.getInvestment;
         })
       );
-    // .valueChanges.subscribe((r: any) => {
-    //   this.investment = r.data.getInvestment;
-    // });
+
+    // Add chart
+    const ctx = document.getElementById('investmentChart');
+    const data = [
+      {
+        x: new Date(2018, 4, 1),
+        y: 100000
+      },
+      {
+        t: new Date(2018, 5, 1),
+        y: 110000
+      },
+      {
+        t: new Date(2018, 6, 1),
+        y: 120000
+      },
+      {
+        t: new Date(2018, 7, 1),
+        y: 125000
+      },
+      {
+        t: new Date(2018, 8, 1),
+        y: 130000
+      },
+      {
+        t: new Date(2018, 9, 1),
+        y: 125000
+      }
+    ];
+
+    const config = {
+      type: 'line',
+      data: {
+        datasets: [
+          {
+            label: 'Property Value',
+            backgroundColor: 'grey',
+            borderColor: 'black',
+            fill: false,
+            data: data
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          xAxes: [
+            {
+              type: 'time',
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Date'
+              },
+              ticks: {
+                major: {
+                  fontStyle: 'bold',
+                  fontColor: '#FF0000'
+                }
+              }
+            }
+          ],
+          yAxes: [
+            {
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: 'Price ($)'
+              }
+            }
+          ]
+        }
+      }
+    };
+
+    this.investmentChart = new Chart(ctx, config);
   }
 
   openExpenseDialog() {

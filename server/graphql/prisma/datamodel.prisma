@@ -8,6 +8,7 @@ type Investment {
   mortgage_interest_rate: Float
   mortgage_period: Float
   owner: User!
+  purchase_date: String
   expenses: [Expense!]!
     @relation(name: "ExpensesForInvestment", onDelete: CASCADE)
 }
@@ -48,6 +49,7 @@ type User {
   code: String
   providers: [Provider!]!
   investments: [Investment!]!
+  time_stamp: String
 }
 
 type Review {

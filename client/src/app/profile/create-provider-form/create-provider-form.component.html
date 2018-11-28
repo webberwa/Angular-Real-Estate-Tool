@@ -115,7 +115,8 @@
           <mat-option>None</mat-option>
           <mat-option
             *ngFor="let state of this.providers.states"
-            [value]="state.abbr">{{ state.abbr }}</mat-option
+            [value]="providers.getStateOptionValue(state.abbr)"
+            >{{ state.abbr }}</mat-option
           >
         </mat-select>
         <mat-error *ngIf="providersForm.get('state').hasError('required')">

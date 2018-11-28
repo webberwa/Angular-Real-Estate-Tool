@@ -98,6 +98,21 @@
   </div>
   <div fxLayout="row" fxLayout.xs="column">
     <div fxFlex>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Purchase Date"
+          formControlName="purchase_date"
+          [value]="investmentForm.get('purchase_date').value"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.xs="column">
+    <div fxFlex>
       <button
         type="submit"
         mat-raised-button

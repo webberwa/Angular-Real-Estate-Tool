@@ -6,6 +6,7 @@ import { Apollo } from 'apollo-angular';
 import { ProviderGQL, GetInvestmentGQL } from 'src/app/apollo-angular-services';
 import { map } from 'rxjs/operators';
 import { CreateProviderFormComponent } from 'src/app/profile/create-provider-form/create-provider-form.component';
+import { GetInvestment } from '../../apollo-angular-services';
 
 @Component({
   selector: 'app-investment-card',
@@ -27,7 +28,7 @@ export class InvestmentCardComponent implements OnInit {
 
   edit() {
     this.apollo
-      .watchQuery({
+      .query({
         query: this.getInvestmentGQL.document,
         variables: {
           where: {
@@ -35,12 +36,9 @@ export class InvestmentCardComponent implements OnInit {
           }
         }
       })
-      .valueChanges.pipe(
-        map(({ data }: { data: any }) => {
-          return data.getInvestment;
-        })
-      )
-      .subscribe(investment => {
+      .subscribe((res: any) => {
+        console.log(res);
+        const investment = res.data.getInvestment;
         this.dialog.open(InvestmentsCreateDialogComponent, {
           width: '600px',
           autoFocus: false,

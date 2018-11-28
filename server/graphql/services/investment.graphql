@@ -8,6 +8,7 @@ query investments {
     mortgage_downpayment
     mortgage_interest_rate
     mortgage_period
+    purchase_date
   }
 }
 
@@ -21,6 +22,7 @@ query getInvestment($where: InvestmentWhereUniqueInput!) {
     mortgage_downpayment
     mortgage_interest_rate
     mortgage_period
+    purchase_date
     expenses {
       id
       title
