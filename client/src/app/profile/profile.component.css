@@ -1,0 +1,13 @@
+body {
+     margin: 0;
+     background: white;
+     font-family: 'Montserrat', sans-serif;
+     height: 100vh;
+}
+
+#containerinner {
+    display: grid;
+    grid-template-columns: 170px auto;
+    height: 100%;
+
+}
