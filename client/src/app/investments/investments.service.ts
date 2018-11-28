@@ -4,6 +4,7 @@ import { Apollo } from 'apollo-angular';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
+import { UpdateInvestmentGQL } from '../apollo-angular-services';
 import {
   AddInvestmentGQL,
   DeleteInvestmentGQL
@@ -22,7 +23,7 @@ export class InvestmentsService {
     private addInvestmentGQL: AddInvestmentGQL,
     private deleteInvestmentGQL: DeleteInvestmentGQL,
     private userService: UserService,
-    private investmentGQL: InvestmentsGQL
+    private updateInvestmentGQL: UpdateInvestmentGQL
   ) {
     this.investments = this.getInvestments();
   }
@@ -40,9 +41,10 @@ export class InvestmentsService {
   }
 
   formatPercent(percent) {
-    let newPercent = percent.replace('%', '');
-    newPercent = newPercent.replace(/,/g, '');
-    return Number.parseFloat(newPercent) / 100;
+    console.log(percent);
+    // let newPercent = percent.replace('%', '');
+    // newPercent = newPercent.replace(/,/g, '');
+    return Number.parseFloat(percent) / 100;
   }
 
   addInvestment(form) {
@@ -50,6 +52,56 @@ export class InvestmentsService {
       .mutate({
         mutation: this.addInvestmentGQL.document,
         variables: {
+          data: {
+            address: form.get('address').value,
+            price: this.formatFloat(form.get('price').value),
+            monthly_rent: this.formatFloat(form.get('monthly_rent').value),
+            mortgage_downpayment: this.formatFloat(
+              form.get('mortgage_downpayment').value
+            ),
+            mortgage_amount: this.formatFloat(
+              form.get('mortgage_amount').value
+            ),
+            mortgage_interest_rate: this.formatPercent(
+              form.get('mortgage_interest_rate').value
+            ),
+            mortgage_period: this.formatFloat(
+              form.get('mortgage_period').value
+            ),
+            owner: {
+              connect: {
+                id: this.userService.me.id
+              }
+            }
+          }
+        },
+        refetchQueries: [
+          {
+            query: this.investmentsGQL.document
+          }
+        ]
+      })
+      .subscribe(
+        res => {
+          // Close dialog
+          this.dialog.closeAll();
+        },
+        err => {
+          console.log(err.graphQLErrors);
+        }
+      );
+  }
+
+  updateInvestment(form, id) {
+    console.log('update', form, id);
+    console.log(form.get('mortgage_interest_rate').value);
+    this.apollo
+      .mutate({
+        mutation: this.updateInvestmentGQL.document,
+        variables: {
+          where: {
+            id
+          },
           data: {
             address: form.get('address').value,
             price: this.formatFloat(form.get('price').value),
