@@ -37,10 +37,11 @@
       height: 55px;
     }
   }
-  .mat-toolbar.mat-primary {
+  .mat-toolbar {
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
+    background: lightgray;
 
     // Nav item size
     span {
@@ -49,7 +50,6 @@
 
     // Home Nav
     .Home-body & {
-      background: transparent;
       position: fixed;
       z-index: 10;
       color: $white;
