@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirm</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to permanently delete this service provider?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Delete it</button>
+  <button mat-button  (click)="cancel()" cdkFocusInitial>Cancel</button>
+</div>
