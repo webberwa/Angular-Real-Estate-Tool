@@ -44,6 +44,7 @@
         mat-icon-button
         class=""
         color="accent"
+<<<<<<< HEAD
         (click)="edit(investment.id)"
       >
         <mat-icon>edit</mat-icon>
@@ -52,7 +53,10 @@
         mat-icon-button
         class=""
         color="accent"
+        (click)="investmentsService.delete(investment.id)"
+=======
         (click)="investmentsService.openDialog(investment.id)"
+>>>>>>> 85e8a1802db1296087a47c43802fc79a0487d786
       >
         <mat-icon>delete</mat-icon>
       </button>

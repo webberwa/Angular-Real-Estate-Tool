@@ -35,6 +35,13 @@ export const investment = {
         ...data
       })
     },
+    async updateInvestment(root, { data, where }, ctx) {
+      console.log(data)
+      return await ctx.prisma.updateInvestment({
+        where,
+        data
+      })
+    },
     async deleteInvestment(root, { where }, context) {
       console.log(where)
       return await context.prisma.deleteInvestment({

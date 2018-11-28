@@ -30,6 +30,15 @@ query getInvestment($where: InvestmentWhereUniqueInput!) {
   }
 }
 
+mutation updateInvestment(
+  $data: InvestmentUpdateInput!
+  $where: InvestmentWhereUniqueInput!
+) {
+  updateInvestment(data: $data, where: $where) {
+    id
+  }
+}
+
 mutation addInvestment($data: InvestmentCreateInput!) {
   addInvestment(data: $data) {
     id

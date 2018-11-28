@@ -1,12 +1,19 @@
 import { InvestmentsCreateDialogComponent } from './../investments-create-dialog/investments-create-dialog.component';
 import { InvestmentsService } from './../investments.service';
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
+<<<<<<< HEAD
 import { MatDialog } from '@angular/material';
 import { Apollo } from 'apollo-angular';
 import { ProviderGQL, GetInvestmentGQL } from 'src/app/apollo-angular-services';
 import { map } from 'rxjs/operators';
 import { CreateProviderFormComponent } from 'src/app/profile/create-provider-form/create-provider-form.component';
 
+=======
+import { MatDialog, MatTableDataSource } from '@angular/material';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+export interface DialogData {
+}
+>>>>>>> 85e8a1802db1296087a47c43802fc79a0487d786
 @Component({
   selector: 'app-investment-card',
   templateUrl: './investment-card.component.html',
@@ -14,6 +21,10 @@ import { CreateProviderFormComponent } from 'src/app/profile/create-provider-for
   encapsulation: ViewEncapsulation.None
 })
 export class InvestmentCardComponent implements OnInit {
+
+
+
+
   @Input()
   investment;
   constructor(
@@ -51,3 +62,6 @@ export class InvestmentCardComponent implements OnInit {
       });
   }
 }
+
+
+

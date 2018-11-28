@@ -12,6 +12,7 @@
 # import ProviderWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
 
 # import InvestmentWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
+# import InvestmentUpdateInput from 'prisma/__generated__/prisma.graphql'
 
 type Query {
   investments: [Investment!]!
@@ -45,6 +46,10 @@ type Mutation {
   # Investment
   addInvestment(data: InvestmentCreateInput!): Investment!
   deleteInvestment(where: InvestmentWhereUniqueInput!): Investment!
+  updateInvestment(
+    data: InvestmentUpdateInput!
+    where: InvestmentWhereUniqueInput!
+  ): Investment!
   # Provider
   addProvider(data: ProviderCreateInput!): Provider!
   deleteProvider(where: ProviderWhereUniqueInput!): Provider

@@ -1,7 +1,7 @@
 # Installation
 
 - Install Node.js V8
-- `npm install -g gulp @angular/cli prisma`
+- `npm install -g gulp @angular/cli prisma@1.17.1`
 - `yarn && cd client && yarn && cd ../server && yarn`
 - `yarn dev` at project root
 
