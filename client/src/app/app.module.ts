@@ -29,6 +29,8 @@ import { NavComponent } from './site/nav/nav.component';
 import { SettingsComponent } from './user/settings/settings.component';
 import { TwoFactorCodeComponent } from './user/two-factor-code/two-factor-code.component';
 import { ProfileComponent } from './profile/profile.component';
+import { DialogOverviewExampleDialogComponent } from './profile/profile.component';
+import { ConfirmDialogComponent } from './investments/investments.service';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgxPhoneMaskModule } from 'ngx-phone-mask';
 
