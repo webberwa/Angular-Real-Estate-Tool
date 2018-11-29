@@ -16,8 +16,10 @@ export class EditformComponent implements OnInit {
     type: new FormControl(''),
     phone_number: new FormControl('1'),
     email: new FormControl('Email'),
-    addr1: new FormControl('Addr1'),
-    addr2: new FormControl('Addr2')
+    state: new FormControl('State'),
+    city: new FormControl('City'),
+    street: new FormControl('Street'),
+    zip: new FormControl('Zip')
   });
 
   constructor(private providers: ProvidersService) {
