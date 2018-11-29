@@ -11,6 +11,8 @@ import {
   AddInvestmentGQL,
   DeleteInvestmentGQL
 } from '../apollo-angular-services';
+import { AlertService } from '../site/alert/alert.service';
+import { Alert } from '../site/alert/alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +21,11 @@ export class InvestmentsService {
   private investments;
   // newly added
   deleteid;
-  dia: confirmDialog;
+  dia: ConfirmDialogComponent;
   deletetrue;
   openDialog(id): void {
     this.deleteid = id;
-    const dialogRef = this.dialog.open(confirmDialog, {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '250px'
     });
 
@@ -45,7 +47,8 @@ export class InvestmentsService {
     private updateInvestmentGQL: UpdateInvestmentGQL,
     private deleteInvestmentGQL: DeleteInvestmentGQL,
     private userService: UserService,
-    private investmentGQL: InvestmentsGQL
+    private investmentGQL: InvestmentsGQL,
+    private alert: AlertService,
   ) {
     this.investments = this.getInvestments();
   }
@@ -107,6 +110,11 @@ export class InvestmentsService {
         res => {
           // Close dialog
           this.dialog.closeAll();
+
+          this.alert.open({
+            message: 'Investment Added',
+            type: Alert.SUCCESS
+          });
         },
         err => {
           console.log(err.graphQLErrors);
@@ -159,6 +167,11 @@ export class InvestmentsService {
           // Close dialog
           this.dialog.closeAll();
           console.log('close all');
+
+          this.alert.open({
+            message: 'Investment Updated',
+            type: Alert.SUCCESS
+          });
         },
         err => {
           console.log(err.graphQLErrors);
@@ -185,6 +198,10 @@ export class InvestmentsService {
       .subscribe(
         res => {
           console.log(res);
+          this.alert.open({
+            message: 'Investment Deleted',
+            type: Alert.SUCCESS
+          });
         },
         err => {
           console.log(err);
@@ -194,12 +211,12 @@ export class InvestmentsService {
 }
 
 @Component({
-  selector: 'dialog-overview-example-dialog',
+  selector: 'app-dialog-overview-example-dialog',
   templateUrl: 'exampledialog.html'
 })
-export class confirmDialog {
+export class ConfirmDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<confirmDialog>,
+    public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     private investmentsService: InvestmentsService
   ) /*@Inject(MAT_DIALOG_DATA) public data: DialogData*/ {}
   public deletetrue: boolean;
