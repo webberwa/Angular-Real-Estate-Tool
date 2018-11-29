@@ -13,6 +13,8 @@ import { MatDialog, PageEvent } from '@angular/material';
 import { EMPTY } from 'rxjs';
 import { ProvidersGQL } from 'src/app/apollo-angular-services';
 import { CreateProviderFormComponent } from '../create-provider-form/create-provider-form.component';
+import {UserService} from "../../user/user.service";
+import {ZipDialogComponent} from "./zip-dialog/zip-dialog.component";
 
 @Component({
   selector: 'app-providers',
@@ -20,7 +22,7 @@ import { CreateProviderFormComponent } from '../create-provider-form/create-prov
   styleUrls: ['./providers.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProvidersComponent implements OnInit {
+export class ProvidersComponent implements AfterViewInit {
   allProviders;
   searchForm = new FormGroup({
     text: new FormControl(''),
@@ -32,7 +34,7 @@ export class ProvidersComponent implements OnInit {
   // number of items per page
   pageSize = 10;
 
-  loading = true;
+  loading = false;
 
   addNewProvider = false;
 
@@ -45,44 +47,76 @@ export class ProvidersComponent implements OnInit {
     private apollo: Apollo,
     private providerGQL: ProvidersGQL,
     private providersService: ProvidersService,
-    private dialog: MatDialog
-  ) {}
-
-  ngOnInit() {
-    this.allProviders = this.providersService.searchProviders();
-    this.allProviders.subscribe((data: any) => {
-      this.loading = false;
-    });
-
+    private dialog: MatDialog,
+    public userService: UserService
+  ) {
     this.providerTypes = this.providersService.getProviderTypes();
+  }
+
+  ngAfterViewInit() {
+    if (false == this.providersService.initial) {
+      this.search();
+      return;
+    }
+
+    if (this.userService.isAuthenticated) {
+      this.setSearchingTimer(false)
+
+    } else {
+      this.dialog.open(ZipDialogComponent, {
+        width: '600px',
+        autoFocus: true
+      }).afterClosed().subscribe((result) => {
+        this.updateSearchText(result);
+        this.setSearchingTimer(false);
+      });
+    }
+  }
+
+  private updateSearchText(text: string) {
+    if (text == null || text == undefined) {
+      text = "";
+    }
+
+    this.searchForm.patchValue({text: text});
+    this.providersService.searchInput = text;
+    this.searchForm.markAsDirty();
+    this.ref.detectChanges();
   }
 
   handleChange(text) {
     this.providersService.searchInput = text;
-    this.search();
+    this.setSearchingTimer();
   }
 
   handleTypeChange(type) {
     this.providersService.searchType = type;
-    this.search();
+    this.setSearchingTimer();
   }
 
-  search() {
+  setSearchingTimer(pending: boolean = true) {
     this.loading = true;
     this.addNewProvider = false;
     this.allProviders = EMPTY;
 
     clearTimeout(this.searchTimer);
-    this.searchTimer = setTimeout(() => {
-      this.allProviders = this.providersService.searchProviders();
-      this.allProviders.subscribe((data: any) => {
-        this.loading = false;
 
-        if (data == null || data.length === 0) {
-          this.addNewProvider = true;
-        }
-      });
-    }, 1000);
+    if (pending) {
+      this.searchTimer = setTimeout(() => this.search(), 1000);
+    }else{
+      this.search();
+    }
+  }
+
+  private search() {
+    this.allProviders = this.providersService.searchProviders();
+    this.allProviders.subscribe((data: any) => {
+      this.loading = false;
+
+      if (data == null || data.data == null || data.data.length === 0) {
+        this.addNewProvider = true;
+      }
+    });
   }
 
   onPaginateChange(event) {

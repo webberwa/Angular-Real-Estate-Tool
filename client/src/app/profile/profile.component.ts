@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef,Inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { CreateProviderFormComponent } from './create-provider-form/create-provider-form.component';
 import { ProvidersService } from './providers/providers.service';
@@ -23,9 +23,8 @@ export class ProfileComponent implements OnInit {
   displayedColumns: string[] = ['name', 'type', 'actions'];
   dataSource = new MatTableDataSource();
 
-//newly added
 deleteid;
-dia:DialogOverviewExampleDialog;
+dia: DialogOverviewExampleDialogComponent;
 
 
   constructor(
@@ -40,31 +39,20 @@ dia:DialogOverviewExampleDialog;
 
 
   openDialog(id): void {
-    this.deleteid=id;
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+    this.deleteid = id;
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialogComponent, {
       width: '250px'
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      //this.animal = result;
-      if(this.providers.deletetrue)
+      // this.animal = result;
+      if (this.providers.deletetrue) {
         this.deleteProvider(this.deleteid);
-      this.providers.deletetrue=false;
+      }
+      this.providers.deletetrue = false;
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
   ngOnInit() {
     this.providers.myProviders.subscribe(res => {
@@ -114,21 +102,21 @@ dia:DialogOverviewExampleDialog;
 
 
 @Component({
-  selector: 'dialog-overview-example-dialog',
+  selector: 'app-dialog-overview-example-dialog',
   templateUrl: 'exampledialog.html',
 })
-export class DialogOverviewExampleDialog {
+export class DialogOverviewExampleDialogComponent {
 
   constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialogComponent>,
     private providerservice: ProvidersService,
     /*@Inject(MAT_DIALOG_DATA) public data: DialogData*/) {}
-    public deletetrue:boolean;
+    public deletetrue: boolean;
   onNoClick(): void {
-    this.providerservice.deletetrue=true;
+    this.providerservice.deletetrue = true;
     this.dialogRef.close();
   }
-  cancel():void {
+  cancel(): void {
     this.dialogRef.close();
   }
 }

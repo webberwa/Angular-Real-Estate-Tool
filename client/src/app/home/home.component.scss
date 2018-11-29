@@ -22,9 +22,9 @@
   }
 
   .desc {
-    bottom: 60px;
+    bottom: 0px;
     position: absolute;
-    margin: 0px 10%;
+    margin: 2% 10% 3% 10%;
 
     h2 {
       text-align: center;
@@ -146,6 +146,14 @@ body {
     text-align: center;
     color: white;
 
+    h1, h2, h4 {
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+
     h4{
       color: lightgray;
     }
@@ -185,11 +193,5 @@ body {
   height: 100%;
   width: 100%;
   z-index: 1000;
-}
-
-.browse {
-  border: 1px solid gray;
-  border-radius: 10px;
-  color: gray;
-  z-index: 100001;
+  cursor: pointer;
 }

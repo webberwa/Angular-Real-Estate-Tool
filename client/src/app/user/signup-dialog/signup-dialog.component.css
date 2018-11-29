@@ -6,14 +6,3 @@
   font-size:22px
 }
 
-button {
-  display: inline-block;
-}
-
-.fa-facebook-official:hover {
-  color: blue;
-}
-
-.fa-google:hover {
-  color: #dd4b39;
-}

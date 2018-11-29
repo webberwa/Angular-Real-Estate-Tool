@@ -4,10 +4,9 @@ const { PubSub } = require('apollo-server')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const speakeasy = require('speakeasy')
-
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-
+const TWO_HOUR = 2*60 * 60 * 1000; /* ms */
 const pubsub = new PubSub()
 const USER_STATE_CHANGED = 'USER_STATE_CHANGED'
 
@@ -48,6 +47,15 @@ export const user = {
       console.log('test')
     },
     async createUser(root, args, ctx) {
+      
+      const userCheck = await ctx.prisma.user({
+        email: args.email
+      })
+      console.log(userCheck);
+      if (userCheck) {
+        throw new Error(`This email already exists: ${args.email}`)
+      }
+
       const password = await bcrypt.hash(args.password, 10)
       const user = await ctx.prisma.createUser({
         email: args.email,
@@ -104,7 +112,7 @@ export const user = {
         email
       })
       if (!user) {
-        return false
+        throw new Error(`No such user found for email: ${email}`)
       }
       console.log(user)
 
@@ -130,12 +138,24 @@ export const user = {
        */
       const msg = {
         to: email,
-        from: 'test@example.com',
+        from: 'no-reply@oosre.com',
         subject: 'WBIT Password Reset',
-        text: 'Reset your password using the following URL',
-        html: `<a href="http://localhost:4200/reset-password?token=${token}">Reset Password</a>`
+        html: `Reset your password using the following URL <a href="http://localhost:4200/reset-password?token=${token}">Reset Password</a>`
       }
-
+ 
+      /**
+       * 5. Add token expiration time
+       */
+      const current_time = new Date();
+      await ctx.prisma.updateUser({
+        where: {
+          email
+        },
+        data: {
+          time_stamp: current_time
+        }
+      })
+      
       sgMail.send(msg)
       return true
     },
@@ -148,11 +168,21 @@ export const user = {
       })
 
       if (!user) {
-        return false
+        throw new Error(`The token is invalid please request another one`)
       }
 
       /**
-       * 2. Update password
+       * 2. Check if token has not yet expired
+       */
+      const token_creation_time = Date.parse(user.time_stamp)
+      const curr_time = Date.parse(new Date().toString())
+      console.log(curr_time - token_creation_time)
+      if( curr_time - token_creation_time > TWO_HOUR ) {
+        throw new Error(`The token has expired please request another one`)
+      }
+
+      /**
+       * 3. Update password
        */
       const new_password = await bcrypt.hash(password, 10)
 
@@ -161,7 +191,8 @@ export const user = {
           id: user.id
         },
         data: {
-          reset_token: '',
+          reset_token: null,
+          time_stamp: null,
           password: new_password
         }
       })

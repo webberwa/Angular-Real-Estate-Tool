@@ -11,4 +11,8 @@ export class ProviderCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  formatPhoneNumber(phoneNumber: string) {
+    return "("+phoneNumber.substr(0, 3)+") "+phoneNumber.substr(3, 3)+"-"+phoneNumber.substr(6);
+  }
 }

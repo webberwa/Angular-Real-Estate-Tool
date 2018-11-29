@@ -20,6 +20,7 @@ import {
 } from '../apollo-angular-services';
 import { BehaviorSubject } from 'rxjs';
 import { MyErrorStateMatcher } from '../error.state.catcher.class';
+import 'rxjs/add/operator/catch';
 
 const LOGOUT = gql`
   mutation logout {
@@ -181,11 +182,19 @@ export class UserService {
       })
       .subscribe(
         res => {
-          // This is our success callback
+          if (res.hasOwnProperty('errors')) {
+            this.dialog.closeAll();
+            this.alert.open({
+              message:
+                res.errors[0].message,
+              type: Alert.ERROR
+            });
+          } else {
           console.log(res);
           const token = res.data.createUser.token;
           this.storeTokenToLocalStorage(token);
           location.reload();
+          }
         },
         err => {
           // Need to access GraphQL error object to see errors
@@ -211,7 +220,7 @@ export class UserService {
 
           if (!res.data.loginUser) {
             return this.alert.open({
-              message: 'Something went wrong, please try again.',
+              message: 'The username/password is not valid',
               type: Alert.ERROR
             });
           }
@@ -296,28 +305,22 @@ export class UserService {
       })
       .subscribe(
         res => {
-          console.log('done');
-          /**
-           * TODO
-           */
-          this.dialog.closeAll();
-          this.alert.open({
-            message: 'You have successfully reset your password',
-            type: Alert.SUCCESS
-          });
-
-          this.router.navigate(['/']);
-        },
-        err => {
-          this.dialog.closeAll();
-          this.alert.open({
-            message:
-              'We ran into some issues, please request another reset URL',
-            type: Alert.ERROR
-          });
-          console.log(err.graphQLErrors);
+          if (res.hasOwnProperty('errors')) {
+            this.dialog.closeAll();
+            this.alert.open({
+              message:
+                res.errors[0].message,
+              type: Alert.ERROR
+            });
+          } else {
+            this.dialog.closeAll();
+            this.alert.open({
+              message: 'You have successfully reset your password',
+              type: Alert.SUCCESS
+            });
         }
-      );
+          this.router.navigate(['/']);
+        });
   }
 
   storeTokenToLocalStorage(jwt) {

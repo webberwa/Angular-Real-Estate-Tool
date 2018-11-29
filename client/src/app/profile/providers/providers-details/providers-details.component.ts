@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AddReviewFormComponent } from '../../review/add-review-form/add-review-form.component';
 import { UserService } from 'src/app/user/user.service';
 import { EditformComponent } from 'src/app/editform/editform.component';
+import {CreateProviderFormComponent} from "../../create-provider-form/create-provider-form.component";
 
 @Component({
   selector: 'app-providers-details',

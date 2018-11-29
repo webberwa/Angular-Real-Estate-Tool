@@ -1,5 +1,5 @@
 import { MAT_DIALOG_DATA } from '@angular/material';
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import {Component, OnInit, Input, Inject, ChangeDetectorRef} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '../../error.state.catcher.class';
 import { ProvidersService } from '../providers/providers.service';
@@ -20,47 +20,46 @@ export class CreateProviderFormComponent implements OnInit {
   submitCb;
   submitArgs;
 
+  provider = {
+    id: '',
+    name: '',
+    type: '',
+    phone_number: '',
+    email: '',
+    street: '',
+    city: '',
+    state: '',
+    zip: ''
+  };
+
   constructor(
     private providers: ProvidersService,
     private formBuilder: FormBuilder,
+    private changeDetectorRefs: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data?: any
   ) {
     this.providerTypes = providers.getProviderTypes();
     console.log(this.providerTypes);
     console.log(data);
 
-    let provider;
     // If editing, we pass in data
     if (data) {
-      provider = data.provider;
+      this.provider = data.provider;
       this.action = 'Update';
-    } else {
-      provider = {
-        name: 'Test Provider',
-        type: 'contractor',
-        phone_number: '6265925201',
-        email: 'webberwa@usc.edu',
-        street: '1203 Street',
-        city: 'Los Angeles',
-        state: { name: 'california', abbr: 'CA' },
-        zip: '90024'
-      };
     }
-
-    console.log(provider);
 
     // Create form
     this.providersForm = this.formBuilder.group({
       name: [
-        provider.name,
+        this.provider.name,
         Validators.compose([
           Validators.required,
           Validators.pattern('^[a-zA-Z ]*$')
         ])
       ],
-      type: [provider.type, Validators.required],
+      type: [this.provider.type, Validators.required],
       phone_number: [
-        provider.phone_number,
+        this.provider.phone_number,
         Validators.compose([
           Validators.required,
           Validators.minLength(10),
@@ -68,23 +67,23 @@ export class CreateProviderFormComponent implements OnInit {
         ])
       ],
       email: [
-        provider.email,
+        this.provider.email,
         Validators.compose([Validators.required, Validators.email])
       ],
-      street: [provider.street, Validators.required],
+      street: [this.provider.street, Validators.required],
       city: [
-        provider.city,
+        this.provider.city,
         Validators.compose([
           Validators.required,
           Validators.pattern('^[a-zA-Z ]*$')
         ])
       ],
       state: [
-        find(this.providers.states, ['abbr', provider.state]),
+        find(this.providers.states, ['abbr', this.provider.state]),
         Validators.required
       ],
       zip: [
-        provider.zip,
+        this.provider.zip,
         Validators.compose([
           Validators.required,
           Validators.minLength(5),
@@ -96,7 +95,7 @@ export class CreateProviderFormComponent implements OnInit {
     // Set args
     if (data) {
       this.submitCb = providers.updateProvider;
-      this.submitArgs = [this.providersForm, provider.id];
+      this.submitArgs = [this.providersForm, this.provider.id];
     } else {
       // Set submit args
       this.submitCb = providers.addProvider;
@@ -107,7 +106,19 @@ export class CreateProviderFormComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(cb, args) {
-    console.log(args);
+    const state = this.providers.getStateOptionValue(this.providersForm.get("state").value);
+    args[0].patchValue({ state });
+
     cb.apply(this.providers, args);
+  }
+
+  onChangingAddress(result) {
+    this.providersForm.patchValue({ street: result.address });
+    this.providersForm.patchValue({ city: result.city });
+    this.providersForm.patchValue({ state: result.state });
+    this.providersForm.patchValue({ zip: result.zip_code });
+
+    this.providersForm.updateValueAndValidity();
+    this.changeDetectorRefs.detectChanges();
   }
 }

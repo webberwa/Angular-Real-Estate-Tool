@@ -7,6 +7,9 @@ import { map } from 'rxjs/operators';
 import { findIndex } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 import { parsePhoneNumber, AsYouType } from 'libphonenumber-js';
+import { find } from 'lodash';
+import { AlertService, Alert } from '../../site/alert/alert.service';
+
 import {
   AddProviderGQL,
   ProvidersGQL,
@@ -28,6 +31,7 @@ export class ProvidersService {
   searchType = '';
   searchSkip = 0;
   allProviders;
+  initial = true;
 
   myProviderQuery;
 
@@ -111,7 +115,8 @@ export class ProvidersService {
     private providerGQL: ProviderGQL,
     private userService: UserService,
     private deleteProviderGQL: DeleteProviderGQL,
-    private updateProviderGQL: UpdateProviderGQL
+    private updateProviderGQL: UpdateProviderGQL,
+    private alert: AlertService
   ) {
     this.me = userService.me;
     this.myProviderQuery = {
@@ -136,6 +141,8 @@ export class ProvidersService {
   }
 
   searchProviders() {
+    this.initial = false;
+
     const inputs = this.searchInput.split(/\s+/);
     const input_states = this.states.filter(
       state => inputs.includes(state.abbr) || inputs.includes(state.name)
@@ -201,6 +208,10 @@ export class ProvidersService {
         }
       })
       .subscribe(res => {
+        this.alert.open({
+          message: 'Provider added successfully!',
+          type: Alert.SUCCESS
+        });
         this.dialog.closeAll();
       });
   }
@@ -229,7 +240,12 @@ export class ProvidersService {
         }
       })
       .subscribe(res => {
+        this.alert.open({
+          message: 'Provider updated successfully!',
+          type: Alert.SUCCESS
+        });
         this.dialog.closeAll();
+        // this.alertService();
         console.log(res);
       });
   }
@@ -275,5 +291,9 @@ export class ProvidersService {
       const label = this.serviceProviderTypes[index].label;
       return label;
     }
+  }
+
+  getStateOptionValue(state) {
+    return find(this.states, { abbr: state });
   }
 }

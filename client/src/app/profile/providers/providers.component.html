@@ -41,13 +41,11 @@
     <!-- Providers -->
     <div class="col-sm-9">
       <div class="row">
-        <div class="col-sm-12" [hidden]="!addNewProvider">
-          <span class="new-provider-msg"
-            >There is no providers found. Do you want to add a
+        <div class="col-sm-12">
+          <span class="new-provider-msg" [hidden]="loading || !addNewProvider">There are no providers found.<br/></span>
+          <span class="new-provider-msg" [hidden]="loading || !this.userService.isAuthenticated">Do you want to add a
+            <span class="new-provider-link" (click)="openAddNewProviderPopup()">new provider?</span>
           </span>
-          <span class="new-provider-link" (click)="openAddNewProviderPopup()"
-            >new provider?</span
-          >
         </div>
         <div class="col-sm-12" [hidden]="!loading">
           <mat-progress-bar
