@@ -182,11 +182,19 @@ export class UserService {
       })
       .subscribe(
         res => {
-          // This is our success callback
+          if (res.hasOwnProperty('errors')) {
+            this.dialog.closeAll();
+            this.alert.open({
+              message:
+                res.errors[0].message,
+              type: Alert.ERROR
+            });
+          } else {
           console.log(res);
           const token = res.data.createUser.token;
           this.storeTokenToLocalStorage(token);
           location.reload();
+          }
         },
         err => {
           // Need to access GraphQL error object to see errors
@@ -297,10 +305,6 @@ export class UserService {
       })
       .subscribe(
         res => {
-          console.log('done');
-          /**
-           * TODO
-           */
           if (res.hasOwnProperty('errors')) {
             this.dialog.closeAll();
             this.alert.open({

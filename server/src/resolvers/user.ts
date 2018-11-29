@@ -47,6 +47,15 @@ export const user = {
       console.log('test')
     },
     async createUser(root, args, ctx) {
+      
+      const userCheck = await ctx.prisma.user({
+        email: args.email
+      })
+      console.log(userCheck);
+      if (userCheck) {
+        throw new Error(`This email already exists: ${args.email}`)
+      }
+
       const password = await bcrypt.hash(args.password, 10)
       const user = await ctx.prisma.createUser({
         email: args.email,
