@@ -1,10 +1,21 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <button mat-raised-button class="float-left mr-2" color="primary" routerLink="/investments" routerLinkActive="active">
+      <button
+        mat-raised-button
+        class="float-left mr-2"
+        color="primary"
+        routerLink="/investments"
+        routerLinkActive="active"
+      >
         Back to Investments
       </button>
-      <button mat-raised-button class="float-right mr-2" color="primary" (click)="openExpenseDialog()">
+      <button
+        mat-raised-button
+        class="float-right mr-2"
+        color="primary"
+        (click)="openExpenseDialog()"
+      >
         Add Expense
       </button>
     </div>
@@ -44,10 +55,10 @@
       <h2>Expense Details</h2>
       <dl>
         <div *ngFor="let expense of (investment | async)?.expenses">
-          <hr>
+          <hr />
           <dt>
             {{ expense.title }} - {{ expense.price | currency: 'USD' }}
-            <i class="material-icons" (click)="deleteExpense(expense.id)">
+            <i class="material-icons" (click)="openDeleteDialog(expense.id)">
               highlight_off
             </i>
             <i class="material-icons" (click)="editExpense(expense.id)">
@@ -55,8 +66,8 @@
             </i>
           </dt>
           <dd>{{ expense.description }}</dd>
-          <dt> Date </dt>
-          <dl> {{ expense.date | date }} </dl>
+          <dt>Date</dt>
+          <dl>{{ expense.date | date }}</dl>
         </div>
       </dl>
     </div>

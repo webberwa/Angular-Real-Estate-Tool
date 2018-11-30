@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
 
   editProvider(id) {
     this.apollo
-      .watchQuery({
+      .query({
         query: this.providerGQL.document,
         variables: {
           where: {
@@ -75,12 +75,13 @@ export class ProfileComponent implements OnInit {
           }
         }
       })
-      .valueChanges.pipe(
-        map(({ data }: { data: any }) => {
-          return data.provider;
-        })
-      )
-      .subscribe(provider => {
+      // .valueChanges.pipe(
+      //   map(({ data }: { data: any }) => {
+      //     return data.provider;
+      //   })
+      // )
+      .subscribe((res: any) => {
+        const provider = res.data.provider;
         this.dialog.open(CreateProviderFormComponent, {
           width: '600px',
           autoFocus: false,

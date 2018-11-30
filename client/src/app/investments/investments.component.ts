@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { InvestmentsCreateDialogComponent } from './investments-create-dialog/investments-create-dialog.component';
 import { InvestmentsService } from './investments.service';
+import { investment } from '../../../../server/src/resolvers/investment';
 @Component({
   selector: 'app-investments',
   templateUrl: './investments.component.html',
@@ -27,9 +28,11 @@ export class InvestmentsComponent {
 
   exportCSV() {
     this.investmentsService.getInvestments().subscribe(investments => {
+      console.log(investments);
+
       const header = 'data:text/csv;charset=utf-8,';
       const title =
-        'ADDRESS,MONTHLY RENT,MORTGAGE AMOUNT,MORTGAGE DOWNPAYMENT,MORTGAGE INTEREST RATE,MORTGAGE PERIOD,PRICE';
+        'PURCHASE DATE, ADDRESS,MONTHLY RENT,MORTGAGE AMOUNT,MORTGAGE DOWNPAYMENT,MORTGAGE INTEREST RATE,MORTGAGE PERIOD,PRICE,EXPENSES';
       const body = investments
         .map(investment => {
           console.log(this.generateCSV(investment));
@@ -43,7 +46,27 @@ export class InvestmentsComponent {
   }
 
   private generateCSV(investment) {
+    let expenses = investment.expenses;
+
+    console.log(expenses);
+
+    expenses = expenses.reduce((acc, expense) => {
+      console.log(acc);
+      console.log(expense);
+      acc += 'Title: ' + expense.title + '\r\n';
+      acc += 'Description: ' + expense.description + '\r\n';
+      acc += 'Price: ' + expense.price + '\r\n';
+      acc += 'Date: ' + expense.date + '\r\n';
+      acc += '\r\n';
+      return acc;
+    }, '');
+
+    console.log(expenses);
+
     return (
+      '"' +
+      investment.purchase_date +
+      '" ,' +
       '"' +
       investment.address +
       '" ,' +
@@ -64,6 +87,9 @@ export class InvestmentsComponent {
       '" ,' +
       '"' +
       investment.price +
+      '" ,' +
+      '"' +
+      expenses +
       '"'
     );
   }

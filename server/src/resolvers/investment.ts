@@ -6,8 +6,21 @@ export const investment = {
           id: ctx.user.id
         })
         .investments()
-      console.log(investments)
-      return investments
+
+      const investmentsWithExpenses = await Promise.all(
+        await investments.map(async investment => {
+          const expenses = await ctx.prisma
+            .investment({
+              id: investment.id
+            })
+            .expenses()
+          investment.expenses = expenses
+          return investment
+        })
+      )
+
+      console.log(investmentsWithExpenses)
+      return investmentsWithExpenses
     },
     async getInvestment(roots, args, ctx) {
       console.log('investment')

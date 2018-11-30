@@ -15,7 +15,10 @@ export class ExpensesCreateComponent implements OnInit {
   expenseForm = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    price: new FormControl('', Validators.required),
+    price: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/\d+\.?\d*/)
+    ]),
     date: new FormControl('', Validators.required)
   });
 

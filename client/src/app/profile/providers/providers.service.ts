@@ -1,13 +1,12 @@
+import { MatDialog } from '@angular/material';
+import { Apollo } from 'apollo-angular';
+import { Injectable } from '@angular/core';
 
-import {MatDialog} from '@angular/material';
-import {Apollo} from 'apollo-angular';
-import {Injectable} from '@angular/core';
-
-import {UserService} from 'src/app/user/user.service';
-import {map} from 'rxjs/operators';
-import {find, findIndex} from 'lodash';
-import {BehaviorSubject} from 'rxjs';
-import {Alert, AlertService} from '../../site/alert/alert.service';
+import { UserService } from 'src/app/user/user.service';
+import { map } from 'rxjs/operators';
+import { find, findIndex } from 'lodash';
+import { BehaviorSubject } from 'rxjs';
+import { Alert, AlertService } from '../../site/alert/alert.service';
 
 import {
   AddProviderGQL,
@@ -37,8 +36,8 @@ export class ProvidersService {
   initial = true;
 
   myProviderQuery;
-// just try
-providerBeingEdited;
+  // just try
+  providerBeingEdited;
   serviceProviderTypes = [
     {
       label: 'All',
@@ -196,6 +195,7 @@ providerBeingEdited;
 
   addProvider(form) {
     console.log('add provider');
+    console.log(form.get('state').value);
     this.apollo
       .mutate({
         mutation: this.addProvidersGQL.document,
@@ -208,10 +208,10 @@ providerBeingEdited;
             email: form.get('email').value,
             street: form.get('street').value,
             city: form.get('city').value,
-            state: form.get('state').value.abbr,
+            state: form.get('state').value,
             zip: form.get('zip').value,
-            long: form.get('long').value,
-            lat: form.get('lat').value
+            long: form.get('long').value || 0,
+            lat: form.get('lat').value || 0
           }
         }
       })
@@ -284,6 +284,10 @@ providerBeingEdited;
         }
       })
       .subscribe(res => {
+        this.alert.open({
+          message: 'Provider updated successfully!',
+          type: Alert.SUCCESS
+        });
         this.dialog.closeAll();
         console.log(res);
       });
@@ -317,7 +321,12 @@ providerBeingEdited;
           }
         }
       })
-      .subscribe();
+      .subscribe(() => {
+        this.alert.open({
+          message: 'Provider deleted successfully!',
+          type: Alert.SUCCESS
+        });
+      });
   }
 
   getProviderTypes() {

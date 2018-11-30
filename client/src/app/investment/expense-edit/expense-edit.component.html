@@ -1,0 +1,45 @@
+<form [formGroup]="expenseForm">
+  <mat-form-field>
+    <input
+      matInput
+      [value]="expenseForm.get('title').value"
+      placeholder="Expense Title"
+      formControlName="title"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [value]="expenseForm.get('description').value"
+      placeholder="Expense Description"
+      formControlName="description"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [value]="expenseForm.get('price').value"
+      placeholder="Expense Price"
+      formControlName="price"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      [value]="expenseForm.get('date').value"
+      [matDatepicker]="picker"
+      placeholder="Choose a date"
+      formControlName="date"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <button
+    (click)="updateExpense()"
+    mat-raised-button
+    color="primary"
+    [disabled]="!expenseForm.valid"
+  >
+    Update Expense
+  </button>
+</form>

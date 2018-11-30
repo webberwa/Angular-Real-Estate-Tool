@@ -1,5 +1,11 @@
 import { MAT_DIALOG_DATA } from '@angular/material';
-import {Component, OnInit, Input, Inject, ChangeDetectorRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Inject,
+  ChangeDetectorRef
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from '../../error.state.catcher.class';
 import { ProvidersService } from '../providers/providers.service';
@@ -80,10 +86,7 @@ export class CreateProviderFormComponent implements OnInit {
           Validators.pattern('^[a-zA-Z ]*$')
         ])
       ],
-      state: [
-        this.provider.state,
-        Validators.required
-      ],
+      state: [this.provider.state, Validators.required],
       zip: [
         this.provider.zip,
         Validators.compose([
@@ -92,12 +95,8 @@ export class CreateProviderFormComponent implements OnInit {
           Validators.maxLength(5)
         ])
       ],
-      long: [
-        this.provider.long
-      ],
-      lat: [
-        this.provider.lat
-      ]
+      long: [this.provider.long],
+      lat: [this.provider.lat]
     });
 
     // Set args
@@ -114,8 +113,10 @@ export class CreateProviderFormComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(cb, args) {
-    const state = this.providers.getStateOptionValue(this.providersForm.get('state').value);
-    args[0].patchValue({ state });
+    // const state = this.providers.getStateOptionValue(
+    //   this.providersForm.get('state').value
+    // );
+    // args[0].patchValue({ state });
 
     cb.apply(this.providers, args);
   }

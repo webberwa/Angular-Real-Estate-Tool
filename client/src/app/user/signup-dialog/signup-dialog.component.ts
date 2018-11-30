@@ -1,9 +1,5 @@
 import { UserService } from '../user.service';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators
-} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,10 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupDialogComponent implements OnInit {
   signupForm: FormGroup = this.formBuilder.group({
-    firstname: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z]*$')])],
-    lastname: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z]*$')])],
+    firstname: [
+      '',
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z]*$')
+      ])
+    ],
+    lastname: [
+      '',
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z]*$')
+      ])
+    ],
     email: ['', Validators.compose([Validators.required, Validators.email])],
-    password: ['', Validators.compose([Validators.required, Validators.minLength(8)])]
+    password: [
+      '',
+      Validators.compose([Validators.required, Validators.minLength(8)])
+    ]
   });
 
   constructor(private auth: UserService, private formBuilder: FormBuilder) {}
