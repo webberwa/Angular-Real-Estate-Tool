@@ -1,3 +1,4 @@
+
 import {MatDialog} from '@angular/material';
 import {Apollo} from 'apollo-angular';
 import {Injectable} from '@angular/core';
@@ -36,7 +37,8 @@ export class ProvidersService {
   initial = true;
 
   myProviderQuery;
-
+//just try
+providerBeingEdited;
   serviceProviderTypes = [
     {
       label: 'All',
@@ -225,22 +227,52 @@ export class ProvidersService {
   updateProvider(form, id) {
     console.log(form);
     console.log(id);
+    this.providerBeingEdited=this.getProvider(id);
+    var n=form.get('name').value;
+    if(form.get('name').value==null)
+      n=this.providerBeingEdited.name;
+    
+    var t=form.get('type').value;
+    if(t==null)
+      t=this.providerBeingEdited.type;
+    
+    var p=form.get('phone_number').value;
+    if(p==null)
+      p=this.providerBeingEdited.phone_number;
+    
+    var e=form.get('email').value;
+    if(e==null)
+        e=this.providerBeingEdited.email;
+
+    var s=form.get('street').value;
+    if(s==null)
+        s=this.providerBeingEdited.street;
+
+    var c=form.get('city').value;
+    if(c==null)
+            c=this.providerBeingEdited.city;
+
+    var st=form.get('state').value;
+    if(st==null)
+        st=this.providerBeingEdited.state;
+    
+    var z=form.get('zip').value;
+    if(z==null)
+        z=this.providerBeingEdited.zip;    
     this.apollo
       .mutate({
         mutation: this.updateProviderGQL.document,
         refetchQueries: [this.myProviderQuery],
         variables: {
           data: {
-            name: form.get('name').value,
-            type: form.get('type').value,
-            phone_number: form.get('phone_number').value,
-            email: form.get('email').value,
-            street: form.get('street').value,
-            city: form.get('city').value,
-            state: form.get('state').value.abbr,
-            zip: form.get('zip').value,
-            long: form.get('long').value,
-            lat: form.get('lat').value
+            name: n,
+            type: t,
+            phone_number: p,
+            email: e,
+            street: s,
+            city: c,
+            state: st,
+            zip: z
           },
           where: {
             id
@@ -248,12 +280,7 @@ export class ProvidersService {
         }
       })
       .subscribe(res => {
-        this.alert.open({
-          message: 'Provider updated successfully!',
-          type: Alert.SUCCESS
-        });
         this.dialog.closeAll();
-        // this.alertService();
         console.log(res);
       });
   }
