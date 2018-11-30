@@ -114,7 +114,7 @@ export class CreateProviderFormComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(cb, args) {
-    const state = this.providers.getStateOptionValue(this.providersForm.get("state").value);
+    const state = this.providers.getStateOptionValue(this.providersForm.get('state').value);
     args[0].patchValue({ state });
 
     cb.apply(this.providers, args);

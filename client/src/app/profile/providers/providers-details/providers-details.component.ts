@@ -14,6 +14,7 @@ import {EditformComponent} from 'src/app/editform/editform.component';
 export class ProvidersDetailsComponent implements OnInit {
   loading = true;
   provider = null;
+  isVerified = false;
   providersId;
   url;
   dialogRef;
@@ -30,6 +31,7 @@ export class ProvidersDetailsComponent implements OnInit {
         .subscribe((result) => {
           this.loading = false;
           this.provider = result;
+          this.isVerified = this.provider.is_verified;
         });
     });
     this.url = window.location.href;
@@ -66,6 +68,10 @@ export class ProvidersDetailsComponent implements OnInit {
   }
 
   hasInvalidGeographicLocation(long, lat) {
-    return Number.isNaN(parseInt(long)) && Number.isNaN(parseInt(lat));
+    return Number.isNaN(parseInt(long, 10)) && Number.isNaN(parseInt(lat, 10));
+  }
+
+  verifyProvider() {
+    this.isVerified = this.providersService.verifyProvider(this.providersId);
   }
 }

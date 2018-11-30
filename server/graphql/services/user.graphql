@@ -4,6 +4,7 @@ fragment userFields on User {
   lastname
   email
   has_two_factor
+  is_admin
 }
 
 query user($where: UserWhereUniqueInput!) {

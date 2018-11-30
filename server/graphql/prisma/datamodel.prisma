@@ -52,6 +52,7 @@ type User {
   providers: [Provider!]!
   investments: [Investment!]!
   time_stamp: String
+  is_admin: Boolean @default(value: false)
 }
 
 type Review {

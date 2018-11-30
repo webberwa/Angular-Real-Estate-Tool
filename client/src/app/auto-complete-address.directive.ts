@@ -1,13 +1,13 @@
-import {Directive, ElementRef, Input} from '@angular/core';
+import {Directive, ElementRef, Input, OnInit} from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
-import {auto} from "async";
+import {auto} from 'async';
 
 declare let google;
 @Directive({
-  selector: '[autoCompleteAddress]'
+  selector: '[appAutoCompleteAddress]'
 })
-export class AutoCompleteAddressDirective {
-  @Input() autoCompleteAddress: any;
+export class AutoCompleteAddressDirective implements OnInit {
+  @Input() appAutoCompleteAddress: any;
 
   constructor(private el: ElementRef,
               private mapsAPILoader: MapsAPILoader) { }
@@ -18,12 +18,12 @@ export class AutoCompleteAddressDirective {
 
   private setAutoComplete() {
     this.mapsAPILoader.load().then(() => {
-      const autocomplete:any = new google.maps.places.Autocomplete(this.el.nativeElement);
+      const autocomplete: any = new google.maps.places.Autocomplete(this.el.nativeElement);
 
-      if (this.autoCompleteAddress != null && this.autoCompleteAddress != undefined) {
+      if (this.appAutoCompleteAddress != null && this.appAutoCompleteAddress !== undefined) {
         const callback = () => {
-          if (this.autoCompleteAddress != null && this.autoCompleteAddress != undefined) {
-            this.autoCompleteAddress(this.refineAddress(autocomplete.getPlace()));
+          if (this.appAutoCompleteAddress != null && this.appAutoCompleteAddress !== undefined) {
+            this.appAutoCompleteAddress(this.refineAddress(autocomplete.getPlace()));
           }
         };
         callback.bind(this);
@@ -33,20 +33,20 @@ export class AutoCompleteAddressDirective {
     });
   }
 
-  private refineAddress(place){
+  private refineAddress(place) {
     const full_address = place.formatted_address;
     const address = place.name;
-    const city = place.address_components.filter(item => item.types.includes("locality")).map(item => item.long_name);
-    const state = place.address_components.filter(item => item.types.includes("administrative_area_level_1")).map(item => item.short_name);
-    const zip_code = place.address_components.filter(item => item.types.includes("postal_code")).map(item => item.long_name);
+    const city = place.address_components.filter(item => item.types.includes('locality')).map(item => item.long_name);
+    const state = place.address_components.filter(item => item.types.includes('administrative_area_level_1')).map(item => item.short_name);
+    const zip_code = place.address_components.filter(item => item.types.includes('postal_code')).map(item => item.long_name);
     const lat = place.geometry.location.lat();
     const long = place.geometry.location.lng();
 
-    if ([city, state, zip_code].some(item => item.length == 0)){
+    if ([city, state, zip_code].some(item => item.length === 0)) {
       return {
         full_address,
         validate: false
-      }
+      };
     }
 
     return {

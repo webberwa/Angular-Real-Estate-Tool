@@ -37,7 +37,7 @@ export class ProvidersService {
   initial = true;
 
   myProviderQuery;
-//just try
+// just try
 providerBeingEdited;
   serviceProviderTypes = [
     {
@@ -189,7 +189,7 @@ providerBeingEdited;
           return {
             providers: data.providers.data.slice(0, 10),
             hasNext: data.providers.data.length > 10
-          }
+          };
         })
       );
   }
@@ -223,56 +223,60 @@ providerBeingEdited;
         this.dialog.closeAll();
       });
   }
-
-  updateProvider(form, id) {
-    console.log(form);
+  verifyProvider(id) {
     console.log(id);
-    this.providerBeingEdited=this.getProvider(id);
-    var n=form.get('name').value;
-    if(form.get('name').value==null)
-      n=this.providerBeingEdited.name;
-    
-    var t=form.get('type').value;
-    if(t==null)
-      t=this.providerBeingEdited.type;
-    
-    var p=form.get('phone_number').value;
-    if(p==null)
-      p=this.providerBeingEdited.phone_number;
-    
-    var e=form.get('email').value;
-    if(e==null)
-        e=this.providerBeingEdited.email;
-
-    var s=form.get('street').value;
-    if(s==null)
-        s=this.providerBeingEdited.street;
-
-    var c=form.get('city').value;
-    if(c==null)
-            c=this.providerBeingEdited.city;
-
-    var st=form.get('state').value;
-    if(st==null)
-        st=this.providerBeingEdited.state;
-    
-    var z=form.get('zip').value;
-    if(z==null)
-        z=this.providerBeingEdited.zip;    
     this.apollo
       .mutate({
         mutation: this.updateProviderGQL.document,
         refetchQueries: [this.myProviderQuery],
         variables: {
           data: {
-            name: n,
-            type: t,
-            phone_number: p,
-            email: e,
-            street: s,
-            city: c,
-            state: st,
-            zip: z
+            is_verified: true
+          },
+          where: {
+            id
+          }
+        }
+      })
+      .subscribe(res => {
+        this.alert.open({
+          message: 'Provider verified successfully!',
+          type: Alert.SUCCESS
+        });
+        this.dialog.closeAll();
+        console.log(res);
+      });
+    return true;
+  }
+
+  updateProvider(form, id) {
+    console.log(form);
+    console.log(id);
+    this.providerBeingEdited = this.getProvider(id);
+
+    const nameValue = form.get('name').value == null ? this.providerBeingEdited.name : form.get('name').value;
+    const typeValue = form.get('type').value == null ? this.providerBeingEdited.type : form.get('type').value;
+    const phoneValue = form.get('phone_number').value == null ? this.providerBeingEdited.phone_number : form.get('phone_number').value;
+    const emailValue = form.get('email').value == null ? this.providerBeingEdited.email : form.get('email').value;
+    const streetValue = form.get('street').value == null ? this.providerBeingEdited.street : form.get('street').value;
+    const cityValue = form.get('city').value == null ? this.providerBeingEdited.city : form.get('city').value;
+    const stateValue = form.get('state').value == null ? this.providerBeingEdited.state : form.get('state').value;
+    const zipValue = form.get('zip').value == null ? this.providerBeingEdited.zip : form.get('zip').value;
+
+    this.apollo
+      .mutate({
+        mutation: this.updateProviderGQL.document,
+        refetchQueries: [this.myProviderQuery],
+        variables: {
+          data: {
+            name: nameValue,
+            type: typeValue,
+            phone_number: phoneValue,
+            email: emailValue,
+            street: streetValue,
+            city: cityValue,
+            state: stateValue,
+            zip: zipValue
           },
           where: {
             id
@@ -333,6 +337,6 @@ providerBeingEdited;
   }
 
   formatPhoneNumber(phoneNumber: string) {
-    return "("+phoneNumber.substr(0, 3)+") "+phoneNumber.substr(3, 3)+"-"+phoneNumber.substr(6);
+    return `(${phoneNumber.substr(0, 3)}) ${phoneNumber.substr(3, 3)}-${phoneNumber.substr(6)}`;
   }
 }

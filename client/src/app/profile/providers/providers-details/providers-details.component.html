@@ -27,7 +27,7 @@
         </button>
         <span class="Provider-verificationStatus">
           <span
-            *ngIf="provider.is_verified === true; else: unverified"
+            *ngIf="this.isVerified === true; else: unverified"
           >
             <i class="material-icons success"> check_circle_outline </i>
             Verified
@@ -36,13 +36,22 @@
         </span>
       </h1>
       <app-providers-review-snippet [provider]="provider"></app-providers-review-snippet>
-
       <br />
       <p class="mb-0">{{ provider.street }}</p>
       <p class="mb-0">
         {{ provider.city }}, {{ provider.state }}
         {{ provider.zip }}
       </p>
+      <div style="margin-top:15px">
+        <button mat-raised-button 
+          class="float-left mr-2"   
+          color="primary" 
+          [disabled] = "this.isVerified"
+          *ngIf="this.userService.isAdmin"
+          (click)="verifyProvider()">
+          Verify Provider
+        </button>
+      </div>
     </div>
     <!-- /.col-sm-6 -->
 

@@ -109,6 +109,7 @@ type User {
   email: String!
   password: String!
   has_two_factor: Boolean!
+  is_admin: Boolean!
 }
 
 # import Provider from 'prisma/__generated__/prisma.graphql'

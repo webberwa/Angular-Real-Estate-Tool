@@ -48,6 +48,7 @@ query provider($where: ProviderWhereUniqueInput!) {
     zip
     long
     lat
+    is_verified
   }
 }
 
