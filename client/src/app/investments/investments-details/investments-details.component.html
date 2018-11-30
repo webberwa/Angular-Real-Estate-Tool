@@ -1,23 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <button
-        mat-raised-button
-        class="float-left mr-2"
-        color="primary"
-        routerLink="/investments"
-        routerLinkActive="active">
+      <button mat-raised-button class="float-left mr-2" color="primary" routerLink="/investments" routerLinkActive="active">
         Back to Investments
       </button>
-      <button
-        mat-raised-button
-        class="float-right mr-2"
-        color="primary"
-        (click)="openExpenseDialog()">
+      <button mat-raised-button class="float-right mr-2" color="primary" (click)="openExpenseDialog()">
         Add Expense
       </button>
     </div>
-    <div class="col-sm-12" style="margin-top:10px">
+    <div class="col-sm-6" style="margin-top:10px">
       <h2>Property Details</h2>
       <dl>
         <dt>Purchase Date</dt>
@@ -45,23 +36,27 @@
           {{ (investment | async)?.mortgage_interest_rate | percent: '1.1-2' }}
         </dd>
       </dl>
-
-      <div class="row">
-        <div class="col-xs-6">
-          <canvas id="investmentChart" width="400" height="400"></canvas>
-        </div>
-      </div>
-
+    </div>
+    <div class="col-sm-6">
+      <canvas id="investmentChart" width="400" height="400"></canvas>
+    </div>
+    <div class="col-sm-12">
       <h2>Expense Details</h2>
       <dl>
         <div *ngFor="let expense of (investment | async)?.expenses">
+          <hr>
           <dt>
             {{ expense.title }} - {{ expense.price | currency: 'USD' }}
             <i class="material-icons" (click)="deleteExpense(expense.id)">
               highlight_off
             </i>
+            <i class="material-icons" (click)="editExpense(expense.id)">
+              edit
+            </i>
           </dt>
           <dd>{{ expense.description }}</dd>
+          <dt> Date </dt>
+          <dl> {{ expense.date | date }} </dl>
         </div>
       </dl>
     </div>

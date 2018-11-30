@@ -1,42 +1,46 @@
-import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  Inject,
+  ViewEncapsulation
+} from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { CreateProviderFormComponent } from './create-provider-form/create-provider-form.component';
 import { ProvidersService } from './providers/providers.service';
 import { Apollo } from 'apollo-angular';
 import { ProviderGQL } from '../apollo-angular-services';
 import { map } from 'rxjs/operators';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export interface DialogData {
   animal: string;
   name: string;
 }
 
-
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent implements OnInit {
   myProviders;
   displayedColumns: string[] = ['name', 'type', 'actions'];
   dataSource = new MatTableDataSource();
 
-deleteid;
-dia: DialogOverviewExampleDialogComponent;
-
+  deleteid;
+  dia: DialogOverviewExampleDialogComponent;
 
   constructor(
     private providers: ProvidersService,
     private dialog: MatDialog,
     private apollo: Apollo,
     private providerGQL: ProviderGQL,
-    private changeDetectorRefs: ChangeDetectorRef,
+    private changeDetectorRefs: ChangeDetectorRef
   ) {
     this.myProviders = providers.myProviders;
   }
-
 
   openDialog(id): void {
     this.deleteid = id;
@@ -99,19 +103,16 @@ dia: DialogOverviewExampleDialogComponent;
   }
 }
 
-
-
 @Component({
   selector: 'app-dialog-overview-example-dialog',
-  templateUrl: 'exampledialog.html',
+  templateUrl: 'exampledialog.html'
 })
 export class DialogOverviewExampleDialogComponent {
-
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialogComponent>,
-    private providerservice: ProvidersService,
-    /*@Inject(MAT_DIALOG_DATA) public data: DialogData*/) {}
-    public deletetrue: boolean;
+    private providerservice: ProvidersService
+  ) /*@Inject(MAT_DIALOG_DATA) public data: DialogData*/ {}
+  public deletetrue: boolean;
   onNoClick(): void {
     this.providerservice.deletetrue = true;
     this.dialogRef.close();

@@ -1,23 +1,67 @@
 <div class="container">
   <div class="row">
-      <div id="containerinner">
-        <app-sidebar></app-sidebar>
-      </div>
+    <!-- <div class="col-sm-3">
+      <app-sidebar></app-sidebar>
+    </div> -->
+    <div class="col-sm-12">
 
+      <mat-tab-group class="tabGroup">
+        <mat-tab label="My Investments">
+          <app-investments></app-investments>
+        </mat-tab>
+        <mat-tab label="My Providers">
+          <button mat-raised-button class="float-right" color="primary" (click)="openAddProviderDialog()"> Add Provider
+          </button>
+          <br>
+          <div>
+            <h3> My Providers </h3>
+          </div>
+          <mat-table #table [dataSource]="dataSource" class="" matSort matSortActive="created" matSortDisableClear
+            matSortDirection="asc">
 
-    <div class="col-sm-9" style="display:inline-block" id="origin">
-        <div style="display:none;width: auto;" id="invest">
-            <app-investments></app-investments>
-        </div>
-        <div style="display:none;" id="2fa">
-            <app-settings></app-settings>
-        </div> 
+            <!--- Note that these columns can be defined in any order.
+       The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Number Column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell *matHeaderCellDef>Provider Name</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <a routerLink="/providers/{{row.id}}" routerLinkActive="active">{{row.name}}</a>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+              <mat-header-cell *matHeaderCellDef>Reviews</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <app-providers-review-snippet [provider]="row"></app-providers-review-snippet>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="
+                  type">
+              <mat-header-cell *matHeaderCellDef>Provider Type</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{ providers.getProviderTypeLabel(row.type) }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <button mat-raised-button color="primary" (click)="editProvider(row.id)"> Edit </button>
+                &nbsp;
+                <button mat-raised-button color="primary" (click)="openDialog(row.id)"> Delete </button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </mat-tab>
+
+        <mat-tab label="Settings">
+          <app-settings></app-settings>
+        </mat-tab>
+
+      </mat-tab-group>
     </div>
-
-
-
-             
-      </div>
-    </div>
-
-
+  </div>
+</div>

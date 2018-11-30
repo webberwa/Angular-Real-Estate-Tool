@@ -10,6 +10,8 @@ import {
 } from '../../apollo-angular-services';
 import { MatDialog } from '@angular/material';
 import Chart from 'chart.js';
+import { Alert } from 'src/app/site/alert/alert.service';
+import { AlertService } from '../../site/alert/alert.service';
 
 @Component({
   selector: 'app-investments-details',
@@ -25,7 +27,8 @@ export class InvestmentsDetailsComponent implements OnInit {
     private investmentGQL: GetInvestmentGQL,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private deleteExpenseGQL: DeleteExpenseGQL
+    private deleteExpenseGQL: DeleteExpenseGQL,
+    private alert: AlertService
   ) {
     this.route.paramMap.subscribe((res: any) => {
       this.investmentId = res.params.id;
@@ -160,6 +163,10 @@ export class InvestmentsDetailsComponent implements OnInit {
       })
       .subscribe(res => {
         console.log(res);
+        this.alert.open({
+          message: 'Expense deleted successfully!',
+          type: Alert.SUCCESS
+        });
       });
   }
 }

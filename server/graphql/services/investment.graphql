@@ -28,6 +28,7 @@ query getInvestment($where: InvestmentWhereUniqueInput!) {
       title
       description
       price
+      date
     }
   }
 }

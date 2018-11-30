@@ -1,13 +1,16 @@
 @import 'variables.scss';
 
 .Nav {
+
   // Fix for drop menu link
   .ng-star-inserted a {
     &:hover {
       cursor: pointer;
     }
+
     padding-bottom: 7px;
   }
+
   a {
     display: block;
     padding-bottom: 0 !important;
@@ -16,32 +19,38 @@
     margin: 0 1rem;
     font-family: $Heading-font;
     font-size: $Nav-size--primary;
+
     &:not(.Nav-logo):hover {
       text-decoration: none;
       border-bottom: 2px solid $Nav-color--text;
     }
   }
+
   .Nav-left {
     display: flex;
   }
+
   .Nav-right {
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
   }
+
   .Nav-logo {
     display: flex;
     justify-content: flex-start;
+
     img {
       width: 110px;
       height: 55px;
     }
   }
+
   .mat-toolbar {
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
-    background: lightgray;
+    background: #939393;
     min-width: 700px;
     height: 64px;
 

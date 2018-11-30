@@ -73,6 +73,7 @@ type Expense {
   description: String!
   price: Float
   investment: Investment!
+  date: String!
 }
 
 type Review {

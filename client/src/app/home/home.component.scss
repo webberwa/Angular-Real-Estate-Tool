@@ -6,6 +6,7 @@
   position: relative;
   background-size: cover;
   background-position: center center;
+
   &:before {
     content: '';
     position: absolute;
@@ -13,11 +14,9 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: linear-gradient(
-      to bottom,
+    background-image: linear-gradient(to bottom,
       rgba(0, 0, 0, 0.6) 0%,
-      rgba(162, 162, 162, 0.4) 25%
-    );
+      rgba(162, 162, 162, 0.4) 25%);
     opacity: 0.6;
   }
 
@@ -30,6 +29,7 @@
       text-align: center;
       margin-bottom: 15px;
     }
+
     h4 {
       text-align: center;
       color: darkgray;
@@ -47,7 +47,7 @@
 }
 
 body {
-  background:#212121;
+  background: #212121;
 }
 
 .a {
@@ -146,15 +146,17 @@ body {
     text-align: center;
     color: white;
 
-    h1, h2, h4 {
-      font-family: "Times New Roman", Times, serif;
+    h1,
+    h2,
+    h4 {
+      font-family: "Montserrat", Times, serif;
     }
 
     h1 {
       font-size: 3rem;
     }
 
-    h4{
+    h4 {
       color: lightgray;
     }
   }
@@ -183,6 +185,7 @@ body {
   .before-hover {
     display: none;
   }
+
   .after-hover {
     display: block;
   }

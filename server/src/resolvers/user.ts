@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 const speakeasy = require('speakeasy')
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-const TWO_HOUR = 2*60 * 60 * 1000; /* ms */
+const TWO_HOUR = 2 * 60 * 60 * 1000 /* ms */
 const pubsub = new PubSub()
 const USER_STATE_CHANGED = 'USER_STATE_CHANGED'
 
@@ -47,11 +47,10 @@ export const user = {
       console.log('test')
     },
     async createUser(root, args, ctx) {
-      
       const userCheck = await ctx.prisma.user({
         email: args.email
       })
-      console.log(userCheck);
+      console.log(userCheck)
       if (userCheck) {
         throw new Error(`This email already exists: ${args.email}`)
       }
@@ -140,13 +139,13 @@ export const user = {
         to: email,
         from: 'no-reply@oosre.com',
         subject: 'WBIT Password Reset',
-        html: `Reset your password using the following URL <a href="http://localhost:4200/reset-password?token=${token}">Reset Password</a>`
+        html: `Reset your password using the following URL <a href="http://localhost:4200/reset-password?token=${token}">Reset Password</a>\n Link expires in 2 hours`
       }
- 
+
       /**
        * 5. Add token expiration time
        */
-      const current_time = new Date();
+      const current_time = new Date()
       await ctx.prisma.updateUser({
         where: {
           email
@@ -155,7 +154,7 @@ export const user = {
           time_stamp: current_time
         }
       })
-      
+
       sgMail.send(msg)
       return true
     },
@@ -177,7 +176,7 @@ export const user = {
       const token_creation_time = Date.parse(user.time_stamp)
       const curr_time = Date.parse(new Date().toString())
       console.log(curr_time - token_creation_time)
-      if( curr_time - token_creation_time > TWO_HOUR ) {
+      if (curr_time - token_creation_time > TWO_HOUR) {
         throw new Error(`The token has expired please request another one`)
       }
 

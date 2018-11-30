@@ -4,6 +4,7 @@ import { Apollo } from 'apollo-angular';
 import { AddExpenseGQL, GetInvestmentGQL } from '../../apollo-angular-services';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { AlertService, Alert } from '../../site/alert/alert.service';
 
 @Component({
   selector: 'app-expenses-create',
@@ -25,6 +26,7 @@ export class ExpensesCreateComponent implements OnInit {
     private apollo: Apollo,
     private addExpenseGQL: AddExpenseGQL,
     private investmentGQL: GetInvestmentGQL,
+    private alert: AlertService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
@@ -35,6 +37,7 @@ export class ExpensesCreateComponent implements OnInit {
       title: this.expenseForm.get('title').value,
       description: this.expenseForm.get('description').value,
       price: parseFloat(this.expenseForm.get('price').value),
+      date: this.expenseForm.get('date').value,
       investment: {
         connect: {
           id: this.data.investmentId
@@ -64,6 +67,10 @@ export class ExpensesCreateComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         this.dialog.closeAll();
+        this.alert.open({
+          message: 'Expenses added successfully!',
+          type: Alert.SUCCESS
+        });
       });
   }
 }

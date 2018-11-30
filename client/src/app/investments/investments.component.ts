@@ -27,38 +27,58 @@ export class InvestmentsComponent {
 
   exportCSV() {
     this.investmentsService.getInvestments().subscribe(investments => {
-      const header = "data:text/csv;charset=utf-8,";
-      const title = "ADDRESS,MONTHLY RENT,MORTGAGE AMOUNT,MORTGAGE DOWNPAYMENT,MORTGAGE INTEREST RATE,MORTGAGE PERIOD,PRICE";
-      const body = investments.map(investment => {
-        console.log(this.generateCSV(investment));
-        return this.generateCSV(investment);
-      }).join("\n");
+      const header = 'data:text/csv;charset=utf-8,';
+      const title =
+        'ADDRESS,MONTHLY RENT,MORTGAGE AMOUNT,MORTGAGE DOWNPAYMENT,MORTGAGE INTEREST RATE,MORTGAGE PERIOD,PRICE';
+      const body = investments
+        .map(investment => {
+          console.log(this.generateCSV(investment));
+          return this.generateCSV(investment);
+        })
+        .join('\n');
 
-      const file = encodeURI(header+title+"\n"+body);
+      const file = encodeURI(header + title + '\n' + body);
       this.downloadCSV(file);
     });
   }
 
   private generateCSV(investment) {
-    return "\""+ investment.address + "\" ," +
-      "\""+ investment.monthly_rent + "\" ," +
-      "\""+ investment.mortgage_amount + "\" ," +
-      "\""+ investment.mortgage_downpayment + "\" ," +
-      "\""+ investment.mortgage_interest_rate + "\" ," +
-      "\""+ investment.mortgage_period + "\" ," +
-      "\""+ investment.price + "\"";
+    return (
+      '"' +
+      investment.address +
+      '" ,' +
+      '"' +
+      investment.monthly_rent +
+      '" ,' +
+      '"' +
+      investment.mortgage_amount +
+      '" ,' +
+      '"' +
+      investment.mortgage_downpayment +
+      '" ,' +
+      '"' +
+      investment.mortgage_interest_rate +
+      '" ,' +
+      '"' +
+      investment.mortgage_period +
+      '" ,' +
+      '"' +
+      investment.price +
+      '"'
+    );
   }
 
   private getNowDate() {
     const now = new Date();
-    return now.getFullYear()+"_"+now.getMonth()+"_"+now.getDate();
+    return now.getFullYear() + '_' + now.getMonth() + '_' + now.getDate();
   }
 
   private downloadCSV(file) {
     const hiddenElement = document.createElement('a');
     hiddenElement.href = file;
     hiddenElement.target = '_blank';
-    hiddenElement.download = "oosre_"+this.getNowDate()+"_my_investments.csv";
+    hiddenElement.download =
+      'oosre_' + this.getNowDate() + '_my_investments.csv';
     hiddenElement.click();
   }
 }

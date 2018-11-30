@@ -162,11 +162,11 @@ export class UserService {
     this.isAuthenticated = false;
     localStorage.removeItem('token');
     this.apollo.getClient().resetStore();
+    this.router.navigate(['/']);
     this.alert.open({
       message: 'Logout successful',
       type: Alert.SUCCESS
     });
-    this.router.navigate(['/']);
   }
 
   createUser(email, password, firstname, lastname) {
@@ -185,15 +185,14 @@ export class UserService {
           if (res.hasOwnProperty('errors')) {
             this.dialog.closeAll();
             this.alert.open({
-              message:
-                res.errors[0].message,
+              message: res.errors[0].message,
               type: Alert.ERROR
             });
           } else {
-          console.log(res);
-          const token = res.data.createUser.token;
-          this.storeTokenToLocalStorage(token);
-          location.reload();
+            console.log(res);
+            const token = res.data.createUser.token;
+            this.storeTokenToLocalStorage(token);
+            location.reload();
           }
         },
         err => {
@@ -303,24 +302,22 @@ export class UserService {
           token
         }
       })
-      .subscribe(
-        res => {
-          if (res.hasOwnProperty('errors')) {
-            this.dialog.closeAll();
-            this.alert.open({
-              message:
-                res.errors[0].message,
-              type: Alert.ERROR
-            });
-          } else {
-            this.dialog.closeAll();
-            this.alert.open({
-              message: 'You have successfully reset your password',
-              type: Alert.SUCCESS
-            });
+      .subscribe(res => {
+        if (res.hasOwnProperty('errors')) {
+          this.dialog.closeAll();
+          this.alert.open({
+            message: res.errors[0].message,
+            type: Alert.ERROR
+          });
+        } else {
+          this.dialog.closeAll();
+          this.alert.open({
+            message: 'You have successfully reset your password',
+            type: Alert.SUCCESS
+          });
         }
-          this.router.navigate(['/']);
-        });
+        this.router.navigate(['/']);
+      });
   }
 
   storeTokenToLocalStorage(jwt) {

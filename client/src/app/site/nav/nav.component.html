@@ -2,46 +2,35 @@
   <mat-toolbar>
 
     <div class="Nav-left">
-      <a class="Nav-logo"
-        routerLink="/"
-        routerLinkActive="active"><img src="/assets/image/OOSRE_logo_text.png"></a>
+      <a class="Nav-logo" routerLink="/" routerLinkActive="active"><img src="/assets/image/OOSRE_logo_text.png"></a>
     </div><!-- /.Nav-left -->
 
     <div class="Nav-right">
 
-      <a routerLink="/investments"
-        routerLinkActive="active">Track Investments</a>
+      <a routerLink="/investments" routerLinkActive="active">Track Investments</a>
 
-      <a routerLink="/providers"
-        routerLinkActive="active">Browse Providers</a>
+      <a routerLink="/providers" routerLinkActive="active">Browse Providers</a>
 
       <div *ngIf="(user.isAuthenticated$ | async) || user.isAuthenticated; else showGuest">
 
-        <a [matMenuTriggerFor]="appMenu">
+        <a [matMenuTriggerFor]="appMenu" style="color:white;">
           <span *ngIf="user.me$ | async as user">
             {{ user.email }}
           </span>
         </a>
 
         <mat-menu #appMenu="matMenu">
-          <button mat-menu-item
-            routerLink="/profile"
-            routerLinkActive="active">Profile</button>
-          <button mat-menu-item
-            routerLink="/settings"
-            routerLinkActive="active">Settings</button>
-          <button (click)="user.logout()"
-            mat-menu-item>
+          <button mat-menu-item routerLink="/profile" routerLinkActive="active">Profile</button>
+          <button mat-menu-item routerLink="/settings" routerLinkActive="active">Settings</button>
+          <button (click)="user.logout()" mat-menu-item>
             Log Out
           </button>
         </mat-menu>
       </div>
 
       <ng-template #showGuest>
-        <a routerLink="/signup"
-          routerLinkActive="active">Sign Up</a>
-        <a routerLink="/login"
-          routerLinkActive="active">Log In</a>
+        <a routerLink="/signup" routerLinkActive="active">Sign Up</a>
+        <a routerLink="/login" routerLinkActive="active">Log In</a>
       </ng-template>
 
     </div><!-- /.Nav-right -->
