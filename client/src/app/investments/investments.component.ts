@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { InvestmentsCreateDialogComponent } from './investments-create-dialog/investments-create-dialog.component';
 import { InvestmentsService } from './investments.service';
+import { investment } from '../../../../server/src/resolvers/investment';
 @Component({
   selector: 'app-investments',
   templateUrl: './investments.component.html',
@@ -27,9 +28,11 @@ export class InvestmentsComponent {
 
   exportCSV() {
     this.investmentsService.getInvestments().subscribe(investments => {
+      console.log(investments);
+
       const header = 'data:text/csv;charset=utf-8,';
       const title =
-        'ADDRESS,MONTHLY RENT,MORTGAGE AMOUNT,MORTGAGE DOWNPAYMENT,MORTGAGE INTEREST RATE,MORTGAGE PERIOD,PRICE';
+        'PURCHASE DATE, ADDRESS,MONTHLY RENT,MORTGAGE AMOUNT,MORTGAGE DOWNPAYMENT,MORTGAGE INTEREST RATE,MORTGAGE PERIOD,PRICE';
       const body = investments
         .map(investment => {
           console.log(this.generateCSV(investment));
@@ -38,12 +41,20 @@ export class InvestmentsComponent {
         .join('\n');
 
       const file = encodeURI(header + title + '\n' + body);
-      this.downloadCSV(file);
+      // this.downloadCSV(file);
     });
   }
 
   private generateCSV(investment) {
+    console.log(investment);
+
+    const expenses = investment.expenses;
+    console.log(expenses);
+
     return (
+      '"' +
+      investment.purchase_date +
+      '" ,' +
       '"' +
       investment.address +
       '" ,' +
@@ -64,6 +75,9 @@ export class InvestmentsComponent {
       '" ,' +
       '"' +
       investment.price +
+      '" ,' +
+      '"' +
+      expenses +
       '"'
     );
   }

@@ -12,6 +12,8 @@ import { MatDialog } from '@angular/material';
 import Chart from 'chart.js';
 import { Alert } from 'src/app/site/alert/alert.service';
 import { AlertService } from '../../site/alert/alert.service';
+import { ConfirmComponent } from '../../site/confirm/confirm.component';
+import { ExpenseEditComponent } from 'src/app/investment/expense-edit/expense-edit.component';
 
 @Component({
   selector: 'app-investments-details',
@@ -130,12 +132,40 @@ export class InvestmentsDetailsComponent implements OnInit {
     this.investmentChart = new Chart(ctx, config);
   }
 
+  editExpense(id) {
+    this.dialog.open(ExpenseEditComponent, {
+      width: '600px',
+      autoFocus: false,
+      data: {
+        expenseId: id,
+        investmentId: this.investment.id
+      }
+    });
+  }
+
   openExpenseDialog() {
     this.dialog.open(ExpensesCreateComponent, {
       width: '600px',
       autoFocus: false,
       data: {
         investmentId: this.investmentId
+      }
+    });
+  }
+
+  openDeleteDialog(id) {
+    const dialog = this.dialog.open(ConfirmComponent, {
+      width: '600px',
+      autoFocus: false
+    });
+
+    dialog.afterClosed().subscribe(res => {
+      console.log(res);
+      const confirm = dialog.componentInstance.confirm;
+      console.log(confirm);
+
+      if (confirm) {
+        this.deleteExpense(id);
       }
     });
   }

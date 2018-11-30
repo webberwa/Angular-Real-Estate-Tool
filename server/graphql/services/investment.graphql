@@ -9,6 +9,13 @@ query investments {
     mortgage_interest_rate
     mortgage_period
     purchase_date
+    expenses {
+      id
+      title
+      description
+      price
+      date
+    }
   }
 }
 

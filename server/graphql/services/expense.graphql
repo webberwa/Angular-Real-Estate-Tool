@@ -1,9 +1,27 @@
+query expense($where: ExpenseWhereUniqueInput) {
+  expense(where: $where) {
+    id
+    title
+    description
+    price
+    date
+  }
+}
+
 mutation addExpense($data: ExpenseCreateInput!) {
   addExpense(data: $data) {
     id
   }
 }
 
+mutation updateExpense(
+  $data: ExpenseUpdateInput!
+  $where: ExpenseWhereUniqueInput!
+) {
+  updateExpense(data: $data, where: $where) {
+    id
+  }
+}
 mutation deleteExpense($where: ExpenseWhereUniqueInput!) {
   deleteExpense(where: $where) {
     id

@@ -14,6 +14,8 @@
 # import InvestmentWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
 # import InvestmentUpdateInput from 'prisma/__generated__/prisma.graphql'
 
+# import ExpenseWhereUniqueInput from 'prisma/__generated__/prisma.graphql'
+
 type Query {
   investments: [Investment!]!
   getInvestment(where: InvestmentWhereUniqueInput): Investment!
@@ -23,6 +25,7 @@ type Query {
   provider(where: ProviderWhereUniqueInput): Provider!
   reviews(where: ReviewWhereInput, orderBy: ReviewOrderByInput): [Review!]!
   expenses: [Expense!]!
+  expense(where: ExpenseWhereUniqueInput): Expense!
 }
 
 type ProviderFeed {
@@ -63,6 +66,10 @@ type Mutation {
   # Expense
   addExpense(data: ExpenseCreateInput!): Expense!
   deleteExpense(where: ExpenseWhereUniqueInput!): Expense!
+  updateExpense(
+    data: ExpenseUpdateInput!
+    where: ExpenseWhereUniqueInput!
+  ): Expense!
 
   test: Boolean
 }
