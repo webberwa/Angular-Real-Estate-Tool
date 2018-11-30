@@ -11,7 +11,7 @@
     "gcloud:activate": "gcloud config configurations activate wbit"
   },
   "engines": {
-    "node": "8.x.x"
+    "node": "x.x.x"
   },
   "dependencies": {
     "apollo-angular": "^1.4.1",

@@ -21,7 +21,9 @@
 
         <mat-menu #appMenu="matMenu">
           <button mat-menu-item routerLink="/profile" routerLinkActive="active">Profile</button>
-          <button mat-menu-item routerLink="/settings" routerLinkActive="active">Settings</button>
+
+          <!-- <button mat-menu-item routerLink="/settings" routerLinkActive="active">Settings</button> -->
+
           <button (click)="user.logout()" mat-menu-item>
             Log Out
           </button>
