@@ -14,6 +14,7 @@ import { EMPTY } from 'rxjs';
 import { ProvidersGQL } from 'src/app/apollo-angular-services';
 import { CreateProviderFormComponent } from '../create-provider-form/create-provider-form.component';
 import {UserService} from "../../user/user.service";
+import {ZipDialogComponent} from "./zip-dialog/zip-dialog.component";
 
 @Component({
   selector: 'app-providers',
@@ -33,7 +34,7 @@ export class ProvidersComponent implements OnInit {
   // number of items per page
   pageSize = 10;
 
-  loading = true;
+  loading = false;
 
   addNewProvider = false;
 
@@ -51,12 +52,37 @@ export class ProvidersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.allProviders = this.providersService.searchProviders();
-    this.allProviders.subscribe((data: any) => {
-      this.loading = false;
-    });
-
     this.providerTypes = this.providersService.getProviderTypes();
+
+    if (this.userService.isAuthenticated) {
+      this.search()
+
+    } else {
+      if (localStorage.getItem('wbit_has_zip_code')) {
+        this.updateSearchText(localStorage.getItem('wbit_zip_code'));
+        this.search();
+
+      } else {
+        this.dialog.open(ZipDialogComponent, {
+          width: '600px',
+          autoFocus: true
+        }).afterClosed().subscribe(() => {
+          this.updateSearchText(localStorage.getItem('wbit_zip_code'));
+          this.search();
+        });
+      }
+    }
+  }
+
+  private updateSearchText(text: string) {
+    if (text == null || text == undefined) {
+      text = "";
+    }
+
+    this.searchForm.patchValue({text: text});
+    this.providersService.searchInput = text;
+    this.searchForm.markAsDirty();
+    this.ref.detectChanges();
   }
 
   handleChange(text) {

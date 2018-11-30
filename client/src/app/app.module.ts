@@ -64,6 +64,7 @@ import { ReviewComponent } from './profile/review/review.component';
 import { AddReviewFormComponent } from './profile/review/add-review-form/add-review-form.component';
 import { Deletepop1Component } from './profile/profile/deletepop1/deletepop1.component';
 import { AutoCompleteAddressDirective } from './auto-complete-address.directive';
+import {ZipDialogComponent} from "./profile/providers/zip-dialog/zip-dialog.component";
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'left',
@@ -175,7 +176,8 @@ export function getAuthServiceConfigs() {
     Deletepop1Component,
     DialogOverviewExampleDialog,
     confirmDialog,
-    AutoCompleteAddressDirective
+    AutoCompleteAddressDirective,
+    ZipDialogComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -218,7 +220,8 @@ export function getAuthServiceConfigs() {
     AddReviewFormComponent,
     ExpensesCreateComponent,
     DialogOverviewExampleDialog,
-    confirmDialog
+    confirmDialog,
+    ZipDialogComponent
   ]
 })
 export class AppModule {
