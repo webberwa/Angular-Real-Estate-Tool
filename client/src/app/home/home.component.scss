@@ -78,7 +78,7 @@ body {
   transform: skew(-20deg);
   transition: width 0.5s ease;
   position: absolute;
-  z-index: 9999;
+  z-index: 998;
 }
 
 .c {
@@ -142,7 +142,7 @@ body {
 
   .content {
     position: absolute;
-    z-index: 999;
+    z-index: 500;
     text-align: center;
     color: white;
 
@@ -195,6 +195,6 @@ body {
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 1000;
+  z-index: 998;
   cursor: pointer;
 }

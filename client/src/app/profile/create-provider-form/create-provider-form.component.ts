@@ -87,7 +87,7 @@ export class CreateProviderFormComponent implements OnInit {
         ])
       ],
       state: [
-        find(this.providers.states, ['abbr', this.provider.state]),
+        this.provider.state,
         Validators.required
       ],
       zip: [

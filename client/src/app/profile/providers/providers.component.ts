@@ -97,6 +97,8 @@ export class ProvidersComponent implements AfterViewInit {
     this.loading = true;
     this.noProvider = false;
     this.allProviders = EMPTY;
+    this.providersService.pageIndex = 1;
+    this.providersService.searchSkip = 0;
 
     clearTimeout(this.searchTimer);
 
@@ -119,8 +121,14 @@ export class ProvidersComponent implements AfterViewInit {
   }
 
   onPaginateChange(page_index) {
+    this.loading = true;
+    this.noProvider = false;
+    this.allProviders = EMPTY;
+    this.providersService.pageIndex = page_index;
     this.providersService.searchSkip = (page_index-1) * this.pageSize;
-    this.setSearchingTimer(false);
+
+    this.search();
+    this.ref.detectChanges();
   }
 
   openAddNewProviderPopup() {
