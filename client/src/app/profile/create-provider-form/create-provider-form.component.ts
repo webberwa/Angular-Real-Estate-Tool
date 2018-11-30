@@ -86,10 +86,7 @@ export class CreateProviderFormComponent implements OnInit {
           Validators.pattern('^[a-zA-Z ]*$')
         ])
       ],
-      state: [
-        this.provider.state,
-        Validators.required
-      ],
+      state: [this.provider.state, Validators.required],
       zip: [
         this.provider.zip,
         Validators.compose([
@@ -116,10 +113,10 @@ export class CreateProviderFormComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(cb, args) {
-    const state = this.providers.getStateOptionValue(
-      this.providersForm.get('state').value
-    );
-    args[0].patchValue({ state });
+    // const state = this.providers.getStateOptionValue(
+    //   this.providersForm.get('state').value
+    // );
+    // args[0].patchValue({ state });
 
     cb.apply(this.providers, args);
   }

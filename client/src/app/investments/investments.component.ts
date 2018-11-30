@@ -32,7 +32,7 @@ export class InvestmentsComponent {
 
       const header = 'data:text/csv;charset=utf-8,';
       const title =
-        'PURCHASE DATE, ADDRESS,MONTHLY RENT,MORTGAGE AMOUNT,MORTGAGE DOWNPAYMENT,MORTGAGE INTEREST RATE,MORTGAGE PERIOD,PRICE';
+        'PURCHASE DATE, ADDRESS,MONTHLY RENT,MORTGAGE AMOUNT,MORTGAGE DOWNPAYMENT,MORTGAGE INTEREST RATE,MORTGAGE PERIOD,PRICE,EXPENSES';
       const body = investments
         .map(investment => {
           console.log(this.generateCSV(investment));
@@ -41,14 +41,26 @@ export class InvestmentsComponent {
         .join('\n');
 
       const file = encodeURI(header + title + '\n' + body);
-      // this.downloadCSV(file);
+      this.downloadCSV(file);
     });
   }
 
   private generateCSV(investment) {
-    console.log(investment);
+    let expenses = investment.expenses;
 
-    const expenses = investment.expenses;
+    console.log(expenses);
+
+    expenses = expenses.reduce((acc, expense) => {
+      console.log(acc);
+      console.log(expense);
+      acc += 'Title: ' + expense.title + '\r\n';
+      acc += 'Description: ' + expense.description + '\r\n';
+      acc += 'Price: ' + expense.price + '\r\n';
+      acc += 'Date: ' + expense.date + '\r\n';
+      acc += '\r\n';
+      return acc;
+    }, '');
+
     console.log(expenses);
 
     return (

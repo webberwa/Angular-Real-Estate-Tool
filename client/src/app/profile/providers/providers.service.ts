@@ -1,13 +1,12 @@
+import { MatDialog } from '@angular/material';
+import { Apollo } from 'apollo-angular';
+import { Injectable } from '@angular/core';
 
-import {MatDialog} from '@angular/material';
-import {Apollo} from 'apollo-angular';
-import {Injectable} from '@angular/core';
-
-import {UserService} from 'src/app/user/user.service';
-import {map} from 'rxjs/operators';
-import {find, findIndex} from 'lodash';
-import {BehaviorSubject} from 'rxjs';
-import {Alert, AlertService} from '../../site/alert/alert.service';
+import { UserService } from 'src/app/user/user.service';
+import { map } from 'rxjs/operators';
+import { find, findIndex } from 'lodash';
+import { BehaviorSubject } from 'rxjs';
+import { Alert, AlertService } from '../../site/alert/alert.service';
 
 import {
   AddProviderGQL,
@@ -37,8 +36,8 @@ export class ProvidersService {
   initial = true;
 
   myProviderQuery;
-//just try
-providerBeingEdited;
+  // just try
+  providerBeingEdited;
   serviceProviderTypes = [
     {
       label: 'All',
@@ -189,13 +188,14 @@ providerBeingEdited;
           return {
             providers: data.providers.data.slice(0, 10),
             hasNext: data.providers.data.length > 10
-          }
+          };
         })
       );
   }
 
   addProvider(form) {
     console.log('add provider');
+    console.log(form.get('state').value);
     this.apollo
       .mutate({
         mutation: this.addProvidersGQL.document,
@@ -208,10 +208,10 @@ providerBeingEdited;
             email: form.get('email').value,
             street: form.get('street').value,
             city: form.get('city').value,
-            state: form.get('state').value.abbr,
+            state: form.get('state').value,
             zip: form.get('zip').value,
-            long: form.get('long').value,
-            lat: form.get('lat').value
+            long: form.get('long').value || 0,
+            lat: form.get('lat').value || 0
           }
         }
       })
@@ -227,38 +227,46 @@ providerBeingEdited;
   updateProvider(form, id) {
     console.log(form);
     console.log(id);
-    this.providerBeingEdited=this.getProvider(id);
-    var n=form.get('name').value;
-    if(form.get('name').value==null)
-      n=this.providerBeingEdited.name;
-    
-    var t=form.get('type').value;
-    if(t==null)
-      t=this.providerBeingEdited.type;
-    
-    var p=form.get('phone_number').value;
-    if(p==null)
-      p=this.providerBeingEdited.phone_number;
-    
-    var e=form.get('email').value;
-    if(e==null)
-        e=this.providerBeingEdited.email;
+    this.providerBeingEdited = this.getProvider(id);
+    let n = form.get('name').value;
+    if (form.get('name').value == null) {
+      n = this.providerBeingEdited.name;
+    }
 
-    var s=form.get('street').value;
-    if(s==null)
-        s=this.providerBeingEdited.street;
+    let t = form.get('type').value;
+    if (t == null) {
+      t = this.providerBeingEdited.type;
+    }
 
-    var c=form.get('city').value;
-    if(c==null)
-            c=this.providerBeingEdited.city;
+    let p = form.get('phone_number').value;
+    if (p == null) {
+      p = this.providerBeingEdited.phone_number;
+    }
 
-    var st=form.get('state').value;
-    if(st==null)
-        st=this.providerBeingEdited.state;
-    
-    var z=form.get('zip').value;
-    if(z==null)
-        z=this.providerBeingEdited.zip;    
+    let e = form.get('email').value;
+    if (e == null) {
+      e = this.providerBeingEdited.email;
+    }
+
+    let s = form.get('street').value;
+    if (s == null) {
+      s = this.providerBeingEdited.street;
+    }
+
+    let c = form.get('city').value;
+    if (c == null) {
+      c = this.providerBeingEdited.city;
+    }
+
+    let st = form.get('state').value;
+    if (st == null) {
+      st = this.providerBeingEdited.state;
+    }
+
+    let z = form.get('zip').value;
+    if (z == null) {
+      z = this.providerBeingEdited.zip;
+    }
     this.apollo
       .mutate({
         mutation: this.updateProviderGQL.document,
@@ -280,6 +288,10 @@ providerBeingEdited;
         }
       })
       .subscribe(res => {
+        this.alert.open({
+          message: 'Provider updated successfully!',
+          type: Alert.SUCCESS
+        });
         this.dialog.closeAll();
         console.log(res);
       });
@@ -313,7 +325,12 @@ providerBeingEdited;
           }
         }
       })
-      .subscribe();
+      .subscribe(() => {
+        this.alert.open({
+          message: 'Provider deleted successfully!',
+          type: Alert.SUCCESS
+        });
+      });
   }
 
   getProviderTypes() {
@@ -333,6 +350,13 @@ providerBeingEdited;
   }
 
   formatPhoneNumber(phoneNumber: string) {
-    return "("+phoneNumber.substr(0, 3)+") "+phoneNumber.substr(3, 3)+"-"+phoneNumber.substr(6);
+    return (
+      '(' +
+      phoneNumber.substr(0, 3) +
+      ') ' +
+      phoneNumber.substr(3, 3) +
+      '-' +
+      phoneNumber.substr(6)
+    );
   }
 }

@@ -1,5 +1,8 @@
 <div *ngIf="loading">
-  <img class="loading-img" src="../../assets/image/loading_provider_detail.gif" />
+  <img
+    class="loading-img"
+    src="../../assets/image/loading_provider_detail.gif"
+  />
 </div>
 
 <div class="container" *ngIf="!loading">
@@ -22,37 +25,47 @@
           (click)="openEditProviderDialog()"
           [hidden]="!this.userService.isAuthenticated"
           matTooltip="Edit this provider's profile"
-          mat-button>
+          mat-button
+        >
           <mat-icon>mode_edit</mat-icon>
         </button>
         <span class="Provider-verificationStatus">
-          <span
-            *ngIf="provider.is_verified === true; else: unverified"
-          >
+          <span *ngIf="provider.is_verified === true; else: unverified">
             <i class="material-icons success"> check_circle_outline </i>
             Verified
           </span>
           <ng-template #unverified> </ng-template>
         </span>
       </h1>
-      <app-providers-review-snippet [provider]="provider"></app-providers-review-snippet>
+      <app-providers-review-snippet
+        [provider]="provider"
+      ></app-providers-review-snippet>
 
       <br />
       <p class="mb-0">{{ provider.street }}</p>
       <p class="mb-0">
-        {{ provider.city }}, {{ provider.state }}
-        {{ provider.zip }}
+        {{ provider.city }}, {{ provider.state }} {{ provider.zip }}
       </p>
     </div>
     <!-- /.col-sm-6 -->
 
     <div class="col-sm-4 map">
-      <img class="invalid-map" *ngIf="hasInvalidGeographicLocation(provider.long, provider.lat)"
-           src="../../assets/image/invalid_location.png" />
-      <agm-map *ngIf="!hasInvalidGeographicLocation(provider.long, provider.lat)"
-               [latitude]="provider.lat" [longitude]="provider.long"
-        [zoom]="14" [streetViewControl]="false">
-        <agm-marker [latitude]="provider.lat" [longitude]="provider.long"></agm-marker>
+      <img
+        class="invalid-map"
+        *ngIf="hasInvalidGeographicLocation(provider.long, provider.lat)"
+        src="../../assets/image/invalid_location.png"
+      />
+      <agm-map
+        *ngIf="!hasInvalidGeographicLocation(provider.long, provider.lat)"
+        [latitude]="provider.lat"
+        [longitude]="provider.long"
+        [zoom]="14"
+        [streetViewControl]="false"
+      >
+        <agm-marker
+          [latitude]="provider.lat"
+          [longitude]="provider.long"
+        ></agm-marker>
       </agm-map>
     </div>
   </div>
@@ -63,20 +76,22 @@
     <div class="col-sm-8">
       <div
         class="add-review-btn outer-button"
-        matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can write a review'}}">
+        matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can write a review'}}"
+      >
         <button
           mat-raised-button
           color="primary"
           (click)="addReview()"
-          [disabled]="!this.userService.isAuthenticated">
+          [disabled]="!this.userService.isAuthenticated"
+        >
           Write a Review
         </button>
       </div>
       <h4>Community Reviews</h4>
-      <div class="no-review-msg"
-           *ngIf="provider.reviews?.length == 0">
-        <span>No review found.</span><br/>
-        <span [hidden]="!this.userService.isAuthenticated">Be the first to
+      <div class="no-review-msg" *ngIf="provider.reviews?.length == 0">
+        <span>No review found.</span><br />
+        <span [hidden]="!this.userService.isAuthenticated"
+          >Be the first to
           <span class="new-review-link" (click)="addReview()">review!</span>
         </span>
       </div>
@@ -95,9 +110,7 @@
       <h4 class="mb-4">Contact Provider</h4>
       <h6 class="mb-2">Email:</h6>
       <p class="mb-3">
-        <a href="mailto:{{provider.email}}">
-          {{ provider.email }}
-        </a>
+        <a href="mailto:{{provider.email}}"> {{ provider.email }} </a>
       </p>
       <h6 class="mb-2">Phone Number:</h6>
       <p class="mb-3">
