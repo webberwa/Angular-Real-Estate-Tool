@@ -21,7 +21,7 @@ export class ProvidersDetailsComponent implements OnInit {
     private dialog: MatDialog,
     private router: Router,
     private route: ActivatedRoute,
-    private providersService: ProvidersService,
+    public providersService: ProvidersService,
     public userService: UserService
   ) {
     route.paramMap.subscribe((res: any) => {

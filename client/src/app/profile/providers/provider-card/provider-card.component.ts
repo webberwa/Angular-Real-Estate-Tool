@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {ProvidersService} from "../providers.service";
 
 @Component({
   selector: 'app-provider-card',
@@ -8,11 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ProviderCardComponent implements OnInit {
   @Input()
   provider;
-  constructor() {}
+  constructor(public providersService: ProvidersService) {}
 
   ngOnInit() {}
-
-  formatPhoneNumber(phoneNumber: string) {
-    return "("+phoneNumber.substr(0, 3)+") "+phoneNumber.substr(3, 3)+"-"+phoneNumber.substr(6);
-  }
 }

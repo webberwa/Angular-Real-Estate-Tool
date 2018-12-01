@@ -61,16 +61,16 @@ export class ProvidersComponent implements AfterViewInit {
 
     if (this.userService.isAuthenticated) {
       this.setSearchingTimer(false)
-
-    } else {
-      this.dialog.open(ZipDialogComponent, {
-        width: '600px',
-        autoFocus: true
-      }).afterClosed().subscribe((result) => {
-        this.updateSearchText(result);
-        this.setSearchingTimer(false);
-      });
+      return;
     }
+
+    this.dialog.open(ZipDialogComponent, {
+      width: '600px',
+      autoFocus: true
+    }).afterClosed().subscribe((result) => {
+      this.updateSearchText(result);
+      this.setSearchingTimer(false);
+    });
   }
 
   private updateSearchText(text: string) {

@@ -296,4 +296,8 @@ export class ProvidersService {
   getStateOptionValue(state) {
     return find(this.states, { abbr: state });
   }
+
+  formatPhoneNumber(phoneNumber: string) {
+    return "("+phoneNumber.substr(0, 3)+") "+phoneNumber.substr(3, 3)+"-"+phoneNumber.substr(6);
+  }
 }

@@ -95,7 +95,7 @@
       <h6 class="mb-2">Phone Number:</h6>
       <p class="mb-3">
         <a href="tel:{{(provider|async).phone_number}}">
-          {{ (provider | async).phone_number }}
+          {{ this.providersService.formatPhoneNumber((provider|async).phone_number) }}
         </a>
       </p>
     </div>
