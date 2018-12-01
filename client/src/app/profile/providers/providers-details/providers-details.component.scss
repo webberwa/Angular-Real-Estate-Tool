@@ -61,3 +61,14 @@
   padding: 0;
   border-radius: 18px;
 }
+
+.row {
+  .no-review-msg {
+    color: gray;
+  }
+
+  .new-review-link {
+    color: blue;
+    cursor: pointer;
+  }
+}

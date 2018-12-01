@@ -66,6 +66,13 @@
   <div class="row">
     <div class="col-sm-8">
       <h4>Community Reviews</h4>
+      <div class="no-review-msg"
+           *ngIf="(provider | async)?.reviews?.length == 0">
+        <span>No review found.</span><br/>
+        <span [hidden]="!this.userService.isAuthenticated">Be the first to
+          <span class="new-review-link" (click)="addReview()">review!</span>
+        </span>
+      </div>
       <div *ngFor="let review of (provider | async)?.reviews">
         <hr />
         <bar-rating
