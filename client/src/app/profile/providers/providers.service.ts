@@ -31,6 +31,7 @@ export class ProvidersService {
   searchType = '';
   searchSkip = 0;
   allProviders;
+  initial = true;
 
   myProviderQuery;
 
@@ -140,6 +141,8 @@ export class ProvidersService {
   }
 
   searchProviders() {
+    this.initial = false;
+
     const inputs = this.searchInput.split(/\s+/);
     const input_states = this.states.filter(
       state => inputs.includes(state.abbr) || inputs.includes(state.name)
@@ -199,7 +202,7 @@ export class ProvidersService {
             email: form.get('email').value,
             street: form.get('street').value,
             city: form.get('city').value,
-            state: form.get('state').value,
+            state: form.get('state').value.abbr,
             zip: form.get('zip').value
           }
         }

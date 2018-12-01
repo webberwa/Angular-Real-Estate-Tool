@@ -22,7 +22,7 @@ import {ZipDialogComponent} from "./zip-dialog/zip-dialog.component";
   styleUrls: ['./providers.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProvidersComponent implements OnInit {
+export class ProvidersComponent implements OnInit, AfterViewInit {
   allProviders;
   searchForm = new FormGroup({
     text: new FormControl(''),
@@ -49,28 +49,27 @@ export class ProvidersComponent implements OnInit {
     private providersService: ProvidersService,
     private dialog: MatDialog,
     public userService: UserService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.providerTypes = this.providersService.getProviderTypes();
+  }
+
+  ngAfterViewInit() {
+    if (false == this.providersService.initial) {
+      this.search();
+      return;
+    }
 
     if (this.userService.isAuthenticated) {
-      this.search()
+      this.setSearchingTimer(false)
 
     } else {
-      if (localStorage.getItem('wbit_has_zip_code')) {
-        this.updateSearchText(localStorage.getItem('wbit_zip_code'));
-        this.search();
-
-      } else {
-        this.dialog.open(ZipDialogComponent, {
-          width: '600px',
-          autoFocus: true
-        }).afterClosed().subscribe(() => {
-          this.updateSearchText(localStorage.getItem('wbit_zip_code'));
-          this.search();
-        });
-      }
+      this.dialog.open(ZipDialogComponent, {
+        width: '600px',
+        autoFocus: true
+      }).afterClosed().subscribe((result) => {
+        this.updateSearchText(result);
+        this.setSearchingTimer(false);
+      });
     }
   }
 
@@ -87,30 +86,37 @@ export class ProvidersComponent implements OnInit {
 
   handleChange(text) {
     this.providersService.searchInput = text;
-    this.search();
+    this.setSearchingTimer();
   }
 
   handleTypeChange(type) {
     this.providersService.searchType = type;
-    this.search();
+    this.setSearchingTimer();
   }
 
-  search() {
+  setSearchingTimer(pending: boolean = true) {
     this.loading = true;
     this.addNewProvider = false;
     this.allProviders = EMPTY;
 
     clearTimeout(this.searchTimer);
-    this.searchTimer = setTimeout(() => {
-      this.allProviders = this.providersService.searchProviders();
-      this.allProviders.subscribe((data: any) => {
-        this.loading = false;
 
-        if (data == null || data.data == null || data.data.length === 0) {
-          this.addNewProvider = true;
-        }
-      });
-    }, 1000);
+    if (pending) {
+      this.searchTimer = setTimeout(() => this.search(), 1000);
+    }else{
+      this.search();
+    }
+  }
+
+  private search() {
+    this.allProviders = this.providersService.searchProviders();
+    this.allProviders.subscribe((data: any) => {
+      this.loading = false;
+
+      if (data == null || data.data == null || data.data.length === 0) {
+        this.addNewProvider = true;
+      }
+    });
   }
 
   onPaginateChange(event) {

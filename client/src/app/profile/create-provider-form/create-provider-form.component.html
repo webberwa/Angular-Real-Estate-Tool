@@ -115,7 +115,7 @@
           <mat-option>None</mat-option>
           <mat-option
             *ngFor="let state of this.providers.states"
-            [value]="providers.getStateOptionValue(state.abbr)"
+            [value]="state.abbr"
             >{{ state.abbr }}</mat-option
           >
         </mat-select>
