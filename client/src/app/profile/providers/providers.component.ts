@@ -22,7 +22,7 @@ import {ZipDialogComponent} from "./zip-dialog/zip-dialog.component";
   styleUrls: ['./providers.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProvidersComponent implements OnInit, AfterViewInit {
+export class ProvidersComponent implements AfterViewInit {
   allProviders;
   searchForm = new FormGroup({
     text: new FormControl(''),

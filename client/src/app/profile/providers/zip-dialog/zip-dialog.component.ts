@@ -11,7 +11,7 @@ export class ZipDialogComponent implements OnInit {
   zipForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private dialogRef: MatDialogRef) {
+              private dialogRef: MatDialogRef<any>) {
     this.zipForm = this.formBuilder.group({
       zip: [
         '',
