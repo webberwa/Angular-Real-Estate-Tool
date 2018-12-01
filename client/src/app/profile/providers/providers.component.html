@@ -5,7 +5,7 @@
     <div class="col-sm-12">
       <div class="">
         <form class="row" [formGroup]="searchForm">
-          <div class="col-sm-6">
+          <div class="col-sm-7">
             <mat-form-field class="info">
               <mat-label>Search by:</mat-label>
               <input
@@ -39,7 +39,7 @@
       </div>
     </div>
     <!-- Providers -->
-    <div class="col-sm-9">
+    <div class="col-sm-10">
       <div class="row">
         <div class="col-sm-12">
           <span class="new-provider-msg" [hidden]="loading || !noProvider">There are no providers found.<br/></span>
@@ -48,15 +48,9 @@
           </span>
         </div>
         <div class="col-sm-12" [hidden]="!loading">
-          <mat-progress-bar
-            class="loading"
-            mode="indeterminate"
-          ></mat-progress-bar>
+          <img class="loading-img" src="../../assets/image/loading_providers.gif" />
         </div>
-        <div
-          class="col-sm-12"
-          *ngFor="let provider of (allProviders | async)?.providers"
-        >
+        <div class="col-sm-12" *ngFor="let provider of (allProviders | async)?.providers">
           <app-provider-card [provider]="provider"> </app-provider-card>
         </div>
         <app-paginator class="col-sm-12" [hidden]="loading"

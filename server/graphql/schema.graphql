@@ -132,6 +132,8 @@ type Provider {
   city: String
   state: String
   zip: String
+  long: Float
+  lat: Float
 }
 
 type AuthPayload {

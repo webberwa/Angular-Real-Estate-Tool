@@ -207,7 +207,9 @@ export class ProvidersService {
             street: form.get('street').value,
             city: form.get('city').value,
             state: form.get('state').value.abbr,
-            zip: form.get('zip').value
+            zip: form.get('zip').value,
+            long: form.get('long').value,
+            lat: form.get('lat').value
           }
         }
       })
@@ -236,7 +238,9 @@ export class ProvidersService {
             street: form.get('street').value,
             city: form.get('city').value,
             state: form.get('state').value.abbr,
-            zip: form.get('zip').value
+            zip: form.get('zip').value,
+            long: form.get('long').value,
+            lat: form.get('lat').value
           },
           where: {
             id

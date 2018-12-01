@@ -50,9 +50,38 @@
   color: gray;
 }
 
+.Social-share--container{
+  float: right;
+}
+
+.map {
+  height: 230px;
+  border: 3px solid gray;
+  padding: 0;
+
+  agm-map {
+    height: 100%;
+  }
+
+  .invalid-map {
+    display: block;
+    margin: 13px auto;
+    opacity: 0.2;
+  }
+}
+
 .outer-button {
   width: fit-content;
   height: fit-content;
+}
+
+.add-review-btn {
+  float: right;
+
+  button {
+    height: 28px;
+    line-height: 28px;
+  }
 }
 
 .edit-profile {
@@ -71,4 +100,9 @@
     color: blue;
     cursor: pointer;
   }
+}
+
+.loading-img {
+  margin: auto;
+  display: block;
 }

@@ -35,6 +35,8 @@ type Provider {
   zip: String!
   is_verified: Boolean! @default(value: false)
   owner: User
+  long: Float
+  lat: Float
 }
 
 type User {

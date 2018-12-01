@@ -1,55 +1,11 @@
-<div class="container" *ngIf="(provider | async)">
+<div *ngIf="loading">
+  <img class="loading-img" src="../../assets/image/loading_provider_detail.gif" />
+</div>
+
+<div class="container" *ngIf="!loading">
   <div class="row">
-    <div class="col-sm-6">
-      <h1 class="Review-title">
-        <span>{{ (provider | async)?.name }}</span>
-        <button
-          class="edit-profile"
-          (click)="openEditProviderDialog()"
-          [hidden]="!this.userService.isAuthenticated"
-          matTooltip="Edit this provider's profile"
-          mat-button
-        >
-          <mat-icon>mode_edit</mat-icon>
-        </button>
-        <span class="Provider-verificationStatus">
-          <span
-            *ngIf="(provider | async)?.is_verified === true; else: unverified"
-          >
-            <i class="material-icons success"> check_circle_outline </i>
-            Verified
-          </span>
-          <ng-template #unverified> </ng-template>
-        </span>
-      </h1>
-      <app-providers-review-snippet
-        [provider]="provider | async"
-      ></app-providers-review-snippet>
-
-      <br />
-      <p class="mb-0">{{ (provider | async).street }}</p>
-      <p class="mb-0">
-        {{ (provider | async).city }}, {{ (provider | async).state }}
-        {{ (provider | async).zip }}
-      </p>
-    </div>
-    <!-- /.col-sm-6 -->
-
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       <div class="Social-share--container">
-        <div
-          class="Social-share--containerLeft outer-button"
-          matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can write a review'}}"
-        >
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="addReview()"
-            [disabled]="!this.userService.isAuthenticated"
-          >
-            Write a Review
-          </button>
-        </div>
         <div class="Social-share--containerRight">
           <span class="Social-share Social-share--fb">
             <fb-like></fb-like>
@@ -58,6 +14,46 @@
           <span class="Social-share"> <tweet text="WBIT"></tweet> </span>
         </div>
       </div>
+
+      <h1 class="Review-title">
+        <span>{{ provider.name }}</span>
+        <button
+          class="edit-profile"
+          (click)="openEditProviderDialog()"
+          [hidden]="!this.userService.isAuthenticated"
+          matTooltip="Edit this provider's profile"
+          mat-button>
+          <mat-icon>mode_edit</mat-icon>
+        </button>
+        <span class="Provider-verificationStatus">
+          <span
+            *ngIf="provider.is_verified === true; else: unverified"
+          >
+            <i class="material-icons success"> check_circle_outline </i>
+            Verified
+          </span>
+          <ng-template #unverified> </ng-template>
+        </span>
+      </h1>
+      <app-providers-review-snippet [provider]="provider"></app-providers-review-snippet>
+
+      <br />
+      <p class="mb-0">{{ provider.street }}</p>
+      <p class="mb-0">
+        {{ provider.city }}, {{ provider.state }}
+        {{ provider.zip }}
+      </p>
+    </div>
+    <!-- /.col-sm-6 -->
+
+    <div class="col-sm-4 map">
+      <img class="invalid-map" *ngIf="hasInvalidGeographicLocation(provider.long, provider.lat)"
+           src="../../assets/image/invalid_location.png" />
+      <agm-map *ngIf="!hasInvalidGeographicLocation(provider.long, provider.lat)"
+               [latitude]="provider.lat" [longitude]="provider.long"
+        [zoom]="14" [streetViewControl]="false">
+        <agm-marker [latitude]="provider.lat" [longitude]="provider.long"></agm-marker>
+      </agm-map>
     </div>
   </div>
 
@@ -65,15 +61,26 @@
 
   <div class="row">
     <div class="col-sm-8">
+      <div
+        class="add-review-btn outer-button"
+        matTooltip="{{this.userService.isAuthenticated ? '' : 'Only registered user can write a review'}}">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="addReview()"
+          [disabled]="!this.userService.isAuthenticated">
+          Write a Review
+        </button>
+      </div>
       <h4>Community Reviews</h4>
       <div class="no-review-msg"
-           *ngIf="(provider | async)?.reviews?.length == 0">
+           *ngIf="provider.reviews?.length == 0">
         <span>No review found.</span><br/>
         <span [hidden]="!this.userService.isAuthenticated">Be the first to
           <span class="new-review-link" (click)="addReview()">review!</span>
         </span>
       </div>
-      <div *ngFor="let review of (provider | async)?.reviews">
+      <div *ngFor="let review of provider.reviews">
         <hr />
         <bar-rating
           [rate]="review.rating"
@@ -88,14 +95,14 @@
       <h4 class="mb-4">Contact Provider</h4>
       <h6 class="mb-2">Email:</h6>
       <p class="mb-3">
-        <a href="mailto:{{(provider|async).email}}">
-          {{ (provider | async).email }}
+        <a href="mailto:{{provider.email}}">
+          {{ provider.email }}
         </a>
       </p>
       <h6 class="mb-2">Phone Number:</h6>
       <p class="mb-3">
-        <a href="tel:{{(provider|async).phone_number}}">
-          {{ this.providersService.formatPhoneNumber((provider|async).phone_number) }}
+        <a href="tel:{{provider.phone_number}}">
+          {{ this.providersService.formatPhoneNumber(provider.phone_number) }}
         </a>
       </p>
     </div>

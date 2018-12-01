@@ -39,6 +39,8 @@ export class AutoCompleteAddressDirective {
     const city = place.address_components.filter(item => item.types.includes("locality")).map(item => item.long_name);
     const state = place.address_components.filter(item => item.types.includes("administrative_area_level_1")).map(item => item.short_name);
     const zip_code = place.address_components.filter(item => item.types.includes("postal_code")).map(item => item.long_name);
+    const lat = place.geometry.location.lat();
+    const long = place.geometry.location.lng();
 
     if ([city, state, zip_code].some(item => item.length == 0)){
       return {
@@ -53,7 +55,9 @@ export class AutoCompleteAddressDirective {
       city: city[0],
       state: state[0],
       zip_code: zip_code[0],
-      validate: true
+      validate: true,
+      long,
+      lat
     };
   }
 }

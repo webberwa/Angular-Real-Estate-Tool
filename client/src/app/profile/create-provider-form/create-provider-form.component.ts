@@ -29,7 +29,9 @@ export class CreateProviderFormComponent implements OnInit {
     street: '',
     city: '',
     state: '',
-    zip: ''
+    zip: '',
+    long: '',
+    lat: ''
   };
 
   constructor(
@@ -89,6 +91,12 @@ export class CreateProviderFormComponent implements OnInit {
           Validators.minLength(5),
           Validators.maxLength(5)
         ])
+      ],
+      long: [
+        this.provider.long
+      ],
+      lat: [
+        this.provider.lat
       ]
     });
 
@@ -117,6 +125,8 @@ export class CreateProviderFormComponent implements OnInit {
     this.providersForm.patchValue({ city: result.city });
     this.providersForm.patchValue({ state: result.state });
     this.providersForm.patchValue({ zip: result.zip_code });
+    this.providersForm.patchValue({ long: result.long });
+    this.providersForm.patchValue({ lat: result.lat });
 
     this.providersForm.updateValueAndValidity();
     this.changeDetectorRefs.detectChanges();

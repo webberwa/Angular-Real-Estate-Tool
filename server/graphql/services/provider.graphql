@@ -46,6 +46,8 @@ query provider($where: ProviderWhereUniqueInput!) {
     city
     state
     zip
+    long
+    lat
   }
 }
 
