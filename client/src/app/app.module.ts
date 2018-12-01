@@ -1,74 +1,61 @@
-import { AuthenticatedGuard } from './authenticated.guard';
-import { AuthGuard } from './auth.guard';
-import { InvestmentsCreateDialogComponent } from './investments/investments-create-dialog/investments-create-dialog.component';
-import { InvestmentsComponent } from './investments/investments.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { GraphQLModule } from './graphql.module';
-import { NgxMaskModule } from 'ngx-mask';
-import { HttpClientModule } from '@angular/common/http';
-import { MaterialModule } from './material.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AgmCoreModule } from '@agm/core';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { UserComponent } from './user/user.component';
-import { LoginDialogComponent } from './user/login-dialog/login-dialog.component';
-import { SignupDialogComponent } from './user/signup-dialog/signup-dialog.component';
-import { HomeComponent } from './home/home.component';
-import { FormatDirective } from './format.directive';
-import { YearsPipe } from './years.pipe';
-import { ContainerComponent } from './site/container/container.component';
-import uiMask from 'angular-ui-mask';
-import { InvestmentCardComponent } from './investments/investment-card/investment-card.component';
-import { ResetPasswordDialogComponent } from './user/reset-password-dialog/reset-password-dialog.component';
-import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
-import { AlertComponent } from './site/alert/alert.component';
-import { NavComponent } from './site/nav/nav.component';
-import { SettingsComponent } from './user/settings/settings.component';
-import { TwoFactorCodeComponent } from './user/two-factor-code/two-factor-code.component';
-import { ProfileComponent } from './profile/profile.component';
-import { DialogOverviewExampleDialogComponent } from './profile/profile.component';
-import { ConfirmDialogComponent } from './investments/investments.service';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { NgxPhoneMaskModule } from 'ngx-phone-mask';
+import {AuthenticatedGuard} from './authenticated.guard';
+import {AuthGuard} from './auth.guard';
+import {InvestmentsCreateDialogComponent} from './investments/investments-create-dialog/investments-create-dialog.component';
+import {InvestmentsComponent} from './investments/investments.component';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {AppComponent} from './app.component';
+import {GraphQLModule} from './graphql.module';
+import {NgxMaskModule} from 'ngx-mask';
+import {HttpClientModule} from '@angular/common/http';
+import {MaterialModule} from './material.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AgmCoreModule} from '@agm/core';
+import {CurrencyMaskModule} from 'ng2-currency-mask';
+import {UserComponent} from './user/user.component';
+import {LoginDialogComponent} from './user/login-dialog/login-dialog.component';
+import {SignupDialogComponent} from './user/signup-dialog/signup-dialog.component';
+import {HomeComponent} from './home/home.component';
+import {FormatDirective} from './format.directive';
+import {YearsPipe} from './years.pipe';
+import {ContainerComponent} from './site/container/container.component';
+import {InvestmentCardComponent} from './investments/investment-card/investment-card.component';
+import {ResetPasswordDialogComponent} from './user/reset-password-dialog/reset-password-dialog.component';
+import {ResetPasswordComponent} from './user/reset-password/reset-password.component';
+import {AlertComponent} from './site/alert/alert.component';
+import {NavComponent} from './site/nav/nav.component';
+import {SettingsComponent} from './user/settings/settings.component';
+import {TwoFactorCodeComponent} from './user/two-factor-code/two-factor-code.component';
+import {DialogOverviewExampleDialogComponent, ProfileComponent} from './profile/profile.component';
+import {ConfirmDialogComponent} from './investments/investments.service';
+import {AngularFontAwesomeModule} from 'angular-font-awesome';
+import {NgxPhoneMaskModule} from 'ngx-phone-mask';
 
-import { CreateProviderFormComponent } from './profile/create-provider-form/create-provider-form.component';
-import { UserService } from './user/user.service';
-import { UserGuard } from './user.guard';
-import { JwSocialButtonsModule } from 'jw-angular-social-buttons';
-import { HitsComponent } from './search/hits/hits.component';
-import {
-  SocialLoginModule,
-  AuthServiceConfig,
-  GoogleLoginProvider,
-  FacebookLoginProvider
-} from 'angular5-social-login';
-import { EditformComponent } from './editform/editform.component';
-import { InvestmentsDetailsComponent } from './investments/investments-details/investments-details.component';
-import { ExpensesCreateComponent } from './investment/expenses-create/expenses-create.component';
-import {
-  CurrencyMaskConfig,
-  CURRENCY_MASK_CONFIG
-} from 'ng2-currency-mask/src/currency-mask.config';
-import { CurrencyDirective } from './currency.directive';
-import { PercentageDirective } from './percentage.directive';
-import { ProvidersComponent } from './profile/providers/providers.component';
-import { ProvidersDetailsComponent } from './profile/providers/providers-details/providers-details.component';
-import { ProviderCardComponent } from './profile/providers/provider-card/provider-card.component';
-import { SidenavComponent } from './site/sidenav/sidenav.component';
-import { ProvidersReviewSnippetComponent } from './profile/providers/providers-review-snippet/providers-review-snippet.component';
-import { SearchFilterComponent } from './profile/providers/search-filter/search-filter.component';
-import { ReviewComponent } from './profile/review/review.component';
-import { AddReviewFormComponent } from './profile/review/add-review-form/add-review-form.component';
-import { Deletepop1Component } from './profile/profile/deletepop1/deletepop1.component';
-<<<<<<< HEAD
-import { SidebarComponent } from './profile/sidebar/sidebar.component';
-=======
-import { AutoCompleteAddressDirective } from './auto-complete-address.directive';
+import {CreateProviderFormComponent} from './profile/create-provider-form/create-provider-form.component';
+import {UserService} from './user/user.service';
+import {UserGuard} from './user.guard';
+import {JwSocialButtonsModule} from 'jw-angular-social-buttons';
+import {AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider, SocialLoginModule} from 'angular5-social-login';
+import {EditformComponent} from './editform/editform.component';
+import {InvestmentsDetailsComponent} from './investments/investments-details/investments-details.component';
+import {ExpensesCreateComponent} from './investment/expenses-create/expenses-create.component';
+import {CURRENCY_MASK_CONFIG, CurrencyMaskConfig} from 'ng2-currency-mask/src/currency-mask.config';
+import {CurrencyDirective} from './currency.directive';
+import {PercentageDirective} from './percentage.directive';
+import {ProvidersComponent} from './profile/providers/providers.component';
+import {ProvidersDetailsComponent} from './profile/providers/providers-details/providers-details.component';
+import {ProviderCardComponent} from './profile/providers/provider-card/provider-card.component';
+import {SidenavComponent} from './site/sidenav/sidenav.component';
+import {ProvidersReviewSnippetComponent} from './profile/providers/providers-review-snippet/providers-review-snippet.component';
+import {SearchFilterComponent} from './profile/providers/search-filter/search-filter.component';
+import {ReviewComponent} from './profile/review/review.component';
+import {AddReviewFormComponent} from './profile/review/add-review-form/add-review-form.component';
+import {Deletepop1Component} from './profile/profile/deletepop1/deletepop1.component';
+import {SidebarComponent} from './profile/sidebar/sidebar.component';
+import {AutoCompleteAddressDirective} from './auto-complete-address.directive';
 import {ZipDialogComponent} from './profile/providers/zip-dialog/zip-dialog.component';
->>>>>>> 65b8f3e2b784aa21808e9e06f616075e59999308
+
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'left',
@@ -178,16 +165,11 @@ export function getAuthServiceConfigs() {
     CurrencyDirective,
     PercentageDirective,
     Deletepop1Component,
-<<<<<<< HEAD
-    DialogOverviewExampleDialog,
-    confirmDialog,
-    SidebarComponent
-=======
+    SidebarComponent,
     DialogOverviewExampleDialogComponent,
     ConfirmDialogComponent,
     AutoCompleteAddressDirective,
     ZipDialogComponent
->>>>>>> 65b8f3e2b784aa21808e9e06f616075e59999308
   ],
   imports: [
     AgmCoreModule.forRoot({
