@@ -1,4 +1,8 @@
 <div>
+  <img class="icon" src="../../assets/image/zipcode.png"/>
+</div>
+
+<div>
   <span class="title">Search providers using your ZIP code</span>
 </div>
 
@@ -23,7 +27,7 @@
       </mat-form-field>
     </div>
     <div class="col-sm-12">
-      <button
+      <button class="submit"
         mat-raised-button
         [disabled]="!zipForm.valid"
         (click)="onSubmit(this.submitCb, this.submitArgs)"
