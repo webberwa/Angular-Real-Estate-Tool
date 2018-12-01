@@ -1,20 +1,18 @@
-import { MatDialog } from '@angular/material';
-import { Apollo } from 'apollo-angular';
-import { Injectable, ChangeDetectorRef } from '@angular/core';
+import {MatDialog} from '@angular/material';
+import {Apollo} from 'apollo-angular';
+import {Injectable} from '@angular/core';
 
-import { UserService } from 'src/app/user/user.service';
-import { map } from 'rxjs/operators';
-import { findIndex } from 'lodash';
-import { BehaviorSubject } from 'rxjs';
-import { parsePhoneNumber, AsYouType } from 'libphonenumber-js';
-import { find } from 'lodash';
-import { AlertService, Alert } from '../../site/alert/alert.service';
+import {UserService} from 'src/app/user/user.service';
+import {map} from 'rxjs/operators';
+import {find, findIndex} from 'lodash';
+import {BehaviorSubject} from 'rxjs';
+import {Alert, AlertService} from '../../site/alert/alert.service';
 
 import {
   AddProviderGQL,
-  ProvidersGQL,
-  ProviderGQL,
   DeleteProviderGQL,
+  ProviderGQL,
+  ProvidersGQL,
   UpdateProviderGQL
 } from 'src/app/apollo-angular-services';
 
@@ -31,6 +29,10 @@ export class ProvidersService {
   searchType = '';
   searchSkip = 0;
   allProviders;
+
+  pageIndex = 1;
+  has_next = false;
+
   initial = true;
 
   myProviderQuery;
@@ -176,14 +178,16 @@ export class ProvidersService {
               { type_contains: this.searchType }
             ]
           },
-          first: 10,
+          first: 11,
           skip: this.searchSkip
         }
       })
       .valueChanges.pipe(
         map(({ data }: { data: any }) => {
-          console.log(data);
-          return data.providers;
+          return {
+            providers: data.providers.data.slice(0, 10),
+            hasNext: data.providers.data.length > 10
+          }
         })
       );
   }

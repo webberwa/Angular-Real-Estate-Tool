@@ -55,6 +55,7 @@ import {Deletepop1Component} from './profile/profile/deletepop1/deletepop1.compo
 import {SidebarComponent} from './profile/sidebar/sidebar.component';
 import {AutoCompleteAddressDirective} from './auto-complete-address.directive';
 import {ZipDialogComponent} from './profile/providers/zip-dialog/zip-dialog.component';
+import {PaginatorComponent} from "./paginator/paginator.component";
 
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
@@ -169,7 +170,8 @@ export function getAuthServiceConfigs() {
     DialogOverviewExampleDialogComponent,
     ConfirmDialogComponent,
     AutoCompleteAddressDirective,
-    ZipDialogComponent
+    ZipDialogComponent,
+    PaginatorComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

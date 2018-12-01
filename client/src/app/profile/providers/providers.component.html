@@ -42,7 +42,7 @@
     <div class="col-sm-9">
       <div class="row">
         <div class="col-sm-12">
-          <span class="new-provider-msg" [hidden]="loading || !addNewProvider">There are no providers found.<br/></span>
+          <span class="new-provider-msg" [hidden]="loading || !noProvider">There are no providers found.<br/></span>
           <span class="new-provider-msg" [hidden]="loading || !this.userService.isAuthenticated">Do you want to add a
             <span class="new-provider-link" (click)="openAddNewProviderPopup()">new provider?</span>
           </span>
@@ -55,16 +55,14 @@
         </div>
         <div
           class="col-sm-12"
-          *ngFor="let provider of (allProviders | async)?.data"
+          *ngFor="let provider of (allProviders | async)?.providers"
         >
           <app-provider-card [provider]="provider"> </app-provider-card>
         </div>
-        <mat-paginator
-          [length]="(allProviders | async)?.count"
-          (page)="onPaginateChange($event)"
-          [pageSize]="pageSize"
-        >
-        </mat-paginator>
+        <app-paginator class="col-sm-12" [hidden]="loading"
+          [(page_index)]="this.providersService.pageIndex" [item_per_page]="10"
+          [item_name]="'providers'" [has_next]="this.providersService.has_next"
+          [onChangeIndex]="onPaginateChange.bind(this)"></app-paginator>
       </div>
     </div>
   </div>

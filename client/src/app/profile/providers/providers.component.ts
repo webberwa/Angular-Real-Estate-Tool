@@ -35,8 +35,7 @@ export class ProvidersComponent implements AfterViewInit {
   pageSize = 10;
 
   loading = false;
-
-  addNewProvider = false;
+  noProvider = false;
 
   searchTimer;
 
@@ -60,7 +59,7 @@ export class ProvidersComponent implements AfterViewInit {
     }
 
     if (this.userService.isAuthenticated) {
-      this.setSearchingTimer(false)
+      this.setSearchingTimer(false);
       return;
     }
 
@@ -96,7 +95,7 @@ export class ProvidersComponent implements AfterViewInit {
 
   setSearchingTimer(pending: boolean = true) {
     this.loading = true;
-    this.addNewProvider = false;
+    this.noProvider = false;
     this.allProviders = EMPTY;
 
     clearTimeout(this.searchTimer);
@@ -106,23 +105,22 @@ export class ProvidersComponent implements AfterViewInit {
     }else{
       this.search();
     }
+
+    this.ref.detectChanges();
   }
 
   private search() {
     this.allProviders = this.providersService.searchProviders();
-    this.allProviders.subscribe((data: any) => {
+    this.allProviders.subscribe((result: any) => {
       this.loading = false;
-
-      if (data == null || data.data == null || data.data.length === 0) {
-        this.addNewProvider = true;
-      }
+      this.providersService.has_next = result.hasNext;
+      this.noProvider = (result.providers.length === 0);
     });
   }
 
-  onPaginateChange(event) {
-    this.providersService.searchSkip = event.pageIndex * this.pageSize;
-    console.log(event);
-    this.allProviders = this.providersService.searchProviders();
+  onPaginateChange(page_index) {
+    this.providersService.searchSkip = (page_index-1) * this.pageSize;
+    this.setSearchingTimer(false);
   }
 
   openAddNewProviderPopup() {

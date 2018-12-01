@@ -1,0 +1,33 @@
+:host div {
+  border-top: 1px solid gray;
+  margin-top: 10px;
+}
+
+.arrow {
+  width: 36px;
+  min-width: 36px;
+  padding: 0;
+  border-radius: 18px;
+}
+
+/deep/.mat-icon.material-icons {
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 24px;
+}
+
+.item_per_page {
+  color: gray;
+  font-size: 15px;
+  line-height: 36px;
+  display: inline-block;
+}
+
+.current_page {
+  color: gray;
+  font-size: 15px;
+  line-height: 36px;
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+}
