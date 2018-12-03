@@ -6,6 +6,7 @@ export const GET_LOCAL_USER = gql`
       id
       email
       has_two_factor
+      is_admin
     }
   }
 `;

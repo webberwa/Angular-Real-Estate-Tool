@@ -38,7 +38,8 @@ export const user = {
       return {
         id: user.id,
         email: user.email,
-        has_two_factor: user.has_two_factor
+        has_two_factor: user.has_two_factor,
+        is_admin: user.is_admin
       }
     }
   },

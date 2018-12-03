@@ -19,7 +19,8 @@ const createApollo = (httpLink: HttpLink) => {
     __typename: 'User',
     id: null,
     email: null,
-    has_two_factor: false
+    has_two_factor: false,
+    is_admin: false
   };
 
   const localState = withClientState({
