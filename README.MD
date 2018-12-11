@@ -1,5 +1,9 @@
 # Installation
 
+- Create a [Prisma Account](https://www.prisma.io/cloud) and update `PRISMA_ENDPOINT` in `server/.env`
+- Create a [SendGrid Account](https://sendgrid.com/) and update `SENDGRID_API_KEY` in `server/.env`
+- Create a [Google Developer Account](https://console.cloud.google.com/apis) and update `GOOGLE_MAPS_API`, `GOOGLE_CLIENT_ID`, in `client/.env`
+- Create a [Facebook Developer Account](https://developers.facebook.com/) and update `FACEBOOK_CLIENT_ID` in `client/.env`
 - Install Node.js V8
 - `npm install -g gulp @angular/cli prisma@1.17.1 concurrently`
 - `yarn && cd client && yarn && cd ../server && yarn`
