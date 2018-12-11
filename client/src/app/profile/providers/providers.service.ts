@@ -159,6 +159,7 @@ export class ProvidersService {
       return {
         OR: [
           { name_contains: input },
+          { description_contains: input },
           { phone_number_contains: input },
           { email_contains: input },
           { street_contains: input },
