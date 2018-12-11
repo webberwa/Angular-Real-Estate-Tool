@@ -25,6 +25,7 @@ type Expense {
 type Provider {
   id: ID! @unique
   name: String!
+  description: String
   type: String!
   reviews: [Review!]! @relation(name: "ReviewsForProviders", onDelete: CASCADE)
   phone_number: String!

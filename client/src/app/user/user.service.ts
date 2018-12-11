@@ -43,7 +43,6 @@ export class UserService {
   matcher = new MyErrorStateMatcher();
 
   isAuthenticated = false;
-  isAdmin = false;
   isAuthenticated$;
   me$;
   me;
@@ -104,10 +103,11 @@ export class UserService {
 
       this.apollo
         .watchQuery({
-          query: this.meGQL.document
-          // fetchPolicy: 'network-only'
+          query: this.meGQL.document,
+          fetchPolicy: 'network-only'
         })
         .valueChanges.subscribe((res: any) => {
+          console.log(res);
           const user = res.data.user;
 
           // console.log('meGQL', user);
@@ -121,11 +121,11 @@ export class UserService {
             })
             .subscribe(r => {
               const localUser = r.data.setLocalUser;
+              console.log(localUser);
               // console.log('mutate SET_LOCAL_USER');
               // console.log(localUser.id);
               if (localUser.id) {
                 this.isAuthenticated = true;
-                this.isAdmin = localUser.is_admin;
               }
 
               // Fire observable
@@ -162,7 +162,6 @@ export class UserService {
 
   logout() {
     this.isAuthenticated = false;
-    this.isAdmin = false;
     localStorage.removeItem('token');
     this.apollo.getClient().resetStore();
     this.router.navigate(['/']);
@@ -217,6 +216,9 @@ export class UserService {
       })
       .subscribe(
         res => {
+          // console.log('loginUser() subscribe');
+          // console.log(res);
+
           if (!res.data.loginUser) {
             return this.alert.open({
               message: 'The username/password is not valid',
@@ -242,7 +244,7 @@ export class UserService {
                 type: Alert.SUCCESS
               });
               this.isAuthenticated = true;
-              this.isAdmin = user.is_admin;
+
               this.storeTokenToLocalStorage(token);
               this.router.navigate(['/profile']);
             });
@@ -276,6 +278,9 @@ export class UserService {
           });
 
           console.log('done');
+          /**
+           * TODO
+           */
         },
         err => {
           this.dialog.closeAll();

@@ -29,6 +29,7 @@ export class CreateProviderFormComponent implements OnInit {
   provider = {
     id: '',
     name: '',
+    description: '',
     type: '',
     phone_number: '',
     email: '',
@@ -65,6 +66,7 @@ export class CreateProviderFormComponent implements OnInit {
           Validators.pattern('^[a-zA-Z ]*$')
         ])
       ],
+      description: [this.provider.description],
       type: [this.provider.type, Validators.required],
       phone_number: [
         this.provider.phone_number,

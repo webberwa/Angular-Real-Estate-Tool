@@ -29,6 +29,7 @@ query provider($where: ProviderWhereUniqueInput!) {
   provider(where: $where) {
     id
     name
+    description
     type
     reviews {
       id

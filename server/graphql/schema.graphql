@@ -124,6 +124,7 @@ type Provider {
   id: ID!
   name: String!
   type: String!
+  description: String
   provider_stats: ProviderStats
   reviews(
     where: ReviewWhereInput

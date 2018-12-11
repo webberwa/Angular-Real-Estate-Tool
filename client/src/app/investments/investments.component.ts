@@ -6,6 +6,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { InvestmentsCreateDialogComponent } from './investments-create-dialog/investments-create-dialog.component';
 import { InvestmentsService } from './investments.service';
 import { investment } from '../../../../server/src/resolvers/investment';
+import { Apollo } from 'apollo-angular';
+import { InvestmentsGQL } from '../apollo-angular-services';
 @Component({
   selector: 'app-investments',
   templateUrl: './investments.component.html',
@@ -13,9 +15,11 @@ import { investment } from '../../../../server/src/resolvers/investment';
 })
 export class InvestmentsComponent {
   constructor(
+    private apollo: Apollo,
     private auth: UserService,
     private router: Router,
     private dialog: MatDialog,
+    private investmentsGQL: InvestmentsGQL,
     private investmentsService: InvestmentsService
   ) {}
 
@@ -27,22 +31,26 @@ export class InvestmentsComponent {
   }
 
   exportCSV() {
-    this.investmentsService.getInvestments().subscribe(investments => {
-      console.log(investments);
+    this.apollo
+      .query({
+        query: this.investmentsGQL.document
+      })
+      .subscribe((res: any) => {
+        const investments = res.data.investments;
+        const header = 'data:text/csv;charset=utf-8,';
+        const title =
+          'PURCHASE DATE, ADDRESS,MONTHLY RENT,MORTGAGE AMOUNT,MORTGAGE DOWNPAYMENT,MORTGAGE INTEREST RATE,MORTGAGE PERIOD,PRICE,EXPENSES';
+        const body = investments
+          .map(investment => {
+            console.log(this.generateCSV(investment));
+            return this.generateCSV(investment);
+          })
+          .join('\n');
 
-      const header = 'data:text/csv;charset=utf-8,';
-      const title =
-        'PURCHASE DATE, ADDRESS,MONTHLY RENT,MORTGAGE AMOUNT,MORTGAGE DOWNPAYMENT,MORTGAGE INTEREST RATE,MORTGAGE PERIOD,PRICE,EXPENSES';
-      const body = investments
-        .map(investment => {
-          console.log(this.generateCSV(investment));
-          return this.generateCSV(investment);
-        })
-        .join('\n');
-
-      const file = encodeURI(header + title + '\n' + body);
-      this.downloadCSV(file);
-    });
+        const file = encodeURI(header + title + '\n' + body);
+        console.log('export csv');
+        this.downloadCSV(file);
+      });
   }
 
   private generateCSV(investment) {

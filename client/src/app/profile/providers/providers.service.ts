@@ -204,6 +204,7 @@ export class ProvidersService {
           data: {
             name: form.get('name').value,
             type: form.get('type').value,
+            description: form.get('description').value,
             phone_number: form.get('phone_number').value,
             email: form.get('email').value,
             street: form.get('street').value,
@@ -254,14 +255,38 @@ export class ProvidersService {
     console.log(id);
     this.providerBeingEdited = this.getProvider(id);
 
-    const nameValue = form.get('name').value == null ? this.providerBeingEdited.name : form.get('name').value;
-    const typeValue = form.get('type').value == null ? this.providerBeingEdited.type : form.get('type').value;
-    const phoneValue = form.get('phone_number').value == null ? this.providerBeingEdited.phone_number : form.get('phone_number').value;
-    const emailValue = form.get('email').value == null ? this.providerBeingEdited.email : form.get('email').value;
-    const streetValue = form.get('street').value == null ? this.providerBeingEdited.street : form.get('street').value;
-    const cityValue = form.get('city').value == null ? this.providerBeingEdited.city : form.get('city').value;
-    const stateValue = form.get('state').value == null ? this.providerBeingEdited.state : form.get('state').value;
-    const zipValue = form.get('zip').value == null ? this.providerBeingEdited.zip : form.get('zip').value;
+    const nameValue =
+      form.get('name').value == null
+        ? this.providerBeingEdited.name
+        : form.get('name').value;
+    const typeValue =
+      form.get('type').value == null
+        ? this.providerBeingEdited.type
+        : form.get('type').value;
+    const phoneValue =
+      form.get('phone_number').value == null
+        ? this.providerBeingEdited.phone_number
+        : form.get('phone_number').value;
+    const emailValue =
+      form.get('email').value == null
+        ? this.providerBeingEdited.email
+        : form.get('email').value;
+    const streetValue =
+      form.get('street').value == null
+        ? this.providerBeingEdited.street
+        : form.get('street').value;
+    const cityValue =
+      form.get('city').value == null
+        ? this.providerBeingEdited.city
+        : form.get('city').value;
+    const stateValue =
+      form.get('state').value == null
+        ? this.providerBeingEdited.state
+        : form.get('state').value;
+    const zipValue =
+      form.get('zip').value == null
+        ? this.providerBeingEdited.zip
+        : form.get('zip').value;
 
     this.apollo
       .mutate({
@@ -346,6 +371,9 @@ export class ProvidersService {
   }
 
   formatPhoneNumber(phoneNumber: string) {
-    return `(${phoneNumber.substr(0, 3)}) ${phoneNumber.substr(3, 3)}-${phoneNumber.substr(6)}`;
+    return `(${phoneNumber.substr(0, 3)}) ${phoneNumber.substr(
+      3,
+      3
+    )}-${phoneNumber.substr(6)}`;
   }
 }
